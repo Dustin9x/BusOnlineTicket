@@ -53,7 +53,7 @@ export default function Header(props) {
 
     return (
         <div>
-            <header className="p-4  text-gray-100 fixed w-full z-20" style={{backgroundColor: '#22577a'}}>
+            <header className="p-4  text-gray-100 w-full " style={{backgroundColor: '#22577a'}}>
                 <div className="container flex justify-between h-16 mx-auto">
                     <NavLink rel="noopener noreferrer" to="/" aria-label="Back to homepage" className="flex items-center p-2">
                         <div className='d-flex' >
