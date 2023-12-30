@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.activeClassName {
+    color: lightblue!important;
+    font-weight: 500;
+}
+.ant-card-meta-title{
+    text-wrap: wrap !important;
+}
+
+.ant-picker-ok.button.ant-btn.css-dev-only-do-not-override-k7429z.ant-btn-primary.ant-btn-sm {
+    background-color: white !important;
+    color:#000 !important;
+}
+
+:where(.css-dev-only-do-not-override-k7429z).ant-btn-primary:not(:disabled){
+    background-color: #ef4444 !important;
+}
