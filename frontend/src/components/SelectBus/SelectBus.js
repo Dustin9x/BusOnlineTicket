@@ -9,7 +9,7 @@ export default function SelectBus(props) {
 
   
   return (
-    <div class="w-100 pa2" style={{backgroundColor: '#f8c300 !important'}}>
+    <div class="w-100 p-2" style={{backgroundColor: '#f8c300 !important'}}>
         <div class="w-100" style={{color: '#1867aa'}} id="Infos">
         </div>
       <form autocomplete="off" class=" w-100" action="/bus/schedule/">
