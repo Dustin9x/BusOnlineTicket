@@ -6,13 +6,12 @@ export default function SelectBus(props) {
   useEffect(() => { }, []);
 
   return (
-    <div className="w-100 p-4 rounded-xl bg-white">
-      <div className="w-100" style={{ color: "#1867aa" }} id="Infos"></div>
+    <div className="w-100 p-2 rounded-xl bg-white">
       <form autocomplete="off" className=" w-100" action="/bus/schedule/">
-        <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
-          <h4 className="tc-l tl f4 w-100 ttn" style={{ color: "#1867aa" }}>
+          <h4 className="w-100 text-left" style={{ color: "#1867aa" }}>
             Bus Ticket & Bus Schedule in whole Vietnam
           </h4>
+        <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
           <div className="d-flex w-100 justify-around">
             <div className="w-80">
               <Input size="large" placeholder="From" prefix={<EnvironmentOutlined />} />

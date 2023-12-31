@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background-color: #f2f2f2;
+}
+
 .activeClassName {
     color: lightblue!important;
     font-weight: 500;
