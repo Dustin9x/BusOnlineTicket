@@ -6,7 +6,6 @@ import { Switch, Router } from 'react-router-dom';
 import { HomeTemplate } from './templates/HomeTemplate/HomeTemplate';
 import Home from './pages/Home/Home';
 import Contact from './pages/Contact/Contact';
-import News from './pages/News/News';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Detail from './pages/Detail/Detail';
@@ -19,31 +18,20 @@ import Register from './pages/Register/Register';
 import UserTemplate from './templates/UserTemplate';
 import Loading from './components/Loading/Loading';
 import { AdminTemplate } from './templates/AdminTemplate';
-import MovieMng from './pages/Admin/MovieMng/MovieMng';
-import AddNew from './pages/Admin/MovieMng/AddNew';
-import Edit from './pages/Admin/MovieMng/Edit';
-import ShowTime from './pages/Admin/MovieMng/ShowTime';
+import AddNew from './pages/Admin/BusMng/AddNew';
+import Edit from './pages/Admin/BusMng/Edit';
+import ShowTime from './pages/Admin/BusMng/ShowTime';
 import UserMng from './pages/Admin/UserMng/AdminUserMng';
 import UserEdit from './pages/Admin/UserMng/UserEdit';
 import AddUser from './pages/Admin/UserMng/AddUser';
 import Profile from './pages/Profile/Profile';
 import {ProfileTemplate} from './templates/ProfileTemplate';
 import OrderHistory from './pages/Admin/UserMng/OrderHistory';
-import CarouselMng from './pages/Admin/CarouselMng/CarouselMng';
-import AddCarousel from './pages/Admin/CarouselMng/AddCarousel';
-import EditCarousel from './pages/Admin/CarouselMng/EditCarousel';
-import ThetreChildMng from './pages/Admin/TheatreChildMng/TheatreChildlMng';
-import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
-import NewsMng from './pages/Admin/NewsMng/NewsMng';
-import AddNews from './pages/Admin/NewsMng/AddNews';
-import NewsEdit from './pages/Admin/NewsMng/NewsEdit';
-import NewsDetail from './pages/News/NewsDetail';
 import EditTheatreChild from './pages/Admin/TheatreChildMng/EditTheatreChild';
 import Search from './pages/Search/Search';
 import FeedbackMng from './pages/Admin/FeedbackMng/FeedbackMng';
 import EditFeedback from './pages/Admin/FeedbackMng/EditFeedback';
 import AdminUserMng from './pages/Admin/UserMng/AdminUserMng';
-import FreeUserMng from './pages/Admin/UserMng/FreeUserMng';
 import RevenueMonth from './pages/Admin/Revenue/RevenueMonth';
 import RevenueMovie from './pages/Admin/Revenue/RevenueMovie';
 import UserOrder from './pages/Admin/UserMng/UserOrder';
@@ -53,6 +41,11 @@ import Recruitment from './pages/Recruitment/Recruitment';
 import GeneralTerms from './pages/Terms/GeneralTerms';
 import TermsOfTransaction from './pages/Terms/TermsOfTransaction';
 import ForgetPassword from './pages/Login/ForgetPassword';
+import BusMng from './pages/Admin/BusMng/BusMng';
+import StationMng from './pages/Admin/StationMng/StationMng';
+import DriverMng from './pages/Admin/UserMng/DriverMng';
+import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
+import TripMng from './pages/Admin/TheatreChildMng/TripMng';
 
 
 export const history = createBrowserHistory();
@@ -64,8 +57,6 @@ function App() {
       <Switch>
         <HomeTemplate path='/home' exact Component={Home} />
         <HomeTemplate path='/contact' exact Component={Contact} />
-        <HomeTemplate path='/news' exact Component={News} />
-        <HomeTemplate path='/news/detail/:id' exact Component={NewsDetail} />
         <MovieTemplate path='/detail/:id' exact Component={Detail} />
         <CheckOutTemplate path='/checkout/:id' exact Component={Checkout} />
 
@@ -87,24 +78,25 @@ function App() {
         {/* Nguoi dung - user */}
         <AdminTemplate path='/admin' exact Component={UserMng} />
         <AdminTemplate path='/admin/adminusers' exact Component={AdminUserMng} />
-        <AdminTemplate path='/admin/freeusers' exact Component={FreeUserMng} />
+        <AdminTemplate path='/admin/driver' exact Component={DriverMng} />
         <AdminTemplate path='/admin/users/edit/:id' exact Component={UserEdit} />
         <AdminTemplate path='/admin/users/adduser' exact Component={AddUser} />
         <AdminTemplate path='/users/order/:id' exact Component={UserOrder} />
 
-        {/* Phim */}
-        <AdminTemplate path='/admin/moviemng' exact Component={MovieMng} />
+        {/* Bus */}
+        <AdminTemplate path='/admin/busmng' exact Component={BusMng} />
         <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNew} />
         <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
         <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 
-        {/* Carousel */}
-        <AdminTemplate path='/admin/carouselmng' exact Component={CarouselMng} />
-        <AdminTemplate path='/admin/carouselmng/addnew' exact Component={AddCarousel} />
-        <AdminTemplate path='/admin/carouselmng/edit/:id' exact Component={EditCarousel} />
+        {/* Station */}
+        <AdminTemplate path='/admin/stationmng' exact Component={StationMng} />
+        <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNew} />
+        <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
+        <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 
-        {/* Rap chieu */}
-        <AdminTemplate path='/admin/theatrechildmng' exact Component={ThetreChildMng} />
+        {/* Trip */}
+        <AdminTemplate path='/admin/tripmng' exact Component={TripMng} />
         <AdminTemplate path='/admin/theatremng/addtheatrechild' exact Component={AddTheatreChild} />
         <AdminTemplate path='/admin/theatremng/edit/:id' exact Component={EditTheatreChild} />
 
@@ -112,11 +104,6 @@ function App() {
         <AdminTemplate path='/admin/orderlist' exact Component={OrderList} />
         <AdminTemplate path='/admin/revenuemonth' exact Component={RevenueMonth} />
         <AdminTemplate path='/admin/revenuemovie' exact Component={RevenueMovie} />
-
-        {/* Tin tuc */}
-        <AdminTemplate path='/admin/newsmng' exact Component={NewsMng} />
-        <AdminTemplate path='/admin/newsmng/addnews' exact Component={AddNews} />
-        <AdminTemplate path='/admin/newsmng/edit/:id' exact Component={NewsEdit} />
 
         {/* Feedback */}
         <AdminTemplate path='/admin/feedbackmng' exact Component={FeedbackMng} />

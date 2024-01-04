@@ -12,7 +12,6 @@ import _ from 'lodash';
 import { GET_BINH_LUAN_DETAIL_PHIM } from '../../redux/constants';
 import { useFormik } from 'formik';
 import { TOKEN } from '../../util/settings/config';
-import { layDanhSachNguoiDungAction } from '../../redux/actions/QuanLyNguoiDungAction';
 const { TabPane } = Tabs;
 
 export default function Detail(props) {
@@ -29,7 +28,6 @@ export default function Detail(props) {
         dispatch(layThongTinPhimAction(id))
         dispatch(layLichChieuTheoPhimAction(id))
         dispatch(layDanhSachBinhLuanPhimAction(id))
-        dispatch(layDanhSachNguoiDungAction())
     }, [])
 
     //Loc lich chieu theo rap

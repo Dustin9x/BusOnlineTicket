@@ -1,6 +1,6 @@
-export const GET_CAROUSEL = 'GET_CAROUSEL';
-export const UPDATE_CAROUSEL = 'UPDATE_CAROUSEL';
-export const SET_THONG_TIN_CAROUSEL = 'SET_THONG_TIN_CAROUSEL';
+export const GET_BUS_LIST = 'GET_BUS_LIST';
+
+export const GET_DRIVER_LIST = 'GET_DRIVER_LIST';
 
 
 export const SET_DANH_SACH_PHIM = 'SET_DANH_SACH_PHIM';

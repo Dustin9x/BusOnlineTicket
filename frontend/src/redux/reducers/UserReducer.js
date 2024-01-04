@@ -1,5 +1,5 @@
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
-import { DANG_NHAP_ACTION, LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, SET_THONG_TIN_DAT_VE, TIM_KIEM_NGUOI_DUNG } from "../constants"
+import { DANG_NHAP_ACTION, GET_DRIVER_LIST, LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, SET_THONG_TIN_DAT_VE, TIM_KIEM_NGUOI_DUNG } from "../constants"
 
 let user = {}
 if (localStorage.getItem(USER_LOGIN)) {
@@ -22,6 +22,7 @@ const initialState = {
     //   "maLoaiNguoiDung": "QuanTri"
     // }
   ],
+  arrDriver: [],
   profile: {}
 }
 
@@ -35,9 +36,8 @@ export const UserReducer = (state = initialState, action) => {
       localStorage.setItem(TOKEN, thongTinDangNhap.accessToken);
       return { ...state, userLogin: thongTinDangNhap.content }
 
-    case LAY_DANH_SACH_NGUOI_DUNG:
-      state.arrUser = action.arrUser;
-      // state.profile = state.arrUser.find(item => item.email === state.userLogin.email)
+    case GET_DRIVER_LIST:
+      state.arrDriver = action.arrDriver;
       return { ...state }
 
     case LAY_CHI_TIET_NGUOI_DUNG:

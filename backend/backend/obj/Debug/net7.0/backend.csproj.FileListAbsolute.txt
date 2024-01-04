@@ -150,3 +150,159 @@ C:\Users\LE PHAM TRAN PHU\Documents\gh\BusOnlineTicket\backend\backend\obj\Debug
 C:\Users\LE PHAM TRAN PHU\Documents\gh\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.pdb
 C:\Users\LE PHAM TRAN PHU\Documents\gh\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.genruntimeconfig.cache
 C:\Users\LE PHAM TRAN PHU\Documents\gh\BusOnlineTicket\backend\backend\obj\Debug\net7.0\ref\backend.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.csproj.AssemblyReference.cache
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.GeneratedMSBuildEditorConfig.editorconfig
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.AssemblyInfoInputs.cache
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.AssemblyInfo.cs
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.csproj.CoreCompileInputs.cache
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.MvcApplicationPartsAssemblyInfo.cs
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.MvcApplicationPartsAssemblyInfo.cache
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.sourcelink.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\refint\backend.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.pdb
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\appsettings.Development.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\appsettings.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\backend.exe
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\backend.deps.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\backend.runtimeconfig.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\backend.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\backend.pdb
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Azure.Core.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Azure.Identity.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Humanizer.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Identity.Client.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.OpenApi.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Mono.TextTemplating.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.CodeDom.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Drawing.Common.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Memory.Data.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Runtime.Caching.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Security.Permissions.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Windows.Extensions.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets.build.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets.development.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.build.backend.props
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.backend.props
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\staticwebassets.pack.json
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\scopedcss\bundle\backend.styles.css
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.csproj.CopyComplete
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\backend.genruntimeconfig.cache
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\obj\Debug\net7.0\ref\backend.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\appsettings.Development.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\appsettings.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\backend.exe
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\backend.deps.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\backend.runtimeconfig.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\backend.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\backend.pdb
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Azure.Core.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Azure.Identity.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\BCrypt.Net-Next.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Humanizer.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Identity.Client.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.OpenApi.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Drawing.Common.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Memory.Data.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Runtime.Caching.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Security.Permissions.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\System.Windows.Extensions.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.csproj.AssemblyReference.cache
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.AssemblyInfoInputs.cache
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.AssemblyInfo.cs
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.csproj.CoreCompileInputs.cache
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.backend.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.build.backend.props
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.backend.props
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets.pack.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets.build.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\staticwebassets.development.json
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\scopedcss\bundle\backend.styles.css
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.csproj.CopyComplete
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\refint\backend.dll
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.pdb
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.genruntimeconfig.cache
+C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\ref\backend.dll

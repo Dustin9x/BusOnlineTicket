@@ -1,19 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
-
-namespace backend.Models
+﻿namespace backend.Models
 {
-    public class seat
+    public class Seat
     {
-        //ghế xe bus 
-
-    public int Id { get; set; }
-    public string name { get; set; }
-    public bool order { get; set; } = false;
-    public int busId { get; set; }
-    public bus? bus { get; set; }
-
-
-    public int? userId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsBook { get; set; } = false;
+        public int TripId { get; set; }
+        public int? UserId { get; set; }
     }
 }

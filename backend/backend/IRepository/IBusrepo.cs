@@ -2,12 +2,12 @@
 
 namespace backend.IRepository
 {
-    public interface IBusrepo
+    public interface IBusRepo
     {
-          Task<IEnumerable<bus>> getAllBus();
-          Task<IEnumerable<bus>> getBusById(int Id);
-        //  Task<IEnumerable<busService>> CreateBusService(int Id);
-        //  Task<IEnumerable<busService>> putBusService(int Id);
-        //  Task<IEnumerable<busService>> deleteBusService(int Id);
+        Task<IEnumerable<Bus>> GetAllBus();
+        Task<IEnumerable<Bus>> GetBusById(int Id);
+        Task<bool> CreateBus(Bus Bus);
+        Task<bool> PutBus(Bus Bus);
+        Task<Bus> DeleteBus(int Id);
     }
 }

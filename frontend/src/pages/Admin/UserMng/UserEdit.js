@@ -7,7 +7,7 @@ import {
     Checkbox,
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { capNhatNguoiDungAction, layThongTinNguoiDungAction } from '../../../redux/actions/QuanLyNguoiDungAction';
+import { capNhatNguoiDungAction, layThongTinNguoiDungAction } from '../../../redux/actions/DriverAction';
 import { useFormik } from 'formik';
 import { values } from 'lodash';
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config';

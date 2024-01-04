@@ -4,7 +4,7 @@ import { Avatar, Button, Input, Space, Table } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachNguoiDungAction, xoaNguoiDungAction } from '../../../redux/actions/QuanLyNguoiDungAction';
+import { xoaNguoiDungAction } from '../../../redux/actions/DriverAction';
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config';
 import { history } from '../../../App';
 
@@ -12,22 +12,21 @@ import { history } from '../../../App';
 
 export default function AdminUserMng() {
   let userLogin = {}
-if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-}
+// if (localStorage.getItem(USER_LOGIN)) {
+//     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+// }
 
-if (!localStorage.getItem(TOKEN)) {
-    history.replace('/')
-}
+// if (!localStorage.getItem(TOKEN)) {
+//     history.replace('/')
+// }
 
-if (userLogin.role !== 'Super') {
-    alert('Bạn không có quyền truy cập trang này!');
-    history.replace('/')
-}
+// if (userLogin.role !== 'Super') {
+//     alert('Bạn không có quyền truy cập trang này!');
+//     history.replace('/')
+// }
   let { arrUser } = useSelector(state => state.UserReducer);
   const dispatch = useDispatch();
   useEffect((value) => {
-    dispatch(layDanhSachNguoiDungAction(value))
   }, [])
 
 
@@ -178,7 +177,7 @@ if (userLogin.role !== 'Super') {
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
             if (window.confirm('Bạn có chắc chắn muốn xóa người dùng ' + user.email + '?')) {
-              dispatch(xoaNguoiDungAction(user.id))
+              // dispatch(xoaNguoiDungAction(user.id))
             }
           }}></Button>
         </Fragment>

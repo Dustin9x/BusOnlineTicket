@@ -1,4 +1,4 @@
-import { GET_CAROUSEL, LAY_CHITIET_FEEDBACK, LAY_FEEDBACK, SET_THONG_TIN_CAROUSEL } from "../constants";
+import { LAY_CHITIET_FEEDBACK, LAY_FEEDBACK } from "../constants";
 
 const initialState = {
     arrFeedback: [],

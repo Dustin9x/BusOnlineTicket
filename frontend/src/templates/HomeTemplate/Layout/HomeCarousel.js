@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Carousel } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
-import { layDanhSachCarouselAction } from '../../../redux/actions/CarouselAction';
 import './HomeCarousel.css';
 
 export default function HomeCarousel(props) {
@@ -18,7 +17,6 @@ export default function HomeCarousel(props) {
     };
     
     useEffect(() => {
-        dispatch(layDanhSachCarouselAction());
     }, [dispatch])
 
     const renderCarousel = () => {

@@ -21,18 +21,18 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function RevenueMovie() {
   let userLogin = {}
-if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-}
+// if (localStorage.getItem(USER_LOGIN)) {
+//     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+// }
 
-if (!localStorage.getItem(TOKEN)) {
-    history.replace('/')
-}
+// if (!localStorage.getItem(TOKEN)) {
+//     history.replace('/')
+// }
 
-if (userLogin.role !== 'Super') {
-    alert('Bạn không có quyền truy cập trang này!');
-    history.replace('/')
-}
+// if (userLogin.role !== 'Super') {
+//     alert('Bạn không có quyền truy cập trang này!');
+//     history.replace('/')
+// }
   const dispatch = useDispatch()
   const { arrDoanhThu } = useSelector(state => state.OrderDetailReducer)
 

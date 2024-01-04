@@ -1,42 +1,77 @@
-﻿using Microsoft.EntityFrameworkCore;
-using backend.IRepository;
+﻿using backend.IRepository;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
 {
-    public class BusService : IBusrepo
+    public class BusService : IBusRepo
     {
-        private readonly dbContext db;
+        private readonly DatabaseContext db;
 
-        public BusService(dbContext db)
+        public BusService(DatabaseContext db)
         {
             this.db = db;
         }
 
-        public async Task<IEnumerable<bus>> getAllBus()
+        public async Task<bool> CreateBus(Bus Bus)
         {
-            return await db.bus.Include(b => b.seats)
-                                    .Select(b => new bus
-                                    {
-                                     Id = b.Id, name = b.name, numberPlate = b.numberPlate,seats=b.seats,transportCompany=b.transportCompany,busServices=b.busServices
-                                    })
-                                 .ToListAsync();
+            db.Buses.Add(Bus);
+            int result = await db.SaveChangesAsync();
+            if (result != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public async Task<IEnumerable<bus>> getBusById(int Id)
+        public async Task<Bus> DeleteBus(int Id)
         {
-            return await db.bus.Where(b=> b.Id == Id)
-                                   .Include(b => b.seats)
-                                   .Select(b => new bus
-                                   {
-                                       Id = b.Id,
-                                       name = b.name,
-                                       numberPlate = b.numberPlate,
-                                       seats = b.seats,
-                                       transportCompany = b.transportCompany,
-                                       busServices = b.busServices
-                                   })
-                                .ToListAsync();
+            var ExistingBus = await db.Buses.SingleOrDefaultAsync(p => p.Id == Id);
+            if (ExistingBus != null)
+            {
+                db.Buses.Remove(ExistingBus);
+                int result = await db.SaveChangesAsync();
+                if (result != 0)
+                {
+                    return ExistingBus;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        public async Task<IEnumerable<Bus>> GetAllBus()
+        {
+            return await db.Buses.Include(s => s.Stations).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Bus>> GetBusById(int Id)
+        {
+            return await db.Buses.Include(s => s.Stations).Where(B => B.Id == Id).ToListAsync();
+        }
+
+        public async Task<bool> PutBus(Bus Bus)
+        {
+            var ExistingBus = await db.Buses.FindAsync(Bus.Id);
+            if (ExistingBus != null)
+            {
+                ExistingBus.BusType = Bus.BusType;
+                ExistingBus.BusPlate = Bus.BusPlate;
+                ExistingBus.Note = Bus.Note;
+                await db.SaveChangesAsync();
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

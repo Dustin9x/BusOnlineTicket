@@ -1,9 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MovieMultiRowSlick from "../../components/Movie/MovieMultiRowSlick";
 import { layDanhSachPhimAction } from "../../redux/actions/QuanLyPhimAction";
-import HomeCarousel from "../../templates/HomeTemplate/Layout/HomeCarousel";
-import { layDanhSachTinTucAction } from "../../redux/actions/QuanLyTinTucAction";
 import { Button, Card, Tabs } from "antd";
 import dayjs from "dayjs";
 import { KetQuaDatVe } from "./../Checkout/Checkout";
@@ -15,13 +12,11 @@ import PopularRoute from "../../components/PopularRoute/PopularRoute";
 export default function Home(props) {
   const dispatch = useDispatch();
   const { arrMovie } = useSelector((state) => state.MovieReducer);
-  const { arrTinTuc } = useSelector((state) => state.NewsReducer);
   const { TabPane } = Tabs;
   const btnRef = useRef();
 
   useEffect(() => {
     dispatch(layDanhSachPhimAction());
-    dispatch(layDanhSachTinTucAction());
   }, []);
 
   useEffect(() => {

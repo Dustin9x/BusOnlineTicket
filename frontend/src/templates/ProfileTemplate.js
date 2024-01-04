@@ -7,7 +7,7 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
-import { layThongTinNguoiDungAction } from "../redux/actions/QuanLyNguoiDungAction";
+import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -44,10 +44,10 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   }, [dispatch, userLogin.id])
 
 
-  if (!localStorage.getItem(USER_LOGIN)) {
-    alert('Bạn không có quyền truy cập trang này!')
-    history.push('/')
-  }
+  // if (!localStorage.getItem(USER_LOGIN)) {
+  //   alert('Bạn không có quyền truy cập trang này!')
+  //   history.push('/')
+  // }
 
   const content = (
     <div style={{ width: 200 }}>

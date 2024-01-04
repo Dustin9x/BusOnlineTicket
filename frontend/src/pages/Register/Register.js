@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { dangKyAction, dangNhapAction } from '../../redux/actions/QuanLyNguoiDungAction';
+import { dangKyAction, dangNhapAction } from '../../redux/actions/DriverAction';
 
 export default function Register(props) {
 

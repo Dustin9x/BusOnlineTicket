@@ -1,7 +1,10 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,19 +16,42 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<dbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection")));
+builder.Services.AddDbContext<DatabaseContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("MyConnection")));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
+{
+    option.RequireHttpsMetadata = false;
+    option.SaveToken = true;
+    option.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+    };
+});
 
 
-builder.Services.AddScoped<IBusServiceRepo, busSerivceService>();
-builder.Services.AddScoped<ITransportCompanyRepo, transportCompanyService>();
-builder.Services.AddScoped<IBusrepo, backend.Services.BusService>();
-builder.Services.AddScoped<IFinalLocationRepo, finalLocationService>();
-builder.Services.AddScoped<IFirstLocationRepo, firstLocationService>();
-
+builder.Services.AddScoped<ITripRepo, TripService>();
+builder.Services.AddScoped<IBusRepo, BusService>();
+builder.Services.AddScoped<IStationRepo, StationService>();
+builder.Services.AddScoped<IDriverRepo, DriverService>();
+builder.Services.AddScoped<IUserRepo, UserService>();
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("MyAppCors", policy =>
+    {
+        policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -37,7 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors("MyAppCors");
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();

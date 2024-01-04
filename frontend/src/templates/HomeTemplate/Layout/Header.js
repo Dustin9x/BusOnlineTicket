@@ -5,7 +5,6 @@ import { SearchOutlined } from '@ant-design/icons';
 import _ from 'lodash';
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config';
 import { history } from '../../../App';
-import { layKetQuaTimKiem } from '../../../redux/actions/QuanLyTinTucAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function Header(props) {
@@ -76,7 +75,7 @@ export default function Header(props) {
                     <div className="items-center flex-shrink-0 hidden lg:flex">
                         <Input allowClear placeholder="Search" id='search' className='rounded-full mr-3' prefix={<SearchOutlined />} onPressEnter={(e) => {
                             if (e.target.value.trim() !== '') {
-                                dispatch(layKetQuaTimKiem(e.target.value));
+                                // dispatch(layKetQuaTimKiem(e.target.value));
                                 history.push(`/search/?search=${e.target.value}`);
                                 var url = new URL("http://localhost:3000/search/?search=hihi");
                                 url.searchParams.set('search', e.target.value);
