@@ -1,5 +1,4 @@
 ﻿using backend.IRepository;
-using backend.Middleware;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,7 +49,8 @@ builder.Services.AddCors(o =>
     {
         policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
         .AllowAnyHeader()
-        .AllowAnyMethod();
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
     });
 });
 
@@ -63,10 +63,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<JwtMiddleware>();
+//app.UseMiddleware<JwtMiddleware>();
 app.UseHttpsRedirection();
-app.UseCors("MyAppCors");
+
 app.UseAuthorization();
+app.UseCors("MyAppCors");
 
 app.MapControllers();
 

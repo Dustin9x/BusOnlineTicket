@@ -3,29 +3,47 @@ import { LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, LAY_LAI_MAT_KHAU_ACT
 import { history } from '../../App';
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
 import { userService } from "../../services/UserService";
-
+import { notification } from 'antd';
 
 export const loginAction = (loginInfo) => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction)
             const result = await userService.login(loginInfo);
-            if (result.data.status === 200) {
-                console.log('dang nhap',result.data)
+            console.log('dang nhap',result)
+            if (result.status === 200) {
                 dispatch({
                     type: LOGIN_ACTION,
                     loginInfo: result.data.data
                 })
+                notification.success({
+                    closeIcon: false,
+                    message: 'Success',
+                    description: (
+                        <>
+                           Login successfully.<br />
+                           Welcom to PHTV Bus.
+                        </>
+                    ),  
+                  });
                 history.push('/admin');
             } else {
-                history.replace('login');
                 await dispatch(hideLoadingAction)
+                history.replace('login');
             }
             await dispatch(hideLoadingAction)
         } catch (error) {
-            console.log(error)
-            alert(error.response.data.message)
             dispatch(hideLoadingAction)
+            notification.error({
+                closeIcon: false,
+                message: 'Error',
+                description: (
+                    <>
+                       Login fail.<br />
+                       Please try again.
+                    </>
+                ),  
+              });
         }
     }
 }

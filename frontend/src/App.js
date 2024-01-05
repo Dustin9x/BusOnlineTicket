@@ -46,6 +46,7 @@ import StationMng from './pages/Admin/StationMng/StationMng';
 import DriverMng from './pages/Admin/UserMng/DriverMng';
 import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
 import TripMng from './pages/Admin/TheatreChildMng/TripMng';
+import { Alert, Space } from 'antd';
 
 
 export const history = createBrowserHistory();
@@ -54,6 +55,7 @@ function App() {
   return (
     <Router history={history}>
       <Loading/>
+      
       <Switch>
         <HomeTemplate path='/home' exact Component={Home} />
         <HomeTemplate path='/contact' exact Component={Contact} />

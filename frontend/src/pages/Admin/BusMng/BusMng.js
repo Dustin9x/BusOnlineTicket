@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table, Tag, Tooltip } from 'antd';
 import { useRef, useState } from 'react';
@@ -6,7 +6,6 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
 import moment from 'moment';
-import { layDanhSachLichChieuAction } from '../../../redux/actions/QuanLyDatVeAction';
 import dayjs from 'dayjs';
 import { getBusListAction } from '../../../redux/actions/BusAction';
 
@@ -137,7 +136,7 @@ export default function BusMng() {
         return stations.stations.map((item, index) => {
             return <Tag color="magenta" key={index}>{item.name}</Tag>
         })
-    },
+      },
     },
     {
       title: 'Note',

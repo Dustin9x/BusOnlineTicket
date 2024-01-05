@@ -83,7 +83,7 @@ namespace backend.Controllers
             }
             else
             {
-                return Ok(new { msg = "Login fail", status = 500 });
+                return BadRequest(new { msg = "Login fail", status = 500 });
             }
         }
         [AllowAnonymous]
