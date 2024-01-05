@@ -5,7 +5,7 @@ import {
     Button,
     Select,
 } from 'antd';
-import { themNguoiDungAction } from '../../../redux/actions/DriverAction';
+import { themNguoiDungAction } from '../../../redux/actions/UserAction';
 import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config';

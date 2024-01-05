@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { layLaiMatKhauAction } from "../../redux/actions/DriverAction";
+import { layLaiMatKhauAction } from "../../redux/actions/UserAction";
 import { UserReducer } from "../../redux/reducers/UserReducer";
 
 export default function ForgetPassword(props) {

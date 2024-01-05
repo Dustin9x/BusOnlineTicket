@@ -1,5 +1,5 @@
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
-import { DANG_NHAP_ACTION, GET_DRIVER_LIST, LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, SET_THONG_TIN_DAT_VE, TIM_KIEM_NGUOI_DUNG } from "../constants"
+import { GET_DRIVER_LIST, LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, LOGIN_ACTION, SET_THONG_TIN_DAT_VE, TIM_KIEM_NGUOI_DUNG } from "../constants"
 
 let user = {}
 if (localStorage.getItem(USER_LOGIN)) {
@@ -30,11 +30,11 @@ const initialState = {
 export const UserReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case DANG_NHAP_ACTION:
-      const { thongTinDangNhap } = action;
-      localStorage.setItem(USER_LOGIN, JSON.stringify(thongTinDangNhap.content));
-      localStorage.setItem(TOKEN, thongTinDangNhap.accessToken);
-      return { ...state, userLogin: thongTinDangNhap.content }
+    case LOGIN_ACTION:
+      const { loginInfo } = action;
+      localStorage.setItem(USER_LOGIN, JSON.stringify(loginInfo.user));
+      localStorage.setItem(TOKEN, loginInfo.accessToken);
+      return { ...state, userLogin: loginInfo.user }
 
     case GET_DRIVER_LIST:
       state.arrDriver = action.arrDriver;

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { dangKyAction, dangNhapAction } from '../../redux/actions/DriverAction';
+import { registerAction } from '../../redux/actions/UserAction';
 
 export default function Register(props) {
 
@@ -10,7 +10,7 @@ export default function Register(props) {
   const { userLogin } = useSelector(state => state.UserReducer)
 
   const onFinish = (values) => {
-    const action = dangKyAction(values);
+    const action = registerAction(values);
     dispatch(action)
   };
   const onFinishFailed = (errorInfo) => {

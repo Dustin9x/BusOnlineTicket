@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { dangNhapAction } from '../../redux/actions/DriverAction';
 import { UserReducer } from './../../redux/reducers/UserReducer';
+import { loginAction } from '../../redux/actions/UserAction';
 
 
 export default function Login(props) {
@@ -13,7 +13,7 @@ export default function Login(props) {
 
 
   const onFinish = (values) => {
-    const action = dangNhapAction(values);
+    const action = loginAction(values);
     dispatch(action)
   };
   const onFinishFailed = (errorInfo) => {
