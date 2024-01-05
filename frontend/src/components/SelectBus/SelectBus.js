@@ -23,7 +23,7 @@ export default function SelectBus(props) {
               className="w-10 br3 mb0-l mb2-m flex justify-center items-center bg-white dim pointer"
               style={{ height: "2.5em", borderRadius: ".5rem !important" }}
             >
-              <a className="f3"> <i class="fas fa-exchange-alt" style={{ color: "#f8c300 !important" }} ></i> </a>
+              <a className="f3"> <i className="fas fa-exchange-alt" style={{ color: "#f8c300 !important" }} ></i> </a>
             </div>
             <div className="w-80">
               <Input size="large" placeholder="To" prefix={<EnvironmentOutlined />} />
@@ -40,7 +40,7 @@ export default function SelectBus(props) {
               type="submit"
               value="Search Ticket"
             >
-              <span class="pl2">
+              <span className="pl2">
                 <i className="fas fa-bus f3"></i>
               </span>
               <span className="ml-2 flex-auto">Search Buses</span>

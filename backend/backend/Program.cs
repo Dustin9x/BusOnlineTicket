@@ -1,4 +1,5 @@
 ﻿using backend.IRepository;
+using backend.Middleware;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -62,6 +63,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<JwtMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors("MyAppCors");
 app.UseAuthorization();

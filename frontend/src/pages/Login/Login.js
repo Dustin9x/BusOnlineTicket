@@ -101,7 +101,7 @@ export default function Login(props) {
 
         <div className="text-center">
           <button type="submit" className="py-2 w-64 text-base text-white bg-red-400 rounded-full">Sign In</button>
-          <div className="mt-2 text-sm">Don't have account yet? <a href='register' className="underline  cursor-pointer"> Sing Up</a></div>
+          <div className="mt-2 text-sm">Don't have account yet? <a href='register' className="underline  cursor-pointer"> Sign Up</a></div>
         </div>
       </Form>
     </div>

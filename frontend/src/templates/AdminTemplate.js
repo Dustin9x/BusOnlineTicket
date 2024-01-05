@@ -57,7 +57,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
   // const items = (userLogin.role === 'Super') ? [
   const items = [
     getItem('Bus Management', '1', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3"></i></NavLink>),
-    getItem('Station Management', '2', <NavLink className='text-decoration-none' to="/admin/stationmng"><i class="fa-solid fa-location-dot"></i></NavLink>),
+    getItem('Station Management', '2', <NavLink className='text-decoration-none' to="/admin/stationmng"><i className="fa-solid fa-location-dot"></i></NavLink>),
     getItem('Trip Management', '3', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
     getItem('User Management', 'sub2', <UserOutlined />, [
       getItem('Moderator', '5', <NavLink className='text-decoration-none' to="/admin/adminusers"><UserOutlined /></NavLink>),

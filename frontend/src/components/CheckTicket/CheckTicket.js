@@ -21,8 +21,8 @@ export default function CheckTicket() {
               type="submit"
               value="Search Ticket"
             >
-              <span class="pl2">
-                <i class="fa-solid fa-ticket"></i>
+              <span className="pl2">
+                <i className="fa-solid fa-ticket"></i>
               </span>
               <span className="ml-2 flex-auto">Check ticket</span>
             </button>
