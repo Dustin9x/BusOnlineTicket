@@ -2,6 +2,7 @@ import { GET_BUS_LIST, GET_CAROUSEL } from "../constants";
 import { quanLyCarouselService } from "../../services/QuanLyCarouselService";
 import { history } from "../../App";
 import { busManageService } from "../../services/BusManageService";
+import { notification } from "antd";
 
 
 export const getBusListAction = () => {
@@ -13,6 +14,26 @@ export const getBusListAction = () => {
                 type: GET_BUS_LIST,
                 arrBus: result.data.data
             })
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+export const addNewBusAction = (formData) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.addNewBus(formData)
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>
+                        Add new bus successfully.
+                    </>
+                ),
+            });
+            history.push('/admin/busmng');
         } catch (error) {
             console.log('error', error);
         }

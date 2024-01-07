@@ -37,7 +37,7 @@ const AddNew = () => {
           }
         }
           console.table('formData123', [...formData])
-          dispatch(themPhimUploadHinhAction(formData));
+          // dispatch(themPhimUploadHinhAction(formData));
       }
       
     }

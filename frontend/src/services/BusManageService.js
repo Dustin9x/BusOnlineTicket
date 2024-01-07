@@ -11,8 +11,8 @@ export class BusManageService extends baseService {
     }
 
 
-    themCarousel = (formData) => {
-        return this.post(`/api/laydanhsachbanner`, formData);
+    addNewBus = (formData) => {
+        return this.post(`/Bus`, formData);
     }
 
     layThongTinCarousel = (maBanner) => {

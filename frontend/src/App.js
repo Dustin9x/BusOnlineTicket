@@ -18,7 +18,7 @@ import Register from './pages/Register/Register';
 import UserTemplate from './templates/UserTemplate';
 import Loading from './components/Loading/Loading';
 import { AdminTemplate } from './templates/AdminTemplate';
-import AddNew from './pages/Admin/BusMng/AddNew';
+import AddNew from './pages/Admin/BusMng/AddNewBus';
 import Edit from './pages/Admin/BusMng/Edit';
 import ShowTime from './pages/Admin/BusMng/ShowTime';
 import UserMng from './pages/Admin/UserMng/AdminUserMng';
@@ -47,6 +47,7 @@ import DriverMng from './pages/Admin/UserMng/DriverMng';
 import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
 import TripMng from './pages/Admin/TheatreChildMng/TripMng';
 import { Alert, Space } from 'antd';
+import AddNewBus from './pages/Admin/BusMng/AddNewBus';
 
 
 export const history = createBrowserHistory();
@@ -87,7 +88,7 @@ function App() {
 
         {/* Bus */}
         <AdminTemplate path='/admin/busmng' exact Component={BusMng} />
-        <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNew} />
+        <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNewBus} />
         <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
         <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 

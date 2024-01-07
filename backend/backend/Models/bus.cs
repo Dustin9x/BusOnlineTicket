@@ -2,6 +2,13 @@
 {
     public class Bus
     {
+        //public enum BusType
+        //{
+        //    express,
+        //    luxury,
+        //    volvoAC,
+        //    volvoNonAC
+        //}
         public int Id { get; set; }
         public string BusPlate { get; set; }
         public string BusType { get; set; }

@@ -16,17 +16,7 @@ export const layDanhSachPhimAction = (tenPhim='') => {
     }
 }
 
-export const themPhimUploadHinhAction = (formData) => {
-    return async (dispatch) => {
-        try {
-            const result = await quanLyPhimService.themPhimUploadHinh(formData)
-            alert('Thêm phim thành công');
-            history.push('/admin/moviemng');
-        } catch (error) {
-            console.log('error', error);
-        }
-    }
-}
+
 
 export const capNhatPhimUploadAction = (maPhim,formData) => {
     return async (dispatch) => {

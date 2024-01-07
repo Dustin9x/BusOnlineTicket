@@ -307,3 +307,8 @@ C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-mai
 C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\backend.genruntimeconfig.cache
 C:\Users\LE PHAM TRAN PHU\Downloads\BusOnlineTicket-main (1)\BusOnlineTicket-main\backend\backend\obj\Debug\net7.0\ref\backend.dll
 D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\BCrypt.Net-Next.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\MailKit.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\MimeKit.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+D:\__Hoc_Lap_Trinh\FPT\BusOnlineTicket\backend\backend\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
