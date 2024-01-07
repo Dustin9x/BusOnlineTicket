@@ -1,5 +1,6 @@
-﻿using backend.IRepository;
+﻿ using backend.IRepository;
 using backend.Models;
+using backend.ResponseData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,14 @@ namespace backend.Controllers
         private readonly DatabaseContext db;
         private readonly IConfiguration config;
         private readonly IUserRepo repo;
+        private readonly ISendMail MailRepo;
 
-        public AuthController(DatabaseContext db, IConfiguration config, IUserRepo repo)
+        public AuthController(DatabaseContext db, IConfiguration config, IUserRepo repo, ISendMail mailRepo)
         {
             this.db = db;
             this.config = config;
             this.repo = repo;
+            MailRepo = mailRepo;
         }
 
         [HttpPost]
@@ -47,6 +50,7 @@ namespace backend.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }
@@ -66,18 +70,6 @@ namespace backend.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        /*  [AllowAnonymous]
-          [HttpPost]
-          public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
-          {
-              var user = await Authenticate(userLogin);
-              if (user != null)
-              {
-                  string token = GenerateToken(user);
-                  return Ok(new { token });
-              }
-              return NotFound("User not found");
-          }*/
         [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
@@ -86,13 +78,14 @@ namespace backend.Controllers
             if (user != null)
             {
 
-                var token = GenerateToken(user);
-                var err = 0;
-                return Ok(new { token, user, msg = "Login successfully", err });
+                var accessToken = GenerateToken(user);
+                var obj = new { user = user, accessToken = accessToken } as object;
+                var response = new ResponseData<Object>(StatusCodes.Status200OK, "Login successfully", obj, null);
+                return Ok(response);
             }
             else
             {
-                return Ok(new { msg = "Login fail", err = 2 });
+                return BadRequest(new { msg = "Login fail", status = 500 });
             }
         }
         [AllowAnonymous]
@@ -102,7 +95,7 @@ namespace backend.Controllers
             try
             {
                 var ExistingUser = await db.Users.SingleOrDefaultAsync(U => U.Email == userRegister.Email);
-                if(ExistingUser == null)
+                if (ExistingUser == null)
                 {
                     var user = new User
                     {
@@ -112,17 +105,56 @@ namespace backend.Controllers
                     };
                     await db.AddAsync(user);
                     await db.SaveChangesAsync();
-                    // 4. Tạo và trả về token nếu thành công
-                    var token = GenerateToken(user);
-                    return Ok(new { token, msg = "Register successfully", err = 0 });
+                    var accessToken = GenerateToken(user);
+                    var obj = new { user = user, accessToken = accessToken } as object;
+                    var response = new ResponseData<Object>(StatusCodes.Status200OK, "Register successfully", obj, null);
+                    return Ok(response);
                 }
-                return Ok(new { msg = "Register not successfully", error="Email existed" });
+                return BadRequest(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
 
             }
             catch (Exception ex)
             {
-                return Ok(new { msg = "Register not successfully", err = 1, error = ex.Message });
+                return Ok(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
             }
         }
+        [HttpPost("ForgetPassword")]
+        public async Task<ActionResult> ForgetPassword(string Email)
+        {
+            try
+            {
+                User ExistingUser = await db.Users.SingleOrDefaultAsync(p => p.Email == Email);
+                
+               
+                if (ExistingUser != null)
+                {
+                    var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    var password = new StringBuilder();
+                    for (int i = 0; i < 8; i++)
+                    {
+                        var index = new Random().Next(characters.Length);
+                        password.Append(characters[index]);
+                    }
+                    Mail mail = new Mail()
+                    {
+                        ToEmail = Email,
+                        Body = "Your new password:" + password.ToString(),
+                        Subject = "Forget Password"
+                    };
+                    await MailRepo.SendEmailAsync(mail);
+                    ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
+                    await db.SaveChangesAsync();
+                    var response = new ResponseData<string>(StatusCodes.Status200OK, "Foget password successfully", Email, null);
+                    return Ok(response);
+                }
+                return BadRequest(new { msg = "Foget password fail", status = 400 });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

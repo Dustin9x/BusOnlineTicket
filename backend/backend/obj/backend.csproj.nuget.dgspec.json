@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LE PHAM TRAN PHU\\Documents\\gh\\BusOnlineTicket\\backend\\backend\\backend.csproj": {}
+    "C:\\Users\\LE PHAM TRAN PHU\\Downloads\\BusOnlineTicket-main\\BusOnlineTicket-main\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LE PHAM TRAN PHU\\Documents\\gh\\BusOnlineTicket\\backend\\backend\\backend.csproj": {
+    "C:\\Users\\LE PHAM TRAN PHU\\Downloads\\BusOnlineTicket-main\\BusOnlineTicket-main\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LE PHAM TRAN PHU\\Documents\\gh\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\LE PHAM TRAN PHU\\Downloads\\BusOnlineTicket-main\\BusOnlineTicket-main\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\LE PHAM TRAN PHU\\Documents\\gh\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "projectPath": "C:\\Users\\LE PHAM TRAN PHU\\Downloads\\BusOnlineTicket-main\\BusOnlineTicket-main\\backend\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\LE PHAM TRAN PHU\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LE PHAM TRAN PHU\\Documents\\gh\\BusOnlineTicket\\backend\\backend\\obj\\",
+        "outputPath": "C:\\Users\\LE PHAM TRAN PHU\\Downloads\\BusOnlineTicket-main\\BusOnlineTicket-main\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\LE PHAM TRAN PHU\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[4.0.3, )"
             },
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.14, )"
@@ -65,6 +69,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.14, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[4.3.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

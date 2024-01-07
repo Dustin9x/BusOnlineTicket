@@ -1,6 +1,7 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.Services;
+using backend.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -34,11 +35,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
+// lấy thông tin từ json đổ vào mailsetting
+builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
+
 builder.Services.AddScoped<ITripRepo, TripService>();
 builder.Services.AddScoped<IBusRepo, BusService>();
 builder.Services.AddScoped<IStationRepo, StationService>();
 builder.Services.AddScoped<IDriverRepo, DriverService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
+
+builder.Services.AddScoped<ISendMail, SendMailService>();
+
+
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -49,7 +57,8 @@ builder.Services.AddCors(o =>
     {
         policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
         .AllowAnyHeader()
-        .AllowAnyMethod();
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
     });
 });
 
@@ -62,10 +71,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//app.UseMiddleware<JwtMiddleware>();
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
 app.UseCors("MyAppCors");
-app.UseAuthorization();
-app.UseAuthorization();
 
 app.MapControllers();
 
