@@ -10,7 +10,7 @@ export const loginAction = (loginInfo) => {
         try {
             dispatch(displayLoadingAction)
             const result = await userService.login(loginInfo);
-            console.log('dang nhap',result)
+            console.log('dang nhap', result)
             if (result.status === 200) {
                 dispatch({
                     type: LOGIN_ACTION,
@@ -21,11 +21,11 @@ export const loginAction = (loginInfo) => {
                     message: 'Success',
                     description: (
                         <>
-                           Login successfully.<br />
-                           Welcom to PHTV Bus.
+                            Login successfully.<br />
+                            Welcom to PHTV Bus.
                         </>
-                    ),  
-                  });
+                    ),
+                });
                 history.push('/admin');
             } else {
                 await dispatch(hideLoadingAction)
@@ -39,11 +39,11 @@ export const loginAction = (loginInfo) => {
                 message: 'Error',
                 description: (
                     <>
-                       Login fail.<br />
-                       Please try again.
+                        Login fail.<br />
+                        Please try again.
                     </>
-                ),  
-              });
+                ),
+            });
         }
     }
 }

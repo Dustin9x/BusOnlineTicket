@@ -26,7 +26,23 @@ export class BusManageService extends baseService {
     xoaCarousel = (maBanner) => {
         return this.delete(`/api/laydanhsachbanner/${maBanner}/delete`);
     }
+
+
+
+
+    //Bus Type
+    getBusTypeList = () => {
+        return this.get(`/BusType`);
+    }
     
+    addNewBusType = (formData) => {
+        return this.post(`/BusType`, formData);
+    }
+
+
+    deleteBusType = (busTypeId) => {
+        return this.delete(`/BusType?Id=${busTypeId}`);
+    }
 }
 
 export const busManageService = new BusManageService();

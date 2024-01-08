@@ -1,7 +1,6 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -41,7 +40,7 @@ namespace backend.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> CreateBusType(BusType busType)
+        public async Task<ActionResult> CreateBusType([FromForm] BusType busType)
         {
             try
             {

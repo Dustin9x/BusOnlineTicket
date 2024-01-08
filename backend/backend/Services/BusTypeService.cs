@@ -61,7 +61,7 @@ namespace backend.Services
             var ExistingBusType = await db.BusTypes.FindAsync(busType.Id);
             if (ExistingBusType != null)
             {
-                ExistingBusType.NumberSeat = busType.NumberSeat;
+                ExistingBusType.NumberOfSeat = busType.NumberOfSeat;
                 ExistingBusType.Name = busType.Name;
                 await db.SaveChangesAsync();
                 return true;
@@ -69,6 +69,6 @@ namespace backend.Services
             else { return false; }
         }
 
-        
+
     }
 }

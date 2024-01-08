@@ -13,6 +13,7 @@
         public string BusPlate { get; set; }
         public string BusType { get; set; }
         public ICollection<Station>? Stations { get; set; }
+        public bool isAvailable { get; set; }
         public string Note { get; set; }
     }
 }

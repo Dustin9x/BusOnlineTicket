@@ -48,6 +48,8 @@ import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
 import TripMng from './pages/Admin/TheatreChildMng/TripMng';
 import { Alert, Space } from 'antd';
 import AddNewBus from './pages/Admin/BusMng/AddNewBus';
+import BusTypeMng from './pages/Admin/BusMng/BusTypeMng/BusTypeMng';
+import AddNewBusType from './pages/Admin/BusMng/BusTypeMng/AddNewBusType';
 
 
 export const history = createBrowserHistory();
@@ -91,6 +93,10 @@ function App() {
         <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNewBus} />
         <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
         <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
+
+        {/* Bus Type */}
+        <AdminTemplate path='/admin/bustypemng' exact Component={BusTypeMng} />
+        <AdminTemplate path='/admin/bustypemng/addnew' exact Component={AddNewBusType} />
 
         {/* Station */}
         <AdminTemplate path='/admin/stationmng' exact Component={StationMng} />

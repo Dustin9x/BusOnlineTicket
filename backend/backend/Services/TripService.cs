@@ -19,7 +19,7 @@ namespace backend.Services
             return await db.Trips
                                  .Include(p => p.FromStationId)
                                  .Include(p => p.FromStationId)
-                                 .Include(p => p.Buses)
+                                 .Include(p => p.BusId)
                                  .ToListAsync();
         }
 
@@ -29,7 +29,7 @@ namespace backend.Services
                 .Where(p => p.Id == Id)
                                 .Include(p => p.FromStationId)
                                 .Include(p => p.ToStationId)
-                                .Include(p => p.Buses)
+                                .Include(p => p.BusId)
 
                                 .ToListAsync();
         }
