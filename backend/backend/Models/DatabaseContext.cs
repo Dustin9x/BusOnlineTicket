@@ -14,6 +14,7 @@ namespace backend.Models
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<BusType> BusTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,6 +55,10 @@ namespace backend.Models
                 //b.HasData(SeedData.TripData.TripSeedData());
             });
             modelBuilder.Entity<Driver>(b =>
+            {
+                b.HasKey(b => b.Id);
+            });
+            modelBuilder.Entity<BusType>(b =>
             {
                 b.HasKey(b => b.Id);
             });
