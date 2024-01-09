@@ -41,6 +41,8 @@ namespace backend.Models
                 b.HasIndex(u => u.BusPlate).IsUnique();
             });
             modelBuilder.Entity<Bus>()
+                .HasOne(e => e.BusType);
+            modelBuilder.Entity<Bus>()
                 .HasMany(e => e.Stations)
                 .WithMany(e => e.Buses)
                 .UsingEntity("BusToStationJoinTable");
@@ -62,6 +64,7 @@ namespace backend.Models
             modelBuilder.Entity<BusType>(b =>
             {
                 b.HasKey(b => b.Id);
+                b.HasData(SeedData.BusTypeData.BusTypeSeedData());
             });
             modelBuilder.Entity<TripStation>(b =>
             {

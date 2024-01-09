@@ -53,7 +53,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Bus>> GetBusById(int Id)
         {
-            return await db.Buses.Include(s => s.Stations).Where(B => B.Id == Id).ToListAsync();
+            return await db.Buses.Include(s => s.Stations).Where(b => b.Id == Id).ToListAsync();
         }
 
         public async Task<bool> PutBus(Bus Bus)

@@ -34,11 +34,18 @@ export class BusManageService extends baseService {
     getBusTypeList = () => {
         return this.get(`/BusType`);
     }
+
+    getBusTypeById = (id) => {
+        return this.get(`/BusType/${id}`);
+    }
     
     addNewBusType = (formData) => {
         return this.post(`/BusType`, formData);
     }
 
+    updateBusType = (id,formData) => {
+        return this.put(`/BusType?Id=${id}`, formData);
+    }
 
     deleteBusType = (busTypeId) => {
         return this.delete(`/BusType?Id=${busTypeId}`);

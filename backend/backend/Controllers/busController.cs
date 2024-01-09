@@ -39,7 +39,7 @@ namespace backend.Controllers
 
         }
         [HttpGet("{Id}")]
-        public async Task<ActionResult> getAllById(int Id)
+        public async Task<ActionResult> GetBusById(int Id)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace backend.Controllers
                 if (list.Count() > 0)
                 {
                     var response = new ResponseData<IEnumerable<Bus>>(StatusCodes.Status200OK, "Get bus successfully", list, null);
-                    return Ok(list);
+                    return Ok(response);
                 }
                 return BadRequest();
             }
@@ -59,11 +59,11 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBus(Bus Bus)
+        public async Task<ActionResult> CreateBus([FromForm] Bus Bus)
         {
             try
             {
-                bool list = await repo.CreateBus(Bus);
+                var list = await repo.CreateBus(Bus);
                 if (list == true)
                 {
                     var response = new ResponseData<Bus>(StatusCodes.Status200OK, "Create new bus successfully", Bus, null);

@@ -80,14 +80,14 @@ namespace backend.Services
 
         public async Task<IEnumerable<BusType>> GetBusTypeById(int Id)
         {
-            return await db.BusTypes.Where(B => B.Id == Id).ToListAsync();
+            return await db.BusTypes.Where(b => b.Id == Id).ToListAsync();
         }
 
 
 
-        public async Task<bool> PutBusType(BusType busType)
+        public async Task<bool> PutBusType(int Id, BusType busType)
         {
-            var ExistingBusType = await db.BusTypes.FindAsync(busType.Id);
+            var ExistingBusType = await db.BusTypes.FindAsync(Id);
             if (ExistingBusType != null)
             {
                 ExistingBusType.NumberOfSeat = busType.NumberOfSeat;

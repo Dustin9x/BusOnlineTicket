@@ -18,12 +18,14 @@ namespace backend.Controllers
         private readonly DatabaseContext db;
         private readonly IConfiguration config;
         private readonly IUserRepo repo;
+        private readonly ISendMail mailRepo;
 
         public AuthController(DatabaseContext db, IConfiguration config, IUserRepo repo)
         {
             this.db = db;
             this.config = config;
             this.repo = repo;
+            this.mailRepo = mailRepo;
         }
 
         [HttpPost]
@@ -140,7 +142,7 @@ namespace backend.Controllers
                         Body = "Your new password:" + password.ToString(),
                         Subject = "Forget Password"
                     };
-                    await MailRepo.SendEmailAsync(mail);
+                    await mailRepo.SendEmailAsync(mail);
                     ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
                     await db.SaveChangesAsync();
                     var response = new ResponseData<string>(StatusCodes.Status200OK, "Foget password successfully", Email, null);

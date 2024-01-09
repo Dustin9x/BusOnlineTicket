@@ -218,6 +218,17 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "BusTypes",
+                columns: new[] { "Id", "Name", "NumberOfSeat" },
+                values: new object[,]
+                {
+                    { 1, "Express", 50 },
+                    { 2, "Luxury", 30 },
+                    { 3, "Volvo Non-AC", 16 },
+                    { 4, "Volvo AC", 9 }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Stations",
                 columns: new[] { "Id", "Address", "Name" },
                 values: new object[,]

@@ -86,6 +86,32 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BusTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Express",
+                            NumberOfSeat = 50
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Luxury",
+                            NumberOfSeat = 30
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Volvo Non-AC",
+                            NumberOfSeat = 16
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Volvo AC",
+                            NumberOfSeat = 9
+                        });
                 });
 
             modelBuilder.Entity("backend.Models.Driver", b =>

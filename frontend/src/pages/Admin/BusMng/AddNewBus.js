@@ -1,42 +1,51 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, notification } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Form, Input, Button, notification, Select } from 'antd';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
-import { addNewBusAction } from '../../../redux/actions/BusAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewBusAction, getBusTypeListAction } from '../../../redux/actions/BusAction';
 
 const AddNewBus = () => {
   const dispatch = useDispatch();
+  let { arrBusType } = useSelector(state => state.BusReducer);
   const { TextArea } = Input;
+
+  useEffect(() => {
+    dispatch(getBusTypeListAction())
+  }, [dispatch]);
+
+  console.log('arrBusType', arrBusType)
 
   const formik = useFormik({
     initialValues: {
       busPlate: '',
-      busType: '',
-      stations: [],
+      BusType: '',
+      // stations: [],
       note: '',
     },
     onSubmit: (values) => {
-      if (values.busPlate == '' || values.busType == '' || values.stations == '') {
-        notification.error({
-          closeIcon: false,
-          message: 'Error',
-          description: (
-            <>
-              Please fill in all required fields.
-            </>
-          ),
-        });
-      } else {
+      // if (values.busPlate == '' || values.busType == '') {
+      //   notification.error({
+      //     closeIcon: false,
+      //     message: 'Error',
+      //     description: (
+      //       <>Please fill in all required fields.</>
+      //     ),
+      //   });
+      // // } else {
         let formData = new FormData();
         for (let key in values) {
           formData.append(key, values[key]);
         }
         console.table('formData', [...formData])
         dispatch(addNewBusAction(formData));
-      }
+      // }
 
     }
   })
+
+  const handleChangeBusType = (value) => {
+    formik.setFieldValue('BusType', value)
+  }
 
 
   return (
@@ -69,7 +78,6 @@ const AddNewBus = () => {
           </Form.Item>
           <Form.Item
             label="Bus Type"
-            name="busType"
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -79,7 +87,7 @@ const AddNewBus = () => {
               },
             ]}
           >
-            <Input name="busType" onChange={formik.handleChange} />
+            <Select options={arrBusType?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeBusType} />
           </Form.Item>
           <Form.Item label="Note">
             <TextArea name="note" allowClear rows={4} onChange={formik.handleChange} />

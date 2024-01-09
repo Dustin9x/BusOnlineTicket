@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table, Tag, Tooltip } from 'antd';
+import { Button, Input, Space, Table, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachPhimAction, xoaPhimAction } from '../../../../redux/actions/QuanLyPhimAction';
-import moment from 'moment';
-import dayjs from 'dayjs';
-import { deleteBusTypeAction, getBusTypeListAction } from '../../../../redux/actions/BusAction';
+import { deleteBusTypeAction, getBusTypeByIdAction, getBusTypeListAction } from '../../../../redux/actions/BusAction';
 
 
 export default function BusTypeMng() {
@@ -17,7 +14,7 @@ export default function BusTypeMng() {
     dispatch(getBusTypeListAction())
   }, [dispatch])
 
-  console.log('bus type 123',arrBusType)
+  console.log('bus type 123', arrBusType)
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -138,11 +135,17 @@ export default function BusTypeMng() {
       title: 'Manage',
       width: '25%',
       render: (text, bustype) => {
-        return <Button key={1} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+        return <>
+          <Button key={1} href={`/admin/bustypemng/edit/${bustype.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getBusTypeByIdAction(bustype.id))
+          }}></Button>
+          <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
             if (window.confirm('Do you want to delete ' + bustype.name + '?')) {
               dispatch(deleteBusTypeAction(bustype.id))
             }
           }}></Button>
+        </>
+
       }
     },
   ]

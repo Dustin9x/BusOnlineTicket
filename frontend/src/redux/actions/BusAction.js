@@ -1,4 +1,4 @@
-import { GET_BUS_LIST, GET_BUS_TYPE_LIST, GET_CAROUSEL } from "../constants";
+import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_CAROUSEL } from "../constants";
 import { quanLyCarouselService } from "../../services/QuanLyCarouselService";
 import { history } from "../../App";
 import { busManageService } from "../../services/BusManageService";
@@ -93,6 +93,20 @@ export const getBusTypeListAction = () => {
     }
 }
 
+export const getBusTypeByIdAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.getBusTypeById(id);
+            dispatch({
+                type: GET_BUS_TYPE_DETAIL,
+                busTypeDetail: result.data.data[0]
+            })
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
 
 export const addBusTypeAction = (formData) => {
     return async (dispatch) => {
@@ -103,6 +117,24 @@ export const addBusTypeAction = (formData) => {
                 message: 'Success',
                 description: (
                     <>Add new bus type successfully</>
+                ),
+            });
+            history.push('/admin/bustypemng');
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+export const updateBusTypeByIdAction = (id,formData) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.updateBusType(id,formData);
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>Update bus type successfully</>
                 ),
             });
             history.push('/admin/bustypemng');

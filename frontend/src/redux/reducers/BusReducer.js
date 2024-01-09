@@ -1,10 +1,9 @@
-import { GET_BUS_LIST, GET_BUS_TYPE_LIST} from "../constants";
+import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST} from "../constants";
 
 const initialState = {
     arrBus: [],
     arrBusType: [],
-    carouselEditDetail: {}
-
+    busTypeDetail: {},
 }
 
 export const BusReducer = (state = initialState, action) => {
@@ -15,6 +14,9 @@ export const BusReducer = (state = initialState, action) => {
             return { ...state }
         case GET_BUS_TYPE_LIST:
             state.arrBusType = action.arrBusType;
+            return { ...state }
+        case GET_BUS_TYPE_DETAIL:
+            state.busTypeDetail = action.busTypeDetail;
             return { ...state }
         default:
             return { ...state }

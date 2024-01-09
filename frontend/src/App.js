@@ -50,6 +50,7 @@ import { Alert, Space } from 'antd';
 import AddNewBus from './pages/Admin/BusMng/AddNewBus';
 import BusTypeMng from './pages/Admin/BusMng/BusTypeMng/BusTypeMng';
 import AddNewBusType from './pages/Admin/BusMng/BusTypeMng/AddNewBusType';
+import EditBusType from './pages/Admin/BusMng/BusTypeMng/EditBusType';
 
 
 export const history = createBrowserHistory();
@@ -97,6 +98,7 @@ function App() {
         {/* Bus Type */}
         <AdminTemplate path='/admin/bustypemng' exact Component={BusTypeMng} />
         <AdminTemplate path='/admin/bustypemng/addnew' exact Component={AddNewBusType} />
+        <AdminTemplate path='/admin/bustypemng/edit/:id' exact Component={EditBusType} />
 
         {/* Station */}
         <AdminTemplate path='/admin/stationmng' exact Component={StationMng} />

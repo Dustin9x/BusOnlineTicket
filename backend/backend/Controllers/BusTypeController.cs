@@ -38,6 +38,26 @@ namespace backend.Controllers
 
         }
 
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetBusTypeById(int Id)
+        {
+            try
+            {
+                var list = await repo.GetBusTypeById(Id);
+                if (list.Count() > 0)
+                {
+                    var response = new ResponseData<IEnumerable<BusType>>(StatusCodes.Status200OK, "Get bus type successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
         [HttpPost]
         public async Task<ActionResult> CreateBusType([FromForm] BusType busType)
@@ -80,11 +100,11 @@ namespace backend.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> PutBusType(BusType busType)
+        public async Task<ActionResult> PutBusType(int Id, [FromForm] BusType busType)
         {
             try
             {
-                bool list = await repo.PutBusType(busType);
+                bool list = await repo.PutBusType(Id, busType);
                 if (list == true)
                 {
                     var response = new ResponseData<BusType>(StatusCodes.Status200OK, "Update BusType Successfully ", busType, null);

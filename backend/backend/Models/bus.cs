@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string BusPlate { get; set; }
-        public string BusType { get; set; }
+        public BusType BusType { get; set; }
         public ICollection<Station>? Stations { get; set; }
         public ICollection<Trip>? Trips { get; set; }
         public bool isAvailable { get; set; }
