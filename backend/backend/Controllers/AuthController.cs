@@ -116,5 +116,43 @@ namespace backend.Controllers
                 return Ok(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
             }
         }
+
+        [HttpPost("ForgetPassword")]
+        public async Task<ActionResult> ForgetPassword(string Email)
+        {
+            try
+            {
+                User ExistingUser = await db.Users.SingleOrDefaultAsync(p => p.Email == Email);
+
+
+                if (ExistingUser != null)
+                {
+                    var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                    var password = new StringBuilder();
+                    for (int i = 0; i < 8; i++)
+                    {
+                        var index = new Random().Next(characters.Length);
+                        password.Append(characters[index]);
+                    }
+                    Mail mail = new Mail()
+                    {
+                        ToEmail = Email,
+                        Body = "Your new password:" + password.ToString(),
+                        Subject = "Forget Password"
+                    };
+                    await MailRepo.SendEmailAsync(mail);
+                    ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
+                    await db.SaveChangesAsync();
+                    var response = new ResponseData<string>(StatusCodes.Status200OK, "Foget password successfully", Email, null);
+                    return Ok(response);
+                }
+                return BadRequest(new { msg = "Foget password fail", status = 400 });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

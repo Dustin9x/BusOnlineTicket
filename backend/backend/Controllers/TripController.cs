@@ -55,5 +55,24 @@ namespace backend.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<ActionResult> CreateTrip(Trip Trip)
+        {
+            try
+            {
+                var list = await repo.CreateTrip(Trip);
+                if (list != null)
+                {
+                    var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Get trip successfully", list, null);
+                    return Ok(list);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }
