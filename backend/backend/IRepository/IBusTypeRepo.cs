@@ -9,5 +9,6 @@ namespace backend.IRepository
         Task<bool> PutBusType(BusType busType);
         Task<BusType> DeleteBusType(int Id);
         Task<IEnumerable<BusType>> GetBusTypeById(int Id);
+        List<BusType> OptionsAsDesired(string? search, int page = 1);
     }
 }

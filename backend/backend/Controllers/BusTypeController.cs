@@ -100,5 +100,19 @@ namespace backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("Options")]
+        public IActionResult OptionsAsDesired(string? search, int page = 1)
+        {
+            try
+            {
+                var result = repo.OptionsAsDesired(search, page);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest("We canot Found Page");
+            }
+        }
     }
 }

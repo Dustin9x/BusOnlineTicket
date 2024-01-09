@@ -10,5 +10,8 @@
         public int FromStationId { get; set; }
         public int ToStationId { get; set; }
         public Seat? Seats { get; set; }
+
+        public ICollection<TripStation>? TripStations { get; set; }
+        public Bus? Bus { get; set; }
     }
 }

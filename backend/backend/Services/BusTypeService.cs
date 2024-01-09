@@ -12,6 +12,33 @@ namespace backend.Services
         {
             this.db = db;
         }
+
+        // khởi tạo số phần tử của 1 trang
+        public static int PAGE_SIZE { get; set; } = 5;
+
+        // Pagination , Search , ...
+        public List<BusType> OptionsAsDesired(string? search, int page = 1)
+        {
+            var allBusType = db.BusTypes.AsQueryable();
+            // Filter
+            // nếu khác null thì mới where
+            if (!string.IsNullOrEmpty(search))
+            {
+                allBusType = allBusType.Where(b => b.Name.Contains(search));
+            }
+
+            allBusType = allBusType.OrderByDescending(hh => hh.Name);
+
+            allBusType = allBusType.Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
+            var result = allBusType.Select(tr => new BusType
+            {
+                Id = tr.Id,
+                Name = tr.Name,
+                NumberOfSeat = tr.NumberOfSeat,
+            });
+            return result.ToList();
+        }
+
         public async Task<bool> CreateBusType(BusType busType)
         {
             db.BusTypes.Add(busType);
@@ -55,6 +82,8 @@ namespace backend.Services
         {
             return await db.BusTypes.Where(B => B.Id == Id).ToListAsync();
         }
+
+
 
         public async Task<bool> PutBusType(BusType busType)
         {

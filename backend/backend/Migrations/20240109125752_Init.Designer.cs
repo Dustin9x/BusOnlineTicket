@@ -12,8 +12,8 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240108133310_Add-Bustype")]
-    partial class AddBustype
+    [Migration("20240109125752_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,7 +265,28 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BusId");
+
                     b.ToTable("Trips");
+                });
+
+            modelBuilder.Entity("backend.Models.TripStation", b =>
+                {
+                    b.Property<int>("StationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TripId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StationId", "TripId");
+
+                    b.HasIndex("TripId");
+
+                    b.ToTable("TripStations");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
@@ -356,6 +377,46 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend.Models.Trip", b =>
+                {
+                    b.HasOne("backend.Models.Bus", "Bus")
+                        .WithMany("Trips")
+                        .HasForeignKey("BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bus");
+                });
+
+            modelBuilder.Entity("backend.Models.TripStation", b =>
+                {
+                    b.HasOne("backend.Models.Station", "Station")
+                        .WithMany("TripStations")
+                        .HasForeignKey("StationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Trip", "Trip")
+                        .WithMany("TripStations")
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Station");
+
+                    b.Navigation("Trip");
+                });
+
+            modelBuilder.Entity("backend.Models.Bus", b =>
+                {
+                    b.Navigation("Trips");
+                });
+
+            modelBuilder.Entity("backend.Models.Station", b =>
+                {
+                    b.Navigation("TripStations");
+                });
+
             modelBuilder.Entity("backend.Models.Ticket", b =>
                 {
                     b.Navigation("Seats");
@@ -364,6 +425,8 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Models.Trip", b =>
                 {
                     b.Navigation("Seats");
+
+                    b.Navigation("TripStations");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
