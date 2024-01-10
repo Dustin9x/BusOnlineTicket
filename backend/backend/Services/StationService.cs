@@ -13,6 +13,18 @@ namespace backend.Services
             this.db = db;
         }
 
+        public async Task<IEnumerable<Station>> GetAllStation()
+        {
+            return await db.Stations.ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Station>> GetStationById(int Id)
+        {
+            return await db.Stations.Where(s => s.Id == Id).ToListAsync();
+        }
+
+
         public async Task<bool> CreateStation(Station Station)
         {
 
@@ -27,6 +39,25 @@ namespace backend.Services
                 return false;
             }
         }
+
+
+        public async Task<bool> PutStation(int Id, Station Station)
+        {
+            var ExistingStation = await db.Stations.FindAsync(Id);
+            if (ExistingStation != null)
+            {
+                ExistingStation.Name = Station.Name;
+                ExistingStation.Address = Station.Address;
+                await db.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
 
         public async Task<Station> DeleteStation(int Id)
         {
@@ -45,33 +76,6 @@ namespace backend.Services
                 }
             }
             return null;
-        }
-
-        public async Task<IEnumerable<Station>> GetAllStation()
-        {
-            return await db.Stations.ToListAsync();
-        }
-
-        public async Task<IEnumerable<Station>> GetStationById(int Id)
-        {
-            return await db.Stations.Where(s => s.Id == Id).ToListAsync();
-        }
-
-        public async Task<bool> PutStation(Station Station)
-        {
-            var ExistingStation = await db.Stations.FindAsync(Station.Id);
-            if (ExistingStation != null)
-            {
-                ExistingStation.Name = Station.Name;
-                ExistingStation.Address = Station.Address;
-                await db.SaveChangesAsync();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
         }
     }
 }

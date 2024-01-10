@@ -15,12 +15,12 @@ export class StationManageService extends baseService {
         return this.post(`/Station`, formData);
     }
 
-    layThongTinCarousel = (maBanner) => {
-        return this.get(`/api/laydanhsachbanner/${maBanner}`);
+    getStationById = (stationId) => {
+        return this.get(`/Station/${stationId}`);
     }
 
-    capNhatCarousel = (maBanner,formData) => {
-        return this.post(`/api/laydanhsachbanner/${maBanner}/update`, formData);
+    updateStation = (id,formData) => {
+        return this.put(`/Station?Id=${id}`, formData);
     }
 
     deleteStation = (stationId) => {

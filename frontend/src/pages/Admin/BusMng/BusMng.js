@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
 import moment from 'moment';
 import dayjs from 'dayjs';
-import { getBusListAction } from '../../../redux/actions/BusAction';
+import { deleteBusAction, getBusListAction } from '../../../redux/actions/BusAction';
 
 
 export default function BusMng() {
@@ -154,10 +154,10 @@ export default function BusMng() {
     {
       title: 'Manage',
       width: '25%',
-      render: (text, movie) => {
+      render: (text, bus) => {
         return <Button key={1} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Bạn có chắc chắn muốn xóa phim ' + movie.tenPhim + '?')) {
-              dispatch(xoaPhimAction(movie.maPhim))
+            if (window.confirm('Do you want to delete bus ' + bus.busPlate + '?')) {
+              dispatch(deleteBusAction(bus.id))
             }
           }}></Button>
       }
@@ -168,6 +168,6 @@ export default function BusMng() {
       <h3 className='text-lg'>Bus Management</h3>
       <Button href='/admin/moviemng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Bus</Button>
     </div>
-    <Table columns={columns} dataSource={data} rowKey={'maPhim'} />
+    <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>
 }

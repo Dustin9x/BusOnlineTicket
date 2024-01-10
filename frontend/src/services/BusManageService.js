@@ -23,8 +23,8 @@ export class BusManageService extends baseService {
         return this.post(`/api/laydanhsachbanner/${maBanner}/update`, formData);
     }
 
-    xoaCarousel = (maBanner) => {
-        return this.delete(`/api/laydanhsachbanner/${maBanner}/delete`);
+    deleteBus = (busId) => {
+        return this.delete(`/Bus/${busId}`);
     }
 
 

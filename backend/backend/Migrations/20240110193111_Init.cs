@@ -87,6 +87,7 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusPlate = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BusTypeId = table.Column<int>(type: "int", nullable: true),
+                    StationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isAvailable = table.Column<bool>(type: "bit", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -122,24 +123,24 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BusToStationJoinTable",
+                name: "BusStations",
                 columns: table => new
                 {
-                    BusesId = table.Column<int>(type: "int", nullable: false),
-                    StationsId = table.Column<int>(type: "int", nullable: false)
+                    BusId = table.Column<int>(type: "int", nullable: false),
+                    StationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BusToStationJoinTable", x => new { x.BusesId, x.StationsId });
+                    table.PrimaryKey("PK_BusStations", x => new { x.BusId, x.StationId });
                     table.ForeignKey(
-                        name: "FK_BusToStationJoinTable_Buses_BusesId",
-                        column: x => x.BusesId,
+                        name: "FK_BusStations_Buses_BusId",
+                        column: x => x.BusId,
                         principalTable: "Buses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BusToStationJoinTable_Stations_StationsId",
-                        column: x => x.StationsId,
+                        name: "FK_BusStations_Stations_StationId",
+                        column: x => x.StationId,
                         principalTable: "Stations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -265,9 +266,9 @@ namespace backend.Migrations
                 column: "BusTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BusToStationJoinTable_StationsId",
-                table: "BusToStationJoinTable",
-                column: "StationsId");
+                name: "IX_BusStations_StationId",
+                table: "BusStations",
+                column: "StationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Seats_TicketId",
@@ -300,7 +301,7 @@ namespace backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BusToStationJoinTable");
+                name: "BusStations");
 
             migrationBuilder.DropTable(
                 name: "Drivers");

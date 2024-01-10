@@ -7,7 +7,7 @@ namespace backend.IRepository
         Task<IEnumerable<Station>> GetAllStation();
         Task<IEnumerable<Station>> GetStationById(int Id);
         Task<bool> CreateStation(Station Station);
-        Task<bool> PutStation(Station Station);
+        Task<bool> PutStation(int Id, Station Station);
         Task<Station> DeleteStation(int Id);
     }
 }

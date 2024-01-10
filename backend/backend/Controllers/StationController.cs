@@ -73,11 +73,11 @@ namespace backend.Controllers
 
         }
         [HttpPut]
-        public async Task<ActionResult> PutStation(Station Station)
+        public async Task<ActionResult> PutStation(int Id, [FromForm] Station Station)
         {
             try
             {
-                bool list = await repo.PutStation(Station);
+                bool list = await repo.PutStation(Id, Station);
                 if (list == true)
                 {
                     var response = new ResponseData<Station>(StatusCodes.Status200OK, "Update station successfully", Station, null);

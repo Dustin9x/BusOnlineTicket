@@ -6,7 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
 import dayjs from 'dayjs';
-import { deleteStationAction, getStationListAction } from '../../../redux/actions/StationAction';
+import { deleteStationAction, getStationByIdAction, getStationListAction } from '../../../redux/actions/StationAction';
 
 
 export default function StationMng() {
@@ -137,8 +137,8 @@ export default function StationMng() {
       width: '25%',
       render: (text, station) => {
         return <>
-          <Button key={1} href={`/admin/bustypemng/edit/${station.id}`} type="link" icon={<EditOutlined />} onClick={() => {
-            // dispatch(getBusTypeByIdAction(bustype.id))
+          <Button key={1} href={`/admin/stationmng/edit/${station.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getStationByIdAction(station.id))
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
             if (window.confirm('Do you want to delete ' + station.name + '?')) {
@@ -155,6 +155,6 @@ export default function StationMng() {
       <h3 className='text-lg'>Station Management</h3>
       <Button href='/admin/stationmng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Station</Button>
     </div>
-    <Table columns={columns} dataSource={data} rowKey={'maPhim'} />
+    <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>
 }

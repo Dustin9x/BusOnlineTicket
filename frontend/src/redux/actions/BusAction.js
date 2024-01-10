@@ -61,19 +61,23 @@ export const addNewBusAction = (formData) => {
 // }
 
 
-// export const layThongTinCarouselAction = (maBanner) => {
-//     return async (dispatch) => {
-//         try {
-//             const result = await quanLyCarouselService.layThongTinCarousel(maBanner);
-//             dispatch({
-//                 type: SET_THONG_TIN_CAROUSEL,
-//                 carouselEditDetail: result.data.content
-//             })
-//         } catch (error) {
-//             console.log('error', error);
-//         }
-//     }
-// }
+export const deleteBusAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.deleteBus(id);
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>Delete bus type successfully</>
+                ),
+            });
+            dispatch(getBusListAction())
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
 
 
 

@@ -26,6 +26,7 @@ namespace backend.Services
             await db.SaveChangesAsync();
             return true;
         }
+
         public async Task<Trip> DeleteTrip(int Id)
         {
             var ExistingTrip = await db.Trips.SingleOrDefaultAsync(b => b.Id == Id);

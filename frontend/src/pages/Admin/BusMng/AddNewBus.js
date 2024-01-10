@@ -3,23 +3,34 @@ import { Form, Input, Button, notification, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewBusAction, getBusTypeListAction } from '../../../redux/actions/BusAction';
+import { getStationListAction } from '../../../redux/actions/StationAction';
 
 const AddNewBus = () => {
   const dispatch = useDispatch();
   let { arrBusType } = useSelector(state => state.BusReducer);
+  let { arrStation } = useSelector(state => state.StationReducer);
   const { TextArea } = Input;
 
   useEffect(() => {
     dispatch(getBusTypeListAction())
+    dispatch(getStationListAction())
   }, [dispatch]);
 
-  console.log('arrBusType', arrBusType)
+  console.log('arrStation', arrStation)
+
+  const options = [];
+  arrStation.forEach(element => {
+    options.push({
+      label: element.name,
+      value: element.id
+    });
+  });
 
   const formik = useFormik({
     initialValues: {
       busPlate: '',
       busTypeId: '',
-      stations: [],
+      stationId: [],
       note: '',
     },
     onSubmit: (values) => {
@@ -35,7 +46,7 @@ const AddNewBus = () => {
         let formData = new FormData();
         for (let key in values) {
           formData.append(key, values[key]);
-        }
+      }
         console.table('formData', [...formData])
         dispatch(addNewBusAction(formData));
       }
@@ -47,6 +58,9 @@ const AddNewBus = () => {
     formik.setFieldValue('busTypeId', value)
   }
 
+  const handleChangeStation = (value) => {
+    formik.setFieldValue('stationId', value)
+  };
 
   return (
     <Form
@@ -88,6 +102,28 @@ const AddNewBus = () => {
             ]}
           >
             <Select options={arrBusType?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeBusType} />
+          </Form.Item>
+          <Form.Item
+            label="Station"
+            style={{ minWidth: '100%' }}
+            rules={[
+              {
+                required: true,
+                message: 'Station is required!',
+                transform: (value) => value.trim(),
+              },
+            ]}
+          >
+            <Select
+              mode="multiple"
+              allowClear
+              style={{
+                width: '100%',
+              }}
+              placeholder="Please select"
+              onChange={handleChangeStation}
+              options={options}
+            />
           </Form.Item>
           <Form.Item label="Note">
             <TextArea name="note" allowClear rows={4} onChange={formik.handleChange} />

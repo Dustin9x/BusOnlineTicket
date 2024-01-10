@@ -14,14 +14,46 @@ namespace backend.Services
         }
 
 
+        public async Task<IEnumerable<Bus>> GetAllBus()
+        {
+            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Include(t => t.Trips).ToListAsync();
+        }
+
+
+        public async Task<IEnumerable<Bus>> GetBusById(int Id)
+        {
+            return await db.Buses.Include(s => s.Stations).Where(b => b.Id == Id).ToListAsync();
+        }
+
+
         public async Task<bool> CreateBus(Bus Bus)
         {
             db.Buses.Add(Bus);
-            
-            int result = await db.SaveChangesAsync();
-            if (result != 0)
+            await db.SaveChangesAsync();
+
+            List<string> list = Bus.StationId.Split(",").ToList();
+            for (int i = 0; i < list.Count; i++)
             {
+                int id = Int32.Parse(list[i]);
+                BusStation station = new BusStation { BusId = Bus.Id, StationId = id };
+                db.BusStations.Add(station);
+                await db.SaveChangesAsync();
+            }
+            return true;
+        }
+
+
+        public async Task<bool> PutBus(Bus Bus)
+        {
+            var ExistingBus = await db.Buses.FindAsync(Bus.Id);
+            if (ExistingBus != null)
+            {
+                ExistingBus.BusType = Bus.BusType;
+                ExistingBus.BusPlate = Bus.BusPlate;
+                ExistingBus.Note = Bus.Note;
+                await db.SaveChangesAsync();
                 return true;
+
             }
             else
             {
@@ -46,34 +78,6 @@ namespace backend.Services
                 }
             }
             return null;
-        }
-
-        public async Task<IEnumerable<Bus>> GetAllBus()
-        {
-            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Include(t => t.Trips).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Bus>> GetBusById(int Id)
-        {
-            return await db.Buses.Include(s => s.Stations).Where(b => b.Id == Id).ToListAsync();
-        }
-
-        public async Task<bool> PutBus(Bus Bus)
-        {
-            var ExistingBus = await db.Buses.FindAsync(Bus.Id);
-            if (ExistingBus != null)
-            {
-                ExistingBus.BusType = Bus.BusType;
-                ExistingBus.BusPlate = Bus.BusPlate;
-                ExistingBus.Note = Bus.Note;
-                await db.SaveChangesAsync();
-                return true;
-
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

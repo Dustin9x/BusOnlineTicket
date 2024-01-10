@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240110083501_Init")]
+    [Migration("20240110193111_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace backend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("BusToStationJoinTable", b =>
-                {
-                    b.Property<int>("BusesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StationsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BusesId", "StationsId");
-
-                    b.HasIndex("StationsId");
-
-                    b.ToTable("BusToStationJoinTable");
-                });
 
             modelBuilder.Entity("backend.Models.Bus", b =>
                 {
@@ -59,6 +44,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("StationId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("isAvailable")
                         .HasColumnType("bit");
 
@@ -70,6 +58,21 @@ namespace backend.Migrations
                     b.HasIndex("BusTypeId");
 
                     b.ToTable("Buses");
+                });
+
+            modelBuilder.Entity("backend.Models.BusStation", b =>
+                {
+                    b.Property<int>("BusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BusId", "StationId");
+
+                    b.HasIndex("StationId");
+
+                    b.ToTable("BusStations");
                 });
 
             modelBuilder.Entity("backend.Models.BusType", b =>
@@ -367,21 +370,6 @@ namespace backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("BusToStationJoinTable", b =>
-                {
-                    b.HasOne("backend.Models.Bus", null)
-                        .WithMany()
-                        .HasForeignKey("BusesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("backend.Models.Station", null)
-                        .WithMany()
-                        .HasForeignKey("StationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("backend.Models.Bus", b =>
                 {
                     b.HasOne("backend.Models.BusType", "BusType")
@@ -389,6 +377,21 @@ namespace backend.Migrations
                         .HasForeignKey("BusTypeId");
 
                     b.Navigation("BusType");
+                });
+
+            modelBuilder.Entity("backend.Models.BusStation", b =>
+                {
+                    b.HasOne("backend.Models.Bus", null)
+                        .WithMany()
+                        .HasForeignKey("BusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.Station", null)
+                        .WithMany()
+                        .HasForeignKey("StationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("backend.Models.Seat", b =>

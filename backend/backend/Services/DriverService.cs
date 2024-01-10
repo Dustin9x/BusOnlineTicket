@@ -18,6 +18,13 @@ namespace backend.Services
             return await db.Drivers.ToListAsync();
         }
 
+
+        public async Task<IEnumerable<Driver>> GetDriversById(int Id)
+        {
+            return await db.Drivers.Where(Dr => Dr.Id == Id).ToListAsync();
+        }
+
+
         public async Task<bool> CreateDriver(Driver driver)
         {
             db.Drivers.Add(driver);
@@ -33,29 +40,6 @@ namespace backend.Services
             }
         }
 
-        public async Task<Driver> DeleteDriver(int Id)
-        {
-            var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(x => x.Id == Id);
-            if (ExistingDriver != null)
-            {
-                db.Drivers.Remove(ExistingDriver);
-                int result = await db.SaveChangesAsync();
-                if (result == 0)
-                {
-                    return null;
-                }
-                else
-                {
-                    return ExistingDriver;
-                }
-            }
-            return null;
-        }
-
-        public async Task<IEnumerable<Driver>> GetDriversById(int Id)
-        {
-            return await db.Drivers.Where(Dr => Dr.Id == Id).ToListAsync();
-        }
 
         public async Task<bool> PutDriver(Driver driver)
         {
@@ -80,6 +64,27 @@ namespace backend.Services
                 await db.SaveChangesAsync();
                 return true;
             }
+        }
+
+
+
+        public async Task<Driver> DeleteDriver(int Id)
+        {
+            var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(x => x.Id == Id);
+            if (ExistingDriver != null)
+            {
+                db.Drivers.Remove(ExistingDriver);
+                int result = await db.SaveChangesAsync();
+                if (result == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return ExistingDriver;
+                }
+            }
+            return null;
         }
     }
 }

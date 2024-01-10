@@ -7,6 +7,7 @@ export const GET_DRIVER_LIST = 'GET_DRIVER_LIST';
 
 
 export const GET_STATION_LIST = 'GET_STATION_LIST';
+export const GET_STATION_DETAIL = 'GET_STATION_DETAIL';
 
 
 export const SET_DANH_SACH_PHIM = 'SET_DANH_SACH_PHIM';
