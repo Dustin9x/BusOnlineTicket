@@ -6,7 +6,7 @@ import { themPhimUploadHinhAction } from '../../../redux/actions/QuanLyPhimActio
 import dayjs from 'dayjs';
 import { isDate, isError, isNaN } from 'lodash';
 
-const AddNew = () => {
+const AddNewStation = () => {
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState('');
   const dateFormat = 'DD-MM-YYYY';
@@ -132,4 +132,4 @@ const AddNew = () => {
   );
 };
 
-export default AddNew;
+export default AddNewStation;

@@ -51,6 +51,7 @@ import AddNewBus from './pages/Admin/BusMng/AddNewBus';
 import BusTypeMng from './pages/Admin/BusMng/BusTypeMng/BusTypeMng';
 import AddNewBusType from './pages/Admin/BusMng/BusTypeMng/AddNewBusType';
 import EditBusType from './pages/Admin/BusMng/BusTypeMng/EditBusType';
+import AddNewStation from './pages/Admin/StationMng/AddNewStation';
 
 
 export const history = createBrowserHistory();
@@ -102,7 +103,7 @@ function App() {
 
         {/* Station */}
         <AdminTemplate path='/admin/stationmng' exact Component={StationMng} />
-        <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNew} />
+        <AdminTemplate path='/admin/stationmng/addnew' exact Component={AddNewStation} />
         <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
         <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 

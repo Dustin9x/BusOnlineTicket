@@ -5,17 +5,15 @@ import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
-import moment from 'moment';
-import { layDanhSachLichChieuAction } from '../../../redux/actions/QuanLyDatVeAction';
 import dayjs from 'dayjs';
+import { getStationListAction } from '../../../redux/actions/StationAction';
 
 
 export default function StationMng() {
-  let { arrMovieDefault } = useSelector(state => state.MovieReducer);
+  let { arrStation } = useSelector(state => state.StationReducer);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(layDanhSachPhimAction())
-    dispatch(layDanhSachLichChieuAction())
+    dispatch(getStationListAction())
   }, [dispatch])
 
   const [searchText, setSearchText] = useState('');
@@ -33,9 +31,9 @@ export default function StationMng() {
     setSearchedColumn(dataIndex);
   };
 
-  const today = dayjs()
+  console.log('arrStation',arrStation)
 
-  const data = arrMovieDefault.slice().reverse();
+  const data = arrStation;
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -119,11 +117,11 @@ export default function StationMng() {
     },
     {
       title: 'Station Name',
-      dataIndex: 'stationName',
-      key: 'stationName',
+      dataIndex: 'name',
+      key: 'name',
       width: '25%',
-      ...getColumnSearchProps('stationName'),
-      sorter: (a, b) => a.stationName - b.stationName,
+      ...getColumnSearchProps('name'),
+      sorter: (a, b) => a.name - b.name,
       sortDirections: ['descend', 'ascend'],
     },
     {
@@ -157,7 +155,7 @@ export default function StationMng() {
   return <div>
     <div className='d-flex mb-3'>
       <h3 className='text-lg'>Station Management</h3>
-      <Button href='/admin/moviemng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Station</Button>
+      <Button href='/admin/stationmng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Station</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'maPhim'} />
   </div>
