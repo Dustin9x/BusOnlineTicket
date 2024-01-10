@@ -86,7 +86,7 @@ namespace backend.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BusPlate = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BusTypeId = table.Column<int>(type: "int", nullable: false),
+                    BusTypeId = table.Column<int>(type: "int", nullable: true),
                     isAvailable = table.Column<bool>(type: "bit", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -97,8 +97,7 @@ namespace backend.Migrations
                         name: "FK_Buses_BusTypes_BusTypeId",
                         column: x => x.BusTypeId,
                         principalTable: "BusTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

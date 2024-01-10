@@ -67,10 +67,10 @@ namespace backend.Models
                 b.HasKey(b => b.Id);
                 b.HasData(SeedData.BusTypeData.BusTypeSeedData());
             });
-            modelBuilder.Entity<BusType>()
-                .HasMany(e => e.Buses)
-                .WithOne(e => e.BusType)
-                .HasForeignKey(e => e.BusTypeId);
+            //modelBuilder.Entity<BusType>()
+            //   .HasMany(e => e.Buses)
+            //    .WithOne(e => e.BusType)
+            //    .HasForeignKey(e => e.BusTypeId);
             modelBuilder.Entity<Bus>()
                 .HasOne(e => e.BusType)
                 .WithMany(e => e.Buses)

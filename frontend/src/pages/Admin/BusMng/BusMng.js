@@ -17,6 +17,8 @@ export default function BusMng() {
     dispatch(getBusListAction())
   }, [dispatch])
 
+  console.log('arrBus',arrBus)
+
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -124,6 +126,9 @@ export default function BusMng() {
       ...getColumnSearchProps('busType'),
       sorter: (a, b) => a.busType - b.busType,
       sortDirections: ['descend', 'ascend'],
+      render: (text, busType) => {
+        return busType.busType?.name
+      },
     },
     {
       title: 'Station',

@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240110043709_Init")]
+    [Migration("20240110083501_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -53,7 +53,6 @@ namespace backend.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int?>("BusTypeId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
@@ -387,9 +386,7 @@ namespace backend.Migrations
                 {
                     b.HasOne("backend.Models.BusType", "BusType")
                         .WithMany("Buses")
-                        .HasForeignKey("BusTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BusTypeId");
 
                     b.Navigation("BusType");
                 });

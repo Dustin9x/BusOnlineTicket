@@ -18,7 +18,7 @@ const AddNewBus = () => {
   const formik = useFormik({
     initialValues: {
       busPlate: '',
-      BusType: '',
+      busTypeId: '',
       stations: [],
       note: '',
     },
@@ -44,7 +44,7 @@ const AddNewBus = () => {
   })
 
   const handleChangeBusType = (value) => {
-    formik.setFieldValue('BusType', value)
+    formik.setFieldValue('busTypeId', value)
   }
 
 

@@ -13,9 +13,11 @@ namespace backend.Services
             this.db = db;
         }
 
+
         public async Task<bool> CreateBus(Bus Bus)
         {
             db.Buses.Add(Bus);
+            
             int result = await db.SaveChangesAsync();
             if (result != 0)
             {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {}
+    "D:\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {
+    "D:\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "D:\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "projectPath": "D:\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\obj\\",
+        "outputPath": "D:\\Project\\BusOnlineTicket\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
