@@ -19,26 +19,26 @@ const AddNewBus = () => {
     initialValues: {
       busPlate: '',
       BusType: '',
-      // stations: [],
+      stations: [],
       note: '',
     },
     onSubmit: (values) => {
-      // if (values.busPlate == '' || values.busType == '') {
-      //   notification.error({
-      //     closeIcon: false,
-      //     message: 'Error',
-      //     description: (
-      //       <>Please fill in all required fields.</>
-      //     ),
-      //   });
-      // // } else {
+      if (values.busPlate == '' || values.busType == '') {
+        notification.error({
+          closeIcon: false,
+          message: 'Error',
+          description: (
+            <>Please fill in all required fields.</>
+          ),
+        });
+      } else {
         let formData = new FormData();
         for (let key in values) {
           formData.append(key, values[key]);
         }
         console.table('formData', [...formData])
         dispatch(addNewBusAction(formData));
-      // }
+      }
 
     }
   })
