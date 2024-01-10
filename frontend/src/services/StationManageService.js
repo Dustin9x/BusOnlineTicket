@@ -11,8 +11,8 @@ export class StationManageService extends baseService {
     }
 
 
-    addNewBus = (formData) => {
-        return this.post(`/Bus`, formData);
+    addNewStation = (formData) => {
+        return this.post(`/Station`, formData);
     }
 
     layThongTinCarousel = (maBanner) => {
@@ -23,8 +23,8 @@ export class StationManageService extends baseService {
         return this.post(`/api/laydanhsachbanner/${maBanner}/update`, formData);
     }
 
-    xoaCarousel = (maBanner) => {
-        return this.delete(`/api/laydanhsachbanner/${maBanner}/delete`);
+    deleteStation = (stationId) => {
+        return this.delete(`/Station/${stationId}`);
     }
 }
 

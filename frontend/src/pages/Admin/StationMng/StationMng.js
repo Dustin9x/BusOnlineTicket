@@ -6,7 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
 import dayjs from 'dayjs';
-import { getStationListAction } from '../../../redux/actions/StationAction';
+import { deleteStationAction, getStationListAction } from '../../../redux/actions/StationAction';
 
 
 export default function StationMng() {
@@ -133,22 +133,20 @@ export default function StationMng() {
       sortDirections: ['descend', 'ascend']
     },
     {
-      title: 'Note',
-      dataIndex: 'note',
-      key: 'note',
-      width: '30%',
-      ...getColumnSearchProps('note'),
-      sortDirections: ['descend', 'ascend']
-    },
-    {
       title: 'Manage',
       width: '25%',
-      render: (text, movie) => {
-        return <Button key={1} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Bạn có chắc chắn muốn xóa phim ' + movie.tenPhim + '?')) {
-              dispatch(xoaPhimAction(movie.maPhim))
+      render: (text, station) => {
+        return <>
+          <Button key={1} href={`/admin/bustypemng/edit/${station.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            // dispatch(getBusTypeByIdAction(bustype.id))
+          }}></Button>
+          <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+            if (window.confirm('Do you want to delete ' + station.name + '?')) {
+              dispatch(deleteStationAction(station.id))
             }
           }}></Button>
+        </>
+
       }
     },
   ]

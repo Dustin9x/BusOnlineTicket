@@ -80,7 +80,7 @@ namespace backend.Controllers
 
 
 
-        [HttpDelete]
+        [HttpDelete("{Id}")]
         public async Task<ActionResult> DeleteBusType(int Id)
         {
             try

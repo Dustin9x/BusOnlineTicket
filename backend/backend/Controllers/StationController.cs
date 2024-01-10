@@ -54,7 +54,7 @@ namespace backend.Controllers
 
         }
         [HttpPost]
-        public async Task<ActionResult> CreateStation(Station Station)
+        public async Task<ActionResult> CreateStation([FromForm] Station Station)
         {
             try
             {

@@ -76,7 +76,7 @@ const AddNewBusType = () => {
               },
             ]}
           >
-            <Input name="numberOfSeat" onChange={formik.handleChange} />
+            <Input type='number' name="numberOfSeat" onChange={formik.handleChange} />
           </Form.Item>
           <Form.Item label="Action">
             <Button htmlType="submit" >Add Bus Type</Button>

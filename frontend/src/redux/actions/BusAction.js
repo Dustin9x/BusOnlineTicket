@@ -1,5 +1,4 @@
-import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_CAROUSEL } from "../constants";
-import { quanLyCarouselService } from "../../services/QuanLyCarouselService";
+import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST } from "../constants";
 import { history } from "../../App";
 import { busManageService } from "../../services/BusManageService";
 import { notification } from "antd";

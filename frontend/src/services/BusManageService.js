@@ -48,7 +48,7 @@ export class BusManageService extends baseService {
     }
 
     deleteBusType = (busTypeId) => {
-        return this.delete(`/BusType?Id=${busTypeId}`);
+        return this.delete(`/BusType/${busTypeId}`);
     }
 }
 
