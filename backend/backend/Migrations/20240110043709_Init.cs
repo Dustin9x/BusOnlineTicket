@@ -14,22 +14,6 @@ namespace backend.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Buses",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    BusPlate = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BusType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Buses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "BusTypes",
                 columns: table => new
                 {
@@ -96,25 +80,44 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Trips",
+                name: "Buses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TicketPrice = table.Column<int>(type: "int", nullable: false),
-                    BusId = table.Column<int>(type: "int", nullable: false),
-                    FromStationId = table.Column<int>(type: "int", nullable: false),
-                    ToStationId = table.Column<int>(type: "int", nullable: false)
+                    BusPlate = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BusTypeId = table.Column<int>(type: "int", nullable: false),
+                    isAvailable = table.Column<bool>(type: "bit", nullable: false),
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Trips", x => x.Id);
+                    table.PrimaryKey("PK_Buses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Trips_Buses_BusId",
-                        column: x => x.BusId,
-                        principalTable: "Buses",
+                        name: "FK_Buses_BusTypes_BusTypeId",
+                        column: x => x.BusTypeId,
+                        principalTable: "BusTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ticket",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TripId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Ticket_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -144,47 +147,25 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
+                name: "Trips",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TripId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TicketPrice = table.Column<int>(type: "int", nullable: false),
+                    BusId = table.Column<int>(type: "int", nullable: false),
+                    FromStationId = table.Column<int>(type: "int", nullable: false),
+                    ToStationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_Trips", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TripStations",
-                columns: table => new
-                {
-                    TripId = table.Column<int>(type: "int", nullable: false),
-                    StationId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TripStations", x => new { x.StationId, x.TripId });
-                    table.ForeignKey(
-                        name: "FK_TripStations_Stations_StationId",
-                        column: x => x.StationId,
-                        principalTable: "Stations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TripStations_Trips_TripId",
-                        column: x => x.TripId,
-                        principalTable: "Trips",
+                        name: "FK_Trips_Buses_BusId",
+                        column: x => x.BusId,
+                        principalTable: "Buses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -211,6 +192,31 @@ namespace backend.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Seats_Trips_TripId",
+                        column: x => x.TripId,
+                        principalTable: "Trips",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TripStations",
+                columns: table => new
+                {
+                    TripId = table.Column<int>(type: "int", nullable: false),
+                    StationId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TripStations", x => new { x.StationId, x.TripId });
+                    table.ForeignKey(
+                        name: "FK_TripStations_Stations_StationId",
+                        column: x => x.StationId,
+                        principalTable: "Stations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TripStations_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
@@ -255,6 +261,11 @@ namespace backend.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Buses_BusTypeId",
+                table: "Buses",
+                column: "BusTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_BusToStationJoinTable_StationsId",
                 table: "BusToStationJoinTable",
                 column: "StationsId");
@@ -293,9 +304,6 @@ namespace backend.Migrations
                 name: "BusToStationJoinTable");
 
             migrationBuilder.DropTable(
-                name: "BusTypes");
-
-            migrationBuilder.DropTable(
                 name: "Drivers");
 
             migrationBuilder.DropTable(
@@ -318,6 +326,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Buses");
+
+            migrationBuilder.DropTable(
+                name: "BusTypes");
         }
     }
 }

@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240109162941_Init")]
+    [Migration("20240110043709_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -52,9 +52,9 @@ namespace backend.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("BusType")
+                    b.Property<int?>("BusTypeId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Note")
                         .IsRequired()
@@ -67,6 +67,8 @@ namespace backend.Migrations
 
                     b.HasIndex("BusPlate")
                         .IsUnique();
+
+                    b.HasIndex("BusTypeId");
 
                     b.ToTable("Buses");
                 });
@@ -381,6 +383,17 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend.Models.Bus", b =>
+                {
+                    b.HasOne("backend.Models.BusType", "BusType")
+                        .WithMany("Buses")
+                        .HasForeignKey("BusTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BusType");
+                });
+
             modelBuilder.Entity("backend.Models.Seat", b =>
                 {
                     b.HasOne("backend.Models.Ticket", null)
@@ -436,6 +449,11 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Models.Bus", b =>
                 {
                     b.Navigation("Trips");
+                });
+
+            modelBuilder.Entity("backend.Models.BusType", b =>
+                {
+                    b.Navigation("Buses");
                 });
 
             modelBuilder.Entity("backend.Models.Station", b =>

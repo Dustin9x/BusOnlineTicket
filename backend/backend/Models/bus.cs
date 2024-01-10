@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string BusPlate { get; set; }
+        public int? BusTypeId { get; set; }
         public BusType BusType { get; set; }
         public ICollection<Station>? Stations { get; set; }
         public ICollection<Trip>? Trips { get; set; }

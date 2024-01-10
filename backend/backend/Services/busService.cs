@@ -48,7 +48,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Bus>> GetAllBus()
         {
-            return await db.Buses.Include(s => s.Stations).ToListAsync();
+            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Include(t => t.Trips).ToListAsync();
         }
 
         public async Task<IEnumerable<Bus>> GetBusById(int Id)

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Metadata;
 
 namespace backend.Models
 {
@@ -40,8 +42,7 @@ namespace backend.Models
                 b.HasKey(b => b.Id);
                 b.HasIndex(u => u.BusPlate).IsUnique();
             });
-            modelBuilder.Entity<Bus>()
-                .HasOne(e => e.BusType);
+            
             modelBuilder.Entity<Bus>()
                 .HasMany(e => e.Stations)
                 .WithMany(e => e.Buses)
@@ -66,6 +67,14 @@ namespace backend.Models
                 b.HasKey(b => b.Id);
                 b.HasData(SeedData.BusTypeData.BusTypeSeedData());
             });
+            modelBuilder.Entity<BusType>()
+                .HasMany(e => e.Buses)
+                .WithOne(e => e.BusType)
+                .HasForeignKey(e => e.BusTypeId);
+            modelBuilder.Entity<Bus>()
+                .HasOne(e => e.BusType)
+                .WithMany(e => e.Buses)
+                .HasForeignKey(e => e.BusTypeId);
             modelBuilder.Entity<TripStation>(b =>
             {
                 b.HasKey(b => new { b.StationId, b.TripId });

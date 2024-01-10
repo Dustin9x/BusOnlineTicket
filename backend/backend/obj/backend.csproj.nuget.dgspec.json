@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\__Hoc_Lap_Trinh\\FPT\\BusOnlineTicket\\backend\\backend\\backend.csproj": {}
+    "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {}
   },
   "projects": {
-    "D:\\__Hoc_Lap_Trinh\\FPT\\BusOnlineTicket\\backend\\backend\\backend.csproj": {
+    "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\__Hoc_Lap_Trinh\\FPT\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "projectUniqueName": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
         "projectName": "backend",
-        "projectPath": "D:\\__Hoc_Lap_Trinh\\FPT\\BusOnlineTicket\\backend\\backend\\backend.csproj",
-        "packagesPath": "C:\\Users\\vodan\\.nuget\\packages\\",
-        "outputPath": "D:\\__Hoc_Lap_Trinh\\FPT\\BusOnlineTicket\\backend\\backend\\obj\\",
+        "projectPath": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\backend.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\OneDrive\\_Hoc lap trinh\\FPT\\HK3\\Project\\BusOnlineTicket\\backend\\backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vodan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -98,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
