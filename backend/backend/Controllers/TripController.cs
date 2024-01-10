@@ -60,11 +60,49 @@ namespace backend.Controllers
         {
             try
             {
-                var list = await repo.CreateTrip(Trip);
+                bool list = await repo.CreateTrip(Trip);
+                if (list)
+                {
+                    var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Create trip successfully", Trip, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> DeleteTrip(int Id)
+        {
+            try
+            {
+                var list = await repo.DeleteTrip(Id);
                 if (list != null)
                 {
-                    var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Get trip successfully", list, null);
-                    return Ok(list);
+                    var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Delete trip successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpPut]
+        public async Task<ActionResult> PutTrip(Trip Trip)
+        {
+            try
+            {
+                bool list = await repo.PutTrip(Trip);
+                if (list)
+                {
+                    var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Edit trip successfully", Trip, null);
+                    return Ok(response);
                 }
                 return BadRequest();
             }
