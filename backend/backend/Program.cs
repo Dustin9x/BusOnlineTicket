@@ -40,6 +40,7 @@ builder.Services.AddScoped<IStationRepo, StationService>();
 builder.Services.AddScoped<IDriverRepo, DriverService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<IBusTypeRepo, BusTypeService>();
+builder.Services.AddScoped<ISendMail, SendMailService>();
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

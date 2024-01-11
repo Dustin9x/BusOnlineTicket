@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -19,13 +20,15 @@ namespace backend.Controllers
         private readonly IConfiguration config;
         private readonly IUserRepo repo;
         private readonly ISendMail mailRepo;
+        private readonly IWebHostEnvironment env;
 
-        public AuthController(DatabaseContext db, IConfiguration config, IUserRepo repo)
+        public AuthController(DatabaseContext db, IConfiguration config, IUserRepo repo, ISendMail mailRepo, IWebHostEnvironment env)
         {
             this.db = db;
             this.config = config;
             this.repo = repo;
             this.mailRepo = mailRepo;
+            this.env = env;
         }
 
         [HttpPost]
@@ -154,6 +157,78 @@ namespace backend.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+
+
+        [AllowAnonymous]
+        [HttpPut]
+        public async Task<ActionResult> PutUserById([FromForm] User User)
+        {
+            try
+            {
+                var ExistingUser = await db.Users.SingleOrDefaultAsync(U => U.Email == User.Email);
+
+                if (ExistingUser != null)
+                {
+                    if (User.UploadImage.Length > 0)
+                    {
+                        var upload = Path.Combine(env.ContentRootPath, "Images/User");
+                        var filePath = Path.Combine(upload, User.UploadImage.FileName);
+
+                        if (!string.IsNullOrEmpty(ExistingUser.Avatar)) 
+                        { 
+                            if (filePath == ExistingUser.Avatar)
+                            {
+                                //k thay doi avata
+                                User.Avatar = ExistingUser.Avatar;
+                            }
+                            else
+                            {
+                                if (System.IO.File.Exists(ExistingUser.Avatar))
+                                {
+                                    System.IO.File.Delete(ExistingUser.Avatar); // Xóa tệp tin ảnh
+                                }
+
+                                using (var stream = new FileStream(filePath, FileMode.Create))
+                                {
+                                    await User.UploadImage.CopyToAsync(stream);
+                                }
+
+                                // Tạo đường dẫn cho tệp tin ảnh
+                                User.Avatar = filePath;
+                                ExistingUser.Avatar = filePath;
+
+                            }
+                        }
+                        else
+                        {
+                            using (var stream = new FileStream(filePath, FileMode.Create))
+                            {
+                                await User.UploadImage.CopyToAsync(stream);
+                            }
+
+                            // Tạo đường dẫn cho tệp tin ảnh
+                            User.Avatar = filePath;
+                            ExistingUser.Avatar = filePath;
+                        }
+                    }
+
+                  
+                    ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
+
+                    await db.SaveChangesAsync();
+                    var accessToken = GenerateToken(User);
+                    var obj = new { user = User, accessToken = accessToken } as object;
+                    var response = new ResponseData<Object>(StatusCodes.Status200OK, "Edit user successfully", obj, null);
+                    return Ok(response);
+                }
+                return BadRequest(new ResponseData<Object>(StatusCodes.Status200OK, "User not Exist", null, "Email already registerd!"));
+
+            }
+            catch (Exception ex)
+            {
+                return Ok(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
             }
         }
     }
