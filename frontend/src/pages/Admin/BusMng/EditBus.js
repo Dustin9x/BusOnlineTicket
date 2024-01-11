@@ -131,7 +131,7 @@ const EditBus = (props) => {
             <TextArea name="note" allowClear rows={4} onChange={formik.handleChange} value={formik.values.note}/>
           </Form.Item>
           <Form.Item label="Action">
-            <Button htmlType="submit" >Add Bus</Button>
+            <Button htmlType="submit" >Update Bus</Button>
           </Form.Item>
         </div>
       </div>

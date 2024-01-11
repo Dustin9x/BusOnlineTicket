@@ -1,21 +1,23 @@
 import React, { Fragment, useEffect } from 'react'
 import { EditOutlined, DeleteOutlined,AppstoreOutlined } from '@ant-design/icons';
-import { Button, Table } from 'antd';
+import { Button, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { layDanhSachCumRapAction, layDanhSachTinhThanhAction, xoaRapChieuAction } from '../../../redux/actions/QuanLyRapAction';
+import { getTripListAction } from '../../../redux/actions/TripAction';
 
 
 export default function TripMng() {
-  let { cumRap } = useSelector(state => state.RapReducer);
-  let { tinhThanh } = useSelector(state => state.RapReducer);
   const dispatch = useDispatch();
+  let { arrTrip } = useSelector(state => state.TripReducer);
   useEffect(() => {
-    dispatch(layDanhSachCumRapAction())
-    dispatch(layDanhSachTinhThanhAction())
+    dispatch(getTripListAction())
   }, [])
 
-  const data = cumRap;
+  console.log('arrTrip',arrTrip)
+
+  const data = arrTrip;
+
   const columns = [
     {
       title: 'Trip Code',
@@ -35,41 +37,21 @@ export default function TripMng() {
       title: 'To Station',
       dataIndex: 'toStation',
       key: 'ttoStation',
-      render: (text, movie) => {
-        return tinhThanh.filter(item => item.maTinh === movie.maTinh_id).map((item, index) => {
-          return <div>{item.tenTinh}</div>
-        })
-      },
     },
     {
       title: 'Start Time',
       dataIndex: 'toStation',
       key: 'ttoStation',
-      render: (text, movie) => {
-        return tinhThanh.filter(item => item.maTinh === movie.maTinh_id).map((item, index) => {
-          return <div>{item.tenTinh}</div>
-        })
-      },
     },
     {
       title: 'Finish Time',
-      dataIndex: 'toStation',
-      key: 'ttoStation',
-      render: (text, movie) => {
-        return tinhThanh.filter(item => item.maTinh === movie.maTinh_id).map((item, index) => {
-          return <div>{item.tenTinh}</div>
-        })
-      },
+      dataIndex: 'finishTime',
+      key: 'finishTime',
     },
     {
       title: 'Ticket Price',
       dataIndex: 'ticketPrice',
       key: 'ticketPrice',
-      render: (text, movie) => {
-        return tinhThanh.filter(item => item.ticketPrice === movie.ticketPrice).map((item, index) => {
-          return <div>{item.tenTinh}</div>
-        })
-      },
     },
     {
       title: 'Assigned Driver',
@@ -107,6 +89,6 @@ export default function TripMng() {
       <h3 className='text-lg'>Trip Management</h3>
       <Button href='/admin/tripmng/addtrip' type="primary" className='ml-3 small bg-primary'>+ Add New Trip</Button>
     </div>
-    <Table columns={columns} dataSource={data} rowKey={'maPhim'} />
+    <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>
 }

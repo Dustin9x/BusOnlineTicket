@@ -5,7 +5,6 @@ import moment from 'moment/moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { capNhatBinhLuanPhimAction, layChiTietBinhLuanPhimAction, layDanhSachBinhLuanPhimAction, layThongTinPhimAction, themBinhLuanPhimAction, xoaBinhLuanPhimAction } from '../../redux/actions/QuanLyPhimAction';
 import { layLichChieuTheoPhimAction } from '../../redux/actions/QuanLyDatVeAction';
 import dayjs from 'dayjs'
 import _ from 'lodash';
@@ -25,9 +24,9 @@ export default function Detail(props) {
     const dispatch = useDispatch();
     let { id } = props.match.params;
     useEffect(() => {
-        dispatch(layThongTinPhimAction(id))
+        // dispatch(layThongTinPhimAction(id))
         dispatch(layLichChieuTheoPhimAction(id))
-        dispatch(layDanhSachBinhLuanPhimAction(id))
+        // dispatch(layDanhSachBinhLuanPhimAction(id))
     }, [])
 
     //Loc lich chieu theo rap
@@ -80,10 +79,10 @@ export default function Detail(props) {
             }
             console.table('formData123', [...formData])
             if (!detailBinhLuanPhim.maComment) {
-                dispatch(themBinhLuanPhimAction(id, formData))
+                // dispatch(themBinhLuanPhimAction(id, formData))
             } else {
-                dispatch(capNhatBinhLuanPhimAction(detailBinhLuanPhim.maComment, formData))
-                dispatch(layDanhSachBinhLuanPhimAction(id))
+                // dispatch(capNhatBinhLuanPhimAction(detailBinhLuanPhim.maComment, formData))
+                // dispatch(layDanhSachBinhLuanPhimAction(id))
                 dispatch({
                     type: GET_BINH_LUAN_DETAIL_PHIM,
                     detailBinhLuanPhim: {}
@@ -98,12 +97,12 @@ export default function Detail(props) {
             const content = (
                 <div className='d-flex flex-col'>
                     <Button className='btn' type='link' onClick={() => {
-                        dispatch(layChiTietBinhLuanPhimAction(item.maComment))
+                        // dispatch(layChiTietBinhLuanPhimAction(item.maComment))
                     }}>Sửa</Button>
                     <Button className='btn' danger type='link' onClick={() => {
                         if (window.confirm('Bạn có chắc chắn muốn xóa bình luận này?')) {
-                            dispatch(xoaBinhLuanPhimAction(item.maComment))
-                            dispatch(layDanhSachBinhLuanPhimAction(id))
+                            // dispatch(xoaBinhLuanPhimAction(item.maComment))
+                            // dispatch(layDanhSachBinhLuanPhimAction(id))
                         }
                     }}>Xóa</Button>
                 </div>

@@ -4,8 +4,6 @@ import { Button, Input, Space, Table, Tooltip } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
-import dayjs from 'dayjs';
 import { deleteStationAction, getStationByIdAction, getStationListAction } from '../../../redux/actions/StationAction';
 
 

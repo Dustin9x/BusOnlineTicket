@@ -25,9 +25,9 @@ namespace backend.Controllers
                 if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<Trip>>(StatusCodes.Status200OK, "Get list of trip successfully", list, null);
-                    return Ok(list);
+                    return Ok(response);
                 }
-                return BadRequest();
+                return BadRequest(list);
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateTrip(Trip Trip)
+        public async Task<ActionResult> CreateTrip([FromForm] Trip Trip)
         {
             try
             {

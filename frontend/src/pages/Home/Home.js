@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { layDanhSachPhimAction } from "../../redux/actions/QuanLyPhimAction";
 import { Button, Card, Tabs } from "antd";
 import dayjs from "dayjs";
 import { KetQuaDatVe } from "./../Checkout/Checkout";
@@ -16,7 +15,7 @@ export default function Home(props) {
   const btnRef = useRef();
 
   useEffect(() => {
-    dispatch(layDanhSachPhimAction());
+    // dispatch(layDanhSachPhimAction());
   }, []);
 
   useEffect(() => {

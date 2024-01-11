@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, DatePicker, InputNumber, Switch, Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { capNhatPhimUploadAction, layThongTinPhimAction } from '../../../redux/actions/QuanLyPhimAction';
-import dayjs from 'dayjs';
 import { getStationByIdAction, updateStationByIdAction } from '../../../redux/actions/StationAction';
 
 const EditStation = (props) => {
