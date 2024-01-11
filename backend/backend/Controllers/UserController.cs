@@ -1,32 +1,31 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static System.Net.Mime.MediaTypeNames;
-using System;
 
 namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DriverController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IDriverRepo repo;
+        private readonly IUserRepo repo;
 
-        public DriverController(IDriverRepo repo)
+        public UserController(IUserRepo repo)
         {
             this.repo = repo;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllDriver()
+        public async Task<ActionResult> GetAllUser()
         {
             try
             {
-                var list = await repo.GetAllDriver();
+                var list = await repo.GetAllUser();
                 if (list != null)
                 {
-                    var response = new ResponseData<IEnumerable<Driver>>(StatusCodes.Status200OK, "Get list of bus successfully", list, null);
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get list of User successfully", list, null);
                     return Ok(response);
                 }
                 return BadRequest();
@@ -40,16 +39,14 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateDriver([FromForm]  Driver driver)
+        public async Task<ActionResult> CreateUser([FromForm] User User)
         {
             try
             {
-               
-
-                bool list = await repo.CreateDriver(driver);
+                bool list = await repo.CreateUser(User);
                 if (list == true)
                 {
-                    var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Create new Driver Successfully", driver, null);
+                    var response = new ResponseData<User>(StatusCodes.Status200OK, "Create new User Successfully", User, null);
                     return Ok(response);
                 }
                 return BadRequest();
@@ -62,16 +59,22 @@ namespace backend.Controllers
 
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteDriver(int Id)
+        public async Task<ActionResult> DeleteUser(int Id)
         {
             try
             {
-                var list = await repo.DeleteDriver(Id);
+                var list = await repo.DeleteUser(Id);
 
                 if (list != null)
                 {
-                    
-                    var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Delete Driver Successfully", list, null);
+                    if (!string.IsNullOrEmpty(list.Avatar))
+                    {
+                        if (System.IO.File.Exists(list.Avatar))
+                        {
+                            System.IO.File.Delete(list.Avatar); // Xóa tệp tin ảnh
+                        }
+                    }
+                    var response = new ResponseData<User>(StatusCodes.Status200OK, "Delete User Successfully", list, null);
                     return Ok(response);
                 }
                 else { return BadRequest(); }
@@ -84,16 +87,14 @@ namespace backend.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult> PutDriver([FromForm] Driver driver)
+        public async Task<ActionResult> PutDriver([FromForm] User User)
         {
             try
             {
-              
-
-                bool list = await repo.PutDriver(driver);
+                bool list = await repo.PutUser(User);
                 if (list == true)
                 {
-                    var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Update Driver Successfully ", driver, null);
+                    var response = new ResponseData<User>(StatusCodes.Status200OK, "Update User Successfully ", User, null);
                     return Ok(response);
                 }
                 else

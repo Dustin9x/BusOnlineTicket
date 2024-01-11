@@ -174,7 +174,7 @@ namespace backend.Controllers
                     if (User.UploadImage.Length > 0)
                     {
                         var upload = Path.Combine(env.ContentRootPath, "Images/User");
-                        var filePath = Path.Combine(upload, User.UploadImage.FileName);
+                        var filePath = Path.Combine(upload, Path.GetRandomFileName() + User.UploadImage.FileName);
 
                         if (!string.IsNullOrEmpty(ExistingUser.Avatar)) 
                         { 
