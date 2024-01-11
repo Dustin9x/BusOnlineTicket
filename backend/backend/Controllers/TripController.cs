@@ -112,5 +112,19 @@ namespace backend.Controllers
             }
 
         }
+
+        [HttpGet("Options")]
+        public IActionResult OptionsAsDesired(string? sortByPrice, string? sortByTime, int page = 1)
+        {
+            try
+            {
+                var result = repo.OptionsAsDesired(sortByPrice, sortByTime, page);
+                return Ok(result);
+            }
+            catch
+            {
+                return BadRequest("We canot Find Trip");
+            }
+        }
     }
 }

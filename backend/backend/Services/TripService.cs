@@ -14,6 +14,8 @@ namespace backend.Services
             this.db = db;
         }
 
+        public static int PAGE_SIZE { get; set; } = 5;
+
         public async Task<bool> CreateTrip(Trip Trip)
         {
             await db.Trips.AddAsync(Trip);
@@ -135,6 +137,57 @@ namespace backend.Services
                 }
             }
             return false;
+        }
+
+
+        public List<Trip> OptionsAsDesired(string? sortByPrice, string? sortByTime, int page = 1)
+        {
+            var allTrips = db.Trips.AsQueryable();
+            if (!string.IsNullOrEmpty(sortByPrice))
+            {
+                switch (sortByPrice)
+                {
+                    case "pirceIncrease":
+                        allTrips = allTrips.OrderBy(trip => trip.TicketPrice);
+                        break;
+                    case "priceDecrease":
+                        allTrips = allTrips.OrderByDescending(trip => trip.TicketPrice);
+                        break;
+
+                }
+            }
+
+            if (!string.IsNullOrEmpty(sortByTime))
+            {
+                switch (sortByTime)
+                {
+                    case "timeIncrease":
+                        allTrips = allTrips.OrderBy(trip => trip.StartTime);
+                        break;
+                    case "timeDecrease":
+                        allTrips = allTrips.OrderByDescending(trip => trip.StartTime);
+                        break;
+
+                }
+            }
+
+
+            allTrips = allTrips.Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
+            var result = allTrips.Select(trip => new Trip
+            {
+                Id = trip.Id,
+                StartTime = trip.StartTime,
+                FinishTime = trip.FinishTime,
+                TicketPrice = trip.TicketPrice,
+                BusId = trip.BusId,
+                FromStationId = trip.FromStationId,
+                ToStationId = trip.ToStationId,
+                Seats = trip.Seats,
+                TripStations = trip.TripStations,
+                Bus = trip.Bus,
+            });
+
+            return result.ToList();
         }
     }
 }
