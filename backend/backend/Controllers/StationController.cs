@@ -27,7 +27,7 @@ namespace backend.Controllers
                     var response = new ResponseData<IEnumerable<Station>>(StatusCodes.Status200OK, "Get list of station successfully", list, null);
                     return Ok(response);
                 }
-                return BadRequest();
+                return BadRequest(list);
             }
             catch (Exception ex)
             {

@@ -24,7 +24,7 @@ namespace backend.Controllers
             try
             {
                 var list = await repo.GetAllBus();
-                if (list.Count() > 0)
+                if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<Bus>>(StatusCodes.Status200OK, "Get list of bus successfully", list, null);
                     return Ok(response);

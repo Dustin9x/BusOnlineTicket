@@ -86,7 +86,7 @@ export default function TripMng() {
       sortDirections: ['descend', 'ascend']
     },
     {
-      title: 'Quản Lý',
+      title: 'Action',
       render: (text, movie) => {
         return <Fragment>
           <Button><AppstoreOutlined />Seat Map</Button>
@@ -105,8 +105,8 @@ export default function TripMng() {
   return <div>
     <div className='d-flex mb-3'>
       <h3 className='text-lg'>Trip Management</h3>
-      <Button href='/admin/theatremng/addtheatrechild' type="primary" className='ml-3 small bg-primary'>+ Add New Trip</Button>
+      <Button href='/admin/tripmng/addtrip' type="primary" className='ml-3 small bg-primary'>+ Add New Trip</Button>
     </div>
-    <Table columns={columns} dataSource={data} rowKey={'maPhim'} />;
+    <Table columns={columns} dataSource={data} rowKey={'maPhim'} />
   </div>
 }

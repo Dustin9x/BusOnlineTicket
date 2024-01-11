@@ -8,7 +8,6 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
-import { dayThongTinNguoiDungAction } from "../redux/actions/UserAction";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {

@@ -10,6 +10,6 @@
         public ICollection<Station>? Stations { get; set; }
         public ICollection<Trip>? Trips { get; set; }
         public bool isAvailable { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
     }
 }

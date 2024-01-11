@@ -18,7 +18,6 @@ import Register from './pages/Register/Register';
 import UserTemplate from './templates/UserTemplate';
 import Loading from './components/Loading/Loading';
 import { AdminTemplate } from './templates/AdminTemplate';
-import AddNew from './pages/Admin/BusMng/AddNewBus';
 import Edit from './pages/Admin/BusMng/Edit';
 import ShowTime from './pages/Admin/BusMng/ShowTime';
 import UserMng from './pages/Admin/UserMng/AdminUserMng';
@@ -27,7 +26,7 @@ import AddUser from './pages/Admin/UserMng/AddUser';
 import Profile from './pages/Profile/Profile';
 import {ProfileTemplate} from './templates/ProfileTemplate';
 import OrderHistory from './pages/Admin/UserMng/OrderHistory';
-import EditTheatreChild from './pages/Admin/TheatreChildMng/EditTheatreChild';
+import EditTheatreChild from './pages/Admin/TripMng/EditTheatreChild';
 import Search from './pages/Search/Search';
 import FeedbackMng from './pages/Admin/FeedbackMng/FeedbackMng';
 import EditFeedback from './pages/Admin/FeedbackMng/EditFeedback';
@@ -44,15 +43,14 @@ import ForgetPassword from './pages/Login/ForgetPassword';
 import BusMng from './pages/Admin/BusMng/BusMng';
 import StationMng from './pages/Admin/StationMng/StationMng';
 import DriverMng from './pages/Admin/UserMng/DriverMng';
-import AddTheatreChild from './pages/Admin/TheatreChildMng/AddTheatreChild';
-import TripMng from './pages/Admin/TheatreChildMng/TripMng';
-import { Alert, Space } from 'antd';
+import TripMng from './pages/Admin/TripMng/TripMng';
 import AddNewBus from './pages/Admin/BusMng/AddNewBus';
 import BusTypeMng from './pages/Admin/BusMng/BusTypeMng/BusTypeMng';
 import AddNewBusType from './pages/Admin/BusMng/BusTypeMng/AddNewBusType';
 import EditBusType from './pages/Admin/BusMng/BusTypeMng/EditBusType';
 import AddNewStation from './pages/Admin/StationMng/AddNewStation';
 import EditStation from './pages/Admin/StationMng/EditStation';
+import AddNewTrip from './pages/Admin/TripMng/AddNewTrip';
 
 
 export const history = createBrowserHistory();
@@ -110,7 +108,7 @@ function App() {
 
         {/* Trip */}
         <AdminTemplate path='/admin/tripmng' exact Component={TripMng} />
-        <AdminTemplate path='/admin/theatremng/addtheatrechild' exact Component={AddTheatreChild} />
+        <AdminTemplate path='/admin/tripmng/addtrip' exact Component={AddNewTrip} />
         <AdminTemplate path='/admin/theatremng/edit/:id' exact Component={EditTheatreChild} />
 
         {/* Doanh Thu */}
