@@ -43,14 +43,29 @@ namespace backend.Services
         }
 
 
-        public async Task<bool> PutBus(Bus Bus)
+        public async Task<bool> PutBus(int Id, Bus Bus)
         {
-            var ExistingBus = await db.Buses.FindAsync(Bus.Id);
+            var ExistingBus = await db.Buses.FindAsync(Id);
             if (ExistingBus != null)
             {
                 ExistingBus.BusType = Bus.BusType;
                 ExistingBus.BusPlate = Bus.BusPlate;
                 ExistingBus.Note = Bus.Note;
+                var station = await db.BusStations.Where(x => x.BusId == Id).ToListAsync();
+                foreach (var item in station)
+                {
+                    db.BusStations.Remove(item);
+                    await db.SaveChangesAsync();
+                }
+                var BusId = Id;
+                List<string> list = Bus.StationId.Split(",").ToList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int id = Int32.Parse(list[i]);
+                    BusStation newStation = new BusStation { BusId = BusId, StationId = id };
+                    db.BusStations.Add(newStation);
+                    await db.SaveChangesAsync();
+                }
                 await db.SaveChangesAsync();
                 return true;
 

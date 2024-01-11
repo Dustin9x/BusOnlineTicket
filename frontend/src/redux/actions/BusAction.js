@@ -1,4 +1,4 @@
-import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST } from "../constants";
+import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST } from "../constants";
 import { history } from "../../App";
 import { busManageService } from "../../services/BusManageService";
 import { notification } from "antd";
@@ -11,6 +11,20 @@ export const getBusListAction = () => {
             dispatch({
                 type: GET_BUS_LIST,
                 arrBus: result.data.data
+            })
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+export const getBusByIdAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.getBusById(id);
+            dispatch({
+                type: GET_BUS_DETAIL,
+                busDetail: result.data.data[0],
             })
         } catch (error) {
             console.log('error', error);
@@ -36,29 +50,23 @@ export const addNewBusAction = (formData) => {
     }
 }
 
-// export const themCarouselAction = (formData) => {
-//     return async (dispatch) => {
-//         try {
-//             const result = await quanLyCarouselService.themCarousel(formData)
-//             alert('Thêm carousel thành công');
-//             history.push('/admin/carouselmng');
-//         } catch (error) {
-//             console.log('error', error);
-//         }
-//     }
-// }
-
-// export const capNhatCarouselAction = (maBanner,formData) => {
-//     return async (dispatch) => {
-//         try {
-//             const result = await quanLyCarouselService.capNhatCarousel(maBanner,formData)
-//             alert('Cập nhật carousel thành công');
-//             history.push('/admin/carouselmng');
-//         } catch (error) {
-//             console.log('error', error);
-//         }
-//     }
-// }
+export const updateBusByIdAction = (id,formData) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.updateBus(id,formData);
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>Update bus successfully</>
+                ),
+            });
+            history.push('/admin/busmng');
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
 
 
 export const deleteBusAction = (id) => {

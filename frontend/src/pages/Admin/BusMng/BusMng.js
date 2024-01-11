@@ -4,10 +4,7 @@ import { Button, Input, Space, Table, Tag, Tooltip } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimAction';
-import moment from 'moment';
-import dayjs from 'dayjs';
-import { deleteBusAction, getBusListAction } from '../../../redux/actions/BusAction';
+import { deleteBusAction, getBusByIdAction, getBusListAction } from '../../../redux/actions/BusAction';
 
 
 export default function BusMng() {
@@ -17,7 +14,6 @@ export default function BusMng() {
     dispatch(getBusListAction())
   }, [dispatch])
 
-  console.log('arrBus',arrBus)
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -34,7 +30,6 @@ export default function BusMng() {
     setSearchedColumn(dataIndex);
   };
 
-  const today = dayjs()
 
   const data = arrBus;
 
@@ -155,18 +150,24 @@ export default function BusMng() {
       title: 'Manage',
       width: '25%',
       render: (text, bus) => {
-        return <Button key={1} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Do you want to delete bus ' + bus.busPlate + '?')) {
-              dispatch(deleteBusAction(bus.id))
-            }
-          }}></Button>
+        return <>
+        <Button key={1} href={`/admin/busmng/edit/${bus.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+          dispatch(getBusByIdAction(bus.id))
+          localStorage.setItem('busStaionDefault', JSON.stringify(bus.stationId))
+        }}></Button>
+        <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+          if (window.confirm('Do you want to delete bus ' + bus.busPlate + '?')) {
+            dispatch(deleteBusAction(bus.id))
+          }
+        }}></Button>
+      </>
       }
     },
   ]
   return <div>
     <div className='d-flex mb-3'>
       <h3 className='text-lg'>Bus Management</h3>
-      <Button href='/admin/moviemng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Bus</Button>
+      <Button href='/admin/busmng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Bus</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>

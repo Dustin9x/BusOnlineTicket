@@ -15,12 +15,12 @@ export class BusManageService extends baseService {
         return this.post(`/Bus`, formData);
     }
 
-    layThongTinCarousel = (maBanner) => {
-        return this.get(`/api/laydanhsachbanner/${maBanner}`);
+    getBusById = (id) => {
+        return this.get(`/Bus/${id}`);
     }
 
-    capNhatCarousel = (maBanner,formData) => {
-        return this.post(`/api/laydanhsachbanner/${maBanner}/update`, formData);
+    updateBus = (id,formData) => {
+        return this.put(`/Bus?Id=${id}`, formData);
     }
 
     deleteBus = (busId) => {

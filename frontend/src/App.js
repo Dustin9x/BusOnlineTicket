@@ -18,7 +18,7 @@ import Register from './pages/Register/Register';
 import UserTemplate from './templates/UserTemplate';
 import Loading from './components/Loading/Loading';
 import { AdminTemplate } from './templates/AdminTemplate';
-import Edit from './pages/Admin/BusMng/Edit';
+import Edit from './pages/Admin/BusMng/EditBus';
 import ShowTime from './pages/Admin/BusMng/ShowTime';
 import UserMng from './pages/Admin/UserMng/AdminUserMng';
 import UserEdit from './pages/Admin/UserMng/UserEdit';
@@ -91,8 +91,8 @@ function App() {
 
         {/* Bus */}
         <AdminTemplate path='/admin/busmng' exact Component={BusMng} />
-        <AdminTemplate path='/admin/moviemng/addnew' exact Component={AddNewBus} />
-        <AdminTemplate path='/admin/moviemng/edit/:id' exact Component={Edit} />
+        <AdminTemplate path='/admin/busmng/addnew' exact Component={AddNewBus} />
+        <AdminTemplate path='/admin/busmng/edit/:id' exact Component={Edit} />
         <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 
         {/* Bus Type */}

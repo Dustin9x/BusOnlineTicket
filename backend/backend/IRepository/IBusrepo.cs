@@ -7,7 +7,7 @@ namespace backend.IRepository
         Task<IEnumerable<Bus>> GetAllBus();
         Task<IEnumerable<Bus>> GetBusById(int Id);
         Task<bool> CreateBus(Bus Bus);
-        Task<bool> PutBus(Bus Bus);
+        Task<bool> PutBus(int Id, Bus Bus);
         Task<Bus> DeleteBus(int Id);
     }
 }

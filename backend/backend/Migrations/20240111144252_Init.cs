@@ -89,7 +89,7 @@ namespace backend.Migrations
                     BusTypeId = table.Column<int>(type: "int", nullable: true),
                     StationId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     isAvailable = table.Column<bool>(type: "bit", nullable: false),
-                    Note = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Note = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

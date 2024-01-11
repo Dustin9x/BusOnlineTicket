@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240110193111_Init")]
+    [Migration("20240111144252_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -41,7 +41,6 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StationId")

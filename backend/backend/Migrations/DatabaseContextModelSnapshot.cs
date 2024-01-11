@@ -38,7 +38,6 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StationId")
