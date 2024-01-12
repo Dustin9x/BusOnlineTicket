@@ -15,7 +15,6 @@ namespace backend.Models
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<BusType> BusTypes { get; set; }
-        public DbSet<TripStation> TripStations { get; set; }
 
         public DbSet<BusStation> BusStations { get; set; }
 
@@ -71,12 +70,6 @@ namespace backend.Models
                 .HasOne(e => e.BusType)
                 .WithMany(e => e.Buses)
                 .HasForeignKey(e => e.BusTypeId);
-            modelBuilder.Entity<TripStation>(b =>
-            {
-                b.HasKey(b => new { b.StationId, b.TripId });
-                b.HasOne(b => b.Station).WithMany(b => b.TripStations).HasForeignKey(b => b.StationId);
-                b.HasOne(b => b.Trip).WithMany(b => b.TripStations).HasForeignKey(b => b.TripId);
-            });
             modelBuilder.Entity<BusStation>(b =>
             {
                 b.HasKey(b => new { b.BusId, b.StationId });

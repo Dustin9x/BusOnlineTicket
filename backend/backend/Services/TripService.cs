@@ -8,30 +8,66 @@ namespace backend.Services
     public class TripService : ITripRepo
     {
         private readonly DatabaseContext db;
+        private readonly IWebHostEnvironment env;
 
         public TripService(DatabaseContext db)
         {
             this.db = db;
+            this.env = env;
         }
 
         public static int PAGE_SIZE { get; set; } = 5;
 
+        public async Task<IEnumerable<Trip>> GetAllTrip()
+        {
+            return await db.Trips.Include(b => b.Bus).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Trip>> GetTripById(int Id)
+        {
+            return await db.Trips.Include(b => b.Bus).Include(s => s.FromStation).Include(s => s.ToStation).Where(b => b.Id == Id).ToListAsync();
+        }
+
         public async Task<bool> CreateTrip(Trip Trip)
         {
-            await db.Trips.AddAsync(Trip);
-            await db.SaveChangesAsync();
+            try
+            {
+                Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
+                Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
+                Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
 
-            TripStation FromTripStation = new TripStation { Name = "From", StationId = Trip.FromStationId, TripId = Trip.Id };
-            await db.TripStations.AddAsync(FromTripStation);
-            TripStation ToTripStation = new TripStation { Name = "To", StationId = Trip.ToStationId, TripId = Trip.Id };
-            await db.TripStations.AddAsync(ToTripStation);
-            await db.SaveChangesAsync();
-            return true;
+                Trip.Bus = bus;
+                Trip.FromStation = fromStation;
+                Trip.ToStation = toStation;
+
+                if (Trip.UploadImage.Length > 0)
+                {
+                    var upload = Path.Combine(env.ContentRootPath, "Images/Trip");
+                    var filePath = Path.Combine(upload, Path.GetRandomFileName() + Trip.UploadImage.FileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await Trip.UploadImage.CopyToAsync(stream);
+                    }
+
+                    Trip.Image = filePath;
+                }
+
+                await db.Trips.AddAsync(Trip);
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
         }
 
         public async Task<Trip> DeleteTrip(int Id)
         {
-            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(b => b.Id == Id);
+            /*var ExistingTrip = await db.Trips.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingTrip != null)
             {
                 var ExistingTripStation = await db.TripStations.Where(b => b.TripId == ExistingTrip.Id).ToListAsync();
@@ -52,54 +88,13 @@ namespace backend.Services
                     return null;
                 }
                 return null;
-            }
+            }*/
             return null;
         }
-        public async Task<IEnumerable<Trip>> GetAllTrip()
-        {
-            return await db.Trips.Include(b => b.TripStations).ThenInclude(b => b.Station)
-                   .Select(b => new Trip
-                   {
-                       Id = b.Id,
-                       TicketPrice = b.TicketPrice,
-                       TripStations = b.TripStations.Select(ts => new TripStation
-                       {
-                           Name = ts.Name,
-                           Station = new Station
-                           {
-                               Id = ts.Station.Id,
-                               Name = ts.Station.Name,
-                               Address = ts.Station.Address
-                           }
-                       }).ToList()
-                   })
-                                 .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Trip>> GetTripById(int Id)
-        {
-            return await db.Trips.Include(b => b.TripStations).ThenInclude(b => b.Station)
-                                   .Select(b => new Trip
-                                   {
-                                       Id = b.Id,
-                                       TicketPrice = b.TicketPrice,
-                                       TripStations = b.TripStations.Select(ts => new TripStation
-                                       {
-                                           Name = ts.Name,
-                                           Station = new Station
-                                           {
-                                               Id = ts.Station.Id,
-                                               Name = ts.Station.Name,
-                                               Address = ts.Station.Address
-                                           }
-                                       }).ToList()
-                                   })
-                                   .Where(b => b.Id == Id)
-                                 .ToListAsync();
-        }
+        
         public async Task<bool> PutTrip(Trip Trip)
         {
-            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);
+            /*var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);
             if (ExistingTrip != null)
             {
                 var ExistingTripStation = await db.TripStations.Where(b => b.TripId == ExistingTrip.Id).ToListAsync();
@@ -135,7 +130,7 @@ namespace backend.Services
                     }
 
                 }
-            }
+            }*/
             return false;
         }
 
@@ -183,7 +178,6 @@ namespace backend.Services
                 FromStationId = trip.FromStationId,
                 ToStationId = trip.ToStationId,
                 Seats = trip.Seats,
-                TripStations = trip.TripStations,
                 Bus = trip.Bus,
             });
 

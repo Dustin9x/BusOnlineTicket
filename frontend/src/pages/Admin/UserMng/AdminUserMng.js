@@ -190,6 +190,6 @@ export default function AdminUserMng() {
       <Button href='/admin/users/adduser' type="primary" className='ml-3 small bg-primary'>+ Thêm Người Dùng</Button>
     </div>
 
-    <Table columns={columns} dataSource={data} rowKey={'id'} />;
+    <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>
 }

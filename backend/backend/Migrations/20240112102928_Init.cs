@@ -156,8 +156,9 @@ namespace backend.Migrations
                     FinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TicketPrice = table.Column<int>(type: "int", nullable: false),
                     BusId = table.Column<int>(type: "int", nullable: false),
-                    FromStationId = table.Column<int>(type: "int", nullable: false),
-                    ToStationId = table.Column<int>(type: "int", nullable: false)
+                    FromStationId = table.Column<int>(type: "int", nullable: true),
+                    ToStationId = table.Column<int>(type: "int", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -168,6 +169,16 @@ namespace backend.Migrations
                         principalTable: "Buses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trips_Stations_FromStationId",
+                        column: x => x.FromStationId,
+                        principalTable: "Stations",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Trips_Stations_ToStationId",
+                        column: x => x.ToStationId,
+                        principalTable: "Stations",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -192,31 +203,6 @@ namespace backend.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Seats_Trips_TripId",
-                        column: x => x.TripId,
-                        principalTable: "Trips",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TripStations",
-                columns: table => new
-                {
-                    TripId = table.Column<int>(type: "int", nullable: false),
-                    StationId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TripStations", x => new { x.StationId, x.TripId });
-                    table.ForeignKey(
-                        name: "FK_TripStations_Stations_StationId",
-                        column: x => x.StationId,
-                        principalTable: "Stations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TripStations_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
@@ -292,9 +278,14 @@ namespace backend.Migrations
                 column: "BusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TripStations_TripId",
-                table: "TripStations",
-                column: "TripId");
+                name: "IX_Trips_FromStationId",
+                table: "Trips",
+                column: "FromStationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_ToStationId",
+                table: "Trips",
+                column: "ToStationId");
         }
 
         /// <inheritdoc />
@@ -310,13 +301,7 @@ namespace backend.Migrations
                 name: "Seats");
 
             migrationBuilder.DropTable(
-                name: "TripStations");
-
-            migrationBuilder.DropTable(
                 name: "Ticket");
-
-            migrationBuilder.DropTable(
-                name: "Stations");
 
             migrationBuilder.DropTable(
                 name: "Trips");
@@ -326,6 +311,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Buses");
+
+            migrationBuilder.DropTable(
+                name: "Stations");
 
             migrationBuilder.DropTable(
                 name: "BusTypes");

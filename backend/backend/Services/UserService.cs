@@ -36,9 +36,6 @@ namespace backend.Services
                     User.Avatar = filePath;
                 }
 
-
-
-
                 db.Users.Add(User);
                 int result = await db.SaveChangesAsync();
                 if(result > 0)

@@ -21,27 +21,38 @@ export default function TripMng() {
   const columns = [
     {
       title: 'Trip Code',
-      dataIndex: 'tripCode',
-      key: 'tripCode',
+      dataIndex: 'id',
+      key: 'id',
       sorter: (a, b) => a.tripCode.length - b.tripCode.length,
       sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <span color="magenta">PHTV{item.id}</span>
+      },
     },
     {
       title: 'From Station',
       dataIndex: 'fromStation',
       key: 'fromStation',
       sorter: (a, b) => a.fromStation.length - b.fromStation.length,
-      sortDirections: ['descend', 'ascend']
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <span color="magenta">{item.fromStation.name}</span>
+      },
     },
     {
       title: 'To Station',
       dataIndex: 'toStation',
-      key: 'ttoStation',
+      key: 'toStation',
+      sorter: (a, b) => a.toStation.length - b.toStation.length,
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <span color="magenta">{item.toStation.name}</span>
+      },
     },
     {
       title: 'Start Time',
-      dataIndex: 'toStation',
-      key: 'ttoStation',
+      dataIndex: 'startTime',
+      key: 'startTime',
     },
     {
       title: 'Finish Time',
@@ -65,7 +76,10 @@ export default function TripMng() {
       dataIndex: 'bus',
       key: 'bus',
       sorter: (a, b) => a.bus.length - b.bus.length,
-      sortDirections: ['descend', 'ascend']
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <Tag color="magenta">{item.bus.busPlate}</Tag>
+      },
     },
     {
       title: 'Action',

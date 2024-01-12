@@ -81,6 +81,12 @@ namespace backend.Services
             var ExistingBus = await db.Buses.SingleOrDefaultAsync(p => p.Id == Id);
             if (ExistingBus != null)
             {
+                var station = await db.BusStations.Where(x => x.BusId == Id).ToListAsync();
+                foreach (var item in station)
+                {
+                    db.BusStations.Remove(item);
+                    await db.SaveChangesAsync();
+                }
                 db.Buses.Remove(ExistingBus);
                 int result = await db.SaveChangesAsync();
                 if (result != 0)

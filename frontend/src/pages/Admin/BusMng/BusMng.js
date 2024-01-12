@@ -122,7 +122,9 @@ export default function BusMng() {
       sorter: (a, b) => a.busType - b.busType,
       sortDirections: ['descend', 'ascend'],
       render: (text, busType) => {
-        return busType.busType?.name
+        return (<Tooltip title={`Number of seat: ${busType.busType.numberOfSeat}`}>
+          <span>{busType.busType?.name}</span>
+        </Tooltip>)
       },
     },
     {
@@ -134,7 +136,7 @@ export default function BusMng() {
       sortDirections: ['descend', 'ascend'],
       render: (text, stations) => {
         return stations.stations.map((item, index) => {
-            return <Tag color="magenta" key={index}>{item.name}</Tag>
+          return <Tag color="magenta" key={index}>{item.name}</Tag>
         })
       },
     },
@@ -151,16 +153,16 @@ export default function BusMng() {
       width: '25%',
       render: (text, bus) => {
         return <>
-        <Button key={1} href={`/admin/busmng/edit/${bus.id}`} type="link" icon={<EditOutlined />} onClick={() => {
-          dispatch(getBusByIdAction(bus.id))
-          localStorage.setItem('busStaionDefault', JSON.stringify(bus.stationId))
-        }}></Button>
-        <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-          if (window.confirm('Do you want to delete bus ' + bus.busPlate + '?')) {
-            dispatch(deleteBusAction(bus.id))
-          }
-        }}></Button>
-      </>
+          <Button key={1} href={`/admin/busmng/edit/${bus.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getBusByIdAction(bus.id))
+            localStorage.setItem('busStaionDefault', JSON.stringify(bus.stationId))
+          }}></Button>
+          <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+            if (window.confirm('Do you want to delete bus ' + bus.busPlate + '?')) {
+              dispatch(deleteBusAction(bus.id))
+            }
+          }}></Button>
+        </>
       }
     },
   ]

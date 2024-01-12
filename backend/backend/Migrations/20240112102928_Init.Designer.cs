@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240111144252_Init")]
+    [Migration("20240112102928_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -280,8 +280,11 @@ namespace backend.Migrations
                     b.Property<DateTime>("FinishTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FromStationId")
+                    b.Property<int?>("FromStationId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
@@ -289,33 +292,18 @@ namespace backend.Migrations
                     b.Property<int>("TicketPrice")
                         .HasColumnType("int");
 
-                    b.Property<int>("ToStationId")
+                    b.Property<int?>("ToStationId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BusId");
 
+                    b.HasIndex("FromStationId");
+
+                    b.HasIndex("ToStationId");
+
                     b.ToTable("Trips");
-                });
-
-            modelBuilder.Entity("backend.Models.TripStation", b =>
-                {
-                    b.Property<int>("StationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TripId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StationId", "TripId");
-
-                    b.HasIndex("TripId");
-
-                    b.ToTable("TripStations");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
@@ -423,26 +411,19 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("backend.Models.Station", "FromStation")
+                        .WithMany()
+                        .HasForeignKey("FromStationId");
+
+                    b.HasOne("backend.Models.Station", "ToStation")
+                        .WithMany()
+                        .HasForeignKey("ToStationId");
+
                     b.Navigation("Bus");
-                });
 
-            modelBuilder.Entity("backend.Models.TripStation", b =>
-                {
-                    b.HasOne("backend.Models.Station", "Station")
-                        .WithMany("TripStations")
-                        .HasForeignKey("StationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("FromStation");
 
-                    b.HasOne("backend.Models.Trip", "Trip")
-                        .WithMany("TripStations")
-                        .HasForeignKey("TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Station");
-
-                    b.Navigation("Trip");
+                    b.Navigation("ToStation");
                 });
 
             modelBuilder.Entity("backend.Models.Bus", b =>
@@ -455,11 +436,6 @@ namespace backend.Migrations
                     b.Navigation("Buses");
                 });
 
-            modelBuilder.Entity("backend.Models.Station", b =>
-                {
-                    b.Navigation("TripStations");
-                });
-
             modelBuilder.Entity("backend.Models.Ticket", b =>
                 {
                     b.Navigation("Seats");
@@ -468,8 +444,6 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Models.Trip", b =>
                 {
                     b.Navigation("Seats");
-
-                    b.Navigation("TripStations");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
