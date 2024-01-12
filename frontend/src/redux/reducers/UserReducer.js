@@ -1,12 +1,16 @@
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
-import { GET_DRIVER_LIST, LAY_CHI_TIET_NGUOI_DUNG, LAY_DANH_SACH_NGUOI_DUNG, LOGIN_ACTION, SET_THONG_TIN_DAT_VE, TIM_KIEM_NGUOI_DUNG } from "../constants"
+import {
+  GET_DRIVER_LIST,
+  LAY_CHI_TIET_NGUOI_DUNG,
+  GET_USER_LIST,
+  LOGIN_ACTION,
+  SET_THONG_TIN_DAT_VE,
+} from "../constants";
 
-let user = {}
+let user = {};
 if (localStorage.getItem(USER_LOGIN)) {
-  user = JSON.parse(localStorage.getItem(USER_LOGIN))
+  user = JSON.parse(localStorage.getItem(USER_LOGIN));
 }
-
-
 
 const initialState = {
   userLogin: user,
@@ -23,32 +27,34 @@ const initialState = {
     // }
   ],
   arrDriver: [],
-  profile: {}
-}
-
+  profile: {},
+};
 
 export const UserReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_USER_LIST:
+      state.arrUser = action.arrUser;
+      return { ...state };
 
     case LOGIN_ACTION:
       const { loginInfo } = action;
       localStorage.setItem(USER_LOGIN, JSON.stringify(loginInfo.user));
       localStorage.setItem(TOKEN, loginInfo.accessToken);
-      return { ...state, userLogin: loginInfo.user }
+      return { ...state, userLogin: loginInfo.user };
 
     case GET_DRIVER_LIST:
       state.arrDriver = action.arrDriver;
-      return { ...state }
+      return { ...state };
 
     case LAY_CHI_TIET_NGUOI_DUNG:
       state.profile = action.profile;
-      
-      return { ...state }
+
+      return { ...state };
 
     case SET_THONG_TIN_DAT_VE:
       state.thongTinNguoiDung = action.thongTinNguoiDung;
-      return { ...state }
+      return { ...state };
     default:
-      return state
+      return state;
   }
-}
+};
