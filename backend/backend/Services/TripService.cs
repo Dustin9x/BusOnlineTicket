@@ -10,7 +10,7 @@ namespace backend.Services
         private readonly DatabaseContext db;
         private readonly IWebHostEnvironment env;
 
-        public TripService(DatabaseContext db)
+        public TripService(DatabaseContext db, IWebHostEnvironment env)
         {
             this.db = db;
             this.env = env;
@@ -43,9 +43,9 @@ namespace backend.Services
                 if (Trip.UploadImage.Length > 0)
                 {
                     var upload = Path.Combine(env.ContentRootPath, "Images/Trip");
-                    var filePath = Path.Combine(upload, Path.GetRandomFileName() + Trip.UploadImage.FileName);
+                    var filePath = Path.Combine(Path.GetRandomFileName() + Trip.UploadImage.FileName);
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
                     {
                         await Trip.UploadImage.CopyToAsync(stream);
                     }
@@ -62,7 +62,7 @@ namespace backend.Services
             {
                 return false;
             }
-            
+
         }
 
         public async Task<Trip> DeleteTrip(int Id)
@@ -91,7 +91,7 @@ namespace backend.Services
             }*/
             return null;
         }
-        
+
         public async Task<bool> PutTrip(Trip Trip)
         {
             /*var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);

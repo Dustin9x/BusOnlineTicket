@@ -6,12 +6,12 @@ export class TripService extends baseService {
         super();
     }
     getTripList = () => {
-        return this.get(`/Trip`);
+        return this.get(`api/Trip`);
     }
 
 
     addNewTrip = (formData) => {
-        return this.post(`/Trip`, formData);
+        return this.post(`api/Trip`, formData);
     }
 
     // getBusById = (id) => {

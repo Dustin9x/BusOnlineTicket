@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect } from 'react'
 import { EditOutlined, DeleteOutlined,AppstoreOutlined } from '@ant-design/icons';
-import { Button, Table, Tag } from 'antd';
+import { Avatar, Button, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { layDanhSachCumRapAction, layDanhSachTinhThanhAction, xoaRapChieuAction } from '../../../redux/actions/QuanLyRapAction';
 import { getTripListAction } from '../../../redux/actions/TripAction';
+import { DOMAIN } from '../../../util/settings/config';
 
 
 export default function TripMng() {
@@ -28,6 +29,18 @@ export default function TripMng() {
       render: (text, item) => {
         return <span color="magenta">PHTV{item.id}</span>
       },
+    },
+    {
+      title: 'Image',
+      dataIndex: 'image',
+      key: 'image',
+      sorter: (a, b) => a.tripCode.length - b.tripCode.length,
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item, index) => {
+        return item.image != "null" || item.image != null
+          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}Images/Trip/${item.image}`} alt={item.image} />
+          : <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={"H"} />
+      }
     },
     {
       title: 'From Station',

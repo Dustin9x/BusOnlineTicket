@@ -7,11 +7,11 @@ export class UserService extends baseService {
     }
 
     login = (loginInfo) => {
-        return this.post(`/auth/`,loginInfo);
+        return this.post(`api/auth/`,loginInfo);
     }
 
     register = (registerInfo) => {
-        return this.post(`/auth/register`,registerInfo);
+        return this.post(`api/auth/register`,registerInfo);
     }
 
     layLaiMatKhau = (thongTinEmail) => {

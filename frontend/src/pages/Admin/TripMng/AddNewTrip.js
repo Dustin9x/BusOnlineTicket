@@ -29,16 +29,16 @@ export default function AddNewTrip(props) {
       busId: '',
       fromStationId: '',
       toStationId: '',
-      image: {},
+      UploadImage: {},
     },
     onSubmit: async (values) => {
 
       let formData = new FormData();
       for (let key in values) {
-        if (key !== 'image') {
+        if (key !== 'UploadImage') {
           formData.append(key, values[key]);
         } else {
-          formData.append('image', values['image']);
+          formData.append('UploadImage', values['UploadImage']);
         }
       }
       console.table('formData', [...formData])
@@ -80,7 +80,7 @@ export default function AddNewTrip(props) {
       reader.onload = (e) => {
         setImgSrc(e.target.result);
       }
-      formik.setFieldValue('image', file);
+      formik.setFieldValue('UploadImage', file);
     }
   }
 
@@ -174,7 +174,7 @@ export default function AddNewTrip(props) {
           label="Image"
           style={{ minWidth: '100%' }}
         >
-          <input type="file" onChange={handleChangeFile} accept="image/png, image/jpeg,image/png" />
+          <input type="file" name="UploadImage" onChange={handleChangeFile} accept="image/png, image/jpeg,image/png" />
           <br />
           {imgSrc ? <img style={{ width: 200, height: 150, objectFit: 'cover', borderRadius: '6px' }} src={imgSrc} alt="..." /> : <img style={{ width: 200, border: '0.1px solid #ccc', borderRadius: '6px' }} src='/img/placeholder-image.jpg' alt="..." />}
         </Form.Item>

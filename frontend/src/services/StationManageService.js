@@ -7,24 +7,24 @@ export class StationManageService extends baseService {
     }
 
     getStationList = () => {
-        return this.get(`/Station`);
+        return this.get(`api/Station`);
     }
 
 
     addNewStation = (formData) => {
-        return this.post(`/Station`, formData);
+        return this.post(`api/Station`, formData);
     }
 
     getStationById = (stationId) => {
-        return this.get(`/Station/${stationId}`);
+        return this.get(`api/Station/${stationId}`);
     }
 
     updateStation = (id,formData) => {
-        return this.put(`/Station?Id=${id}`, formData);
+        return this.put(`api/Station?Id=${id}`, formData);
     }
 
     deleteStation = (stationId) => {
-        return this.delete(`/Station/${stationId}`);
+        return this.delete(`api/Station/${stationId}`);
     }
 }
 

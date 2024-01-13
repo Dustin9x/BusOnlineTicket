@@ -32,9 +32,9 @@ export class DriverService extends baseService {
 
     getDriver = (id = '') => {
         if (id !== '' ) {
-            return this.get(`/Driver/${id}`);
+            return this.get(`api/Driver/${id}`);
         } else {
-            return this.get(`/Driver/`);
+            return this.get(`api/Driver/`);
         }
     }
 
