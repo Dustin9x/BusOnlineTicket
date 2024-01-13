@@ -86,12 +86,12 @@ namespace backend.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<ActionResult> PutDriver([FromForm] User User)
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> PutDriver(int Id, [FromForm] User User)
         {
             try
             {
-                bool list = await repo.PutUser(User);
+                bool list = await repo.PutUser( Id, User);
                 if (list == true)
                 {
                     var response = new ResponseData<User>(StatusCodes.Status200OK, "Update User Successfully ", User, null);

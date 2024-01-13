@@ -1,4 +1,6 @@
-﻿using backend.IRepository;
+﻿
+
+using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
 using Microsoft.EntityFrameworkCore;
@@ -22,23 +24,25 @@ namespace backend.Services
             var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Email == User.Email);
             if (ExistingUser == null)
             {
-                if (User.UploadImage.Length > 0)
+                if (User.UploadImage != null)
                 {
                     var upload = Path.Combine(env.ContentRootPath, "Images/User");
-                    var filePath = Path.Combine(upload, Path.GetRandomFileName() + User.UploadImage.FileName);
+                    var filePath = Path.Combine(Path.GetRandomFileName() + User.UploadImage.FileName);
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
                     {
                         await User.UploadImage.CopyToAsync(stream);
                     }
 
-                    // Tạo đường dẫn cho tệp tin ảnh
                     User.Avatar = filePath;
                 }
+                User.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
+
+
 
                 db.Users.Add(User);
                 int result = await db.SaveChangesAsync();
-                if(result > 0)
+                if (result > 0)
                 {
                     return true;
                 }
@@ -48,15 +52,16 @@ namespace backend.Services
 
         public async Task<User> DeleteUser(int Id)
         {
-            var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Id ==Id);
+            var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingUser != null)
             {
 
                 if (!string.IsNullOrEmpty(ExistingUser.Avatar))
                 {
-                    if (System.IO.File.Exists(ExistingUser.Avatar))
+                    var upload = Path.Combine(env.ContentRootPath, "Images/User");
+                    if (System.IO.File.Exists(Path.Combine(upload, ExistingUser.Avatar)))
                     {
-                        System.IO.File.Delete(ExistingUser.Avatar); // Xóa tệp tin ảnh
+                        System.IO.File.Delete(Path.Combine(upload, ExistingUser.Avatar)); // Xóa tệp tin ảnh
                     }
                 }
 
@@ -77,62 +82,49 @@ namespace backend.Services
 
         public async Task<IEnumerable<User>> GetUserById(int Id)
         {
-            return await db.Users.Where(b=>b.Id == Id).ToListAsync();
+            return await db.Users.Where(b => b.Id == Id).ToListAsync();
         }
 
-        public async Task<bool> PutUser(User User)
+        public async Task<bool> PutUser(int Id, User User)
         {
-            var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Id == User.Id);
+            var ExistingUser = await db.Users.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingUser != null)
             {
 
-                if (User.UploadImage.Length > 0)
+                if (User.UploadImage != null)
                 {
                     var upload = Path.Combine(env.ContentRootPath, "Images/User");
-                    var filePath = Path.Combine(upload, Path.GetRandomFileName() +  User.UploadImage.FileName);
+                    var filePath = Path.Combine(Path.GetRandomFileName() + User.UploadImage.FileName);
+
+                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                    {
+                        await User.UploadImage.CopyToAsync(stream);
+                    }
 
                     if (!string.IsNullOrEmpty(ExistingUser.Avatar))
                     {
-                        if (filePath == ExistingUser.Avatar)
+
+
+                        if (System.IO.File.Exists(Path.Combine(upload, ExistingUser.Avatar)))
                         {
-                            // k thay doi avata
-                            User.Avatar = ExistingUser.Avatar;
+                            System.IO.File.Delete(Path.Combine(upload, ExistingUser.Avatar));
                         }
-                        else
-                        {
-                            if (System.IO.File.Exists(ExistingUser.Avatar))
-                            {
-                                System.IO.File.Delete(ExistingUser.Avatar); // Xóa tệp tin ảnh
-                            }
 
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await User.UploadImage.CopyToAsync(stream);
-                            }
-
-                            // Tạo đường dẫn cho tệp tin ảnh
-                            ExistingUser.Avatar = filePath;
-
-                        }
                     }
-                    else
-                    {
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await User.UploadImage.CopyToAsync(stream);
-                        }
+                    ExistingUser.Avatar = filePath;
 
-                        // Tạo đường dẫn cho tệp tin ảnh
-                        ExistingUser.Avatar = filePath;
-                    }
                 }
 
 
 
                 ExistingUser.Email = User.Email;
                 ExistingUser.Role = User.Role;
-                ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
-                int Result=await db.SaveChangesAsync();
+                if (User.Password != null && User.Password != "null")
+                {
+                    ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
+                }
+
+                int Result = await db.SaveChangesAsync();
                 if (Result > 0)
                 {
                     return true;
