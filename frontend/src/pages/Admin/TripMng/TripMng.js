@@ -4,7 +4,7 @@ import { Avatar, Button, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { layDanhSachCumRapAction, layDanhSachTinhThanhAction, xoaRapChieuAction } from '../../../redux/actions/QuanLyRapAction';
-import { getTripListAction } from '../../../redux/actions/TripAction';
+import { deleteTripAction, getTripListAction } from '../../../redux/actions/TripAction';
 import { DOMAIN } from '../../../util/settings/config';
 
 
@@ -38,7 +38,7 @@ export default function TripMng() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item, index) => {
         return item.image != "null" || item.image != null
-          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}Images/Trip/${item.image}`} alt={item.image} />
+          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Trip/${item.image}`} alt={item.image} />
           : <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={"H"} />
       }
     },
@@ -96,15 +96,15 @@ export default function TripMng() {
     },
     {
       title: 'Action',
-      render: (text, movie) => {
+      render: (text, trip) => {
         return <Fragment>
           <Button><AppstoreOutlined />Seat Map</Button>
-          <Button key={1} href={`/admin/theatremng/edit/${movie.maRap}`} type="link" icon={<EditOutlined />} onClick={() => {
-            localStorage.setItem('theatreParams', JSON.stringify(movie));
+          <Button key={1} href={`/admin/theatremng/edit/${trip.maRap}`} type="link" icon={<EditOutlined />} onClick={() => {
+            localStorage.setItem('theatreParams', JSON.stringify(trip));
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Bạn có chắc chắn muốn xóa rạp ' + movie.tenRap + '?')) {
-              dispatch(xoaRapChieuAction(movie.maRap))
+            if (window.confirm('Do you want to delete trip PHTV' + trip.id + '?')) {
+              dispatch(deleteTripAction(trip.id))
             }
           }}></Button>
         </Fragment>

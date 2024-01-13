@@ -7,28 +7,28 @@ export class UserService extends baseService {
     }
 
     login = (loginInfo) => {
-        return this.post(`api/auth/`, loginInfo);
+        return this.post(`/api/auth/`, loginInfo);
     }
 
     register = (registerInfo) => {
-        return this.post(`api/auth/register`, registerInfo);
+        return this.post(`/api/auth/register`, registerInfo);
     }
 
-    layLaiMatKhau = (thongTinEmail) => {
-        return this.post(`/api/auth/passwordRetrieval`, thongTinEmail);
-    };
+    // forgetPassword = (thongTinEmail) => {
+    //     return this.post(`/api/auth/ForgetPassword`, thongTinEmail);
+    // };
     
-    GetListUser = () => {
-        return this.get(`/User`);
+    getListUser = () => {
+        return this.get(`/api/User`);
     };
     createUser = (User) => {
-        return this.post(`/User`, User);
+        return this.post(`/api/User`, User);
     };
     deleteUser = (id) => {
-        return this.delete(`/User?Id=${id}`);
+        return this.delete(`/api/User?Id=${id}`);
     };
     updateUser = (id, User) => {
-        return this.put(`/User/${id}`, User);
+        return this.put(`/api/User/${id}`, User);
     };
 }
 

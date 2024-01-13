@@ -7,7 +7,7 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
-import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
+// import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -40,7 +40,7 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   const dispatch = useDispatch();
   useEffect(() => {
     window.scrollTo(0, 0);
-    dispatch(layThongTinNguoiDungAction(userLogin.id))
+    // dispatch(layThongTinNguoiDungAction(userLogin.id))
   }, [dispatch, userLogin.id])
 
 

@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Images\Driver\" />
     <Folder Include="Images\Trip\" />
     <Folder Include="Images\User\" />
   </ItemGroup>

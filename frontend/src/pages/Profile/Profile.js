@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Avatar, Button, Typography, } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
+// import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
 import { USER_LOGIN } from '../../util/settings/config';
 const Profile = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    dispatch(layThongTinNguoiDungAction(userLogin.id))
+    // dispatch(layThongTinNguoiDungAction(userLogin.id))
   }, [])
 
   console.log('profile', profile)

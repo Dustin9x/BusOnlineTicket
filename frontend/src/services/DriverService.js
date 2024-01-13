@@ -6,40 +6,24 @@ export class DriverService extends baseService {
         super();
     }
 
-    dangNhap = (thongTinDangNhap) => {
-        return this.post(`/api/auth/login`,thongTinDangNhap);
+    getDriver = () => {
+        return this.get(`/api/Driver/`);
     }
 
-    dangKy = (thongTinDangKy) => {
-        return this.post(`/api/auth/signup`,thongTinDangKy);
+    getDriverById = (id) => {
+        return this.get(`/api/Driver/${id}`);
     }
 
-    layLaiMatKhau = (thongTinEmail) => {
-        return this.post(`/api/auth/passwordRetrieval`, thongTinEmail);
-      };
-
-    themNguoiDung = (newUser) => {
-        return this.post(`/api/laydanhsachuser`,newUser);
+    postDriver = (newDriver) =>{
+        return this.post(`/api/Driver`,newDriver);
     }
 
-    capNhatNguoiDung = (id,newUser) => {
-        return this.post(`/api/laydanhsachuser/${id}/update`,newUser);
+    deleteDriver = (id) =>{
+        return this.delete(`/api/Driver/?Id=${id}`)
     }
 
-    layThongTinDatVe = () => {
-        return this.post(`/api/QuanLyNguoiDung/ThongTinTaiKhoan`);
-    }
-
-    getDriver = (id = '') => {
-        if (id !== '' ) {
-            return this.get(`api/Driver/${id}`);
-        } else {
-            return this.get(`api/Driver/`);
-        }
-    }
-
-    xoaNguoiDung = (TaiKhoan) => {
-        return this.delete(`/api/laydanhsachuser/${TaiKhoan}/delete`);
+    putDriver = (id,newDriver) => {
+        return this.put(`/api/Driver/${id}`,newDriver);
     }
 }
 

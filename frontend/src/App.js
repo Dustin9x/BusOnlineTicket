@@ -42,7 +42,6 @@ import TermsOfTransaction from './pages/Terms/TermsOfTransaction';
 import ForgetPassword from './pages/Login/ForgetPassword';
 import BusMng from './pages/Admin/BusMng/BusMng';
 import StationMng from './pages/Admin/StationMng/StationMng';
-import DriverMng from './pages/Admin/UserMng/DriverMng';
 import TripMng from './pages/Admin/TripMng/TripMng';
 import AddNewBus from './pages/Admin/BusMng/AddNewBus';
 import BusTypeMng from './pages/Admin/BusMng/BusTypeMng/BusTypeMng';
@@ -51,6 +50,9 @@ import EditBusType from './pages/Admin/BusMng/BusTypeMng/EditBusType';
 import AddNewStation from './pages/Admin/StationMng/AddNewStation';
 import EditStation from './pages/Admin/StationMng/EditStation';
 import AddNewTrip from './pages/Admin/TripMng/AddNewTrip';
+import DriverEdit from './pages/Admin/DriverMng/DriverEdit';
+import AddDriver from './pages/Admin/DriverMng/AddDriver';
+import DriverMng from './pages/Admin/DriverMng/DriverMng';
 
 
 export const history = createBrowserHistory();
@@ -81,13 +83,17 @@ function App() {
         <ProfileTemplate path='/users/edit/:id' exact Component={UserEdit} />
         <ProfileTemplate path='/users/ordershistory' exact Component={OrderHistory} />
 
-        {/* Nguoi dung - user */}
+        {/* User */}
         <AdminTemplate path='/admin' exact Component={UserMng} />
         <AdminTemplate path='/admin/adminusers' exact Component={AdminUserMng} />
-        <AdminTemplate path='/admin/driver' exact Component={DriverMng} />
         <AdminTemplate path='/admin/users/edit/:id' exact Component={UserEdit} />
         <AdminTemplate path='/admin/users/adduser' exact Component={AddUser} />
         <AdminTemplate path='/users/order/:id' exact Component={UserOrder} />
+
+        {/* Driver */}
+        <AdminTemplate path='/admin/drivermng' exact Component={DriverMng} />
+        <AdminTemplate path='/admin/drivermng/edit/:id' exact Component={DriverEdit} />
+        <AdminTemplate path='/admin/drivermng/adddriver' exact Component={AddDriver} />
 
         {/* Bus */}
         <AdminTemplate path='/admin/busmng' exact Component={BusMng} />

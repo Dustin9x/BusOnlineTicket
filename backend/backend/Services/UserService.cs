@@ -2,9 +2,7 @@
 
 using backend.IRepository;
 using backend.Models;
-using backend.ResponseData;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace backend.Services
 {
@@ -26,7 +24,9 @@ namespace backend.Services
             {
                 if (User.UploadImage != null)
                 {
-                    var upload = Path.Combine(env.ContentRootPath, "Images/User");
+                    string pathToNewFolder = System.IO.Path.Combine("Images", "User");
+                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
                     var filePath = Path.Combine(Path.GetRandomFileName() + User.UploadImage.FileName);
 
                     using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))

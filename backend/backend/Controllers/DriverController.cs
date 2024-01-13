@@ -2,8 +2,6 @@
 using backend.Models;
 using backend.ResponseData;
 using Microsoft.AspNetCore.Mvc;
-using static System.Net.Mime.MediaTypeNames;
-using System;
 
 namespace backend.Controllers
 {
@@ -40,19 +38,17 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateDriver([FromForm]  Driver driver)
+        public async Task<ActionResult> CreateDriver([FromForm] Driver driver)
         {
             try
             {
-               
-
                 bool list = await repo.CreateDriver(driver);
                 if (list == true)
                 {
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Create new Driver Successfully", driver, null);
                     return Ok(response);
                 }
-                return BadRequest();
+                return BadRequest(list);
             }
             catch (Exception ex)
             {
@@ -70,7 +66,7 @@ namespace backend.Controllers
 
                 if (list != null)
                 {
-                    
+
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Delete Driver Successfully", list, null);
                     return Ok(response);
                 }
@@ -84,13 +80,13 @@ namespace backend.Controllers
 
 
         [HttpPut]
-        public async Task<ActionResult> PutDriver([FromForm] Driver driver)
+        public async Task<ActionResult> PutDriver(int Id, [FromForm] Driver driver)
         {
             try
             {
-              
 
-                bool list = await repo.PutDriver(driver);
+
+                bool list = await repo.PutDriver(Id, driver);
                 if (list == true)
                 {
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Update Driver Successfully ", driver, null);

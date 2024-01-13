@@ -36,3 +36,22 @@ export const addNewTripAction = (formData) => {
     }
 }
 
+
+export const deleteTripAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await tripService.deleteTrip(id);
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>Delete trip successfully</>
+                ),
+            });
+            dispatch(getTripListAction())
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+

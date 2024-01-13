@@ -179,7 +179,7 @@ export default function AddNewTrip(props) {
           {imgSrc ? <img style={{ width: 200, height: 150, objectFit: 'cover', borderRadius: '6px' }} src={imgSrc} alt="..." /> : <img style={{ width: 200, border: '0.1px solid #ccc', borderRadius: '6px' }} src='/img/placeholder-image.jpg' alt="..." />}
         </Form.Item>
         <Form.Item label="Action" style={{ minWidth: '100%' }}>
-          <Button htmlType="submit" >Add Bus</Button>
+          <Button htmlType="submit" >Add Trip</Button>
         </Form.Item>
       </div>
 

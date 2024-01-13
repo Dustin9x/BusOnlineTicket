@@ -6,12 +6,12 @@ export class TripService extends baseService {
         super();
     }
     getTripList = () => {
-        return this.get(`api/Trip`);
+        return this.get(`/api/Trip`);
     }
 
 
     addNewTrip = (formData) => {
-        return this.post(`api/Trip`, formData);
+        return this.post(`/api/Trip`, formData);
     }
 
     // getBusById = (id) => {
@@ -22,9 +22,9 @@ export class TripService extends baseService {
     //     return this.put(`/Bus?Id=${id}`, formData);
     // }
 
-    // deleteBus = (busId) => {
-    //     return this.delete(`/Bus/${busId}`);
-    // }
+    deleteTrip = (tripId) => {
+        return this.delete(`/api/Trip/${tripId}`);
+    }
     
 }
 

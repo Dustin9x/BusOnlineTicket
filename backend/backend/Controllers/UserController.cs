@@ -1,7 +1,6 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -86,12 +85,12 @@ namespace backend.Controllers
         }
 
 
-        [HttpPut("{Id}")]
-        public async Task<ActionResult> PutDriver(int Id, [FromForm] User User)
+        [HttpPut]
+        public async Task<ActionResult> PutUser(int Id, [FromForm] User User)
         {
             try
             {
-                bool list = await repo.PutUser( Id, User);
+                bool list = await repo.PutUser(Id, User);
                 if (list == true)
                 {
                     var response = new ResponseData<User>(StatusCodes.Status200OK, "Update User Successfully ", User, null);

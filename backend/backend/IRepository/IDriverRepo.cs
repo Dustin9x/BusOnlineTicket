@@ -6,7 +6,7 @@ namespace backend.IRepository
     {
         Task<IEnumerable<Driver>> GetAllDriver();
         Task<bool> CreateDriver(Driver driver);
-        Task<bool> PutDriver(Driver driver);
+        Task<bool> PutDriver(int Id, Driver driver);
         Task<Driver> DeleteDriver(int Id);
         Task<IEnumerable<Driver>> GetDriversById(int Id);
     }

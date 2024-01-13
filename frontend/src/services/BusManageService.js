@@ -7,24 +7,24 @@ export class BusManageService extends baseService {
     }
 
     getBusList = () => {
-        return this.get(`api/Bus`);
+        return this.get(`/api/Bus`);
     }
 
 
     addNewBus = (formData) => {
-        return this.post(`api/Bus`, formData);
+        return this.post(`/api/Bus`, formData);
     }
 
     getBusById = (id) => {
-        return this.get(`api/Bus/${id}`);
+        return this.get(`/api/Bus/${id}`);
     }
 
     updateBus = (id,formData) => {
-        return this.put(`api/Bus?Id=${id}`, formData);
+        return this.put(`/api/Bus?Id=${id}`, formData);
     }
 
     deleteBus = (busId) => {
-        return this.delete(`api/Bus/${busId}`);
+        return this.delete(`/api/Bus/${busId}`);
     }
 
 
@@ -32,23 +32,23 @@ export class BusManageService extends baseService {
 
     //Bus Type
     getBusTypeList = () => {
-        return this.get(`api/BusType`);
+        return this.get(`/api/BusType`);
     }
 
     getBusTypeById = (id) => {
-        return this.get(`api/BusType/${id}`);
+        return this.get(`/api/BusType/${id}`);
     }
     
     addNewBusType = (formData) => {
-        return this.post(`api/BusType`, formData);
+        return this.post(`/api/BusType`, formData);
     }
 
     updateBusType = (id,formData) => {
-        return this.put(`api/BusType?Id=${id}`, formData);
+        return this.put(`/api/BusType?Id=${id}`, formData);
     }
 
     deleteBusType = (busTypeId) => {
-        return this.delete(`api/BusType/${busTypeId}`);
+        return this.delete(`/api/BusType/${busTypeId}`);
     }
 }
 

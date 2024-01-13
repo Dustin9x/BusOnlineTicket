@@ -1,14 +1,14 @@
 import React, { Fragment, useEffect } from "react";
-import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { SearchOutlined, EditOutlined, DeleteOutlined, HistoryOutlined } from "@ant-design/icons";
 import { Avatar, Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
-import { GetListUser, deleteUser } from "../../../redux/actions/UserAction";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
+import { deleteDriver, getDriverAction } from "../../../redux/actions/DriverAction";
 
-export default function AdminUserMng() {
+export default function DriverMng() {
   let userLogin = {};
   // if (localStorage.getItem(USER_LOGIN)) {
   //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
@@ -22,11 +22,11 @@ export default function AdminUserMng() {
   //     alert('Bạn không có quyền truy cập trang này!');
   //     history.replace('/')
   // }
+  let { arrDriver } = useSelector((state) => state.UserReducer);
   const dispatch = useDispatch();
-  let { arrUser } = useSelector((state) => state.UserReducer);
-  useEffect(() => {
-    dispatch(GetListUser());
-  }, [dispatch]);
+  useEffect((value) => {
+    dispatch(getDriverAction());
+  }, []);
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -43,16 +43,18 @@ export default function AdminUserMng() {
     setSearchedColumn(dataIndex);
   };
 
-  const data = arrUser;
+  const data = arrDriver;
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close, }) => (
       <div style={{ padding: 8, }} onKeyDown={(e) => e.stopPropagation()} >
         <Input
           ref={searchInput}
-          placeholder={`Search`}
+          placeholder={`Tìm kiếm`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : []) }
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
           style={{
             marginBottom: 8,
@@ -66,14 +68,16 @@ export default function AdminUserMng() {
             icon={<SearchOutlined />}
             size="small"
             className="bg-primary"
-            style={{ width: 90 }}
+            style={{
+              width: 90,
+            }}
           >
-            Search
+            Tìm
           </Button>
           <Button
             onClick={() => clearFilters && resetSearch(selectedKeys, confirm, dataIndex) }
             size="small"
-            style={{ width: 90 }}
+            style={{  width: 90}}
           >
             Reset
           </Button>
@@ -115,7 +119,7 @@ export default function AdminUserMng() {
       title: "ID",
       dataIndex: "id",
       key: "id",
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a.id.length - b.id.length,
       sortDirections: ["descend", "ascend"],
     },
     {
@@ -123,12 +127,47 @@ export default function AdminUserMng() {
       dataIndex: "avatar",
       key: "avatar",
       render: (text, data, index) => {
-        return data.avatar != null ? (
-          <img key={index} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }} src={`${DOMAIN}/Images/User/${data.avatar}`} alt={data.avatar} />
+        return data.avatar != "null" && data.avatar != null ? (
+          <img key={index} style={{ width: 40, height: 40, objectFit: "cover", borderRadius: "50%", }}
+            src={`${DOMAIN}/Images/Driver/${data.avatar}`}
+            alt={data.avatar}
+          />
         ) : (
-          <Avatar size={40} style={{ fontSize: "20px", display: "flex", justifyContent: "center", alignItems: "center" }} icon={data.email.substr(0, 1)} />
+          <Avatar size={40} style={{ fontSize: "20px", display: "flex", justifyContent: "center", alignItems: "center", }} icon={data.fullName.substr(0, 1)} />
         );
       },
+    },
+    {
+      title: "Full Name",
+      dataIndex: "fullName",
+      key: "fullName",
+      ...getColumnSearchProps("fullName"),
+      sorter: (a, b) => a.fullName.length - b.fullName.length,
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "National ID",
+      dataIndex: "nationalId",
+      key: "nationalId",
+      ...getColumnSearchProps("nationalId"),
+      sorter: (a, b) => a.fullName.length - b.fullName.length,
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Driver License",
+      dataIndex: "driverLicense",
+      key: "driverLicense",
+      ...getColumnSearchProps("driverLicense"),
+      sorter: (a, b) => a.driverLicense.length - b.driverLicense.length,
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phone",
+      key: "phone",
+      ...getColumnSearchProps("phone"),
+      sorter: (a, b) => a.email.length - b.email.length,
+      sortDirections: ["descend", "ascend"],
     },
     {
       title: "Email",
@@ -139,25 +178,47 @@ export default function AdminUserMng() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
-      ...getColumnSearchProps("role"),
-      sorter: (a, b) => a.role.length - b.role.length,
+      title: "Year of Birth",
+      dataIndex: "yearOfBirth",
+      key: "yearOfBirth",
+      ...getColumnSearchProps("yearOfBirth"),
+      sorter: (a, b) => a.yearOfBirth.length - b.yearOfBirth.length,
       sortDirections: ["descend", "ascend"],
     },
     {
+      title: "Place of Birth",
+      dataIndex: "placeOfBirth",
+      key: "placeOfBirth",
+      ...getColumnSearchProps("placeOfBirth"),
+      sorter: (a, b) => a.placeOfBirth.length - b.placeOfBirth.length,
+      sortDirections: ["descend", "ascend"],
+    },
+    {
+      title: "Note",
+      dataIndex: "note",
+      key: "note",
+      ...getColumnSearchProps("note"),
+    },
+    {
+      title: "Enabled",
+      dataIndex: "enabled",
+      key: "enabled",
+      ...getColumnSearchProps("enabled"),
+    },
+    {
       title: "Manage",
-      render: (text, data, index) => {
+      render: (text, user, index) => {
         return (
           <Fragment key={index}>
-            <Button key={1} href={`/admin/users/edit/` + data.id} type="link" icon={<EditOutlined />} onClick={() => { 
-              localStorage.setItem("userParams", JSON.stringify(data))
-            }}
+            <Button key={1} href={`/admin/drivermng/edit/${user.id}`} type="link" icon={<EditOutlined />}
+              onClick={() => {
+                localStorage.setItem("userParams", JSON.stringify(user));
+              }}
             ></Button>
-            <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-                if ( window.confirm( "Are you sure you want to delete the user " + data.email + "?" ) ) {
-                  dispatch(deleteUser(data.id));
+            <Button key={2} type="link" danger icon={<DeleteOutlined />}
+              onClick={() => {
+                if ( window.confirm( "Do you sure want to delete " + user.fullName + "?")) {
+                  dispatch(deleteDriver(user.id));
                 } }}
             ></Button>
           </Fragment>
@@ -168,10 +229,10 @@ export default function AdminUserMng() {
   return (
     <div>
       <div className="d-flex mb-3">
-        <h3 className="text-lg">User management</h3>
-        <Button href="/admin/users/adduser" type="primary" className="ml-3 small bg-primary" > + Add New User </Button>
+        <h3 className="text-lg">Driver Management</h3>
+        <Button href="/admin/drivermng/adddriver" type="primary" className="ml-3 small bg-primary" > + Add New Driver</Button>
       </div>
-      <Table columns={columns} dataSource={data} rowKey={"id"} />
+      <Table columns={columns} dataSource={data} rowKey={"id"} />;
     </div>
   );
 }

@@ -42,7 +42,9 @@ namespace backend.Services
 
                 if (Trip.UploadImage.Length > 0)
                 {
-                    var upload = Path.Combine(env.ContentRootPath, "Images/Trip");
+                    string pathToNewFolder = System.IO.Path.Combine("Images", "Trip");
+                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
                     var filePath = Path.Combine(Path.GetRandomFileName() + Trip.UploadImage.FileName);
 
                     using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
@@ -67,28 +69,26 @@ namespace backend.Services
 
         public async Task<Trip> DeleteTrip(int Id)
         {
-            /*var ExistingTrip = await db.Trips.SingleOrDefaultAsync(b => b.Id == Id);
+            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingTrip != null)
             {
-                var ExistingTripStation = await db.TripStations.Where(b => b.TripId == ExistingTrip.Id).ToListAsync();
 
-                for (int i = 0; i < 2; i++)
+                if (!string.IsNullOrEmpty(ExistingTrip.Image))
                 {
-                    db.Remove(ExistingTripStation[i]);
-                }
-                int resultTripStation = await db.SaveChangesAsync();
-                if (resultTripStation > 0)
-                {
-                    db.Remove(ExistingTrip);
-                    int resultTrip = await db.SaveChangesAsync();
-                    if (resultTrip > 0)
+                    var upload = Path.Combine(env.ContentRootPath, "Images/Trip");
+                    if (System.IO.File.Exists(Path.Combine(upload, ExistingTrip.Image)))
                     {
-                        return ExistingTrip;
+                        System.IO.File.Delete(Path.Combine(upload, ExistingTrip.Image)); // Xóa tệp tin ảnh
                     }
-                    return null;
                 }
-                return null;
-            }*/
+
+                db.Trips.Remove(ExistingTrip);
+                int result = await db.SaveChangesAsync();
+                if (result > 0)
+                {
+                    return ExistingTrip;
+                }
+            }
             return null;
         }
 

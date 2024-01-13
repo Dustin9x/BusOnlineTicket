@@ -7,7 +7,7 @@ import { chonGheAction, layChiTietLichChieuAction, layDanhSachGheAction, xacNhan
 import { CHUYEN_TAB_ACTIVE, DAT_VE } from '../../redux/constants';
 import _ from 'lodash';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe';
-import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
+// import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
 import { datVeAction, layDonHangTheoUserAction } from '../../redux/actions/QuanLyDonHangAction';
 import { TOKEN, USER_LOGIN } from '../../util/settings/config';
 import dayjs from 'dayjs';
@@ -30,7 +30,7 @@ export default function ChonGhe(props) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(layThongTinNguoiDungAction(userLogin.id))
+        // dispatch(layThongTinNguoiDungAction(userLogin.id))
         dispatch({
             type: CHUYEN_TAB_ACTIVE,
             number: '1'

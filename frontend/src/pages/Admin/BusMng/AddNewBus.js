@@ -16,7 +16,6 @@ const AddNewBus = () => {
     dispatch(getStationListAction())
   }, [dispatch]);
 
-  console.log('arrStation', arrStation)
 
   const options = [];
   arrStation.forEach(element => {

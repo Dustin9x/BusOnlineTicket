@@ -63,7 +63,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
     getItem('Trip Management', '4', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
     getItem('User Management', 'sub2', <UserOutlined />, [
       getItem('Moderator', '5', <NavLink className='text-decoration-none' to="/admin/adminusers"><UserOutlined /></NavLink>),
-      getItem('Driver', '6', <NavLink className='text-decoration-none' to="/admin/driver"><UserOutlined /></NavLink>),
+      getItem('Driver', '6', <NavLink className='text-decoration-none' to="/admin/drivermng"><UserOutlined /></NavLink>),
     ]),
     getItem('Theo Dõi Doanh Thu', 'sub3', <LineChartOutlined />, [
       getItem('Danh Sách Đơn Hàng', '7', <NavLink className='text-decoration-none' to="/admin/orderlist"><LineChartOutlined /></NavLink>),

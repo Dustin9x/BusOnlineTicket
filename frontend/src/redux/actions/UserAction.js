@@ -112,21 +112,21 @@ export const layThongTinDatVeAction = () => {
   };
 };
 
-export const layThongTinNguoiDungAction = (id) => {
-  return async (dispatch) => {
-    try {
-      const result = await UserService.GetListUser(id);
-      if (result.data.status === 200) {
-        dispatch({
-          type: LAY_CHI_TIET_NGUOI_DUNG,
-          profile: result.data.content,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
+// export const layThongTinNguoiDungAction = (id) => {
+//   return async (dispatch) => {
+//     try {
+//       const result = await UserService.GetListUser(id);
+//       if (result.data.status === 200) {
+//         dispatch({
+//           type: LAY_CHI_TIET_NGUOI_DUNG,
+//           profile: result.data.content,
+//         });
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+// };
 
 export const GetListUser = () => {
   return async (dispatch) => {
@@ -159,7 +159,7 @@ export const updateUser = (id, newUser) => {
   return async (dispatch) => {
     try {
       const result = await userService.updateUser(id, newUser);
-      dispatch(layThongTinNguoiDungAction(id));
+      // dispatch(layThongTinNguoiDungAction(id));
       alert("Updata User successfully");
       history.push("/admin/adminusers");
     } catch (error) {
