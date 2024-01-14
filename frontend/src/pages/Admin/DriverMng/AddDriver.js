@@ -96,7 +96,7 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'FullName is not blank!',
+                            message: 'FullName can not be blank!',
                         },
                     ]}
                 >
@@ -109,7 +109,7 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'ID Nationnal is not blank!',
+                            message: 'ID Nationnal can not be blank!',
                         },
                     ]}
                 >
@@ -122,7 +122,7 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Driver License is not blank!',
+                            message: 'Driver License can not be blank!',
                         },
                     ]}
                 >
@@ -135,7 +135,7 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Phone is not blank!',
+                            message: 'Phone can not be blank!',
                         },
                     ]}
                 >
@@ -152,7 +152,7 @@ const AddDriver = () => {
                         },
                         {
                             required: true,
-                            message: 'E-mail is not blank!',
+                            message: 'E-mail can not be blank!',
                         },
                     ]}
                 >
@@ -165,11 +165,10 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Year Of Birth is not blank!',
+                            message: 'Year Of Birth can not be blank!',
                         },
                     ]}
                 >
-                    {/* <Input name='yearOfBirth' onChange={formik.handleChange} placeholder="Year Of Birth" /> */}
                     <DatePicker format={dateFormat} onChange={onChangeDate} onOk={onOk} />
                 </Form.Item>
 
@@ -180,7 +179,7 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Place Of Birth is not blank!',
+                            message: 'Place Of Birth can not be blank!',
                         },
                     ]}
                 >
@@ -201,13 +200,13 @@ const AddDriver = () => {
                     rules={[
                         {
                             required: true,
-                            message: 'Enabled is not blank!',
+                            message: 'Enabled can not be blank!',
                         },
                     ]}
                 >
                     <Select name='enabled' onChange={handleChangeEnabled} placeholder="Option Enabled">
-                        <Option value={true}>On</Option>
-                        <Option value={false}>Off </Option>
+                        <Option value={true}>Enable</Option>
+                        <Option value={false}>Disable</Option>
                     </Select>
                 </Form.Item>
 

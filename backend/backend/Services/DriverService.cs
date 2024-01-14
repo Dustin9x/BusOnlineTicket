@@ -69,6 +69,15 @@ namespace backend.Services
             var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(x => x.Id == Id);
             if (ExistingDriver != null)
             {
+                if (!string.IsNullOrEmpty(ExistingDriver.Avatar))
+                {
+                    var upload = Path.Combine(env.ContentRootPath, "Images/Driver");
+                    if (System.IO.File.Exists(Path.Combine(upload, ExistingDriver.Avatar)))
+                    {
+                        System.IO.File.Delete(Path.Combine(upload, ExistingDriver.Avatar)); // Xóa tệp tin ảnh
+                    }
+                }
+
                 db.Drivers.Remove(ExistingDriver);
                 int result = await db.SaveChangesAsync();
                 if (result == 0)

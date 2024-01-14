@@ -10,8 +10,8 @@ export default function ForgetPassword(props) {
   const { matkhau } = useSelector((state) => state.UserReducer);
 
   const onFinish = (values) => {
-    const action = layLaiMatKhauAction(values);
-    dispatch(action);
+    // const action = layLaiMatKhauAction(values);
+    // dispatch(action);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

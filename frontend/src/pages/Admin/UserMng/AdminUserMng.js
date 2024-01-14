@@ -4,7 +4,7 @@ import { Avatar, Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
-import { GetListUser, deleteUser } from "../../../redux/actions/UserAction";
+import { deleteUser, deleteUserAction, getListUserAction, getUserByIdAction } from "../../../redux/actions/UserAction";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
 
@@ -25,7 +25,7 @@ export default function AdminUserMng() {
   const dispatch = useDispatch();
   let { arrUser } = useSelector((state) => state.UserReducer);
   useEffect(() => {
-    dispatch(GetListUser());
+    dispatch(getListUserAction());
   }, [dispatch]);
 
   const [searchText, setSearchText] = useState("");
@@ -152,12 +152,12 @@ export default function AdminUserMng() {
         return (
           <Fragment key={index}>
             <Button key={1} href={`/admin/users/edit/` + data.id} type="link" icon={<EditOutlined />} onClick={() => { 
-              localStorage.setItem("userParams", JSON.stringify(data))
+              dispatch(getUserByIdAction(data.id))
             }}
             ></Button>
             <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
                 if ( window.confirm( "Are you sure you want to delete the user " + data.email + "?" ) ) {
-                  dispatch(deleteUser(data.id));
+                  dispatch(deleteUserAction(data.id));
                 } }}
             ></Button>
           </Fragment>
@@ -169,7 +169,7 @@ export default function AdminUserMng() {
     <div>
       <div className="d-flex mb-3">
         <h3 className="text-lg">User management</h3>
-        <Button href="/admin/users/adduser" type="primary" className="ml-3 small bg-primary" > + Add New User </Button>
+        <Button href="/admin/users/adduser" type="primary" className="ml-3 small bg-primary" > + Add New Moderator </Button>
       </div>
       <Table columns={columns} dataSource={data} rowKey={"id"} />
     </div>

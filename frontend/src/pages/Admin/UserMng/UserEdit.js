@@ -1,35 +1,31 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../../redux/actions/UserAction";
+import { getUserByIdAction, updateUser, updateUserAction } from "../../../redux/actions/UserAction";
 import { useFormik } from "formik";
 import { values } from "lodash";
-import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
+import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
+import { useEffect } from "react";
 const { Option } = Select;
 
 const UserEdit = (props) => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
-  const { userLogin } = useSelector((state) => state.UserReducer);
+  const { userDetail } = useSelector((state) => state.UserReducer);
   let { id } = props.match.params;
-  let user = {};
-  if (localStorage.getItem("userParams")) {
-    user = JSON.parse(localStorage.getItem("userParams"));
-  }
+  useEffect(() => {
+    dispatch(getUserByIdAction(id));
+  }, [dispatch, id])
 
-  const [imgSrc, setImgSrc] = useState(
-    user.avatar || "/img/placeholder-image.jpg"
-  );
+  const [imgSrc, setImgSrc] = useState("");
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: user.name,
-      email: user.email,
+      email: userDetail?.email,
       password: null,
-      role: user.role,
-      avatar: user.avatar,
-      fileName: "",
+      role: userDetail?.role,
+      avatar: userDetail?.avatar,
     },
     onSubmit: async (values) => {
       let formData = new FormData();
@@ -41,19 +37,14 @@ const UserEdit = (props) => {
         }
       }
       console.table("formData", [...formData]);
-      dispatch(updateUser(id, formData));
+      dispatch(updateUserAction(id, formData));
     },
   });
 
   const handleChangeFile = (e) => {
     let file = e.target.files[0];
 
-    if (
-      file.type === "image/jpeg" ||
-      file.type === "image/jpg" ||
-      file.type === "image/gif" ||
-      file.type === "image/png"
-    ) {
+    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
@@ -73,7 +64,7 @@ const UserEdit = (props) => {
 
   return (
     <div>
-      <h3 className="mb-5">Update infomation User: {user.taiKhoan}</h3>
+      <h3 className="mb-5">Update infomation User: {formik.values.name}</h3>
       <Form
         labelCol={{
           span: 4,
@@ -85,9 +76,7 @@ const UserEdit = (props) => {
         onSubmitCapture={formik.handleSubmit}
       >
         <Form.Item
-          name="email"
           label="Email"
-          initialValue={user.email}
           rules={[
             {
               type: "email",
@@ -99,13 +88,7 @@ const UserEdit = (props) => {
             },
           ]}
         >
-          <Input
-            disabled
-            className="text-dark"
-            name="email"
-            onChange={formik.handleChange}
-            placeholder="Email"
-          />
+          <Input disabled className="text-dark" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Email" />
         </Form.Item>
 
         <Form.Item label="Change password?">
@@ -115,8 +98,6 @@ const UserEdit = (props) => {
         {checked ? (
           <Form.Item
             label="Password"
-            name="password"
-            initialValue={user.password}
             rules={[
               {
                 required: true,
@@ -124,35 +105,14 @@ const UserEdit = (props) => {
               },
             ]}
           >
-            <Input.Password
-              name="password"
-              onChange={formik.handleChange}
-              placeholder="Password"
-            />
+            <Input.Password name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
           </Form.Item>
         ) : (
           ""
         )}
 
-        {/* <Form.Item
-                    label="Họ Tên"
-                    name="name"
-                    initialValue={user.name}
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Họ và tên không được để trống!',
-                        },
-                    ]}
-                >
-                    <Input name='name' onChange={formik.handleChange} placeholder="Họ và tên" />
-                </Form.Item> */}
-
-        {userLogin.role === "Admin" ? (
           <Form.Item
-            name="role"
             label="Role"
-            initialValue={user.role}
             rules={[
               {
                 required: true,
@@ -160,18 +120,11 @@ const UserEdit = (props) => {
               },
             ]}
           >
-            <Select
-              name="role"
-              onChange={handleChangeRole}
-              placeholder="Choose Role User"
-            >
+            <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" value={formik.values.role}>
               <Option value="Admin">Admin</Option>
               <Option value="User">User</Option>
             </Select>
           </Form.Item>
-        ) : (
-          ""
-        )}
 
         <Form.Item label="Avatar">
           <input
@@ -181,30 +134,11 @@ const UserEdit = (props) => {
             accept="image/png, image/jpeg,image/gif,image/png"
           />
           <br />
-          <img
-            style={{
-              width: 200,
-              height: 200,
-              objectFit: "cover",
-              borderRadius: "50%",
-            }}
-            src={
-              imgSrc === ""
-                ? "/img/placeholder-image.jpg"
-                : "https://localhost:7234/Images/User/" + imgSrc
-            }
-            alt="..."
-          />
+          <img style={{ width: 200, height: 200, objectFit: 'cover', borderRadius: '50%' }} src={imgSrc === '' ? `${DOMAIN}/Images/User/${formik.values.avatar}` : imgSrc} alt="..." />
         </Form.Item>
 
         <Form.Item label="Action">
-          <Button
-            htmlType="submit"
-            className="btn-primary bg-primary"
-            type="primary"
-          >
-            Update User
-          </Button>
+          <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Update User </Button>
         </Form.Item>
       </Form>
     </div>

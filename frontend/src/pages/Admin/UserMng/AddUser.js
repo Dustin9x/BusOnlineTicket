@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select } from "antd";
-import { createUser } from "../../../redux/actions/UserAction";
+import { createUserAction } from "../../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
@@ -30,7 +30,6 @@ const AddUser = () => {
       password: "",
       role: "",
       avatar: "",
-      fileName: "",
     },
     onSubmit: async (values) => {
       let formData = new FormData();
@@ -42,19 +41,14 @@ const AddUser = () => {
         }
       }
       console.table("formData", [...formData]);
-      dispatch(createUser(formData));
+      dispatch(createUserAction(formData));
     },
   });
 
   const handleChangeFile = (e) => {
     let file = e.target.files[0];
 
-    if (
-      file.type === "image/jpeg" ||
-      file.type === "image/jpg" ||
-      file.type === "image/gif" ||
-      file.type === "image/png"
-    ) {
+    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
@@ -90,27 +84,9 @@ const AddUser = () => {
           />
           <br />
           {imgSrc ? (
-            <img
-              style={{
-                width: 200,
-                height: 200,
-                objectFit: "cover",
-                borderRadius: "50%",
-              }}
-              src={imgSrc}
-              alt="..."
-            />
+            <img style={{ width: 200, height: 200, objectFit: "cover", borderRadius: "50%", }} src={imgSrc} alt="..." />
           ) : (
-            <img
-              style={{
-                width: 200,
-                height: 200,
-                border: "0.1px solid #ccc",
-                borderRadius: "50%",
-              }}
-              src="/img/placeholder-image.jpg"
-              alt="..."
-            />
+            <img style={{ width: 200, height: 200, border: "0.1px solid #ccc", borderRadius: "50%", }} src="/img/placeholder-image.jpg" alt="..." />
           )}
         </Form.Item>
         <Form.Item
@@ -127,11 +103,7 @@ const AddUser = () => {
             },
           ]}
         >
-          <Input
-            name="email"
-            onChange={formik.handleChange}
-            placeholder="Email"
-          />
+          <Input name="email" onChange={formik.handleChange} placeholder="Email" />
         </Form.Item>
 
         <Form.Item
@@ -144,25 +116,8 @@ const AddUser = () => {
             },
           ]}
         >
-          <Input.Password
-            name="password"
-            onChange={formik.handleChange}
-            placeholder="Password"
-          />
+          <Input.Password name="password" onChange={formik.handleChange} placeholder="Password" />
         </Form.Item>
-        {/* 
-                <Form.Item
-                    label="Họ Tên"
-                    name="name"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Username không được để trống!',
-                        },
-                    ]}
-                >
-                    <Input name='name' onChange={formik.handleChange} placeholder="Username" />
-                </Form.Item> */}
 
         <Form.Item
           name="role"
@@ -174,24 +129,14 @@ const AddUser = () => {
             },
           ]}
         >
-          <Select
-            name="role"
-            onChange={handleChangeRole}
-            placeholder="Choose Role User"
-          >
+          <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" >
             <Option value="Admin">Admin</Option>
             <Option value="User">User</Option>
           </Select>
         </Form.Item>
 
         <Form.Item label="Action">
-          <Button
-            htmlType="submit"
-            className="btn-primary bg-primary"
-            type="primary"
-          >
-            Add User
-          </Button>
+          <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Add User </Button>
         </Form.Item>
       </Form>
     </div>

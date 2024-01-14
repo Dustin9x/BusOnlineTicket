@@ -21,6 +21,9 @@ export class UserService extends baseService {
     getListUser = () => {
         return this.get(`/api/User`);
     };
+    getUserById = (userId) => {
+        return this.get(`/api/User/${userId}`);
+    }
     createUser = (User) => {
         return this.post(`/api/User`, User);
     };
@@ -28,7 +31,7 @@ export class UserService extends baseService {
         return this.delete(`/api/User?Id=${id}`);
     };
     updateUser = (id, User) => {
-        return this.put(`/api/User/${id}`, User);
+        return this.put(`/api/User?Id=${id}`, User);
     };
 }
 

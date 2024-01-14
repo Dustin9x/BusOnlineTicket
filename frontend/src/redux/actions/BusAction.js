@@ -8,10 +8,12 @@ export const getBusListAction = () => {
     return async (dispatch) => {
         try {
             const result = await busManageService.getBusList();
-            dispatch({
-                type: GET_BUS_LIST,
-                arrBus: result.data.data
-            })
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_BUS_LIST,
+                    arrBus: result.data.data
+                })
+            }
         } catch (error) {
             console.log('error', error);
         }
@@ -22,10 +24,12 @@ export const getBusByIdAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await busManageService.getBusById(id);
-            dispatch({
-                type: GET_BUS_DETAIL,
-                busDetail: result.data.data[0],
-            })
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_BUS_DETAIL,
+                    busDetail: result.data.data[0],
+                })
+            }
         } catch (error) {
             console.log('error', error);
         }

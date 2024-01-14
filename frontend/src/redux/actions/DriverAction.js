@@ -37,10 +37,14 @@ export const getDriverByIdAction = (id) => {
 export const addDriverAction = (newDriver) => {
     return async (dispatch) => {
         try {
-            console.log("check add", newDriver)
             const result = await driverService.postDriver(newDriver);
-            console.log(result);
-            alert('Add Driver Successfully')
+            notification.success({
+                closeIcon: false,
+                message: 'Success',
+                description: (
+                    <>Add driver successfully.</>
+                ),
+            });
             history.push('/admin/drivermng');
         } catch (error) {
             alert("Create Fail . Please Try Again")

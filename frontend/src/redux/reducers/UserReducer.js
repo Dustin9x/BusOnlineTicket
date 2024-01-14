@@ -5,6 +5,7 @@ import {
   GET_USER_LIST,
   LOGIN_ACTION,
   SET_THONG_TIN_DAT_VE,
+  GET_USER_DETAIL,
 } from "../constants";
 
 let user = {};
@@ -14,20 +15,8 @@ if (localStorage.getItem(USER_LOGIN)) {
 
 const initialState = {
   userLogin: user,
-  thongTinNguoiDung: {},
-  chiTietNguoiDung: {},
-  arrUser: [
-    // {
-    //   "taiKhoan": "01Admin123",
-    //   "hoTen": "Tung Son",
-    //   "email": "thong000@gmail.com",
-    //   "soDt": "0987654321",
-    //   "matKhau": "iphone12",
-    //   "maLoaiNguoiDung": "QuanTri"
-    // }
-  ],
-  arrDriver: [],
-  profile: {},
+  arrUser: [],
+  userDetail: {},
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -46,9 +35,8 @@ export const UserReducer = (state = initialState, action) => {
       state.arrDriver = action.arrDriver;
       return { ...state };
 
-    case LAY_CHI_TIET_NGUOI_DUNG:
-      state.profile = action.profile;
-
+    case GET_USER_DETAIL:
+      state.userDetail = action.userDetail;
       return { ...state };
 
     case SET_THONG_TIN_DAT_VE:

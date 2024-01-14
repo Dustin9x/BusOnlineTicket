@@ -37,6 +37,28 @@ namespace backend.Controllers
 
         }
 
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetUserById(int Id)
+        {
+            try
+            {
+                var list = await repo.GetUserById(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get user successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromForm] User User)
         {

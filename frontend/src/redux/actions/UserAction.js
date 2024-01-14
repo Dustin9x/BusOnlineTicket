@@ -5,6 +5,7 @@ import {
   LAY_LAI_MAT_KHAU_ACTION,
   LOGIN_ACTION,
   SET_THONG_TIN_DAT_VE,
+  GET_USER_DETAIL,
 } from "../constants";
 import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
@@ -27,8 +28,7 @@ export const loginAction = (loginInfo) => {
           message: "Success",
           description: (
             <>
-              Login successfully.
-              <br />
+              Login successfully.<br />
               Welcom to PHTV Bus.
             </>
           ),
@@ -46,8 +46,7 @@ export const loginAction = (loginInfo) => {
         message: "Error",
         description: (
           <>
-            Login fail.
-            <br />
+            Login fail.<br />
             Please try again.
           </>
         ),
@@ -61,10 +60,27 @@ export const registerAction = (thongTinDangKy) => {
     try {
       const result = await userService.register(thongTinDangKy);
       if (result.data.status === 200) {
-        alert("Đăng ký thành công, xin đăng nhập để tiếp tục");
+        notification.success({
+          closeIcon: false,
+          message: "Success",
+          description: (
+            <>
+              Register successfully.<br />
+              Please login to continue.
+            </>
+          ),
+        });
         history.replace("login");
       } else {
-        alert("Xin lỗi! Email này đã được sử dụng!");
+        notification.error({
+          closeIcon: false,
+          message: "Error",
+          description: (
+            <>
+              Sorry this email is already used.
+            </>
+          ),
+        });
       }
     } catch (error) {
       console.log(error);
@@ -72,29 +88,29 @@ export const registerAction = (thongTinDangKy) => {
   };
 };
 
-export const layLaiMatKhauAction = (thongTinEmail) => {
-  return async (dispatch) => {
-    try {
-      dispatch(displayLoadingAction);
-      const result = await driverService.layLaiMatKhau(thongTinEmail);
-      if (result.data.status === 200) {
-        dispatch({
-          type: LAY_LAI_MAT_KHAU_ACTION,
-          thongTinEmail: result.data.content,
-        });
-        await dispatch(hideLoadingAction);
-        alert(
-          "Lấy lại mật khẩu thành công, mật khẩu mới đã được gửi về email của bạn!!"
-        );
-        history.replace("login");
-      }
-    } catch (error) {
-      console.log(error);
-      await dispatch(hideLoadingAction);
-      alert(error.response.data.message);
-    }
-  };
-};
+// export const layLaiMatKhauAction = (thongTinEmail) => {
+//   return async (dispatch) => {
+//     try {
+//       dispatch(displayLoadingAction);
+//       const result = await driverService.layLaiMatKhau(thongTinEmail);
+//       if (result.data.status === 200) {
+//         dispatch({
+//           type: LAY_LAI_MAT_KHAU_ACTION,
+//           thongTinEmail: result.data.content,
+//         });
+//         await dispatch(hideLoadingAction);
+//         alert(
+//           "Lấy lại mật khẩu thành công, mật khẩu mới đã được gửi về email của bạn!!"
+//         );
+//         history.replace("login");
+//       }
+//     } catch (error) {
+//       console.log(error);
+//       await dispatch(hideLoadingAction);
+//       alert(error.response.data.message);
+//     }
+//   };
+// };
 
 export const layThongTinDatVeAction = () => {
   return async (dispatch) => {
@@ -128,10 +144,10 @@ export const layThongTinDatVeAction = () => {
 //   };
 // };
 
-export const GetListUser = () => {
+export const getListUserAction = () => {
   return async (dispatch) => {
     try {
-      const result = await userService.GetListUser();
+      const result = await userService.getListUser();
       if (result.data.status === 200) {
         dispatch({
           type: GET_USER_LIST,
@@ -143,31 +159,65 @@ export const GetListUser = () => {
     }
   };
 };
-export const createUser = (newUser) => {
+
+export const getUserByIdAction = (id) => {
   return async (dispatch) => {
     try {
-      const result = await userService.createUser(newUser);
-      alert("Create new user successfully");
-      history.push("/admin/adminusers");
+      const result = await userService.getUserById(id);
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_USER_DETAIL,
+          userDetail: result.data.data[0],
+        });
+      }
     } catch (error) {
-      alert("Create New User fail!!");
+      console.log(error);
     }
   };
 };
 
-export const updateUser = (id, newUser) => {
+export const createUserAction = (newUser) => {
+  return async (dispatch) => {
+    try {
+      const result = await userService.createUser(newUser);
+      notification.success({
+        closeIcon: false,
+        message: 'Success',
+        description: (
+          <>Create new user successfully.</>
+        ),
+      });
+      history.push("/admin/adminusers");
+    } catch (error) {
+      notification.error({
+        closeIcon: false,
+        message: 'Error',
+        description: (
+          <>Create New User fail!</>
+        ),
+      });
+    }
+  };
+};
+
+export const updateUserAction = (id, newUser) => {
   return async (dispatch) => {
     try {
       const result = await userService.updateUser(id, newUser);
-      // dispatch(layThongTinNguoiDungAction(id));
-      alert("Updata User successfully");
+      notification.success({
+        closeIcon: false,
+        message: 'Success',
+        description: (
+          <>Update user successfully.</>
+        ),
+      });
       history.push("/admin/adminusers");
     } catch (error) {
       console.log(error);
     }
   };
 };
-export const deleteUser = (id) => {
+export const deleteUserAction = (id) => {
   return async (dispatch) => {
     try {
       const result = await userService.deleteUser(id);
@@ -176,7 +226,7 @@ export const deleteUser = (id) => {
         message: "Success",
         description: <>Delete User successfully</>,
       });
-      dispatch(GetListUser());
+      dispatch(getListUserAction());
     } catch (error) {
       console.log("error", error);
     }

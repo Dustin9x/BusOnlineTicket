@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Form, Input, Button, Select, Checkbox } from "antd";
+import { Form, Input, Button, Select, DatePicker } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { getDriverByIdAction, updateDriver } from "../../../redux/actions/DriverAction";
 import { useFormik } from "formik";
 import { DOMAIN } from './../../../util/settings/config';
+import dayjs from 'dayjs'
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+dayjs.extend(customParseFormat);
 const { Option } = Select;
 
 const DriverEdit = (props) => {
+  const dateFormat = 'DD-MM-YYYY';
   const dispatch = useDispatch();
   const { driverDetail } = useSelector(state => state.DriverReducer)
 
@@ -47,12 +51,7 @@ const DriverEdit = (props) => {
   const handleChangeFile = (e) => {
     let file = e.target.files[0];
 
-    if (
-      file.type === "image/jpeg" ||
-      file.type === "image/jpg" ||
-      file.type === "image/gif" ||
-      file.type === "image/png"
-    ) {
+    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
@@ -61,6 +60,18 @@ const DriverEdit = (props) => {
       formik.setFieldValue("UploadImage", file);
     }
   };
+
+  const onOk = (values) => {
+    let yearOfBirth = dayjs(values).format('YYYY-MM-DD');
+    formik.setFieldValue('yearOfBirth', yearOfBirth);
+  }
+
+  const onChangeDate = (values) => {
+    let yearOfBirth = dayjs(values).format('YYYY-MM-DD');
+    formik.setFieldValue('yearOfBirth', yearOfBirth);
+  }
+
+  let defaultDate = dayjs(formik.values.yearOfBirth).format(dateFormat)
 
   const handleChangeEnabled = (value) => {
     formik.setFieldValue("enabled", value);
@@ -146,7 +157,7 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input className="text-dark" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Email" />
+          <Input className="text-dark" disabled name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Email" />
         </Form.Item>
 
         <Form.Item
@@ -158,7 +169,7 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input name="yearOfBirth" onChange={formik.handleChange} value={formik.values.yearOfBirth} placeholder="Year Of Birth" />
+          <DatePicker format={dateFormat} defaultValue={dayjs(defaultDate, dateFormat)} onChange={onChangeDate} onOk={onOk} />
         </Form.Item>
 
         <Form.Item

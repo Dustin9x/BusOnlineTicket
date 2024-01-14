@@ -7,10 +7,12 @@ export const getStationListAction = () => {
     return async (dispatch) => {
         try {
             const result = await stationManageService.getStationList();
-            dispatch({
-                type: GET_STATION_LIST,
-                arrStation: result.data.data
-            })
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_STATION_LIST,
+                    arrStation: result.data.data
+                })
+            }
         } catch (error) {
             console.log('error', error);
         }
@@ -21,10 +23,12 @@ export const getStationByIdAction = (id) => {
     return async (dispatch) => {
         try {
             const result = await stationManageService.getStationById(id);
-            dispatch({
-                type: GET_STATION_DETAIL,
-                stationDetail: result.data.data[0]
-            })
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_STATION_DETAIL,
+                    stationDetail: result.data.data[0]
+                })
+            }
         } catch (error) {
             console.log('error', error);
         }
