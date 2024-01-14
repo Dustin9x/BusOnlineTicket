@@ -122,7 +122,7 @@ export default function BusMng() {
       sorter: (a, b) => a.busType - b.busType,
       sortDirections: ['descend', 'ascend'],
       render: (text, busType) => {
-        return (<Tooltip title={`Number of seat: ${busType.busType.numberOfSeat}`}>
+        return (<Tooltip title={`Number of seat: ${busType.busType?.numberOfSeat}`}>
           <span>{busType.busType?.name}</span>
         </Tooltip>)
       },

@@ -7,6 +7,7 @@ import { getStationListAction } from '../../../redux/actions/StationAction';
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { addNewTripAction } from '../../../redux/actions/TripAction';
+import { getDriverAction } from '../../../redux/actions/DriverAction';
 dayjs.extend(customParseFormat);
 
 export default function AddNewTrip(props) {
@@ -14,12 +15,14 @@ export default function AddNewTrip(props) {
   const [imgSrc, setImgSrc] = useState('');
   let { arrBus } = useSelector(state => state.BusReducer);
   let { arrStation } = useSelector(state => state.StationReducer);
+  let { arrDriver } = useSelector(state => state.DriverReducer);
   const dateFormat = 'DD-MM-YYYY';
   const { RangePicker } = DatePicker;
 
   useEffect(() => {
     dispatch(getBusListAction())
     dispatch(getStationListAction())
+    dispatch(getDriverAction())
   }, [dispatch]);
   const formik = useFormik({
     initialValues: {
@@ -27,6 +30,7 @@ export default function AddNewTrip(props) {
       finishTime: '',
       ticketPrice: '',
       busId: '',
+      driverId: '',
       fromStationId: '',
       toStationId: '',
       UploadImage: {},
@@ -58,6 +62,10 @@ export default function AddNewTrip(props) {
 
   const handleChangeToStation = (value) => {
     formik.setFieldValue('toStationId', value)
+  };
+
+  const handleChangeDriver = (value) => {
+    formik.setFieldValue('driverId', value)
   };
 
   const onChange = (value, dateString) => {
@@ -170,6 +178,21 @@ export default function AddNewTrip(props) {
         >
           <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} />
         </Form.Item>
+
+        <Form.Item
+          label="Assigned Driver"
+          style={{ minWidth: '100%' }}
+          rules={[
+            {
+              required: true,
+              message: 'Driver is required!',
+              transform: (value) => value.trim(),
+            },
+          ]}
+        >
+          <Select options={arrDriver?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
+        </Form.Item>
+
         <Form.Item
           label="Image"
           style={{ minWidth: '100%' }}

@@ -7,6 +7,8 @@ import SelectBus from "../../components/SelectBus/SelectBus";
 import TabPane from "antd/es/tabs/TabPane";
 import CheckTicket from "../../components/CheckTicket/CheckTicket";
 import PopularRoute from "../../components/PopularRoute/PopularRoute";
+import Information from "../../components/Information/Information";
+import Faqs from "../../components/FAQs/Faqs";
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -52,10 +54,13 @@ export default function Home(props) {
         </div>
       </div>
       <div className="my-12">
-        <h1 className="text-center text-2xl">  Popular bus routes </h1>
         <div className="mt-3 container">
+          
           <PopularRoute />
-          <Button className="text-red-500 text-right w-full" href="/news" type="link" > Xem thêm &gt;&gt; </Button>
+
+          <Information />
+
+          <Faqs />
         </div>
       </div>
     </div>

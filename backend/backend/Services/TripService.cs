@@ -20,7 +20,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
         }
 
         public async Task<IEnumerable<Trip>> GetTripById(int Id)

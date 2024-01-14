@@ -1,4 +1,4 @@
-import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_DRIVER_DETAIL, GET_DRIVER_LIST } from "../constants";
+import { GET_DRIVER_DETAIL, GET_DRIVER_LIST } from "../constants";
 
 const initialState = {
     arrDriver: [],

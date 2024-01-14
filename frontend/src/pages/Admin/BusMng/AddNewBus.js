@@ -33,7 +33,7 @@ const AddNewBus = () => {
       note: '',
     },
     onSubmit: (values) => {
-      if (values.busPlate == '' || values.busType == '') {
+      if (values.busPlate == '' || values.busTypeId == '' || values.stationId == '') {
         notification.error({
           closeIcon: false,
           message: 'Error',
@@ -91,6 +91,7 @@ const AddNewBus = () => {
           </Form.Item>
           <Form.Item
             label="Bus Type"
+            name='busType'
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -100,10 +101,12 @@ const AddNewBus = () => {
               },
             ]}
           >
-            <Select options={arrBusType?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeBusType} />
+            {/* <Input name='busType' type='hidden'  /> */}
+            <Select rules={[{required:true}]} options={arrBusType?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeBusType} />
           </Form.Item>
           <Form.Item
             label="Station"
+            name='Station'
             style={{ minWidth: '100%' }}
             rules={[
               {
