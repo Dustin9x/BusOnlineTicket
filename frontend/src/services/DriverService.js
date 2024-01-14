@@ -23,7 +23,7 @@ export class DriverService extends baseService {
     }
 
     putDriver = (id,newDriver) => {
-        return this.put(`/api/Driver/${id}`,newDriver);
+        return this.put(`/api/Driver?Id=${id}`,newDriver);
     }
 }
 

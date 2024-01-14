@@ -17,11 +17,11 @@ namespace backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetAllDriver()
+        public async Task<ActionResult> GetAllDrivers()
         {
             try
             {
-                var list = await repo.GetAllDriver();
+                var list = await repo.GetAllDrivers();
                 if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<Driver>>(StatusCodes.Status200OK, "Get list of bus successfully", list, null);
@@ -29,6 +29,26 @@ namespace backend.Controllers
                 }
                 return BadRequest();
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetDriverById(int Id)
+        {
+            try
+            {
+                var list = await repo.GetDriverById(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Driver>>(StatusCodes.Status200OK, "Get driver successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
             }
             catch (Exception ex)
             {

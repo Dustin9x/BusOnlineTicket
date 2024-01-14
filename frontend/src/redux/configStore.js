@@ -9,6 +9,7 @@ import { LoadingReducer } from './reducers/LoadingReducer';
 import { FeedbackReducer } from './reducers/FeedbackReducer';
 import { OrderDetailReducer } from './reducers/OderDetailReducer';
 import { TripReducer } from './reducers/TripReducer';
+import { DriverReducer } from './reducers/DriverReducer';
 
 
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     BusReducer,
     UserReducer,
     StationReducer,
+    DriverReducer,
     MovieReducer,
     TripReducer,
     QuanLyDatVeReducer,

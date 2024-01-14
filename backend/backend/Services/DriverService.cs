@@ -15,10 +15,16 @@ namespace backend.Services
             this.env = env;
         }
 
-        public async Task<IEnumerable<Driver>> GetAllDriver()
+        public async Task<IEnumerable<Driver>> GetAllDrivers()
         {
             return await db.Drivers.ToListAsync();
         }
+
+        public async Task<IEnumerable<Driver>> GetDriverById(int Id)
+        {
+            return await db.Drivers.Where(Dr => Dr.Id == Id).ToListAsync();
+        }
+
 
         public async Task<bool> CreateDriver(Driver driver)
         {
@@ -77,10 +83,7 @@ namespace backend.Services
             return null;
         }
 
-        public async Task<IEnumerable<Driver>> GetDriversById(int Id)
-        {
-            return await db.Drivers.Where(Dr => Dr.Id == Id).ToListAsync();
-        }
+
 
         public async Task<bool> PutDriver(int Id, Driver driver)
         {
@@ -90,7 +93,9 @@ namespace backend.Services
 
                 if (driver.UploadImage != null)
                 {
-                    var upload = Path.Combine(env.ContentRootPath, "Images/Driver");
+                    string pathToNewFolder = System.IO.Path.Combine("Images", "Driver");
+                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
                     var filePath = Path.Combine(Path.GetRandomFileName() + driver.UploadImage.FileName);
 
                     using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
@@ -112,8 +117,6 @@ namespace backend.Services
 
                 }
 
-
-
                 ExistingDriver.FullName = driver.FullName;
                 ExistingDriver.YearOfBirth = driver.YearOfBirth;
                 ExistingDriver.PlaceOfBirth = driver.PlaceOfBirth;
@@ -122,7 +125,6 @@ namespace backend.Services
                 ExistingDriver.Email = driver.Email;
                 ExistingDriver.NationalId = driver.NationalId;
                 ExistingDriver.Note = driver.Note;
-
                 ExistingDriver.Enabled = driver.Enabled;
                 int Result = await db.SaveChangesAsync();
 

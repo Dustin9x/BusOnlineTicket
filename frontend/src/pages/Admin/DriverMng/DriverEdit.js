@@ -1,37 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { updateDriver } from "../../../redux/actions/DriverAction";
+import { getDriverByIdAction, updateDriver } from "../../../redux/actions/DriverAction";
 import { useFormik } from "formik";
+import { DOMAIN } from './../../../util/settings/config';
 const { Option } = Select;
 
 const DriverEdit = (props) => {
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState(false);
+  const { driverDetail } = useSelector(state => state.DriverReducer)
 
   let { id } = props.match.params;
-  let user = {};
-  if (localStorage.getItem("userParams")) {
-    user = JSON.parse(localStorage.getItem("userParams"));
-  }
+  useEffect(() => {
+    dispatch(getDriverByIdAction(id))
+  }, [dispatch, id])
 
-  const [imgSrc, setImgSrc] = useState(
-    user.avatar || "/img/placeholder-image.jpg"
-  );
+  const [imgSrc, setImgSrc] = useState("");
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      fullName: user.fullName,
-      nationalId: user.nationalId,
-      driverLicense: user.driverLicense,
-      phone: user.phone,
-      email: user.email,
-      yearOfBirth: user.yearOfBirth,
-      placeOfBirth: user.placeOfBirth,
-      note: user.note,
-      enabled: user.enabled,
-      avatar: user.avatar,
-      fileName: "",
+      fullName: driverDetail?.fullName,
+      nationalId: driverDetail?.nationalId,
+      driverLicense: driverDetail?.driverLicense,
+      phone: driverDetail?.phone,
+      email: driverDetail?.email,
+      yearOfBirth: driverDetail?.yearOfBirth,
+      placeOfBirth: driverDetail?.placeOfBirth,
+      note: driverDetail?.note,
+      enabled: driverDetail?.enabled,
+      avatar: driverDetail?.avatar,
     },
     onSubmit: async (values) => {
       let newDriver = new FormData();
@@ -71,7 +68,7 @@ const DriverEdit = (props) => {
 
   return (
     <div>
-      <h3 className="mb-5">Update Infor Driver : {user.fullName}</h3>
+      <h3 className="mb-5">Update Infor Driver : {formik.values.fullName}</h3>
       <Form
         labelCol={{
           span: 4,
@@ -82,10 +79,14 @@ const DriverEdit = (props) => {
         layout="horizontal"
         onSubmitCapture={formik.handleSubmit}
       >
+        <Form.Item label="Avatar">
+          <input type="file" name="UploadImage" onChange={handleChangeFile} accept="image/png, image/jpeg, image/png" />
+          <br />
+          <img style={{ width: 200, height: 200, objectFit: 'cover', borderRadius: '50%' }} src={imgSrc === '' ? `${DOMAIN}/Images/Driver/${formik.values.avatar}` : imgSrc} alt="..." />
+        </Form.Item>
+
         <Form.Item
           label="Full Name"
-          name="fullName"
-          initialValue={user.fullName}
           rules={[
             {
               required: true,
@@ -93,17 +94,11 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="fullName"
-            onChange={formik.handleChange}
-            placeholder="Full Name"
-          />
+          <Input name="fullName" onChange={formik.handleChange} value={formik.values.fullName} placeholder="Full Name" />
         </Form.Item>
 
         <Form.Item
           label="ID Nationnal"
-          name="nationalId"
-          initialValue={user.nationalId}
           rules={[
             {
               required: true,
@@ -111,17 +106,11 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="nationalId"
-            onChange={formik.handleChange}
-            placeholder="ID Nationnal"
-          />
+          <Input name="nationalId" onChange={formik.handleChange} value={formik.values.nationalId} placeholder="ID Nationnal" />
         </Form.Item>
 
         <Form.Item
           label="Driver License"
-          name="driverLicense"
-          initialValue={user.driverLicense}
           rules={[
             {
               required: true,
@@ -129,17 +118,11 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="driverLicense"
-            onChange={formik.handleChange}
-            placeholder="Driver License"
-          />
+          <Input name="driverLicense" onChange={formik.handleChange} value={formik.values.driverLicense} placeholder="Driver License" />
         </Form.Item>
 
         <Form.Item
           label="Phone"
-          name="phone"
-          initialValue={user.phone}
           rules={[
             {
               required: true,
@@ -147,41 +130,27 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="phone"
-            onChange={formik.handleChange}
-            placeholder="Phone"
-          />
+          <Input name="phone" onChange={formik.handleChange} value={formik.values.phone} placeholder="Phone" />
         </Form.Item>
 
         <Form.Item
-          name="email"
-          label="Email"
-          initialValue={user.email}
+          label="email"
           rules={[
             {
               type: "email",
-              message: "E-mail is'nt format",
+              message: "E-mail is not in the correct format!",
             },
             {
               required: true,
-              message: "E-mail is not blank!",
+              message: "E-mail can not be blank!",
             },
           ]}
         >
-          <Input
-            disabled
-            className="text-dark"
-            name="email"
-            onChange={formik.handleChange}
-            placeholder="Email"
-          />
+          <Input className="text-dark" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Email" />
         </Form.Item>
 
         <Form.Item
           label="Year Of Birth"
-          name="yearOfBirth"
-          initialValue={user.yearOfBirth}
           rules={[
             {
               required: true,
@@ -189,17 +158,11 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="yearOfBirth"
-            onChange={formik.handleChange}
-            placeholder="Year Of Birth"
-          />
+          <Input name="yearOfBirth" onChange={formik.handleChange} value={formik.values.yearOfBirth} placeholder="Year Of Birth" />
         </Form.Item>
 
         <Form.Item
           label="Place Of Birth"
-          name="placeOfBirth"
-          initialValue={user.placeOfBirth}
           rules={[
             {
               required: true,
@@ -207,17 +170,11 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="placeOfBirth"
-            onChange={formik.handleChange}
-            placeholder="Place Of Birth"
-          />
+          <Input name="placeOfBirth" onChange={formik.handleChange} value={formik.values.placeOfBirth} placeholder="Place Of Birth" />
         </Form.Item>
 
         <Form.Item
           label="Note"
-          name="note"
-          initialValue={user.note}
           rules={[
             {
               required: true,
@@ -225,64 +182,20 @@ const DriverEdit = (props) => {
             },
           ]}
         >
-          <Input
-            name="note"
-            onChange={formik.handleChange}
-            placeholder="Note"
-          />
+          <Input name="note" onChange={formik.handleChange} value={formik.values.note} placeholder="Note" />
         </Form.Item>
 
         <Form.Item
-          name="enabled"
           label="Enabled"
-          initialValue={user.enabled}
-          rules={[
-            {
-              required: true,
-              message: "Enabled is not blank!",
-            },
-          ]}
         >
-          <Select
-            name="enabled"
-            onChange={handleChangeEnabled}
-            placeholder="Option Enabled"
-          >
+          <Select name="enabled" onChange={handleChangeEnabled} value={formik.values.enabled} placeholder="Option Enabled" >
             <Option value={true}>On</Option>
             <Option value={false}>Off</Option>
           </Select>
         </Form.Item>
 
-        <Form.Item label="Avatar">
-          <input
-            type="file"
-            name="UploadImage"
-            onChange={handleChangeFile}
-            accept="image/png, image/jpeg,image/gif,image/png"
-          />
-          <br />
-          <img
-            style={{
-              width: 200,
-              height: 200,
-              objectFit: "cover",
-              borderRadius: "50%",
-            }}
-            src={imgSrc === "" ? "/img/placeholder-image.jpg" : imgSrc}
-            alt="..."
-          />
-        </Form.Item>
-
-  
-
         <Form.Item label="Action">
-          <Button
-            htmlType="submit"
-            className="btn-primary bg-primary"
-            type="primary"
-          >
-            Update
-          </Button>
+          <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Update Driver</Button>
         </Form.Item>
       </Form>
     </div>

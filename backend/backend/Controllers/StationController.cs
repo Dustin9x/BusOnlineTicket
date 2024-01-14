@@ -35,7 +35,7 @@ namespace backend.Controllers
             }
         }
         [HttpGet("{Id}")]
-        public async Task<ActionResult> GetAllById(int Id)
+        public async Task<ActionResult> GetStationById(int Id)
         {
             try
             {

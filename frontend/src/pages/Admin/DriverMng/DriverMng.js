@@ -6,7 +6,7 @@ import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
-import { deleteDriver, getDriverAction } from "../../../redux/actions/DriverAction";
+import { deleteDriver, getDriverAction, getDriverByIdAction } from "../../../redux/actions/DriverAction";
 
 export default function DriverMng() {
   let userLogin = {};
@@ -207,18 +207,18 @@ export default function DriverMng() {
     },
     {
       title: "Manage",
-      render: (text, user, index) => {
+      render: (text, driver, index) => {
         return (
           <Fragment key={index}>
-            <Button key={1} href={`/admin/drivermng/edit/${user.id}`} type="link" icon={<EditOutlined />}
+            <Button key={1} href={`/admin/drivermng/edit/${driver.id}`} type="link" icon={<EditOutlined />}
               onClick={() => {
-                localStorage.setItem("userParams", JSON.stringify(user));
+                dispatch(getDriverByIdAction(driver.id))
               }}
             ></Button>
             <Button key={2} type="link" danger icon={<DeleteOutlined />}
               onClick={() => {
-                if ( window.confirm( "Do you sure want to delete " + user.fullName + "?")) {
-                  dispatch(deleteDriver(user.id));
+                if ( window.confirm( "Do you sure want to delete " + driver.fullName + "?")) {
+                  dispatch(deleteDriver(driver.id));
                 } }}
             ></Button>
           </Fragment>
@@ -232,7 +232,7 @@ export default function DriverMng() {
         <h3 className="text-lg">Driver Management</h3>
         <Button href="/admin/drivermng/adddriver" type="primary" className="ml-3 small bg-primary" > + Add New Driver</Button>
       </div>
-      <Table columns={columns} dataSource={data} rowKey={"id"} />;
+      <Table columns={columns} dataSource={data} rowKey={"id"} />
     </div>
   );
 }
