@@ -9,9 +9,7 @@ import Contact from './pages/Contact/Contact';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Detail from './pages/Detail/Detail';
-import { MovieTemplate } from './templates/HomeTemplate/MovieTemplate';
 import CheckOutTemplate from './templates/CheckOutTemplate';
-import Checkout from './pages/Checkout/Checkout';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 
@@ -19,7 +17,6 @@ import UserTemplate from './templates/UserTemplate';
 import Loading from './components/Loading/Loading';
 import { AdminTemplate } from './templates/AdminTemplate';
 import Edit from './pages/Admin/BusMng/EditBus';
-import ShowTime from './pages/Admin/BusMng/ShowTime';
 import UserMng from './pages/Admin/UserMng/AdminUserMng';
 import UserEdit from './pages/Admin/UserMng/UserEdit';
 import AddUser from './pages/Admin/UserMng/AddUser';
@@ -65,8 +62,7 @@ function App() {
       <Switch>
         <HomeTemplate path='/home' exact Component={Home} />
         <HomeTemplate path='/contact' exact Component={Contact} />
-        <MovieTemplate path='/detail/:id' exact Component={Detail} />
-        <CheckOutTemplate path='/checkout/:id' exact Component={Checkout} />
+        <CheckOutTemplate path='/detail/:id' exact Component={Detail} />
 
         {/* Footer */}
         <HomeTemplate path='/about' exact Component={AboutUs} />
@@ -99,7 +95,6 @@ function App() {
         <AdminTemplate path='/admin/busmng' exact Component={BusMng} />
         <AdminTemplate path='/admin/busmng/addnew' exact Component={AddNewBus} />
         <AdminTemplate path='/admin/busmng/edit/:id' exact Component={Edit} />
-        <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 
         {/* Bus Type */}
         <AdminTemplate path='/admin/bustypemng' exact Component={BusTypeMng} />
@@ -110,7 +105,6 @@ function App() {
         <AdminTemplate path='/admin/stationmng' exact Component={StationMng} />
         <AdminTemplate path='/admin/stationmng/addnew' exact Component={AddNewStation} />
         <AdminTemplate path='/admin/stationmng/edit/:id' exact Component={EditStation} />
-        <AdminTemplate path='/admin/moviemng/showtime/:id' exact Component={ShowTime} />
 
         {/* Trip */}
         <AdminTemplate path='/admin/tripmng' exact Component={TripMng} />

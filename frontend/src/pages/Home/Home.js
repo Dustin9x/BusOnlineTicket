@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Card, Tabs } from "antd";
 import dayjs from "dayjs";
-import { KetQuaDatVe } from "./../Checkout/Checkout";
 import SelectBus from "../../components/SelectBus/SelectBus";
 import TabPane from "antd/es/tabs/TabPane";
 import CheckTicket from "../../components/CheckTicket/CheckTicket";

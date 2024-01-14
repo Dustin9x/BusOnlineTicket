@@ -1,5 +1,5 @@
 import { notification } from "antd";
-import { GET_TRIP_LIST } from "../constants";
+import { GET_TRIP_DETAIL, GET_TRIP_LIST } from "../constants";
 import { history } from "../../App";
 import { tripService } from "../../services/TripService";
 
@@ -11,6 +11,22 @@ export const getTripListAction = () => {
                 dispatch({
                     type: GET_TRIP_LIST,
                     arrTrip: result.data.data
+                })
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+export const getTripByIdAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await tripService.getTripById(id);
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_TRIP_DETAIL,
+                    tripDetail: result.data.data[0]
                 })
             }
         } catch (error) {

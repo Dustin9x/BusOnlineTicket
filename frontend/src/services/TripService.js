@@ -9,6 +9,10 @@ export class TripService extends baseService {
         return this.get(`/api/Trip`);
     }
 
+    getTripById = (id) => {
+        return this.get(`/api/Trip/${id}`);
+    }
+
 
     addNewTrip = (formData) => {
         return this.post(`/api/Trip`, formData);

@@ -8,10 +8,10 @@ const initialState = {
 export const OrderDetailReducer = (state = initialState, action) => {
   switch (action.type) {
 
-    case DAT_VE: {
-      state.detailDonHang = action.detailDonHang;
-      return { ...state }
-    }
+    // case DAT_VE: {
+    //   state.detailDonHang = action.detailDonHang;
+    //   return { ...state }
+    // }
 
     case LAY_DOANH_THU: {
       state.arrDoanhThu = action.arrDoanhThu;

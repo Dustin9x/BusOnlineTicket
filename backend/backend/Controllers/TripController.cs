@@ -44,7 +44,7 @@ namespace backend.Controllers
                 if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<Trip>>(StatusCodes.Status200OK, "Get trip successfully", list, null);
-                    return Ok(list);
+                    return Ok(response);
                 }
                 return BadRequest();
             }

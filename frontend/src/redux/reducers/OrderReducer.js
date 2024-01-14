@@ -1,11 +1,6 @@
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, XAC_NHAN_DON_HANG } from "../constants"
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
-    chiTietPhongVe: {},
-    lichChieu: [],
-    lichChieuTheoPhim: [],
-    lichChieuChiTiet: [],
-    lichChieuEdit: [],
     danhSachGhe: [],
     danhSachGheDangChon: [],
     danhSachGheKhachDat: [{ maGhe: 61641 }, { maGhe: 61642 }],
@@ -15,26 +10,14 @@ const initialState = {
     disableTab: false
 }
 
-export const QuanLyDatVeReducer = (state = initialState, action) => {
+export const OrderReducer = (state = initialState, action) => {
     switch (action.type) {
-
-        case LAY_DANH_SACH_LICH_CHIEU:
-            state.lichChieu = action.lichChieu;
-            return { ...state }
-
-        case LAY_LICH_CHIEU_THEO_PHIM:
-            state.lichChieuTheoPhim = action.lichChieuTheoPhim;
-            return { ...state }
-
-        case LAY_CHI_TIET_LICH_CHIEU:
-            state.lichChieuChiTiet = action.lichChieuChiTiet;
-            return { ...state }
 
         case LAY_DANH_SACH_GHE:
             state.danhSachGhe = action.danhSachGhe;
             return { ...state }
 
-        case XAC_NHAN_DON_HANG:
+        case ORDER_CONFIRM:
             state.donHang = action.donHang;
             return { ...state }
 
@@ -44,13 +27,14 @@ export const QuanLyDatVeReducer = (state = initialState, action) => {
 
         case DAT_VE:
             let danhSachGheCapNhat = [...state.danhSachGheDangChon];
-            let index = danhSachGheCapNhat.findIndex(gheDD => gheDD.maGhe === action.gheDuocChon.maGhe);
+            let index = danhSachGheCapNhat.findIndex(gheDD => gheDD === action.gheDuocChon);
             if (index != -1) {
                 danhSachGheCapNhat.splice(index, 1)
             } else {
                 danhSachGheCapNhat.push(action.gheDuocChon)
             }
             state.danhSachGheDangChon = danhSachGheCapNhat
+            console.log('danhSachGheDangChon',state.danhSachGheDangChon)
             return { ...state }
 
         case DAT_VE_HOAN_TAT:

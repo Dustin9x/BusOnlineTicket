@@ -20,12 +20,12 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
         }
 
         public async Task<IEnumerable<Trip>> GetTripById(int Id)
         {
-            return await db.Trips.Include(b => b.Bus).Include(s => s.FromStation).Include(s => s.ToStation).Where(b => b.Id == Id).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Where(b => b.Id == Id).ToListAsync();
         }
 
         public async Task<bool> CreateTrip(Trip Trip)
