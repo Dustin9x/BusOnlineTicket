@@ -35,10 +35,12 @@ namespace backend.Services
                 Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
                 Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
                 Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
+                Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
 
                 Trip.Bus = bus;
                 Trip.FromStation = fromStation;
                 Trip.ToStation = toStation;
+                Trip.Driver = driver;
 
                 if (Trip.UploadImage.Length > 0)
                 {
@@ -94,43 +96,52 @@ namespace backend.Services
 
         public async Task<bool> PutTrip(Trip Trip)
         {
-            /*var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);
+            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);
             if (ExistingTrip != null)
             {
-                var ExistingTripStation = await db.TripStations.Where(b => b.TripId == ExistingTrip.Id).ToListAsync();
-
-                for (int i = 0; i < 2; i++)
+                if (Trip.UploadImage != null)
                 {
-                    db.Remove(ExistingTripStation[i]);
-                }
+                    string pathToNewFolder = System.IO.Path.Combine("Images", "Trip");
+                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
+                    var filePath = Path.Combine(Path.GetRandomFileName() + Trip.UploadImage.FileName);
 
-                int resultTripStation = await db.SaveChangesAsync();
-                if (resultTripStation > 0)
-                {
-
-                    ExistingTrip.BusId = Trip.BusId;
-                    ExistingTrip.FromStationId = Trip.FromStationId;
-                    ExistingTrip.ToStationId = Trip.ToStationId;
-
-                    ExistingTrip.FinishTime = Trip.FinishTime;
-                    ExistingTrip.StartTime = Trip.StartTime;
-
-                    ExistingTrip.TicketPrice = Trip.TicketPrice;
-
-                    int result = await db.SaveChangesAsync();
-                    if (result > 0)
+                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
                     {
-                        TripStation FromTripStation = new TripStation { Name = "From", StationId = ExistingTrip.FromStationId, TripId = Trip.Id };
-                        await db.TripStations.AddAsync(FromTripStation);
-                        TripStation ToTripStation = new TripStation { Name = "To", StationId = ExistingTrip.ToStationId, TripId = Trip.Id };
-                        await db.TripStations.AddAsync(ToTripStation);
-                        await db.SaveChangesAsync();
-
-                        return true;
+                        await Trip.UploadImage.CopyToAsync(stream);
                     }
 
+                    if (!string.IsNullOrEmpty(ExistingTrip.Image))
+                    {
+
+
+                        if (System.IO.File.Exists(Path.Combine(upload, ExistingTrip.Image)))
+                        {
+                            System.IO.File.Delete(Path.Combine(upload, ExistingTrip.Image));
+                        }
+
+                    }
+                    ExistingTrip.Image = filePath;
                 }
-            }*/
+                Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
+                Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
+                Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
+                Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
+
+                ExistingTrip.Bus = bus;
+                ExistingTrip.FromStation = fromStation;
+                ExistingTrip.ToStation = toStation;
+                ExistingTrip.FinishTime = Trip.FinishTime;
+                ExistingTrip.StartTime = Trip.StartTime;
+                ExistingTrip.TicketPrice = Trip.TicketPrice;
+                ExistingTrip.Driver = driver;
+
+                int Result = await db.SaveChangesAsync();
+                if (Result > 0)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

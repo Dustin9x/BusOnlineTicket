@@ -156,6 +156,7 @@ namespace backend.Migrations
                     FinishTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TicketPrice = table.Column<int>(type: "int", nullable: false),
                     BusId = table.Column<int>(type: "int", nullable: false),
+                    DriverId = table.Column<int>(type: "int", nullable: false),
                     FromStationId = table.Column<int>(type: "int", nullable: true),
                     ToStationId = table.Column<int>(type: "int", nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -167,6 +168,12 @@ namespace backend.Migrations
                         name: "FK_Trips_Buses_BusId",
                         column: x => x.BusId,
                         principalTable: "Buses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Trips_Drivers_DriverId",
+                        column: x => x.DriverId,
+                        principalTable: "Drivers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -278,6 +285,11 @@ namespace backend.Migrations
                 column: "BusId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Trips_DriverId",
+                table: "Trips",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trips_FromStationId",
                 table: "Trips",
                 column: "FromStationId");
@@ -295,9 +307,6 @@ namespace backend.Migrations
                 name: "BusStations");
 
             migrationBuilder.DropTable(
-                name: "Drivers");
-
-            migrationBuilder.DropTable(
                 name: "Seats");
 
             migrationBuilder.DropTable(
@@ -311,6 +320,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Buses");
+
+            migrationBuilder.DropTable(
+                name: "Drivers");
 
             migrationBuilder.DropTable(
                 name: "Stations");

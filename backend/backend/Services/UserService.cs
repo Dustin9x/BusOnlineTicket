@@ -114,7 +114,6 @@ namespace backend.Services
 
                     }
                     ExistingUser.Avatar = filePath;
-
                 }
 
                 ExistingUser.Email = User.Email;

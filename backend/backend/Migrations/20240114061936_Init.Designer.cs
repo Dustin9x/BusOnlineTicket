@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240112102928_Init")]
+    [Migration("20240114061936_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -277,6 +277,9 @@ namespace backend.Migrations
                     b.Property<int>("BusId")
                         .HasColumnType("int");
 
+                    b.Property<int>("DriverId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("FinishTime")
                         .HasColumnType("datetime2");
 
@@ -298,6 +301,8 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BusId");
+
+                    b.HasIndex("DriverId");
 
                     b.HasIndex("FromStationId");
 
@@ -411,6 +416,12 @@ namespace backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("backend.Models.Driver", "Driver")
+                        .WithMany()
+                        .HasForeignKey("DriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("backend.Models.Station", "FromStation")
                         .WithMany()
                         .HasForeignKey("FromStationId");
@@ -420,6 +431,8 @@ namespace backend.Migrations
                         .HasForeignKey("ToStationId");
 
                     b.Navigation("Bus");
+
+                    b.Navigation("Driver");
 
                     b.Navigation("FromStation");
 

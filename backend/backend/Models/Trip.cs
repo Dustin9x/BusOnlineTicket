@@ -9,10 +9,12 @@ namespace backend.Models
         public DateTime FinishTime { get; set; }
         public int TicketPrice { get; set; }
         public int BusId { get; set; }
+        public int DriverId { get; set; }
         public int? FromStationId { get; set; }
         public int? ToStationId { get; set; }
         public Seat? Seats { get; set; }
         public Bus? Bus { get; set; }
+        public Driver? Driver { get; set; }
         public Station? FromStation { get; set; }
         public Station? ToStation { get; set; }
         public string? Image { get; set; }
