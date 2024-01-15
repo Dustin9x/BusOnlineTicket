@@ -50,6 +50,20 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FAQs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Question = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Answer = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FAQs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Stations",
                 columns: table => new
                 {
@@ -228,6 +242,26 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Drivers",
+                columns: new[] { "Id", "Avatar", "DriverLicense", "Email", "Enabled", "FullName", "NationalId", "Note", "Phone", "PlaceOfBirth", "YearOfBirth" },
+                values: new object[,]
+                {
+                    { 1, "driver1.png", "234567", "driver1@phtv.com", true, "Nguyen Van Toan", "2345678", null, "090123456", "Ho Chi Minh", new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "driver2.png", "234567", "driver2@phtv.com", true, "Le Huy Phu", "2345678", null, "090123456", "Lam Dong", new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FAQs",
+                columns: new[] { "Id", "Answer", "Question" },
+                values: new object[,]
+                {
+                    { 1, "Ans: Booking a bus ticket online in India is easy with PHTV Bus. Simply enter the Leaving from (Origin City) -- Going to (destination city) details along with the date you wish to travel in the bus search option on the site. Within seconds you will be given a list of available running buses for your route. Select the bus that best suits you, then just follow the bus ticket booking process by selecting your seat, providing passenger details and completing the payment process. Upon successful booking confirmation, you will receive an e-ticket over email.", "Q. How do you do online bus reservation on PHTV Bus?" },
+                    { 2, "Ans: You do not need to create an account to view bus availability and seat availability. However, you need to register an account to be able to book tickets, this is to assist you in future transactions and support.", "Q. Do I need to create an account to book bus tickets on PHTV Bus?" },
+                    { 3, "Ans: We'll send you a e-ticket by email after your booking is confirmed. Simply board by presenting your e-ticket.", "Q. How do I get the bus ticket after booking?" },
+                    { 4, "Ans: If you cancel before 2 days of Journey date then the whole money will be returned, if done one day before then 15% is debited from the total amount is returned, and if done on that day 30% is debited from the total amount is to be returned back.", "Q. Can I cancel my ticket and get a refund?" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Stations",
                 columns: new[] { "Id", "Address", "Name" },
                 values: new object[,]
@@ -305,6 +339,9 @@ namespace backend.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BusStations");
+
+            migrationBuilder.DropTable(
+                name: "FAQs");
 
             migrationBuilder.DropTable(
                 name: "Seats");

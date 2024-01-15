@@ -14,7 +14,7 @@ export default function SelectBus(props) {
         <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
           <div className="d-flex w-100 justify-around">
             <div className="w-80">
-              <Input size="large" placeholder="From" prefix={<EnvironmentOutlined />} />
+              <Input size="large" placeholder="Leaving from" prefix={<EnvironmentOutlined />} />
             </div>
 
             <div
@@ -26,10 +26,10 @@ export default function SelectBus(props) {
               <a className="f3"> <i className="fas fa-exchange-alt" style={{ color: "#f8c300 !important" }} ></i> </a>
             </div>
             <div className="w-80">
-              <Input size="large" placeholder="To" prefix={<EnvironmentOutlined />} />
+              <Input size="large" placeholder="Going to" prefix={<EnvironmentOutlined />} />
             </div>
             <div className="ml-3">
-              <DatePicker size="large" className="w-60" placeholder="Departure date" onChange={""} />
+              <DatePicker size="large" className="w-60" placeholder="Journey date" onChange={""} />
             </div>
           </div>
 

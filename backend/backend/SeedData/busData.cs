@@ -1,15 +1,17 @@
-﻿namespace backend.SeedData
+﻿using backend.Models;
+
+namespace backend.SeedData
 {
     public class BusData
     {
-        //public static Bus[] BusSeedData()
-        //{
-        //    return new Bus[]
-        //    {
-        //        new Bus{BusPlate=1,BusType="xe số 1",PlateNumber="49A 93456"},
-        //        new Bus{BusPlate=2,BusType="xe số 2",PlateNumber="49A 33011"},
-        //        new Bus{BusPlate=3,BusType="xe số 3",PlateNumber="49A 22222"},
-        //    };
-        //}
+        /*public static Bus[] BusSeedData()
+        {
+            return new Bus[]
+            {
+                new Bus{Id=1,BusTypeId=1,StationId="1",BusPlate="60A123",isAvailable=true},
+                new Bus{Id=2,BusTypeId=2,StationId="2",BusPlate="49A567",isAvailable=true},
+                new Bus{Id=3,BusTypeId=3,StationId="3",BusPlate="23A789",isAvailable=true},
+            };
+        }*/
     }
 }

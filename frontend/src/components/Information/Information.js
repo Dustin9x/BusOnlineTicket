@@ -26,14 +26,14 @@ export default function Information() {
             <div className="row p-4 rounded-xl bg-white mt-3">
                 <h2 className="text-lg">Online Bus Ticket Booking at Lowest Price</h2>
                 <p className="text-gray-500 text-sm">
-                    With AbhiBus, travellers can book bus tickets online at the lowest
+                    With PHTV Bus, travellers can book bus tickets online at the lowest
                     ticket fares. Travellers can choose their favorite bus for online bus
-                    booking. AbhiBus is the right place for reserving bus tickets as you
+                    booking. PHTV Bus is the right place for reserving bus tickets as you
                     will find a wide range of Private buses and SRTC (State Road Transport
-                    Corporation) buses are available for bus booking online on AbhiBus.
+                    Corporation) buses are available for bus booking online on PHTV Bus.
                     <br />
                     Below, you will find various types of buses available to book bus
-                    tickets on AbhiBus at the lowest fare for bus ticket booking:
+                    tickets on PHTV Bus at the lowest fare for bus ticket booking:
                 </p>
                 <div className="container">
                     <ul className="text-gray-500 text-sm">
@@ -50,28 +50,26 @@ export default function Information() {
                 <p className="text-gray-500 text-sm">
                     In this day and age of technology, offline modes of bus ticket booking
                     are no longer preferred. Online ticket booking is easy, fast, and
-                    hassle-free. AbhiBus ticks off all the three with user-friendly app
+                    hassle-free. PHTV Bus ticks off all the three with user-friendly app
                     and website navigation.
                 </p>
                 <p className="text-gray-500 text-sm">
-                    Booking bus tickets online with AbhiBus has resolved many issues that
+                    Booking bus tickets online with PHTV Bus has resolved many issues that
                     people encounter while booking tickets at offline counters or through
-                    travel agents. Download the AbhiBus App to experience the benefits of
+                    travel agents. Download the PHTV Bus App to experience the benefits of
                     bus ticket booking online.
                 </p>
                 <p className="text-gray-500 text-sm">
                     Here is a list of all the benefits of booking bus tickets online on
-                    AbhiBus:
+                    PHTV Bus:
                 </p>
                 <div className="container">
                     <ul className="text-gray-500 text-sm">
                         <li>Avoid standing in long queues at offline bus ticket counters.</li>
                         <li>No more hassle of approaching travel agents.</li>
                         <li>Choose from multiple bus services.</li>
-                        <li>Book both Private and SRTC bus tickets online.</li>
                         <li>Check bus ticket availability online.</li>
                         <li>Get bus timings, ticket price, boarding &amp; dropping point details online.</li>
-                        <li>Access to payment partner discounts and cashback offers.</li>
                         <li>Free Cancellation - Get 100% refund if your plan changes and you cancel your ticket.</li>
                         <li>24/7 customer support.</li>
                         <li>Each and every transaction is simple, safe and secure.</li>
@@ -80,13 +78,13 @@ export default function Information() {
             </div>
 
             <div className="row p-4 rounded-xl bg-white mt-3">
-                <h2 className="text-lg">How to Book Bus Tickets Online on AbhiBus</h2>
+                <h2 className="text-lg">How to Book Bus Tickets Online on PHTV Bus</h2>
                 <p className="text-gray-500 text-sm">
-                    Each and every booking or transaction you do on the AbhiBus website is simple, safe & secure. You can complete your booking process from the best bus booking website AbhiBus.com by following the steps mentioned below.
+                    Each and every booking or transaction you do on the PHTV Bus website is simple, safe & secure. You can complete your booking process from the best bus booking website PHTV Bus.com by following the steps mentioned below.
                 </p>
                 <div className="container">
                     <ul className="text-gray-500 text-sm">
-                        <li>Enter the Origin city and Destination city details in the “leaving from” and “Going to” fields respectively</li>
+                        <li>Enter the Origin city and Destination city details in the “Leaving from” and “Going to” fields respectively</li>
                         <li>Select the “Journey date” from calendar icon and click on the “Search” button</li>
                         <li>Select any bus operator of your choice from the list of buses which are displayed buses</li>
                         <li>Select a seat, boarding and dropping points and hit “Continue to payment”</li>

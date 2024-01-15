@@ -50,6 +50,9 @@ import AddNewTrip from './pages/Admin/TripMng/AddNewTrip';
 import DriverEdit from './pages/Admin/DriverMng/DriverEdit';
 import AddDriver from './pages/Admin/DriverMng/AddDriver';
 import DriverMng from './pages/Admin/DriverMng/DriverMng';
+import FAQMng from './pages/Admin/FAQMng/FAQMng';
+import EditFAQ from './pages/Admin/FAQMng/EditFAQ';
+import AddNewFAQ from './pages/Admin/FAQMng/AddNewFAQ';
 
 
 export const history = createBrowserHistory();
@@ -116,9 +119,10 @@ function App() {
         <AdminTemplate path='/admin/revenuemonth' exact Component={RevenueMonth} />
         <AdminTemplate path='/admin/revenuemovie' exact Component={RevenueMovie} />
 
-        {/* Feedback */}
-        <AdminTemplate path='/admin/feedbackmng' exact Component={FeedbackMng} />
-        <AdminTemplate path='/admin/editfeedback/:id' exact Component={EditFeedback} />
+        {/* FAQ */}
+        <AdminTemplate path='/admin/faqmng' exact Component={FAQMng} />
+        <AdminTemplate path='/admin/faqmng/addnewfaq' exact Component={AddNewFAQ} />
+        <AdminTemplate path='/admin/faqmng/edit/:id' exact Component={EditFAQ} />
 
 
         <HomeTemplate path='/' exact Component={Home} />

@@ -36,7 +36,6 @@ namespace backend.Services
             if (result == 0)
             {
                 return false;
-
             }
             else
             {
