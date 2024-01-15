@@ -1,6 +1,7 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.Services;
+using backend.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -43,6 +44,8 @@ builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<IBusTypeRepo, BusTypeService>();
 builder.Services.AddScoped<IFAQrepo, FAQService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
+
+builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

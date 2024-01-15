@@ -11,7 +11,6 @@ import Faqs from "../../components/FAQs/Faqs";
 
 export default function Home(props) {
   const dispatch = useDispatch();
-  const { arrMovie } = useSelector((state) => state.MovieReducer);
   const { TabPane } = Tabs;
   const btnRef = useRef();
 

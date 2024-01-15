@@ -74,12 +74,18 @@ namespace backend.Services
             }
             return null;
         }
-
-        public async Task<IEnumerable<User>> GetAllUser()
+        public async Task<IEnumerable<User>> GetAll()
         {
             return await db.Users.ToListAsync();
         }
-
+        public async Task<IEnumerable<User>> GetAllUser()
+        {
+            return await db.Users.Where(b => b.Role == "User").ToListAsync();
+        }
+        public async Task<IEnumerable<User>> GetAllMod()
+        {
+            return await db.Users.Where(b => b.Role == "Mod").ToListAsync();
+        }
         public async Task<IEnumerable<User>> GetUserById(int Id)
         {
             return await db.Users.Where(b => b.Id == Id).ToListAsync();
@@ -117,7 +123,10 @@ namespace backend.Services
                 }
 
                 ExistingUser.Email = User.Email;
-                ExistingUser.Role = User.Role;
+                if (User.Role == "User" || User.Role == "Mod")
+                {
+                    ExistingUser.Role = User.Role;
+                }
                 if (User.Password != null && User.Password != "null")
                 {
                     ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);

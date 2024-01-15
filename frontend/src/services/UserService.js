@@ -31,7 +31,7 @@ export class UserService extends baseService {
         return this.delete(`/api/User?Id=${id}`);
     };
     updateUser = (id, User) => {
-        return this.put(`/api/User?Id=${id}`, User);
+        return this.put(`/api/User/${id}`, User);
     };
 }
 

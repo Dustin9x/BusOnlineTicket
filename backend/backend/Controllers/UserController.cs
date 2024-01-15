@@ -36,20 +36,19 @@ namespace backend.Controllers
             }
 
         }
-
-
-        [HttpGet("{Id}")]
-        public async Task<ActionResult> GetUserById(int Id)
+        [HttpGet("all")]
+        public async Task<ActionResult> GetAll()
         {
             try
             {
-                var list = await repo.GetUserById(Id);
+                var list = await repo.GetAll();
                 if (list != null)
                 {
-                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get user successfully", list, null);
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get list successfully", list, null);
                     return Ok(response);
                 }
                 return BadRequest();
+
             }
             catch (Exception ex)
             {
@@ -57,7 +56,46 @@ namespace backend.Controllers
             }
 
         }
+        [HttpGet("Mod")]
+        public async Task<ActionResult> GetAllMod()
+        {
+            try
+            {
+                var list = await repo.GetAllMod();
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get list of Mod successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpGet("{Id}")]
+        public async Task<ActionResult> GetById(int Id)
+        {
+            try
+            {
+                var list = await repo.GetUserById(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<User>>(StatusCodes.Status200OK, "Get successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
 
         [HttpPost]
         public async Task<ActionResult> CreateUser([FromForm] User User)
@@ -107,8 +145,8 @@ namespace backend.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<ActionResult> PutUser(int Id, [FromForm] User User)
+        [HttpPut("{Id}")]
+        public async Task<ActionResult> PutDriver(int Id, [FromForm] User User)
         {
             try
             {

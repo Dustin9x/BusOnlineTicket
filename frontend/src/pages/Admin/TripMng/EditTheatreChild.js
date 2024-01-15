@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { Form, Button, Select, Input } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { capNhaRapChieuAction, layDanhSachTinhThanhAction } from '../../../redux/actions/QuanLyRapAction';
+// import { capNhaRapChieuAction, layDanhSachTinhThanhAction } from '../../../redux/actions/QuanLyRapAction';
 
 export default function EditTheatreChild(props) {
     let { tinhThanh } = useSelector(state => state.RapReducer);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(layDanhSachTinhThanhAction())
+        // dispatch(layDanhSachTinhThanhAction())
     }, [])
     let theatre = {};
     if (localStorage.getItem('filmParams')) {
@@ -28,7 +28,7 @@ export default function EditTheatreChild(props) {
                 formData.append(key, values[key]);
             }
             console.table('formData', [...formData])
-            dispatch(capNhaRapChieuAction(id, formData));
+            // dispatch(capNhaRapChieuAction(id, formData));
         }
     })
 

@@ -3,7 +3,6 @@ import { EditOutlined, DeleteOutlined,AppstoreOutlined } from '@ant-design/icons
 import { Avatar, Button, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
-import { layDanhSachCumRapAction, layDanhSachTinhThanhAction, xoaRapChieuAction } from '../../../redux/actions/QuanLyRapAction';
 import { deleteTripAction, getTripListAction } from '../../../redux/actions/TripAction';
 import { DOMAIN } from '../../../util/settings/config';
 

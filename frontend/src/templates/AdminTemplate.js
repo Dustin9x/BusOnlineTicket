@@ -62,15 +62,16 @@ export const AdminTemplate = (props) => { //path, exact, Component
     getItem('Station Management', '3', <NavLink className='text-decoration-none' to="/admin/stationmng"><i className="fa-solid fa-location-dot"></i></NavLink>),
     getItem('Trip Management', '4', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
     getItem('User Management', 'sub2', <UserOutlined />, [
-      getItem('Moderator', '5', <NavLink className='text-decoration-none' to="/admin/adminusers"><UserOutlined /></NavLink>),
+      getItem('Moderator', '5', <NavLink className='text-decoration-none' to="/admin/modmng"><UserOutlined /></NavLink>),
       getItem('Driver', '6', <NavLink className='text-decoration-none' to="/admin/drivermng"><UserOutlined /></NavLink>),
+      getItem("Customer","7", <NavLink className="text-decoration-none" to="/admin/adminusers"><UserOutlined /></NavLink>),
     ]),
     getItem('Theo Dõi Doanh Thu', 'sub3', <LineChartOutlined />, [
-      getItem('Danh Sách Đơn Hàng', '7', <NavLink className='text-decoration-none' to="/admin/orderlist"><LineChartOutlined /></NavLink>),
-      getItem('Doanh Thu Theo Tháng', '8', <NavLink className='text-decoration-none' to="/admin/revenuemonth"><LineChartOutlined /></NavLink>),
-      getItem('Doanh Thu Theo Phim', '9', <NavLink className='text-decoration-none' to="/admin/revenuemovie"><LineChartOutlined /></NavLink>),
+      getItem('Danh Sách Đơn Hàng', '8', <NavLink className='text-decoration-none' to="/admin/orderlist"><LineChartOutlined /></NavLink>),
+      getItem('Doanh Thu Theo Tháng', '9', <NavLink className='text-decoration-none' to="/admin/revenuemonth"><LineChartOutlined /></NavLink>),
+      getItem('Doanh Thu Theo Phim', '10', <NavLink className='text-decoration-none' to="/admin/revenuemovie"><LineChartOutlined /></NavLink>),
     ]),
-    getItem('FAQ Management', '10', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
+    getItem('FAQ Management', '11', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
   ] 
 
   const content = (
