@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Avatar, Button, Card, Form, Input, Pagination, Popover, QRCode, Tabs, notification } from 'antd';
+import { Avatar, Button, Card, Form, Input, Pagination, Popover, QRCode, Tabs, InputNumber, notification } from 'antd';
 import { UserOutlined, HomeOutlined, CreditCardOutlined, KeyOutlined } from '@ant-design/icons';
 import './Detail.css'
 import { CHUYEN_TAB_ACTIVE, DAT_VE } from '../../redux/constants';
@@ -107,8 +107,8 @@ function Checkout(props) {
     const renderSeat = () => {
 
         const seatCodes = [
-            "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12",
-            "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12",
+            "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", "A15",
+            "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15",
         ];
 
 
@@ -117,7 +117,7 @@ function Checkout(props) {
                 <div className='col-6 px-5'>
                     <h2 className='text-center'>Floor 1</h2>
                     <div className='row'>
-                        {seatCodes?.slice(0, 12).map((ghe, index) => {
+                        {seatCodes?.slice(0, 15).map((ghe, index) => {
                             let classGheDangDat = '';
                             let indexGheDD = danhSachGheDangChon?.findIndex(gheDD => gheDD === ghe);
                             if (indexGheDD != -1) {
@@ -142,7 +142,7 @@ function Checkout(props) {
                 <div className='col-6 px-5'>
                     <h2 className='text-center'>Floor 2</h2>
                     <div className='row'>
-                        {seatCodes?.slice(12, 24).map((ghe, index) => {
+                        {seatCodes?.slice(15, 30).map((ghe, index) => {
                             let classGheDangDat = '';
                             let indexGheDD = danhSachGheDangChon?.findIndex(gheDD => gheDD === ghe);
                             if (indexGheDD != -1) {
@@ -204,6 +204,7 @@ function Checkout(props) {
                         <div className='d-flex justify-between'><div >Estimate Depature Time:</div><b>{dayjs(tripDetail?.startTime).format('DD-MM-YYYY')}</b></div>
                         <div className='d-flex justify-between'><div >Estimate Arrival Time:</div><b>{dayjs(tripDetail?.finishTime).format('DD-MM-YYYY')}</b></div>
                         <div className='d-flex justify-between'><div >Bus Plate:</div><b>{tripDetail?.bus?.busPlate}</b></div>
+                        <div className='d-flex justify-between'><div >Bus Type:</div><b>{tripDetail?.bus?.busType?.name}</b></div>
                         <div className='d-flex justify-between'><div >Driver:</div><b>{tripDetail?.driver?.fullName}</b></div>
                     </Card>
                     <Card className='m-2'>
@@ -221,10 +222,11 @@ function Checkout(props) {
                                 orderDetail.tripId = props.match.params.id;
                                 orderDetail.busId = tripDetail.busId;
                                 orderDetail.driverId = tripDetail.driverId;
-                                orderDetail.driver = tripDetail.driver.fullName;
-                                orderDetail.busPlate = tripDetail.bus.busPlate;
-                                orderDetail.fromStation = tripDetail.fromStation.name;
-                                orderDetail.toStation = tripDetail.toStation.name;
+                                orderDetail.driver = tripDetail.driver?.fullName;
+                                orderDetail.busPlate = tripDetail.bus?.busPlate;
+                                orderDetail.busType = tripDetail.bus?.busType.name;
+                                orderDetail.fromStation = tripDetail.fromStation?.name;
+                                orderDetail.toStation = tripDetail.toStation?.name;
                                 orderDetail.startTime = tripDetail.startTime;
                                 orderDetail.finishTime = tripDetail.finishTime;
                                 orderDetail.seatList = renderSeatSelected();
@@ -252,17 +254,17 @@ export function SettlePayment(props) {
     const [oldman, setOldman] = useState(0);
     const [disable, setDisable] = useState(true);
 
-    const handleChangeChildren = (e) => {
-        setChildren(e.target.value)
+    const handleChangeChildren = (value) => {
+        setChildren(value)
     }
-    const handleChangeTeenage = (e) => {
-        setTeenage(e.target.value)
+    const handleChangeTeenage = (value) => {
+        setTeenage(value)
     }
-    const handleChangeOldman = (e) => {
-        setOldman(e.target.value)
+    const handleChangeOldman = (value) => {
+        setOldman(value)
     }
     const totalTicket = donHang.numberOfSeat - children - teenage - oldman;
-    const finalPrice = donHang.totalMoney - children*donHang.ticketPrice - teenage*donHang.ticketPrice*0.5 - oldman*donHang.ticketPrice*0.7
+    const finalPrice = donHang.totalMoney - children * donHang.ticketPrice - teenage * donHang.ticketPrice * 0.5 - oldman * donHang.ticketPrice * 0.7
     const onFinish = (values) => {
         setShow(true)
     };
@@ -275,6 +277,24 @@ export function SettlePayment(props) {
     const dispatch = useDispatch();
     return (
         <div className='container min-h-screen mt-5'>
+            <Card className='m-2 w-full bg-red-400'>
+                Please enter the number of passengers according to the classification below to receive additional incentives:
+                <ul className='d-flex justify-between'>
+                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Under 5 years old (discount 100%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeChildren} name="children" min={0} max={donHang?.numberOfSeat - teenage - oldman} className="p-2" type="number" /></li>
+                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Between 5-12 years old (discount 50%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeTeenage} name="teenage" min={0} max={donHang?.numberOfSeat - children - oldman} className="p-2" type="number" /></li>
+                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Over 50 years old (discount 30%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeOldman} name="oldman" min={0} max={donHang?.numberOfSeat - children - teenage} className="p-2" type="number" /></li>
+                </ul>
+                <b>Number of unclassified tickets: {totalTicket}</b><br />
+                <small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small>
+                {totalTicket < 0 ? notification.error({
+                    closeIcon: false,
+                    message: 'Error',
+                    description: (
+                        <>You have exceeded your number of Seat.</>
+                    ),
+                }) : ''}
+
+            </Card>
             <div className='row'>
                 <div className='col-6'>
                     <div className=''>
@@ -285,30 +305,13 @@ export function SettlePayment(props) {
                             <div className='d-flex justify-between'><div >Estimate Depature Time:</div><b>{dayjs(donHang?.startTime).format('DD-MM-YYYY')}</b></div>
                             <div className='d-flex justify-between'><div >Estimate Arrival Time:</div><b>{dayjs(donHang?.finishTime).format('DD-MM-YYYY')}</b></div>
                             <div className='d-flex justify-between'><div >Bus Plate:</div><b>{donHang?.busPlate}</b></div>
+                            <div className='d-flex justify-between'><div >Bus Type:</div><b>{donHang?.busType}</b></div>
                             <div className='d-flex justify-between'><div >Driver:</div><b>{donHang?.driver}</b></div>
                             <div className='d-flex justify-between'><div >Your selected seats:</div><b>{donHang?.seatList}</b></div>
                         </Card>
                     </div>
                     <Card className='m-2 w-full bg-orange-400'>
                         <div className='d-flex justify-between'><p className="font-bold">Total Price</p><h3 className=' text-xl font-bold'>{finalPrice.toLocaleString()} đ</h3></div>
-                        
-                        Please enter the number of passengers according to the classification below to receive additional incentives:
-                        
-                        <ul>
-                            <li className="my-1"> * Under 5 years old (discount 100%): <input onChange={handleChangeChildren} name="children" min={0} style={{width:40}} value={children} className="p-1" type="number"/></li>
-                            <li className="my-1"> * Between 5-12 years old (discount 50%): <input onChange={handleChangeTeenage} name="teenage" min={0} style={{width:40}} value={teenage} className="p-1" type="number"/></li>
-                            <li className="my-1"> * Over 50 years old (discount 30%): <input onChange={handleChangeOldman} name="oldman" min={0} style={{width:40}} value={oldman} className="p-1" type="number"/></li>
-                        </ul>
-                        <b>Number of unclassified tickets: {totalTicket}</b><br/>
-                        <small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small>
-                        {totalTicket<0 ? notification.error({
-                            closeIcon: false,
-                            message: 'Error',
-                            description: (
-                                <>You have exceeded your number of Seat.</>
-                            ),
-                        }) : '' }
-                        
                     </Card>
                     <p className='text-gray-400 m-2'>(*) Please check the information carefully, orders once placed will not be canceled or refunded.</p>
 
@@ -356,11 +359,11 @@ export function SettlePayment(props) {
                                     }} prefix={<UserOutlined />} />
                                 </Form.Item>
                                 {
-                                    totalTicket<0 ?
-                                    <button type="primary" disabled className='focus:outline-none text-white bg-purple-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full' 
-                                htmlType="submit">Please re-classified your tickets</button>
-                                : <button type="primary" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full' 
-                                htmlType="submit">Continue</button>
+                                    totalTicket < 0 ?
+                                        <button type="primary" disabled className='focus:outline-none text-white bg-purple-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
+                                            htmlType="submit">Please re-classified your tickets</button>
+                                        : <button type="primary" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
+                                            htmlType="submit">Continue</button>
                                 }
                             </Form>
                                 : <Form onFinish={onSubmit} >
@@ -379,11 +382,11 @@ export function SettlePayment(props) {
                                     </Form.Item>
                                     <div className='mt-5 d-flex justify-center'>
                                         <button type="button" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                                        onClick={() => {
-                                            dispatch(datVeAction(donHang))
-                                        }}
-                                    >Xác Nhận Thanh Toán</button>
-                                        
+                                            onClick={() => {
+                                                dispatch(datVeAction(donHang))
+                                            }}
+                                        >Xác Nhận Thanh Toán</button>
+
                                     </div>
                                 </Form>
                             }

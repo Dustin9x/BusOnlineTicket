@@ -18,7 +18,7 @@ export default function PopularRoute() {
         <div>
             <h1 className="text-center text-2xl">Popular bus routes</h1>
             <div className="row w-100 p-4 rounded-xl bg-white">
-                {arrTrip.map((item, index) => {
+                {arrTrip?.map((item, index) => {
                     return (
                         <a href={`/detail/${item.id}`} className="hover:no-underline col-2">
                             <Card
@@ -26,8 +26,8 @@ export default function PopularRoute() {
                                 style={{ width: '100%' }}
                                 cover={<img alt="example" style={{ height: 150, objectFit: 'cover' }} src={`${DOMAIN}/Images/Trip/${item.image}`} />}
                             >
-                                <Meta title={`${item.fromStation.name} - ${item.toStation.name}`} description="From 2.000.000đ" />
-                                <div className="mt-3"><Tag color="magenta">{item.bus.busType.name}</Tag></div>
+                                <Meta title={`${item.fromStation?.name} - ${item.toStation?.name}`} description="From 2.000.000đ" />
+                                <div className="mt-3"><Tag color="magenta">{item.bus?.busType?.name}</Tag></div>
                             </Card>
                         </a>
                     )

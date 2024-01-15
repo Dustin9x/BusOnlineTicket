@@ -24,7 +24,7 @@ export default function Faqs() {
         <div className="mt-5">
             <h2 className="text-lg font-bold">PHTV Online Bus Booking FAQ’s</h2>
             <Collapse bordered={false} defaultActiveKey={['1']} style={{ backgroundColor: '#fff' }} size="large" onChange={onChange}>
-                {arrFAQ.map((item, index) => {
+                {arrFAQ?.map((item, index) => {
                     return (
                         <Panel header={item.question} className='font-semibold' key={index}>
                             <p className="text-gray-500 font-normal text-sm">{item.answer}</p>

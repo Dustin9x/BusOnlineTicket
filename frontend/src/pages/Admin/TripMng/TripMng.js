@@ -45,20 +45,20 @@ export default function TripMng() {
       title: 'From Station',
       dataIndex: 'fromStation',
       key: 'fromStation',
-      sorter: (a, b) => a.fromStation.length - b.fromStation.length,
+      sorter: (a, b) => a.fromStation?.length - b.fromStation?.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
-        return <span color="magenta">{item.fromStation.name}</span>
+        return <span color="magenta">{item.fromStation?.name}</span>
       },
     },
     {
       title: 'To Station',
       dataIndex: 'toStation',
       key: 'toStation',
-      sorter: (a, b) => a.toStation.length - b.toStation.length,
+      sorter: (a, b) => a.toStation?.length - b.toStation?.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
-        return <span color="magenta">{item.toStation.name}</span>
+        return <span color="magenta">{item.toStation?.name}</span>
       },
     },
     {
@@ -81,7 +81,10 @@ export default function TripMng() {
       dataIndex: 'driver',
       key: 'driver',
       sorter: (a, b) => a.driver.length - b.driver.length,
-      sortDirections: ['descend', 'ascend']
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <span color="magenta">{item.driver?.fullName}</span>
+      },
     },
     {
       title: 'Assigned Bus',

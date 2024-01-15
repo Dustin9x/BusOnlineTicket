@@ -139,19 +139,7 @@ export default function AddNewTrip(props) {
         >
           <Input name="ticketPrice" onChange={formik.handleChange} />
         </Form.Item>
-        <Form.Item
-          label="Assigned Bus"
-          style={{ minWidth: '100%' }}
-          rules={[
-            {
-              required: true,
-              message: 'Bus is required!',
-              transform: (value) => value.trim(),
-            },
-          ]}
-        >
-          <Select options={arrBus?.map((item, index) => ({ key: index, label: item.busPlate, value: item.id }))} onChange={handleChangeBus} />
-        </Form.Item>
+        
         <Form.Item
           label="From Station"
           style={{ minWidth: '100%' }}
@@ -163,7 +151,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeFromStation} />
+          <Select options={arrStation?.map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} />
         </Form.Item>
         <Form.Item
           label="To Station"
@@ -177,6 +165,20 @@ export default function AddNewTrip(props) {
           ]}
         >
           <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} />
+        </Form.Item>
+
+        <Form.Item
+          label="Assigned Bus"
+          style={{ minWidth: '100%' }}
+          rules={[
+            {
+              required: true,
+              message: 'Bus is required!',
+              transform: (value) => value.trim(),
+            },
+          ]}
+        >
+          <Select options={arrBus?.map((item, index) => ({ key: index, label: item.busPlate, value: item.id }))} onChange={handleChangeBus} />
         </Form.Item>
 
         <Form.Item
