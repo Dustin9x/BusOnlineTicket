@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { layLaiMatKhauAction } from "../../redux/actions/UserAction";
+import { forgetPassword } from "../../redux/actions/UserAction";
 import { UserReducer } from "../../redux/reducers/UserReducer";
 
 export default function ForgetPassword(props) {
@@ -10,8 +10,8 @@ export default function ForgetPassword(props) {
   const { matkhau } = useSelector((state) => state.UserReducer);
 
   const onFinish = (values) => {
-    // const action = layLaiMatKhauAction(values);
-    // dispatch(action);
+    const action = forgetPassword(values.email);
+    dispatch(action);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -41,10 +41,10 @@ export default function ForgetPassword(props) {
       >
         <div>
           <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">
-            Lấy Lại Mật Khẩu
+            Password Recovery
           </h1>
           <p className="text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide">
-            Nhập email đăng ký để lấy lại mật khẩu của bạn!!
+            Enter your registration email to retrieve your password!!
           </p>
         </div>
         <Form.Item
@@ -53,11 +53,11 @@ export default function ForgetPassword(props) {
           rules={[
             {
               type: "email",
-              message: "E-mail chưa đúng định dạng!",
+              message: "E-mail is not in the correct format!",
             },
             {
               required: true,
-              message: "E-mail không được để trống!",
+              message: "E-mail cannot be blank!",
             },
           ]}
         >
@@ -72,10 +72,10 @@ export default function ForgetPassword(props) {
             type="submit"
             className="py-2 w-64 text-xl text-white bg-purple-400 rounded-xl"
           >
-            Gửi Mật Khẩu
+            Send Password
           </button>
           <p className="mt-4 text-sm">
-            Vui lòng xem mật khẩu tại gmail sau khi gửi
+            Please see the password at gmail after sending!!
           </p>
         </div>
       </Form>

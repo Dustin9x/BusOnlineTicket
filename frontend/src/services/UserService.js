@@ -14,10 +14,10 @@ export class UserService extends baseService {
         return this.post(`/api/auth/register`, registerInfo);
     }
 
-    // forgetPassword = (thongTinEmail) => {
-    //     return this.post(`/api/auth/ForgetPassword`, thongTinEmail);
-    // };
-    
+    forgetPassword = (email) => {
+        return this.post(`/api/Auth/ForgetPassword?Email=${email}`);
+    };
+
     getListUser = () => {
         return this.get(`/api/User`);
     };

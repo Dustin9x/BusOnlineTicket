@@ -4,13 +4,14 @@ import { Button, Input, Space, Table, Popconfirm } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
+import { deleteFAQAction, getFAQByIdAction, getFAQListAction } from '../../../redux/actions/FAQAction';
 
 
 export default function FAQMng() {
-  let { arrBusType } = useSelector(state => state.BusReducer);
+  let { arrFAQ } = useSelector(state => state.FAQReducer);
   const dispatch = useDispatch();
   useEffect(() => {
-    
+    dispatch(getFAQListAction())
   }, [dispatch])
 
 
@@ -30,7 +31,7 @@ export default function FAQMng() {
   };
 
 
-  const data = arrBusType;
+  const data = arrFAQ;
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -57,7 +58,7 @@ export default function FAQMng() {
               width: 90,
             }}
           >
-            Tìm
+            Search
           </Button>
           <Button
             onClick={() => clearFilters && resetSearch(selectedKeys, confirm, dataIndex)}
@@ -104,42 +105,32 @@ export default function FAQMng() {
   });
   const columns = [
     {
-      title: 'Type ID',
-      dataIndex: 'id',
-      key: 'id',
-      width: '15%',
-      ...getColumnSearchProps('id'),
-      sorter: (a, b) => a.id - b.id,
-      sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Bus Type',
-      dataIndex: 'name',
-      key: 'name',
-      width: '15%',
-      ...getColumnSearchProps('name'),
-      sorter: (a, b) => a.name - b.name,
-      sortDirections: ['descend', 'ascend'],
-    },
-    {
-      title: 'Number Of Seat',
-      dataIndex: 'numberOfSeat',
-      key: 'numberOfSeat',
+      title: 'Question',
+      dataIndex: 'question',
+      key: 'question',
       width: '30%',
-      ...getColumnSearchProps('numberOfSeat'),
+      ...getColumnSearchProps('question'),
+      sorter: (a, b) => a.question - b.question,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Answer',
+      dataIndex: 'answer',
+      key: 'answer',
+      ...getColumnSearchProps('answer'),
       sortDirections: ['descend', 'ascend']
     },
     {
       title: 'Manage',
-      width: '25%',
-      render: (text, bustype) => {
+      width: '15%',
+      render: (text, faq) => {
         return <>
-          <Button key={1} href={`/admin/bustypemng/edit/${bustype.id}`} type="link" icon={<EditOutlined />} onClick={() => {
-            // dispatch(getBusTypeByIdAction(bustype.id))
+          <Button key={1} href={`/admin/faqmng/edit/${faq.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getFAQByIdAction(faq.id))
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Do you want to delete ' + bustype.name + '?')) {
-              // dispatch(deleteBusTypeAction(bustype.id))
+            if (window.confirm('Do you want to delete ' + faq.id + '?')) {
+              dispatch(deleteFAQAction(faq.id))
             }
           }}></Button>
         </>
@@ -150,7 +141,7 @@ export default function FAQMng() {
   return <div>
     <div className='d-flex mb-3'>
       <h3 className='text-lg'>Bus Type Management</h3>
-      <Button href='/admin/faqmng/addnewfaq' type="primary" className='ml-3 small bg-primary'>+ Add New Bus Type</Button>
+      <Button href='/admin/bustypemng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Bus Type</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>

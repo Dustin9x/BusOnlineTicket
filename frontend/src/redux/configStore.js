@@ -4,7 +4,7 @@ import { BusReducer } from './reducers/BusReducer';
 import { StationReducer } from './reducers/StationReducer';
 import { UserReducer } from './reducers/UserReducer';
 import { LoadingReducer } from './reducers/LoadingReducer';
-import { FeedbackReducer } from './reducers/FeedbackReducer';
+import { FAQReducer } from './reducers/FAQReducer';
 import { OrderDetailReducer } from './reducers/OderDetailReducer';
 import { TripReducer } from './reducers/TripReducer';
 import { DriverReducer } from './reducers/DriverReducer';
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
     TripReducer,
     OrderReducer,
     LoadingReducer,
-    FeedbackReducer,
+    FAQReducer,
     OrderDetailReducer
 })
 

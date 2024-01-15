@@ -88,29 +88,36 @@ export const registerAction = (thongTinDangKy) => {
   };
 };
 
-// export const layLaiMatKhauAction = (thongTinEmail) => {
-//   return async (dispatch) => {
-//     try {
-//       dispatch(displayLoadingAction);
-//       const result = await driverService.layLaiMatKhau(thongTinEmail);
-//       if (result.data.status === 200) {
-//         dispatch({
-//           type: LAY_LAI_MAT_KHAU_ACTION,
-//           thongTinEmail: result.data.content,
-//         });
-//         await dispatch(hideLoadingAction);
-//         alert(
-//           "Lấy lại mật khẩu thành công, mật khẩu mới đã được gửi về email của bạn!!"
-//         );
-//         history.replace("login");
-//       }
-//     } catch (error) {
-//       console.log(error);
-//       await dispatch(hideLoadingAction);
-//       alert(error.response.data.message);
-//     }
-//   };
-// };
+export const forgetPassword = (thongTinEmail) => {
+  return async (dispatch) => {
+    try {
+      dispatch(displayLoadingAction);
+      const result = await userService.forgetPassword(thongTinEmail);
+      if (result.data.status === 200) {
+        dispatch({
+          type: LAY_LAI_MAT_KHAU_ACTION,
+          thongTinEmail: result.data.content,
+        });
+        await dispatch(hideLoadingAction);
+        notification.success({
+          closeIcon: false,
+          message: "Success",
+          description: (
+            <>
+              Your new password has been sent to your email, please check your email or spam box and login again.
+            </>
+          ),
+        });
+        history.replace("login");
+      }
+    } catch (error) {
+      console.log(error);
+      await dispatch(hideLoadingAction);
+      alert(error.response.data.message);
+    }
+  };
+};
+
 
 export const layThongTinDatVeAction = () => {
   return async (dispatch) => {

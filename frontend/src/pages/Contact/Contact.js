@@ -2,7 +2,6 @@ import React from 'react'
 import './Contact.css'
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
-import { themFeedbackAction } from '../../redux/actions/QuanLyFeedbackAction';
 import { Button, Form, Input } from 'antd';
 
 export default function Contact() {
@@ -23,7 +22,6 @@ export default function Contact() {
         formData.append(key, values[key]);
       }
       console.table('formData123', [...formData])
-      dispatch(themFeedbackAction(formData))
       formik.resetForm({
         values: { email: '', tieuDe: '', noiDung: '' },
       });

@@ -168,8 +168,8 @@ export default function AdminUserMng() {
   return (
     <div>
       <div className="d-flex mb-3">
-        <h3 className="text-lg">User management</h3>
-        <Button href="/admin/users/adduser" type="primary" className="ml-3 small bg-primary" > + Add New Moderator </Button>
+        <h3 className="text-lg">Customer Management</h3>
+        <Button href="/admin/users/adduser" type="primary" className="ml-3 small bg-primary" > + Add New Customer </Button>
       </div>
       <Table columns={columns} dataSource={data} rowKey={"id"} />
     </div>

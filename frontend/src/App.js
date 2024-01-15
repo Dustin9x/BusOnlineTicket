@@ -25,8 +25,6 @@ import {ProfileTemplate} from './templates/ProfileTemplate';
 import OrderHistory from './pages/Admin/UserMng/OrderHistory';
 import EditTheatreChild from './pages/Admin/TripMng/EditTheatreChild';
 import Search from './pages/Search/Search';
-import FeedbackMng from './pages/Admin/FeedbackMng/FeedbackMng';
-import EditFeedback from './pages/Admin/FeedbackMng/EditFeedback';
 import AdminUserMng from './pages/Admin/UserMng/AdminUserMng';
 import RevenueMonth from './pages/Admin/Revenue/RevenueMonth';
 import RevenueMovie from './pages/Admin/Revenue/RevenueMovie';
