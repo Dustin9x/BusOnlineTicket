@@ -127,7 +127,7 @@ function App() {
 
         {/* FAQ */}
         <AdminTemplate path='/admin/faqmng' exact Component={FAQMng} />
-        <AdminTemplate path='/admin/faqmng/addnewfaq' exact Component={AddNewFAQ} />
+        <AdminTemplate path='/admin/faqmng/addnew' exact Component={AddNewFAQ} />
         <AdminTemplate path='/admin/faqmng/edit/:id' exact Component={EditFAQ} />
 
 

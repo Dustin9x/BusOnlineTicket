@@ -3,28 +3,29 @@ import { Form, Input, DatePicker, InputNumber, Switch, Button } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
+import { getFAQByIdAction, updateFAQByIdAction } from '../../../redux/actions/FAQAction';
 
 const EditFAQ = (props) => {
   const dispatch = useDispatch();
-  const { busTypeDetail } = useSelector(state => state.BusReducer)
+  const { FAQDetail } = useSelector(state => state.FAQReducer)
 
   let { id } = props.match.params;
   useEffect(() => {
-    // dispatch(getBusTypeByIdAction(id));
+    dispatch(getFAQByIdAction(id));
   }, [dispatch, id])
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      name: busTypeDetail?.name,
-      numberOfSeat: busTypeDetail?.numberOfSeat
+      question: FAQDetail?.question,
+      answer: FAQDetail?.answer
     },
     onSubmit: (values) => {
       let formData = new FormData();
       for (let key in values) {
         formData.append(key, values[key]);
       }
-      // dispatch(updateBusTypeByIdAction(id, formData))
+      dispatch(updateFAQByIdAction(id, formData))
     }
   })
 
@@ -39,11 +40,11 @@ const EditFAQ = (props) => {
       }}
       layout="horizontal"
     >
-      <h3 className="text-2xl">Edit Bus Type: {formik.values.name}</h3>
+      <h3 className="text-2xl">Edit FAQ:</h3>
       <div className='row'>
         <div className='col-8'>
           <Form.Item
-            label="Bus Type"
+            label="Question"
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -53,10 +54,10 @@ const EditFAQ = (props) => {
               },
             ]}
           >
-            <Input name="name" onChange={formik.handleChange} value={formik.values.name} />
+            <Input name="question" onChange={formik.handleChange} value={formik.values.question} />
           </Form.Item>
           <Form.Item
-            label="Number Of Seat"
+            label="Answer"
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -66,10 +67,10 @@ const EditFAQ = (props) => {
               },
             ]}
           >
-            <Input name="numberOfSeat" onChange={formik.handleChange} value={formik.values.numberOfSeat} />
+            <Input name="answer" onChange={formik.handleChange} value={formik.values.answer} />
           </Form.Item>
           <Form.Item label="Action">
-            <Button htmlType="submit">Update</Button>
+            <Button htmlType="submit">Update FAQ</Button>
           </Form.Item>
         </div>
       </div>

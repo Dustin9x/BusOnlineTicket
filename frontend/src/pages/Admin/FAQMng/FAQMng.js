@@ -105,10 +105,18 @@ export default function FAQMng() {
   });
   const columns = [
     {
+      title: 'Id',
+      dataIndex: 'id',
+      key: 'id',
+      width: '5%',
+      sorter: (a, b) => a.id - b.id,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
       title: 'Question',
       dataIndex: 'question',
       key: 'question',
-      width: '30%',
+      width: '25%',
       ...getColumnSearchProps('question'),
       sorter: (a, b) => a.question - b.question,
       sortDirections: ['descend', 'ascend'],
@@ -129,7 +137,7 @@ export default function FAQMng() {
             dispatch(getFAQByIdAction(faq.id))
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Do you want to delete ' + faq.id + '?')) {
+            if (window.confirm('Do you want to delete FAQ ' + faq.id + '?')) {
               dispatch(deleteFAQAction(faq.id))
             }
           }}></Button>
@@ -141,7 +149,7 @@ export default function FAQMng() {
   return <div>
     <div className='d-flex mb-3'>
       <h3 className='text-lg'>Bus Type Management</h3>
-      <Button href='/admin/bustypemng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Bus Type</Button>
+      <Button href='/admin/faqmng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New FAQ</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>

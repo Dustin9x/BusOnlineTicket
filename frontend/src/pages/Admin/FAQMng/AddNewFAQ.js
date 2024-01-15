@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import { Form, Input, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { addFAQAction } from '../../../redux/actions/FAQAction';
 
 const AddNewFAQ = () => {
   const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      numberOfSeat: '',
+      question: '',
+      answer: '',
     },
     onSubmit: (values) => {
-      if (values.name == '' || values.numberOfSeat == '') {
+      if (values.question == '' || values.answer == '') {
         notification.error({
           closeIcon: false,
           message: 'Error',
@@ -28,7 +29,7 @@ const AddNewFAQ = () => {
           formData.append(key, values[key]);
         }
         console.table('formData', [...formData])
-        // dispatch(addBusTypeAction(formData));
+        dispatch(addFAQAction(formData));
       }
 
     }
@@ -50,35 +51,35 @@ const AddNewFAQ = () => {
       <div className='row'>
         <div className='col-8'>
           <Form.Item
-            label="Bus Type"
-            name="name"
+            label="Question"
+            name="question"
             style={{ minWidth: '100%' }}
             rules={[
               {
                 required: true,
-                message: 'Bus Type is required!',
+                message: 'Question is required!',
                 transform: (value) => value.trim(),
               },
             ]}
           >
-            <Input name="name" onChange={formik.handleChange} />
+            <Input name="question" onChange={formik.handleChange} />
           </Form.Item>
           <Form.Item
-            label="Number Of Seat"
-            name="numberOfSeat"
+            label="Answer"
+            name="answer"
             style={{ minWidth: '100%' }}
             rules={[
               {
                 required: true,
-                message: 'Number of seat is required!',
+                message: 'Answer of seat is required!',
                 transform: (value) => value.trim(),
               },
             ]}
           >
-            <Input type='number' name="numberOfSeat" onChange={formik.handleChange} />
+            <Input name="answer" onChange={formik.handleChange} />
           </Form.Item>
           <Form.Item label="Action">
-            <Button htmlType="submit" >Add Bus Type</Button>
+            <Button htmlType="submit" >Add New FAQ</Button>
           </Form.Item>
         </div>
       </div>
