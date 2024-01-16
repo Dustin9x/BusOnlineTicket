@@ -39,7 +39,7 @@ export const addDriverAction = (newDriver) => {
         try {
             const result = await driverService.postDriver(newDriver);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add driver successfully.</>
@@ -57,7 +57,7 @@ export const deleteDriver = (id) => {
         try {
             const result = await driverService.deleteDriver(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete driver successfully.</>
@@ -75,7 +75,7 @@ export const updateDriver = (id, newDriver) =>{
         try {
             const result = await driverService.putDriver(id, newDriver)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Update driver successfully.</>

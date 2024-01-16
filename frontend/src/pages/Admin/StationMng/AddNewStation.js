@@ -16,7 +16,7 @@ const AddNewStation = () => {
     onSubmit: (values) => {
       if (values.name == '' || values.address == '') {
         notification.error({
-          closeIcon: false,
+          closeIcon: true,
           message: 'Error',
           description: (
             <>Please fill in all required fields.</>

@@ -24,7 +24,7 @@ export const loginAction = (loginInfo) => {
           loginInfo: result.data.data,
         });
         notification.success({
-          closeIcon: false,
+          closeIcon: true,
           message: "Success",
           description: (
             <>
@@ -42,7 +42,7 @@ export const loginAction = (loginInfo) => {
     } catch (error) {
       dispatch(hideLoadingAction);
       notification.error({
-        closeIcon: false,
+        closeIcon: true,
         message: "Error",
         description: (
           <>
@@ -61,7 +61,7 @@ export const registerAction = (thongTinDangKy) => {
       const result = await userService.register(thongTinDangKy);
       if (result.data.status === 200) {
         notification.success({
-          closeIcon: false,
+          closeIcon: true,
           message: "Success",
           description: (
             <>
@@ -73,7 +73,7 @@ export const registerAction = (thongTinDangKy) => {
         history.replace("login");
       } else {
         notification.error({
-          closeIcon: false,
+          closeIcon: true,
           message: "Error",
           description: (
             <>
@@ -188,7 +188,7 @@ export const createUserAction = (newUser) => {
     try {
       const result = await userService.createUser(newUser);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: 'Success',
         description: (
           <>Create new user successfully.</>
@@ -197,7 +197,7 @@ export const createUserAction = (newUser) => {
       history.push("/admin/adminusers");
     } catch (error) {
       notification.error({
-        closeIcon: false,
+        closeIcon: true,
         message: 'Error',
         description: (
           <>Create New User fail!</>
@@ -212,7 +212,7 @@ export const updateUserAction = (id, newUser) => {
     try {
       const result = await userService.updateUser(id, newUser);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: 'Success',
         description: (
           <>Update user successfully.</>
@@ -229,7 +229,7 @@ export const deleteUserAction = (id) => {
     try {
       const result = await userService.deleteUser(id);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: "Success",
         description: <>Delete User successfully</>,
       });

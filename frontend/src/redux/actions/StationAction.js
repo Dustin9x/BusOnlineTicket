@@ -40,7 +40,7 @@ export const addNewStationAction = (formData) => {
         try {
             const result = await stationManageService.addNewStation(formData)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add new station successfully.</>
@@ -58,7 +58,7 @@ export const updateStationByIdAction = (id,formData) => {
         try {
             const result = await stationManageService.updateStation(id,formData);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Update station successfully</>
@@ -77,7 +77,7 @@ export const deleteStationAction = (id) => {
         try {
             const result = await stationManageService.deleteStation(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete station successfully</>

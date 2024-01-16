@@ -15,7 +15,7 @@ const AddNewFAQ = () => {
     onSubmit: (values) => {
       if (values.question == '' || values.answer == '') {
         notification.error({
-          closeIcon: false,
+          closeIcon: true,
           message: 'Error',
           description: (
             <>

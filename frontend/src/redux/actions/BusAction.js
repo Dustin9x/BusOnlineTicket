@@ -41,7 +41,7 @@ export const addNewBusAction = (formData) => {
         try {
             const result = await busManageService.addNewBus(formData)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add new bus successfully.</>
@@ -59,7 +59,7 @@ export const updateBusByIdAction = (id,formData) => {
         try {
             const result = await busManageService.updateBus(id,formData);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Update bus successfully</>
@@ -78,7 +78,7 @@ export const deleteBusAction = (id) => {
         try {
             const result = await busManageService.deleteBus(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete bus type successfully</>
@@ -128,7 +128,7 @@ export const addBusTypeAction = (formData) => {
         try {
             const result = await busManageService.addNewBusType(formData)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add new bus type successfully</>
@@ -146,7 +146,7 @@ export const updateBusTypeByIdAction = (id,formData) => {
         try {
             const result = await busManageService.updateBusType(id,formData);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Update bus type successfully</>
@@ -164,7 +164,7 @@ export const deleteBusTypeAction = (id) => {
         try {
             const result = await busManageService.deleteBusType(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete bus type successfully</>

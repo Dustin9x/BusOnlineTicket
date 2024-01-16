@@ -41,7 +41,7 @@ export const addNewTripAction = (formData) => {
         try {
             const result = await tripService.addNewTrip(formData)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add new trip successfully.</>
@@ -60,7 +60,7 @@ export const deleteTripAction = (id) => {
         try {
             const result = await tripService.deleteTrip(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete trip successfully</>

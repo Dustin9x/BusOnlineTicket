@@ -15,7 +15,7 @@ const AddNewBusType = () => {
     onSubmit: (values) => {
       if (values.name == '' || values.numberOfSeat == '') {
         notification.error({
-          closeIcon: false,
+          closeIcon: true,
           message: 'Error',
           description: (
             <>
