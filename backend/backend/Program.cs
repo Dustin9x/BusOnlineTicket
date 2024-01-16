@@ -42,6 +42,7 @@ builder.Services.AddScoped<IStationRepo, StationService>();
 builder.Services.AddScoped<IDriverRepo, DriverService>();
 builder.Services.AddScoped<IUserRepo, UserService>();
 builder.Services.AddScoped<IBusTypeRepo, BusTypeService>();
+builder.Services.AddScoped<ISeatRepo, SeatService>();
 builder.Services.AddScoped<IFAQrepo, FAQService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
 
