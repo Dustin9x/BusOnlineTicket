@@ -35,7 +35,7 @@ const AddNewBus = () => {
     onSubmit: (values) => {
       if (values.busPlate == '' || values.busTypeId == '' || values.stationId == '') {
         notification.error({
-          closeIcon: false,
+          closeIcon: true,
           message: 'Error',
           description: (
             <>Please fill in all required fields.</>

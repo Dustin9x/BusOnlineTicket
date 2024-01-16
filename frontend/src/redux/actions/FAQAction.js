@@ -38,7 +38,7 @@ export const addFAQAction = (formData) => {
         try {
             const result = await faqService.addNewFAQ(formData)
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Add new FAQ successfully</>
@@ -56,7 +56,7 @@ export const updateFAQByIdAction = (id,formData) => {
         try {
             const result = await faqService.updateFAQ(id,formData);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Update FAQ successfully</>
@@ -74,7 +74,7 @@ export const deleteFAQAction = (id) => {
         try {
             const result = await faqService.deleteFAQ(id);
             notification.success({
-                closeIcon: false,
+                closeIcon: true,
                 message: 'Success',
                 description: (
                     <>Delete FAQ successfully</>

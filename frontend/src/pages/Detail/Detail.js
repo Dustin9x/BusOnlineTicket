@@ -123,7 +123,7 @@ function Checkout(props) {
                             if (indexGheDD != -1) {
                                 classGheDangDat = 'seatSelected'
                             }
-                            return <div key={index} className="col-4">
+                            return <div key={index} className="col-4 flex">
                                 <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat}`}
                                     onClick={() => {
                                         dispatch({
@@ -148,7 +148,7 @@ function Checkout(props) {
                             if (indexGheDD != -1) {
                                 classGheDangDat = 'seatSelected'
                             }
-                            return <div key={index} className="col-4">
+                            return <div key={index} className="col-4 flex">
                                 <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat}`}
                                     onClick={() => {
                                         dispatch({
@@ -180,15 +180,15 @@ function Checkout(props) {
         <div className='container min-h-screen'>
             <div className='grid grid-cols-12'>
                 <div className='col-span-8 mx-20 my-2'>
-                    <ul className="showcase mb-10">
-                        <li className='mr-5'>
+                    <ul className="flex showcase my-10">
+                        <li className='flex items-center mr-5'>
                             <div className="seat mr-2" style={{ width: 25, height: 25 }}></div><small>Available</small>
                         </li>
-                        <li className='mr-5'>
+                        <li className='flex items-center mr-5'>
                             <div className="seat seatSelected mr-2" style={{ width: 25, height: 25 }}></div><small>Selecting</small>
                         </li>
-                        <li>
-                            <div className="seat seatOccupied px-2.5 py-1 text-gray-400 mr-2" style={{ width: 25, height: 25 }}>x</div><small>Occupied</small>
+                        <li className='flex items-center'>
+                            <div className="seat seatOccupied text-gray-400 mr-2" style={{ width: 25, height: 25 }}></div><small>Occupied</small>
                         </li>
                     </ul>
 
@@ -287,7 +287,7 @@ export function SettlePayment(props) {
                 <b>Number of unclassified tickets: {totalTicket}</b><br />
                 <small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small>
                 {totalTicket < 0 ? notification.error({
-                    closeIcon: false,
+                    closeIcon: true,
                     message: 'Error',
                     description: (
                         <>You have exceeded your number of Seat.</>

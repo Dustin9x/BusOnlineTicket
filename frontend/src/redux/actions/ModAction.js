@@ -25,14 +25,14 @@ export const createModAction = (newMod) => {
     try {
       const result = await modService.createMod(newMod);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: "Success",
         description: <>Create New Mod Successfully.</>,
       });
       history.push("/admin/modmng");
     } catch (error) {
       notification.error({
-        closeIcon: false,
+        closeIcon: true,
         message: "Error",
         description: <>Create New Mod fail!</>,
       });
@@ -44,7 +44,7 @@ export const deleteModAction = (id) => {
     try {
       const result = await modService.deleteMod(id);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: "Success",
         description: <>Delete Mod successfully</>,
       });
@@ -75,7 +75,7 @@ export const updateModAction = (id, Mod) => {
     try {
       const result = await modService.updateMod(id, Mod);
       notification.success({
-        closeIcon: false,
+        closeIcon: true,
         message: "Success",
         description: <>Update Mod successfully.</>,
       });

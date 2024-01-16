@@ -19,6 +19,18 @@ body {
     color:#000 !important;
 }
 
+.ant-notification-notice-close{
+    text-decoration: none !important;
+}
+
+.ant-notification-notice-close:before{
+    font-family: "Font Awesome 5 Free";
+    content: "\f00d";
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 900;
+}
+
 :where(.css-dev-only-do-not-override-k7429z).ant-btn-primary:not(:disabled){
     background-color: #ef4444 !important;
 }
