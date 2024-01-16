@@ -114,12 +114,17 @@ namespace backend.Controllers
         }
 
         [HttpGet("Options")]
-        public IActionResult OptionsAsDesired(string? sortByPrice, string? sortByTime, int page = 1)
+        public IActionResult OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {
             try
             {
-                var result = repo.OptionsAsDesired(sortByPrice, sortByTime, page);
-                return Ok(result);
+                var list = repo.OptionsAsDesired(searchBusType, fromPrice, toPrice, sort, from, to, dayStart, page);
+                if (list != null)
+                {
+                    var result = new ResponseData<IEnumerable<Trip>>(StatusCodes.Status200OK, "Search trip successfully", list, null);
+                    return Ok(result);
+                }
+                return BadRequest();
             }
             catch
             {

@@ -13,14 +13,41 @@ namespace backend.Services
             this.db = db;
         }
 
-        public Task<bool> AddSeat(Seat seat)
+        public async Task<bool> AddSeat(Ticket ticket)
         {
-            throw new NotImplementedException();
+            try
+            {
+                foreach (var item in ticket.SeatsList)
+                {
+                    Seat newSeat = new Seat { UserId = ticket.UserId, TripId = ticket.TripId, Name = item };
+                    await db.Seats.AddAsync(newSeat);
+                }
+                await db.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public Task<Seat> DeleteSeat(int Id)
+        public async Task<Seat> DeleteSeat(int Id)
         {
-            throw new NotImplementedException();
+            var delSeat = await db.Seats.Where(x => x.TripId == Id).ToListAsync();
+            foreach (var item in delSeat)
+            {
+                db.Seats.Remove(item);
+                int result = await db.SaveChangesAsync();
+                if (result == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return item;
+                }
+            }
+            return null;
         }
 
         public async Task<IEnumerable<Seat>> GetSeat(int Id)

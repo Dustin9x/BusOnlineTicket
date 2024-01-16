@@ -9,6 +9,6 @@ namespace backend.IRepository
         Task<bool> CreateTrip(Trip Trip);
         Task<bool> PutTrip(Trip Trip);
         Task<Trip> DeleteTrip(int Id);
-        List<Trip> OptionsAsDesired(string? sortByPrice, string? sortByTime, int page = 1);
+        List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1);
     }
 }

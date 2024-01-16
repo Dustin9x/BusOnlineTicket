@@ -2,6 +2,7 @@
 using backend.IRepository;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace backend.Services
 {
@@ -36,11 +37,13 @@ namespace backend.Services
                 Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
                 Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
                 Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
+                IEnumerable<Seat> seats = (IEnumerable<Seat>)db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
 
                 Trip.Bus = bus;
                 Trip.FromStation = fromStation;
                 Trip.ToStation = toStation;
                 Trip.Driver = driver;
+                Trip.Seats = (ICollection<Seat>?)seats;
 
                 if (Trip.UploadImage.Length > 0)
                 {
@@ -146,31 +149,60 @@ namespace backend.Services
         }
 
 
-        public List<Trip> OptionsAsDesired(string? sortByPrice, string? sortByTime, int page = 1)
+        public List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {
-            var allTrips = db.Trips.AsQueryable();
-            if (!string.IsNullOrEmpty(sortByPrice))
-            {
-                switch (sortByPrice)
-                {
-                    case "pirceIncrease":
-                        allTrips = allTrips.OrderBy(trip => trip.TicketPrice);
-                        break;
-                    case "priceDecrease":
-                        allTrips = allTrips.OrderByDescending(trip => trip.TicketPrice);
-                        break;
 
+            var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(s => s.FromStation).Include(s => s.ToStation).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchBusType))
+            {
+                List<string> list = searchBusType.Split(",").ToList();
+                if (list.Any())
+                {
+                    allTrips = allTrips.Where(tr => list.Contains(tr.Bus.BusType.Name));
                 }
             }
-
-            if (!string.IsNullOrEmpty(sortByTime))
+            if (!string.IsNullOrEmpty(from))
             {
-                switch (sortByTime)
+                allTrips = allTrips.Where(tr => tr.FromStation.Name == from);
+            }
+
+            if (!string.IsNullOrEmpty(to))
+            {
+
+                allTrips = allTrips.Where(tr => tr.ToStation.Name == to);
+            }
+            if (!string.IsNullOrEmpty(dayStart))
+            {
+                allTrips = allTrips.Where(tr => tr.StartTime.Date == DateTime.ParseExact(dayStart, "yyyy-MM-dd", CultureInfo.InvariantCulture));
+            }
+            if (!string.IsNullOrEmpty(fromPrice))
+            {
+                allTrips = allTrips.Where(tr => tr.TicketPrice >= int.Parse(fromPrice));
+            }
+
+            if (!string.IsNullOrEmpty(toPrice))
+            {
+
+                allTrips = allTrips.Where(tr => tr.TicketPrice <= int.Parse(toPrice));
+            }
+
+
+
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort)
                 {
-                    case "timeIncrease":
+                    case "lowest-price":
+                        allTrips = allTrips.OrderBy(trip => trip.TicketPrice);
+                        break;
+                    case "highest-price":
+                        allTrips = allTrips.OrderByDescending(trip => trip.TicketPrice);
+                        break;
+                    case "earliest-departure":
                         allTrips = allTrips.OrderBy(trip => trip.StartTime);
                         break;
-                    case "timeDecrease":
+                    case "latest-departure":
                         allTrips = allTrips.OrderByDescending(trip => trip.StartTime);
                         break;
 
@@ -178,7 +210,10 @@ namespace backend.Services
             }
 
 
+
+
             allTrips = allTrips.Skip((page - 1) * PAGE_SIZE).Take(PAGE_SIZE);
+
             var result = allTrips.Select(trip => new Trip
             {
                 Id = trip.Id,
@@ -188,8 +223,11 @@ namespace backend.Services
                 BusId = trip.BusId,
                 FromStationId = trip.FromStationId,
                 ToStationId = trip.ToStationId,
+                FromStation = trip.FromStation,
+                ToStation = trip.ToStation,
                 Seats = trip.Seats,
                 Bus = trip.Bus,
+                Image = trip.Image
             });
 
             return result.ToList();
