@@ -1,5 +1,4 @@
-﻿using backend.SeedData;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace backend.Models
 {
@@ -51,7 +50,6 @@ namespace backend.Models
             modelBuilder.Entity<Seat>(t =>
             {
                 t.HasKey(t => t.Id);
-                //t.HasData(SeedData.SeatData.seatSeedData());
             });
             modelBuilder.Entity<Trip>(b =>
             {
