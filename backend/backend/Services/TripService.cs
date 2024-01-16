@@ -37,13 +37,13 @@ namespace backend.Services
                 Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
                 Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
                 Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
-                IEnumerable<Seat> seats = (IEnumerable<Seat>)db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
+                //List<Seat> seats = await db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
 
                 Trip.Bus = bus;
                 Trip.FromStation = fromStation;
                 Trip.ToStation = toStation;
                 Trip.Driver = driver;
-                Trip.Seats = (ICollection<Seat>?)seats;
+                //Trip.Seats = seats;
 
                 if (Trip.UploadImage.Length > 0)
                 {
@@ -225,7 +225,6 @@ namespace backend.Services
                 ToStationId = trip.ToStationId,
                 FromStation = trip.FromStation,
                 ToStation = trip.ToStation,
-                Seats = trip.Seats,
                 Bus = trip.Bus,
                 Image = trip.Image
             });

@@ -17,12 +17,13 @@ namespace backend.Services
         {
             try
             {
-                foreach (var item in ticket.SeatsList)
+                List<string> list = ticket.SeatsList.Split(",").ToList();
+                foreach (var item in list)
                 {
                     Seat newSeat = new Seat { UserId = ticket.UserId, TripId = ticket.TripId, Name = item };
                     await db.Seats.AddAsync(newSeat);
+                    await db.SaveChangesAsync();
                 }
-                await db.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)

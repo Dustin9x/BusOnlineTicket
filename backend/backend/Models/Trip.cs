@@ -12,7 +12,6 @@ namespace backend.Models
         public int DriverId { get; set; }
         public int? FromStationId { get; set; }
         public int? ToStationId { get; set; }
-        public ICollection<Seat>? Seats { get; set; }
         public Bus? Bus { get; set; }
         public Driver? Driver { get; set; }
         public Station? FromStation { get; set; }

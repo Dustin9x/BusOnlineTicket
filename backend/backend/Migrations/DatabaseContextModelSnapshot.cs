@@ -247,28 +247,17 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsBook")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TicketId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TripId")
+                    b.Property<int?>("TripId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("TripId")
-                        .IsUnique();
 
                     b.ToTable("Seats");
                 });
@@ -322,6 +311,9 @@ namespace backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("SeatsList")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -332,6 +324,8 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TripId");
 
                     b.HasIndex("UserId");
 
@@ -458,26 +452,23 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Seat", b =>
-                {
-                    b.HasOne("backend.Models.Ticket", null)
-                        .WithMany("Seats")
-                        .HasForeignKey("TicketId");
-
-                    b.HasOne("backend.Models.Trip", null)
-                        .WithOne("Seats")
-                        .HasForeignKey("backend.Models.Seat", "TripId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("backend.Models.Ticket", b =>
                 {
-                    b.HasOne("backend.Models.User", null)
+                    b.HasOne("backend.Models.Trip", "Trips")
+                        .WithMany()
+                        .HasForeignKey("TripId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("backend.Models.User", "Users")
                         .WithMany("Tickets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Trips");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("backend.Models.Trip", b =>
@@ -519,16 +510,6 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Models.BusType", b =>
                 {
                     b.Navigation("Buses");
-                });
-
-            modelBuilder.Entity("backend.Models.Ticket", b =>
-                {
-                    b.Navigation("Seats");
-                });
-
-            modelBuilder.Entity("backend.Models.Trip", b =>
-                {
-                    b.Navigation("Seats");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>
