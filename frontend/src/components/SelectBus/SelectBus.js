@@ -1,44 +1,41 @@
-import { DatePicker, Input } from "antd";
+import { DatePicker, Input,Select,Form } from "antd";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { EnvironmentOutlined } from "@ant-design/icons";
+import { useDispatch, useSelector } from 'react-redux';
+import { getStationListAction } from '../../redux/actions/StationAction';
+import { formatTimeStr } from "antd/es/statistic/utils";
+import dayjs from "dayjs";
 
 export default function SelectBus(props) {
-  useEffect(() => {}, []);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getStationListAction())
+  }, []);
+
+  let { arrStation } = useSelector(state => state.StationReducer);
+console.log("arrStation",);
   let { from } = useParams();
   let { to } = useParams();
   let { date } = useParams();
 
+
   const [From, setFrom] = useState(from);
   const [To, setTo] = useState(to);
   const [Date, setDate] = useState(date);
-  const handleFromChange = (event) => {
-    setFrom(event.target.value);
-    console.log("trim:  ", "aaa ccc");
+
+  const handleFromChange = (value) => {
+    setFrom(value);
   };
-  const handleToChange = (event) => {
-    setTo(event.target.value);
+  const handleToChange = (value) => {
+    setTo(value);
   };
   const handleDateChange = (date, dateString) => {
     setDate(dateString);
   };
   const handleSubmit = (e) => {
-    if (From.trim() === "") {
-      alert("Sorry, Leaving from is required!!");
-      e.preventDefault();
-      return;
-    }
-    if (To.trim() === "") {
-      alert("Sorry, Going to is required!!");
-      e.preventDefault();
-      return;
-    }
-    if (Date.trim() === "") {
-      alert("Sorry, Journey date to is required!!");
-      e.preventDefault();
-      return;
-    } else {
-    }
+   
   };
   return (
     <div className="w-100 p-2 rounded-xl bg-white">
@@ -54,13 +51,23 @@ export default function SelectBus(props) {
         <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
           <div className="d-flex w-100 justify-around">
             <div className="w-80">
-              <Input
-                size="large"
-                placeholder="Leaving from"
-                prefix={<EnvironmentOutlined />}
-                value={From}
-                onChange={handleFromChange}
-              />
+            
+               <Form.Item
+                style={{ minWidth: '100%' }}
+                rules={[
+                  {
+                    required: true,
+                    message: 'To Station is required!',
+                    transform: (from) => from.trim(),
+                  },
+                ]}
+               >
+                  <Select    
+                    showSearch
+                    value={from} required placeholder="Leaving from" 
+                    options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}  
+                    onChange={handleFromChange}/>
+              </Form.Item>
             </div>
 
             <div
@@ -78,16 +85,25 @@ export default function SelectBus(props) {
               </a>
             </div>
             <div className="w-80">
-              <Input
-                size="large"
-                placeholder="Going to"
-                prefix={<EnvironmentOutlined />}
-                value={To}
-                onChange={handleToChange}
-              />
+                 <Form.Item
+                  style={{ minWidth: '100%' }}
+                  rules={[
+                        {
+                          required: true,
+                          message: 'To Station is required!',
+                          transform: (value) => value.trim(),
+                        },
+                      ]}
+                    >
+                    <Select value={to} 
+                    showSearch
+                    placeholder="Going to"   options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}   
+                    onChange={handleToChange}/>
+                  </Form.Item>
             </div>
             <div className="ml-3">
               <DatePicker
+              value={dayjs(date)}
                 size="large"
                 type="date"
                 className="w-60"

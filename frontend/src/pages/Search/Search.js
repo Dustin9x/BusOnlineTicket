@@ -39,7 +39,6 @@ export default function Search(props) {
   // const { Meta } = Card;
 
   const { arrTrip } = useSelector((state) => state.TripReducer);
-  console.log("arr", arrTrip.length);
 
   const marks = {
     1: {
@@ -53,18 +52,14 @@ export default function Search(props) {
 
   const handleOnChangeSort = (e) => {
     setInput.sort = e.target.value;
-    console.log("check filter: ", setInput);
     dispatch(getTripListOptionsAction(setInput));
   };
   const handleOnChangeFilter = (event) => {
     if (event.target.checked && event.target.value != "undefine") {
       setInput.BusType += event.target.value + ",";
-      console.log("check setInput.BusType1: ", setInput.BusType);
     } else {
       setInput.BusType = setInput.BusType.replace(event.target.value + ",", "");
-      console.log("check setInput.BusType2: ", setInput.BusType);
     }
-    console.log("check filter: ", setInput);
 
     dispatch(getTripListOptionsAction(setInput));
   };
@@ -72,7 +67,6 @@ export default function Search(props) {
   const handleOnChangePrice = (e) => {
     setInput.fromPrice = e[0];
     setInput.toPrice = e[1];
-    console.log("check filter: ", setInput);
     dispatch(getTripListOptionsAction(setInput));
   };
 
@@ -92,7 +86,6 @@ export default function Search(props) {
               <Radio value="latest-departure">Latest departure</Radio>
               <Radio value="lowest-price">Lowest price</Radio>
               <Radio value="highest-price">Highest price</Radio>
-              <Radio value="none">None</Radio>
             </Radio.Group>
           </Card>
           <Card title="Filter" className="mt-3">
@@ -198,6 +191,7 @@ export default function Search(props) {
                 class="row"
                 style={{ justifyContent: "center", height: 400 }}
               >
+                {" "}
                 <Empty style={{ marginTop: 100 }} />
               </div>
             </Card>
