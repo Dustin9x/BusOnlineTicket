@@ -8,6 +8,7 @@
         public int UserId { get; set; }
         public User? Users { get; set; }
         public string? SeatsList { get; set; }
-        public decimal? TotalPrice { get; set; }
+        public double? TotalPrice { get; set; }
+        public bool? isCancel { get; set; } = false;
     }
 }

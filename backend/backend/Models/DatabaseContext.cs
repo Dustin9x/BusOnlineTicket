@@ -15,6 +15,7 @@ namespace backend.Models
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Driver> Drivers { get; set; }
         public DbSet<BusType> BusTypes { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
         public DbSet<BusStation> BusStations { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
 

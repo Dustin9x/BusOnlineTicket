@@ -45,7 +45,7 @@ export default function Login(props) {
         }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off"
+        autoComplete="on"
       >
         <div>
           <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">Sign In</h1>

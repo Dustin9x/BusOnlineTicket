@@ -23,7 +23,7 @@ export const orderConfirmAction = (orderDetail = new OrderDetail()) => {
 }
 
 
-export const bookTicketAction = (ticket) => {
+export const bookSeatAction = (ticket) => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction)
@@ -36,6 +36,28 @@ export const bookTicketAction = (ticket) => {
               });
             await dispatch(hideLoadingAction)
             dispatch({type:CHUYEN_TAB_ACTIVE,number:'3'})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const bookTicketAction = (ticket) => {
+    return async (dispatch) => {
+        try {
+
+            const result = await orderService.addTicket(ticket);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const getTicketByUserAction = (id) => {
+    return async (dispatch) => {
+        try {
+
+            const result = await orderService.getTicketByUser(id);
         } catch (error) {
             console.log(error)
         }

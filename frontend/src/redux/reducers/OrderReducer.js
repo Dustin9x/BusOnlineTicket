@@ -1,11 +1,11 @@
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, GET_TICKET_BY_USER, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
     selectingSeats: [],
     danhSachGheKhachDat: [{ maGhe: 61641 }, { maGhe: 61642 }],
     tabActive: '1',
     donhang: {},
-    arrDonHang: [],
+    arrTicket: [],
     disableTab: false
 }
 
@@ -16,8 +16,8 @@ export const OrderReducer = (state = initialState, action) => {
             state.donHang = action.donHang;
             return { ...state }
 
-        case LAY_DANH_SACH_DON_HANG_THEO_USER:
-            state.arrDonHang = action.arrDonHang;
+        case GET_TICKET_BY_USER:
+            state.arrTicket = action.arrTicket;
             return { ...state }
 
         case DAT_VE:

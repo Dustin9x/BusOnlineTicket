@@ -15,7 +15,6 @@ namespace backend.Services
 
         public async Task<bool> AddSeat(Ticket ticket)
         {
-            var a = ticket;
             try
             {
                 List<string> list = ticket.SeatsList.Split(",").ToList();

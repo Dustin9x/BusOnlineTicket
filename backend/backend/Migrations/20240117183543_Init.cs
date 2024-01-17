@@ -199,15 +199,10 @@ namespace backend.Migrations
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Seats_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
+                name: "Tickets",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -215,19 +210,20 @@ namespace backend.Migrations
                     TripId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     SeatsList = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    TotalPrice = table.Column<double>(type: "float", nullable: true),
+                    isCancel = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_Trips_TripId",
+                        name: "FK_Tickets_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ticket_Users_UserId",
+                        name: "FK_Tickets_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -307,18 +303,13 @@ namespace backend.Migrations
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Seats_UserId",
-                table: "Seats",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ticket_TripId",
-                table: "Ticket",
+                name: "IX_Tickets_TripId",
+                table: "Tickets",
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_UserId",
-                table: "Ticket",
+                name: "IX_Tickets_UserId",
+                table: "Tickets",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -355,7 +346,7 @@ namespace backend.Migrations
                 name: "Seats");
 
             migrationBuilder.DropTable(
-                name: "Ticket");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Trips");

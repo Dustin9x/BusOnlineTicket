@@ -17,7 +17,7 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddSeat(Ticket ticket)
+        public async Task<ActionResult> AddSeat([FromBody] Ticket ticket)
         {
             try
             {

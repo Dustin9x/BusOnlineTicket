@@ -12,7 +12,7 @@ import { TOKEN, USER_LOGIN } from '../../util/settings/config';
 import dayjs from 'dayjs';
 import { history } from './../../App';
 import { getTripByIdAction } from '../../redux/actions/TripAction';
-import { bookTicketAction, orderConfirmAction } from '../../redux/actions/OrderAction';
+import { bookSeatAction, bookTicketAction, getTicketByUserAction, orderConfirmAction } from '../../redux/actions/OrderAction';
 import { values } from 'lodash';
 import { Ticket } from './../../_core/models/Ticket';
 const { TabPane } = Tabs;
@@ -289,14 +289,16 @@ export function SettlePayment(props) {
         setShow(true)
     };
 
-    const onSubmit = (values) => {
-        console.log('hehe')
-        if (values === '123456') {
+    const handleSubmit = (values) => {
+        if (values.otp == '123456') {
             const ticket = new Ticket();
             ticket.TripId = donHang.tripId;
             ticket.UserId = donHang.userId;
             ticket.SeatsList = donHang.seatList;
             ticket.TotalPrice = finalPrice;
+            ticket.isCancel = false;
+            console.log('ticket',ticket)
+            dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))
         }
     };
@@ -346,7 +348,7 @@ export function SettlePayment(props) {
                                 autoComplete="off"
                             >
                                 <Form.Item
-                                    name="otp"
+                                    name="cardnumber"
                                     rules={[
                                         {
                                             required: true,
@@ -361,7 +363,7 @@ export function SettlePayment(props) {
                                 </Form.Item>
 
                                 <Form.Item
-                                    name="chuThe"
+                                    name="cardholder"
                                     rules={[
                                         {
                                             required: true,
@@ -381,8 +383,13 @@ export function SettlePayment(props) {
                                 <button type="submit" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
                                 >Continue</button>
                             </Form>
-                                : <Form onFinish={onSubmit} >
+                                : <Form
+                                    name="basic"
+                                    onFinish={handleSubmit}
+                                    autoComplete="off"
+                                >
                                     <Form.Item
+                                        name="otp"
                                         rules={[
                                             {
                                                 required: true,
@@ -397,15 +404,7 @@ export function SettlePayment(props) {
                                     </Form.Item>
                                     <div className='mt-5 d-flex justify-center'>
                                         <button type="submit" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                                            onClick={() => {
-                                                const ticket = new Ticket();
-                                                ticket.TripId = donHang.tripId;
-                                                ticket.UserId = donHang.userId;
-                                                ticket.SeatsList = donHang.seatList;
-                                                ticket.TotalPrice = finalPrice;
-                                                console.log('ticket', ticket)
-                                                dispatch(bookTicketAction(ticket))
-                                            }}
+                                            
                                         >Confirm Payment</button>
 
                                     </div>
@@ -424,33 +423,27 @@ export function SettlePayment(props) {
 export function KetQuaDatVe(props) {
     const { Meta } = Card;
     const { donHang } = useSelector(state => state.OrderReducer)
-    const { arrDonHang } = useSelector(state => state.OrderReducer)
+    const { arrTicket } = useSelector(state => state.OrderReducer)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const action = layDonHangTheoUserAction(donHang?.userId);
+        const action = getTicketByUserAction(donHang?.userId);
         dispatch(action)
     }, [])
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(5);
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const reverseArrDonHang = arrDonHang.slice().reverse()
-    const currentArrDonHang = reverseArrDonHang.slice(indexOfFirstPost, indexOfLastPost);
 
-
-    let lastTicket = arrDonHang[arrDonHang.length - 1];
+    let lastTicket = arrTicket[arrTicket?.length - 1];
+    console.log('lastTicket',lastTicket)
     return <div className='row'>
         <div className='col-12'>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto">
                     <div className="flex flex-col text-center w-full mb-20">
-                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Lịch Sử Đặt Vé</h1>
-                        <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Xin cám ơn bạn đã ủng hộ dịch vụ của chúng tôi, chúc bạn có những trải nghiệm tuyệt vời</p>
+                        <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Successfully Order</h1>
+                        <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Thank you for supporting our service, wish you a wonderful experience.</p>
                     </div>
                     <div className="container">
-                        {arrDonHang.length < 1 || arrDonHang == undefined ? <p className='text-xl text-center w-full'>Chưa có đơn hàng nào</p> :
+                        {arrTicket.length < 1 || arrTicket == undefined ? <p className='text-xl text-center w-full'>Chưa có đơn hàng nào</p> :
                             <div>
                                 <div className='row'>
                                     <div className='col-6 ml-auto mr-auto mt-3 '>
@@ -461,68 +454,34 @@ export function KetQuaDatVe(props) {
                                             style={{
                                                 width: '100%',
                                             }}
-                                            cover={<div>
-                                                <small className='text-right'>Ngày đặt vé: {dayjs(lastTicket.create_at).format('DD-MM-YYYY')}</small>
-                                                <QRCode value={
-                                                    'Mã đơn: ' + lastTicket.maOrder +
-                                                    ', Phim: ' + lastTicket.phim +
-                                                    ', Ngày: ' + dayjs(lastTicket.ngayChieu).format('DD-MM-YYYY') +
-                                                    ', Suất: ' + lastTicket.gioChieu.substr(0, 5) +
-                                                    ', Ghế: ' + lastTicket.danhSachGhe
-                                                }
-                                                />
-                                            </div>
-                                            }
+                                            // cover={<div>
+                                            //     <small className='text-right'>Ngày đặt vé: {dayjs(lastTicket?.Trips).format('DD-MM-YYYY')}</small>
+                                            //     <QRCode value={
+                                            //         'Mã đơn: ' + lastTicket.id +
+                                            //         ', Phim: ' + lastTicket.phim +
+                                            //         ', Ngày: ' + dayjs(lastTicket.ngayChieu).format('DD-MM-YYYY') +
+                                            //         ', Suất: ' + lastTicket.gioChieu.substr(0, 5) +
+                                            //         ', Ghế: ' + lastTicket.danhSachGhe
+                                            //     }
+                                            //     />
+                                            // </div>
+                                            // }
                                         >
-                                            <Meta className='font-bold' title={lastTicket.phim} />
+                                            {/* <Meta className='font-bold' title={lastTicket.phim} />
                                             <div className='mt-2 text-gray-500'>
                                                 <div>Ngày chiếu: {dayjs(lastTicket.ngayChieu).format('DD-MM-YYYY')}</div>
                                                 <div>Giờ chiếu: {lastTicket.gioChieu.substr(0, 5)}</div>
                                                 <div>Ghế: {lastTicket.danhSachGhe}</div>
                                                 <div className='font-bold'>Bạn cần xuất trình vé điện tử này để vào phòng chiếu</div>
-                                            </div>
-
+                                            </div> */}
+                                            ahihi
                                         </Card>
                                         <h1 className='text-center text-lg mt-20'>Vé đã mua</h1>
                                     </div>
                                 </div>
                                 <div className='row'>
-                                    {currentArrDonHang.slice(0, -1)?.map((item, index) => {
-                                        return <div className='col-6 mt-3 '>
-                                            <Card
-                                                hoverable
-                                                className='bg-teal-100 p-2 d-flex'
-                                                style={{
-                                                    width: '100%',
-                                                }}
-                                                cover={<div>
-                                                    <small className='text-right'>Ngày đặt vé: {dayjs(item.create_at).format('DD-MM-YYYY')}</small>
-                                                    <QRCode value={
-                                                        'Mã đơn: ' + item.maOrder +
-                                                        ', Phim: ' + item.phim +
-                                                        ', Ngày: ' + dayjs(item.ngayChieu).format('DD-MM-YYYY') +
-                                                        ', Suất: ' + item.gioChieu.substr(0, 5) +
-                                                        ', Ghế: ' + item.danhSachGhe
-                                                    }
-                                                    />
-                                                </div>
-                                                }
-                                            >
 
-                                                <Meta className='font-bold' title={item.phim} />
-                                                <div className='mt-2 text-gray-500'>
-                                                    <div>Ngày chiếu: {dayjs(item.ngayChieu).format('DD-MM-YYYY')}</div>
-                                                    <div>Giờ chiếu: {item.gioChieu.substr(0, 5)}</div>
-                                                    <div>Ghế: {item.danhSachGhe}</div>
-                                                    <div className='font-bold'>Bạn cần xuất trình vé điện tử này để vào phòng chiếu</div>
-                                                </div>
-
-                                            </Card>
-                                        </div>
-                                    })}
-                                </div>
-                                <Pagination className='d-flex justify-center line-clamp-3 my-20' pageSize={postsPerPage} currentPage={currentPage} total={arrDonHang.length} onChange={(page) => { setCurrentPage(page) }} />
-                            </div>
+                                </div></div>
                         }
                     </div>
                 </div>

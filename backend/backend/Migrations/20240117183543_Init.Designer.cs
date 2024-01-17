@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240117051656_Init")]
+    [Migration("20240117183543_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -264,8 +264,6 @@ namespace backend.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Seats");
                 });
 
@@ -321,8 +319,8 @@ namespace backend.Migrations
                     b.Property<string>("SeatsList")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<double?>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.Property<int>("TripId")
                         .HasColumnType("int");
@@ -330,13 +328,16 @@ namespace backend.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("isCancel")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("TripId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Ticket");
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("backend.Models.Trip", b =>
@@ -461,17 +462,9 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Models.Seat", b =>
                 {
-                    b.HasOne("backend.Models.Trip", "Trip")
+                    b.HasOne("backend.Models.Trip", null)
                         .WithMany("Seats")
                         .HasForeignKey("TripId");
-
-                    b.HasOne("backend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Trip");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("backend.Models.Ticket", b =>
