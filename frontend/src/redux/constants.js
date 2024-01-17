@@ -26,10 +26,6 @@ export const GET_MOD_DETAIL = "GET_MOD_DETAIL";
 export const GET_FAQ_LIST = "GET_FAQ_LIST";
 export const GET_FAQ_DETAIL = "GET_FAQ_DETAIL";
 
-export const LAY_DANH_SACH_LICH_CHIEU = "LAY_DANH_SACH_LICH_CHIEU";
-export const LAY_LICH_CHIEU_THEO_PHIM = "LAY_LICH_CHIEU_THEO_PHIM";
-export const LAY_CHI_TIET_LICH_CHIEU = "LAY_CHI_TIET_LICH_CHIEU";
-export const LAY_DANH_SACH_GHE = "LAY_DANH_SACH_GHE";
 export const CHON_GHE = "CHON_GHE";
 export const ORDER_CONFIRM = "ORDER_CONFIRM";
 export const DAT_VE = "DAT_VE";

@@ -19,21 +19,6 @@ export const layDonHangTheoUserAction = (id) => {
 }
 
 
-export const datVeAction = (donHang) => {
-    return async (dispatch) => {
-        try {
-            dispatch(displayLoadingAction)
-
-            const result = await quanLyDonHangService.datVe(donHang);
-            // alert('Đặt vé thành công, xin cám ơn');
-            await dispatch(hideLoadingAction)
-            dispatch({type:CHUYEN_TAB_ACTIVE,number:'3'})
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
-
 
 export const layDoanhThuAction = (year) => {
     return async (dispatch) => {

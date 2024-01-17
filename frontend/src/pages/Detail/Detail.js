@@ -12,8 +12,9 @@ import { TOKEN, USER_LOGIN } from '../../util/settings/config';
 import dayjs from 'dayjs';
 import { history } from './../../App';
 import { getTripByIdAction } from '../../redux/actions/TripAction';
-import { orderConfirmAction } from '../../redux/actions/OrderAction';
+import { bookTicketAction, orderConfirmAction } from '../../redux/actions/OrderAction';
 import { values } from 'lodash';
+import { Ticket } from './../../_core/models/Ticket';
 const { TabPane } = Tabs;
 
 
@@ -103,6 +104,7 @@ function Checkout(props) {
     }, [])
 
     let occupiedSeats = tripDetail?.seats?.map(s => s.name);
+    console.log('occupiedSeats', occupiedSeats)
 
     console.log('tripDetail', tripDetail)
     console.log('occupiedSeats', occupiedSeats)
@@ -236,7 +238,7 @@ function Checkout(props) {
                             : <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full"
                                 onClick={() => {
                                     const orderDetail = new OrderDetail();
-                                    orderDetail.tripId = props.match.params.id;
+                                    orderDetail.tripId = parseInt(props.match.params.id);
                                     orderDetail.busId = tripDetail.busId;
                                     orderDetail.driverId = tripDetail.driverId;
                                     orderDetail.driver = tripDetail.driver?.fullName;
@@ -290,7 +292,12 @@ export function SettlePayment(props) {
     const onSubmit = (values) => {
         console.log('hehe')
         if (values === '123456') {
-            dispatch(datVeAction(donHang))
+            const ticket = new Ticket();
+            ticket.TripId = donHang.tripId;
+            ticket.UserId = donHang.userId;
+            ticket.SeatsList = donHang.seatList;
+            ticket.TotalPrice = finalPrice;
+            dispatch(bookTicketAction(ticket))
         }
     };
 
@@ -372,7 +379,7 @@ export function SettlePayment(props) {
                                     }} prefix={<UserOutlined />} />
                                 </Form.Item>
                                 <button type="submit" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
-                                            >Continue</button>
+                                >Continue</button>
                             </Form>
                                 : <Form onFinish={onSubmit} >
                                     <Form.Item
@@ -390,9 +397,15 @@ export function SettlePayment(props) {
                                     </Form.Item>
                                     <div className='mt-5 d-flex justify-center'>
                                         <button type="submit" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                                            // onClick={() => {
-                                            //     dispatch(datVeAction(donHang))
-                                            // }}
+                                            onClick={() => {
+                                                const ticket = new Ticket();
+                                                ticket.TripId = donHang.tripId;
+                                                ticket.UserId = donHang.userId;
+                                                ticket.SeatsList = donHang.seatList;
+                                                ticket.TotalPrice = finalPrice;
+                                                console.log('ticket', ticket)
+                                                dispatch(bookTicketAction(ticket))
+                                            }}
                                         >Confirm Payment</button>
 
                                     </div>

@@ -1,7 +1,6 @@
 import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
-    danhSachGhe: [],
     selectingSeats: [],
     danhSachGheKhachDat: [{ maGhe: 61641 }, { maGhe: 61642 }],
     tabActive: '1',
@@ -12,10 +11,6 @@ const initialState = {
 
 export const OrderReducer = (state = initialState, action) => {
     switch (action.type) {
-
-        case LAY_DANH_SACH_GHE:
-            state.danhSachGhe = action.danhSachGhe;
-            return { ...state }
 
         case ORDER_CONFIRM:
             state.donHang = action.donHang;
