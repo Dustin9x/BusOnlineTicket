@@ -41,18 +41,8 @@ export default function SelectBus(props) {
     }
   };
   const handleSubmit = (e) => {
-    if(From==null){
-      alert("from is required");
-      e.preventDefault();
-      return;
-    }
-    if(To==null){
-      alert("from is required");
-      e.preventDefault();
-      return;
-    }
-    if(Date==null){
-      alert("Date is required");
+    if(From==null||Date==null||To==null){
+      alert("Sorry, Fields cannot be left blank!!");
       e.preventDefault();
       return;
     }
@@ -74,13 +64,6 @@ export default function SelectBus(props) {
             
                <Form.Item
                 style={{ minWidth: '100%' }}
-                rules={[
-                  {
-                    required: true,
-                    message: 'To Station is required!',
-                    transform: (value) => value.trim(),
-                  },
-                ]}
                >
                   <Select    
                     showSearch
@@ -107,13 +90,6 @@ export default function SelectBus(props) {
             <div className="w-80">
                  <Form.Item
                   style={{ minWidth: '100%' }}
-                  rules={[
-                        {
-                          required: true,
-                          message: 'To Station is required!',
-                          transform: (value) => value.trim(),
-                        },
-                      ]}
                     >
                     <Select value={To} 
                     showSearch
