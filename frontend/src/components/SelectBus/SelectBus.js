@@ -58,13 +58,13 @@ console.log("arrStation",);
                   {
                     required: true,
                     message: 'To Station is required!',
-                    transform: (from) => from.trim(),
+                    transform: (value) => value.trim(),
                   },
                 ]}
                >
                   <Select    
                     showSearch
-                    value={from} required placeholder="Leaving from" 
+                    value={From} required placeholder="Leaving from" 
                     options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}  
                     onChange={handleFromChange}/>
               </Form.Item>
@@ -95,7 +95,7 @@ console.log("arrStation",);
                         },
                       ]}
                     >
-                    <Select value={to} 
+                    <Select value={To} 
                     showSearch
                     placeholder="Going to"   options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}   
                     onChange={handleToChange}/>
@@ -103,7 +103,7 @@ console.log("arrStation",);
             </div>
             <div className="ml-3">
               <DatePicker
-              value={dayjs(date)}
+              value={dayjs(Date)}
                 size="large"
                 type="date"
                 className="w-60"
