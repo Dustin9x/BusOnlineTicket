@@ -21,12 +21,12 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s=>s.Seats).ToListAsync();
         }
 
         public async Task<IEnumerable<Trip>> GetTripById(int Id)
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Where(b => b.Id == Id).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).Where(b => b.Id == Id).ToListAsync();
         }
 
         public async Task<bool> CreateTrip(Trip Trip)
@@ -37,13 +37,13 @@ namespace backend.Services
                 Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
                 Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
                 Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
-                //List<Seat> seats = await db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
+                List<Seat> seats = await db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
 
                 Trip.Bus = bus;
                 Trip.FromStation = fromStation;
                 Trip.ToStation = toStation;
                 Trip.Driver = driver;
-                //Trip.Seats = seats;
+                Trip.Seats = seats;
 
                 if (Trip.UploadImage.Length > 0)
                 {

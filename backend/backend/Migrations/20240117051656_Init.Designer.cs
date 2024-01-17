@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240116174022_Init")]
+    [Migration("20240117051656_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -262,6 +262,10 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("TripId");
+
+                    b.HasIndex("UserId");
+
                     b.ToTable("Seats");
                 });
 
@@ -455,6 +459,21 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("backend.Models.Seat", b =>
+                {
+                    b.HasOne("backend.Models.Trip", "Trip")
+                        .WithMany("Seats")
+                        .HasForeignKey("TripId");
+
+                    b.HasOne("backend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Trip");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("backend.Models.Ticket", b =>
                 {
                     b.HasOne("backend.Models.Trip", "Trips")
@@ -513,6 +532,11 @@ namespace backend.Migrations
             modelBuilder.Entity("backend.Models.BusType", b =>
                 {
                     b.Navigation("Buses");
+                });
+
+            modelBuilder.Entity("backend.Models.Trip", b =>
+                {
+                    b.Navigation("Seats");
                 });
 
             modelBuilder.Entity("backend.Models.User", b =>

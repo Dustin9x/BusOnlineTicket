@@ -64,21 +64,6 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seats",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TripId = table.Column<int>(type: "int", nullable: true),
-                    UserId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Seats", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stations",
                 columns: table => new
                 {
@@ -197,6 +182,31 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TripId = table.Column<int>(type: "int", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seats_Trips_TripId",
+                        column: x => x.TripId,
+                        principalTable: "Trips",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Seats_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Ticket",
                 columns: table => new
                 {
@@ -290,6 +300,16 @@ namespace backend.Migrations
                 name: "IX_BusStations_StationId",
                 table: "BusStations",
                 column: "StationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_TripId",
+                table: "Seats",
+                column: "TripId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_UserId",
+                table: "Seats",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ticket_TripId",
