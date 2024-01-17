@@ -94,7 +94,7 @@ export default function Detail(props) {
 
 function Checkout(props) {
     const { userLogin } = useSelector(state => state.UserReducer)
-    const { danhSachGheDangChon } = useSelector(state => state.OrderReducer)
+    const { selectingSeats } = useSelector(state => state.OrderReducer)
     const { tripDetail } = useSelector(state => state.TripReducer)
     const dispatch = useDispatch();
     let { id } = props.match.params;
@@ -102,7 +102,10 @@ function Checkout(props) {
         dispatch(getTripByIdAction(id))
     }, [])
 
+    let occupiedSeats = tripDetail?.seats?.map(s => s.name);
+
     console.log('tripDetail', tripDetail)
+    console.log('occupiedSeats', occupiedSeats)
 
     const renderSeat = () => {
 
@@ -111,20 +114,27 @@ function Checkout(props) {
             "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15",
         ];
 
-
         return (
             <div className="row">
                 <div className='col-6 px-5'>
                     <h2 className='text-center'>Floor 1</h2>
                     <div className='row'>
+
                         {seatCodes?.slice(0, 15).map((ghe, index) => {
-                            let classGheDangDat = '';
-                            let indexGheDD = danhSachGheDangChon?.findIndex(gheDD => gheDD === ghe);
-                            if (indexGheDD != -1) {
-                                classGheDangDat = 'seatSelected'
+                            let classSelecting = '';
+                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
+                            if (indexSelectSeat != -1) {
+                                classSelecting = 'seatSelected'
                             }
+
+                            let classOccupied = '';
+                            let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
+                            if (indexOccupied != -1) {
+                                classOccupied = 'seatOccupied'
+                            }
+
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat}`}
+                                <Button disabled={indexOccupied != -1} type='link' className={`seat p-0 ${classSelecting} ${classOccupied}`}
                                     onClick={() => {
                                         dispatch({
                                             type: DAT_VE,
@@ -144,12 +154,17 @@ function Checkout(props) {
                     <div className='row'>
                         {seatCodes?.slice(15, 30).map((ghe, index) => {
                             let classGheDangDat = '';
-                            let indexGheDD = danhSachGheDangChon?.findIndex(gheDD => gheDD === ghe);
+                            let indexGheDD = selectingSeats?.findIndex(gheDD => gheDD === ghe);
                             if (indexGheDD != -1) {
                                 classGheDangDat = 'seatSelected'
                             }
+                            let classOccupied = '';
+                            let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
+                            if (indexOccupied != -1) {
+                                classOccupied = 'seatOccupied'
+                            }
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat}`}
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat} ${classOccupied}`}
                                     onClick={() => {
                                         dispatch({
                                             type: DAT_VE,
@@ -169,12 +184,12 @@ function Checkout(props) {
     }
 
     const renderSeatSelected = () => {
-        return _.sortBy(danhSachGheDangChon).map((gheDD, index) => {
+        return _.sortBy(selectingSeats).map((gheDD, index) => {
             return (<b key={index} className='mr-1'>{gheDD}</b>).props.children
         }).join(', ')
     }
 
-    const totalMoney = danhSachGheDangChon?.length * tripDetail?.ticketPrice
+    const totalMoney = selectingSeats?.length * tripDetail?.ticketPrice
 
     return (
         <div className='container min-h-screen'>
@@ -216,28 +231,32 @@ function Checkout(props) {
                         <h3 className='text-red-400 text-xl font-bold'>{totalMoney.toLocaleString()} đ</h3>
                     </Card>
                     <div className='m-2'>
-                        <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                            onClick={() => {
-                                const orderDetail = new OrderDetail();
-                                orderDetail.tripId = props.match.params.id;
-                                orderDetail.busId = tripDetail.busId;
-                                orderDetail.driverId = tripDetail.driverId;
-                                orderDetail.driver = tripDetail.driver?.fullName;
-                                orderDetail.busPlate = tripDetail.bus?.busPlate;
-                                orderDetail.busType = tripDetail.bus?.busType.name;
-                                orderDetail.fromStation = tripDetail.fromStation?.name;
-                                orderDetail.toStation = tripDetail.toStation?.name;
-                                orderDetail.startTime = tripDetail.startTime;
-                                orderDetail.finishTime = tripDetail.finishTime;
-                                orderDetail.seatList = renderSeatSelected();
-                                orderDetail.numberOfSeat = danhSachGheDangChon?.length;
-                                orderDetail.ticketPrice = tripDetail.ticketPrice;
-                                orderDetail.totalMoney = totalMoney;
-                                orderDetail.userId = userLogin.id;
-                                orderDetail.email = userLogin.email;
-                                dispatch(orderConfirmAction(orderDetail))
-                            }}
-                        >Continue</button>
+                        {selectingSeats?.length == 0
+                            ? <button type="button" disabled className="focus:outline-none text-white bg-purple-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full">Please select seat first</button>
+                            : <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full"
+                                onClick={() => {
+                                    const orderDetail = new OrderDetail();
+                                    orderDetail.tripId = props.match.params.id;
+                                    orderDetail.busId = tripDetail.busId;
+                                    orderDetail.driverId = tripDetail.driverId;
+                                    orderDetail.driver = tripDetail.driver?.fullName;
+                                    orderDetail.busPlate = tripDetail.bus?.busPlate;
+                                    orderDetail.busType = tripDetail.bus?.busType.name;
+                                    orderDetail.fromStation = tripDetail.fromStation?.name;
+                                    orderDetail.toStation = tripDetail.toStation?.name;
+                                    orderDetail.startTime = tripDetail.startTime;
+                                    orderDetail.finishTime = tripDetail.finishTime;
+                                    orderDetail.seatList = renderSeatSelected();
+                                    orderDetail.numberOfSeat = selectingSeats?.length;
+                                    orderDetail.ticketPrice = tripDetail.ticketPrice;
+                                    orderDetail.totalMoney = totalMoney;
+                                    orderDetail.userId = userLogin.id;
+                                    orderDetail.email = userLogin.email;
+                                    dispatch(orderConfirmAction(orderDetail))
+                                }}
+                            >Continue</button>
+                        }
+
                     </div>
                 </div>
             </div>
@@ -252,7 +271,6 @@ export function SettlePayment(props) {
     const [children, setChildren] = useState(0);
     const [teenage, setTeenage] = useState(0);
     const [oldman, setOldman] = useState(0);
-    const [disable, setDisable] = useState(true);
 
     const handleChangeChildren = (value) => {
         setChildren(value)
@@ -264,11 +282,13 @@ export function SettlePayment(props) {
         setOldman(value)
     }
     const totalTicket = donHang.numberOfSeat - children - teenage - oldman;
-    const finalPrice = donHang.totalMoney - children * donHang.ticketPrice - teenage * donHang.ticketPrice * 0.5 - oldman * donHang.ticketPrice * 0.7
+    const finalPrice = donHang.totalMoney - children * donHang.ticketPrice - teenage * donHang.ticketPrice * 0.5 - oldman * donHang.ticketPrice * 0.3
     const onFinish = (values) => {
         setShow(true)
     };
+
     const onSubmit = (values) => {
+        console.log('hehe')
         if (values === '123456') {
             dispatch(datVeAction(donHang))
         }
@@ -280,25 +300,18 @@ export function SettlePayment(props) {
             <Card className='m-2 w-full bg-red-400'>
                 Please enter the number of passengers according to the classification below to receive additional incentives:
                 <ul className='d-flex justify-between'>
-                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Under 5 years old (discount 100%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeChildren} name="children" min={0} max={donHang?.numberOfSeat - teenage - oldman} className="p-2" type="number" /></li>
-                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Between 5-12 years old (discount 50%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeTeenage} name="teenage" min={0} max={donHang?.numberOfSeat - children - oldman} className="p-2" type="number" /></li>
-                    <li className="my-1"><i class="fa-solid fa-person fa-lg mr-2"></i>Over 50 years old (discount 30%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeOldman} name="oldman" min={0} max={donHang?.numberOfSeat - children - teenage} className="p-2" type="number" /></li>
+                    <li className="my-1"><i className="fa-solid fa-person fa-lg mr-2"></i>Under 5 years old (discount 100%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeChildren} name="children" min={0} max={donHang?.numberOfSeat - teenage - oldman} className="p-2" type="number" /></li>
+                    <li className="my-1"><i className="fa-solid fa-person fa-lg mr-2"></i>Between 5-12 years old (discount 50%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeTeenage} name="teenage" min={0} max={donHang?.numberOfSeat - children - oldman} className="p-2" type="number" /></li>
+                    <li className="my-1"><i className="fa-solid fa-person fa-lg mr-2"></i>Over 50 years old (discount 30%): <InputNumber addonBefore={<UserOutlined />} onChange={handleChangeOldman} name="oldman" min={0} max={donHang?.numberOfSeat - children - teenage} className="p-2" type="number" /></li>
                 </ul>
                 <b>Number of unclassified tickets: {totalTicket}</b><br />
                 <small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small>
-                {totalTicket < 0 ? notification.error({
-                    closeIcon: true,
-                    message: 'Error',
-                    description: (
-                        <>You have exceeded your number of Seat.</>
-                    ),
-                }) : ''}
 
             </Card>
             <div className='row'>
                 <div className='col-6'>
                     <div className=''>
-                        <Card className='m-2 w-full bg-indigo-400'>
+                        <Card className='m-2 w-full'>
                             <p className="font-bold">Your order detail</p>
                             <div className='d-flex justify-between'><div >From Station:</div><b>{donHang?.fromStation}</b></div>
                             <div className='d-flex justify-between'><div >To Station:</div><b>{donHang?.toStation}</b></div>
@@ -310,7 +323,7 @@ export function SettlePayment(props) {
                             <div className='d-flex justify-between'><div >Your selected seats:</div><b>{donHang?.seatList}</b></div>
                         </Card>
                     </div>
-                    <Card className='m-2 w-full bg-orange-400'>
+                    <Card className='m-2 w-full bg-indigo-300'>
                         <div className='d-flex justify-between'><p className="font-bold">Total Price</p><h3 className=' text-xl font-bold'>{finalPrice.toLocaleString()} đ</h3></div>
                     </Card>
                     <p className='text-gray-400 m-2'>(*) Please check the information carefully, orders once placed will not be canceled or refunded.</p>
@@ -319,7 +332,7 @@ export function SettlePayment(props) {
                 <div className='col-6'>
                     <div className='row'>
                         <div className='col-6 mx-auto'>
-                            <h1 className='text-center text-xl mb-5'>THANH TOÁN BẰNG THẺ TÍN DỤNG</h1>
+                            <h1 className='text-center text-xl my-5'>PAYMENT BY CREDIT CARD</h1>
                             {!show ? <Form
                                 name="basic"
                                 onFinish={onFinish}
@@ -333,11 +346,11 @@ export function SettlePayment(props) {
                                             type: 'string',
                                             min: 16,
                                             max: 19,
-                                            message: 'Số thẻ gồm 16-19 số và không được để trống!',
+                                            message: 'Card number must have 16-19 digits and can not be blank!',
                                         },
                                     ]}
                                 >
-                                    <Input size="large" onInput={e => e.target.value = e.target.value.replace(/(\d{4})(\d+)/g, '$1 $2').trim()} placeholder='Số Thẻ' prefix={<CreditCardOutlined />} />
+                                    <Input size="large" onInput={e => e.target.value = e.target.value.replace(/(\d{4})(\d+)/g, '$1 $2').trim()} placeholder='Card number' prefix={<CreditCardOutlined />} />
                                 </Form.Item>
 
                                 <Form.Item
@@ -346,11 +359,11 @@ export function SettlePayment(props) {
                                         {
                                             required: true,
                                             type: 'string',
-                                            message: 'Tên chủ thẻ không được để trống!',
+                                            message: 'Card holder can not be blank',
                                         },
                                     ]}
                                 >
-                                    <Input size="large" placeholder='Tên Chủ Thẻ Không Dấu' onInput={e => {
+                                    <Input size="large" placeholder='Card holder name' onInput={e => {
                                         e.target.value = e.target.value.toUpperCase()
                                         e.target.value = e.target.value.normalize("NFD")
                                         e.target.value = e.target.value.replace(/[\u0300-\u036f]/g, "")
@@ -358,13 +371,8 @@ export function SettlePayment(props) {
                                         e.target.value = e.target.value.replace(/Đ/g, "D");
                                     }} prefix={<UserOutlined />} />
                                 </Form.Item>
-                                {
-                                    totalTicket < 0 ?
-                                        <button type="primary" disabled className='focus:outline-none text-white bg-purple-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
-                                            htmlType="submit">Please re-classified your tickets</button>
-                                        : <button type="primary" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
-                                            htmlType="submit">Continue</button>
-                                }
+                                <button type="submit" className='focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 w-full'
+                                            >Continue</button>
                             </Form>
                                 : <Form onFinish={onSubmit} >
                                     <Form.Item
@@ -374,18 +382,18 @@ export function SettlePayment(props) {
                                                 type: 'string',
                                                 min: 6,
                                                 max: 6,
-                                                message: 'OTP gồm 6 số và không được để trống!',
+                                                message: 'OTP have 6 digit and can not be blank!',
                                             },
                                         ]}
                                     >
-                                        <Input size="large" placeholder='Nhập OTP' prefix={<KeyOutlined />} />
+                                        <Input size="large" placeholder='Enter OTP' prefix={<KeyOutlined />} />
                                     </Form.Item>
                                     <div className='mt-5 d-flex justify-center'>
-                                        <button type="button" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                                            onClick={() => {
-                                                dispatch(datVeAction(donHang))
-                                            }}
-                                        >Xác Nhận Thanh Toán</button>
+                                        <button type="submit" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
+                                            // onClick={() => {
+                                            //     dispatch(datVeAction(donHang))
+                                            // }}
+                                        >Confirm Payment</button>
 
                                     </div>
                                 </Form>

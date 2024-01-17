@@ -2,7 +2,7 @@ import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, LAY_CHI_TIET_LI
 
 const initialState = {
     danhSachGhe: [],
-    danhSachGheDangChon: [],
+    selectingSeats: [],
     danhSachGheKhachDat: [{ maGhe: 61641 }, { maGhe: 61642 }],
     tabActive: '1',
     donhang: {},
@@ -26,19 +26,18 @@ export const OrderReducer = (state = initialState, action) => {
             return { ...state }
 
         case DAT_VE:
-            let danhSachGheCapNhat = [...state.danhSachGheDangChon];
+            let danhSachGheCapNhat = [...state.selectingSeats];
             let index = danhSachGheCapNhat.findIndex(gheDD => gheDD === action.gheDuocChon);
             if (index != -1) {
                 danhSachGheCapNhat.splice(index, 1)
             } else {
                 danhSachGheCapNhat.push(action.gheDuocChon)
             }
-            state.danhSachGheDangChon = danhSachGheCapNhat
-            console.log('danhSachGheDangChon',state.danhSachGheDangChon)
+            state.selectingSeats = danhSachGheCapNhat
             return { ...state }
 
         case DAT_VE_HOAN_TAT:
-            state.danhSachGheDangChon = [];
+            state.selectingSeats = [];
             return { ...state }
 
         case CHUYEN_TAB:

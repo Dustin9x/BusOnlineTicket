@@ -20,7 +20,7 @@ namespace backend.Services
                 List<string> list = ticket.SeatsList.Split(",").ToList();
                 foreach (var item in list)
                 {
-                    Seat newSeat = new Seat { UserId = ticket.UserId, TripId = ticket.TripId, Name = item };
+                    Seat newSeat = new Seat { UserId = ticket.UserId, TripId = ticket.TripId, Name = item.Trim() };
                     await db.Seats.AddAsync(newSeat);
                     await db.SaveChangesAsync();
                 }
