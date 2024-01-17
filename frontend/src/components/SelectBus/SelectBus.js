@@ -15,16 +15,16 @@ export default function SelectBus(props) {
   }, []);
 
   let { arrStation } = useSelector(state => state.StationReducer);
-console.log("arrStation",);
   let { from } = useParams();
   let { to } = useParams();
   let { date } = useParams();
 
 
-  const [From, setFrom] = useState(from);
-  const [To, setTo] = useState(to);
-  const [Date, setDate] = useState(date);
+  const [From, setFrom] = useState(from!="undefined"?from:null);
+  const [To, setTo] = useState(to!="undefined"?to:null);
+  const [Date, setDate] = useState(date!="undefined"?date:null);
 
+  
   const handleFromChange = (value) => {
     setFrom(value);
   };
@@ -32,10 +32,30 @@ console.log("arrStation",);
     setTo(value);
   };
   const handleDateChange = (date, dateString) => {
-    setDate(dateString);
+  
+    if(dateString==""){
+      setDate(null);
+    }
+    else{
+      setDate(dateString);
+    }
   };
   const handleSubmit = (e) => {
-   
+    if(From==null){
+      alert("from is required");
+      e.preventDefault();
+      return;
+    }
+    if(To==null){
+      alert("from is required");
+      e.preventDefault();
+      return;
+    }
+    if(Date==null){
+      alert("Date is required");
+      e.preventDefault();
+      return;
+    }
   };
   return (
     <div className="w-100 p-2 rounded-xl bg-white">
@@ -103,7 +123,7 @@ console.log("arrStation",);
             </div>
             <div className="ml-3">
               <DatePicker
-              value={dayjs(Date)}
+                value={Date!=null?dayjs(Date):""}
                 size="large"
                 type="date"
                 className="w-60"
