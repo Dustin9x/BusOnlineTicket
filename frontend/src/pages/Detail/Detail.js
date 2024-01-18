@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Avatar, Button, Card, Form, Input, Pagination, Popover, QRCode, Tabs, InputNumber, notification } from 'antd';
 import { UserOutlined, HomeOutlined, CreditCardOutlined, KeyOutlined } from '@ant-design/icons';
 import './Detail.css'
+import './Ticket.css'
 import { CHUYEN_TAB_ACTIVE, DAT_VE } from '../../redux/constants';
 import _ from 'lodash';
 import { OrderDetail } from '../../_core/models/OrderDetail';
@@ -297,9 +298,17 @@ export function SettlePayment(props) {
             ticket.SeatsList = donHang.seatList;
             ticket.TotalPrice = finalPrice;
             ticket.isCancel = false;
-            console.log('ticket',ticket)
+            console.log('ticket', ticket)
             dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))
+        }else{
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>OTP is incorrect</>
+                ),
+            });
         }
     };
 
@@ -404,7 +413,7 @@ export function SettlePayment(props) {
                                     </Form.Item>
                                     <div className='mt-5 d-flex justify-center'>
                                         <button type="submit" style={{ width: 350 }} className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 w-full"
-                                            
+
                                         >Confirm Payment</button>
 
                                     </div>
@@ -427,62 +436,59 @@ export function KetQuaDatVe(props) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const action = getTicketByUserAction(donHang?.userId);
-        dispatch(action)
+        // const action = getTicketByUserAction(donHang?.userId);
+        // dispatch(action)
     }, [])
 
 
     let lastTicket = arrTicket[arrTicket?.length - 1];
-    console.log('lastTicket',lastTicket)
+    console.log('donHang', donHang)
     return <div className='row'>
         <div className='col-12'>
             <section className="text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto">
-                    <div className="flex flex-col text-center w-full mb-20">
+                    <div className="flex flex-col text-center w-full">
                         <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Successfully Order</h1>
                         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Thank you for supporting our service, wish you a wonderful experience.</p>
                     </div>
                     <div className="container">
-                        {arrTicket.length < 1 || arrTicket == undefined ? <p className='text-xl text-center w-full'>Chưa có đơn hàng nào</p> :
-                            <div>
-                                <div className='row'>
-                                    <div className='col-6 ml-auto mr-auto mt-3 '>
-                                        <h1 className='text-center text-lg mb-5'>Vé vừa mua</h1>
-                                        <Card
-                                            hoverable
-                                            className='bg-red-100 p-2 d-flex'
-                                            style={{
-                                                width: '100%',
-                                            }}
-                                            // cover={<div>
-                                            //     <small className='text-right'>Ngày đặt vé: {dayjs(lastTicket?.Trips).format('DD-MM-YYYY')}</small>
-                                            //     <QRCode value={
-                                            //         'Mã đơn: ' + lastTicket.id +
-                                            //         ', Phim: ' + lastTicket.phim +
-                                            //         ', Ngày: ' + dayjs(lastTicket.ngayChieu).format('DD-MM-YYYY') +
-                                            //         ', Suất: ' + lastTicket.gioChieu.substr(0, 5) +
-                                            //         ', Ghế: ' + lastTicket.danhSachGhe
-                                            //     }
-                                            //     />
-                                            // </div>
-                                            // }
-                                        >
-                                            {/* <Meta className='font-bold' title={lastTicket.phim} />
-                                            <div className='mt-2 text-gray-500'>
-                                                <div>Ngày chiếu: {dayjs(lastTicket.ngayChieu).format('DD-MM-YYYY')}</div>
-                                                <div>Giờ chiếu: {lastTicket.gioChieu.substr(0, 5)}</div>
-                                                <div>Ghế: {lastTicket.danhSachGhe}</div>
-                                                <div className='font-bold'>Bạn cần xuất trình vé điện tử này để vào phòng chiếu</div>
-                                            </div> */}
-                                            ahihi
-                                        </Card>
-                                        <h1 className='text-center text-lg mt-20'>Vé đã mua</h1>
-                                    </div>
+                    <p className="lg:w-2/3 mx-auto leading-relaxed text-base">You don't need to print out of my bus ticket to board the bus. You can show your E-ticket or e-ticket on your mobile device before boarding the bus. 
+                    Additionally, It is advisable to carry a government issued Identity card to verify your identity and your companies before boarding the bus to enjoy your discount.</p>
+                        <div className="cardWrap">
+                            <div className="card cardLeft">
+                                <h1>Trip: <span className='font-bold'>PHTV{donHang?.tripId}</span></h1>
+                                <div className="title">
+                                    <span>Route</span>
+                                    <h2>{donHang?.fromStation} - {donHang?.toStation}</h2>
                                 </div>
-                                <div className='row'>
-
-                                </div></div>
-                        }
+                                <div className="name">
+                                    <span>Customer</span>
+                                    <h2>{donHang?.email}</h2>
+                                </div>
+                                <div className="seatList">
+                                    <span>seat</span>
+                                    <h2>{donHang?.seatList}</h2>
+                                </div>
+                                <div className="time">
+                                    <span>time</span>
+                                    <h2>{dayjs(donHang?.startTime).format('DD-MM-YYYY')}</h2>
+                                </div>
+                                
+                            </div>
+                            <div className="card cardRight">
+                                <div className="eye" />
+                                <div className="number">
+                                    <span>seat</span>
+                                    <h3>{donHang?.seatList}</h3>
+                                </div>
+                                <QRCode size={100} className='mx-auto' value={
+                                    'Ticket: ' + donHang?.email +
+                                    ', Route: ' + donHang?.fromStation + ' ' + donHang?.toStation +
+                                    ', Day: ' + dayjs(donHang?.startTime).format('DD-MM-YYYY') +
+                                    ', Seat: ' + donHang?.seatList
+                                } />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

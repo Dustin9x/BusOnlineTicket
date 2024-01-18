@@ -7,8 +7,8 @@ export default function CheckTicket() {
 
   return (
     <div className="w-100 p-4 rounded-xl bg-white">
-      <form autocomplete="off" className=" w-100" action="/bus/schedule/">
-        <div className="autocomplete w-100 justify-center">
+      <form autoComplete="off" className=" w-100" action="/bus/schedule/">
+        <div className="autoComplete w-100 justify-center">
           <h4 className="tc-l tl f4 w-100 ttn" style={{ color: "#1867aa" }}>
             Checking your Bus Ticket here
           </h4>

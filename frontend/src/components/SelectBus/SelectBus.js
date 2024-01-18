@@ -51,14 +51,14 @@ export default function SelectBus(props) {
     <div className="w-100 p-2 rounded-xl bg-white">
       <form
         onSubmit={handleSubmit}
-        autocomplete="off"
+        autoComplete="off"
         className=" w-100"
         action={`/search/${From}/${To}/${Date}`}
       >
         <h4 className="w-100 text-left" style={{ color: "#1867aa" }}>
           Bus Ticket & Bus Schedule in whole Vietnam
         </h4>
-        <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
+        <div className="autoComplete  br3 cf w-100 flex flex-wrap justify-center">
           <div className="d-flex w-100 justify-around">
             <div className="w-80">
             
@@ -75,7 +75,7 @@ export default function SelectBus(props) {
 
             <div
               id="btn"
-              onclick="changeValue()"
+              // onClick="changeValue()"
               className="w-10 br3 mb0-l mb2-m flex justify-center items-center bg-white dim pointer"
               style={{ height: "2.5em", borderRadius: ".5rem !important" }}
             >

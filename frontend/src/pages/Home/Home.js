@@ -30,7 +30,7 @@ export default function Home(props) {
             defaultActiveKey="1"
             centered
             className=""
-            itemActiveColor="#eee"
+            // itemActiveColor="#eee"
             tabBarStyle={{ width: "100%", border: 0 }}
           >
             <TabPane key="1"
