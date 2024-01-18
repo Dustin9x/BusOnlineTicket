@@ -16,7 +16,11 @@ export class OrderService extends baseService {
     };
 
     getTicketByUser = (id) => {
-        return this.post(`/api/Ticket/${id}`,);
+        return this.get(`/api/Ticket/${id}`,);
+    };
+
+    cancelTicket = (id,day) => {
+        return this.put(`/api/Ticket?Id=${id}&Day=${day}`,);
     };
 }
 

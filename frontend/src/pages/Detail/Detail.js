@@ -430,19 +430,13 @@ export function SettlePayment(props) {
 
 
 export function KetQuaDatVe(props) {
-    const { Meta } = Card;
     const { donHang } = useSelector(state => state.OrderReducer)
-    const { arrTicket } = useSelector(state => state.OrderReducer)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // const action = getTicketByUserAction(donHang?.userId);
-        // dispatch(action)
+        
     }, [])
 
-
-    let lastTicket = arrTicket[arrTicket?.length - 1];
-    console.log('donHang', donHang)
     return <div className='row'>
         <div className='col-12'>
             <section className="text-gray-600 body-font">

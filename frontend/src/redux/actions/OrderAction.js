@@ -1,10 +1,14 @@
 import { notification } from "antd";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
-import { CHON_GHE, CHUYEN_TAB, CHUYEN_TAB_ACTIVE, ORDER_CONFIRM } from "../constants";
+import { CHON_GHE, CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
+import { USER_LOGIN } from "../../util/settings/config";
 
-
+let userLogin = {}
+  if (localStorage.getItem(USER_LOGIN)) {
+    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+  }
 
 export const orderConfirmAction = (orderDetail = new OrderDetail()) => {
     return async (dispatch) => {
@@ -56,11 +60,34 @@ export const bookTicketAction = (ticket) => {
 export const getTicketByUserAction = (id) => {
     return async (dispatch) => {
         try {
-
             const result = await orderService.getTicketByUser(id);
+            dispatch({
+                type: GET_TICKET_BY_USER,
+                arrTicket: result.data.data
+            })
         } catch (error) {
             console.log(error)
         }
     }
 }
+
+export const cancelTicketAction = (id,day) => {
+    return async (dispatch) => {
+        try {
+            const result = await orderService.cancelTicket(id,day);
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>Cancel ticket successfully</>
+                ),
+            });
+            dispatch(getTicketByUserAction(userLogin.id))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+
 

@@ -3,22 +3,6 @@ import { quanLyDonHangService } from "../../services/QuanLyDonHangService";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
 
 
-export const layDonHangTheoUserAction = (id) => {
-    return async (dispatch) => {
-
-        try {
-            const result = await quanLyDonHangService.layDonHangTheoUser(id)
-            dispatch({
-                type: LAY_DANH_SACH_DON_HANG_THEO_USER,
-                arrDonHang: result.data.content
-            })
-        } catch (error) {
-            console.log('error', error);
-        }
-    }
-}
-
-
 
 export const layDoanhThuAction = (year) => {
     return async (dispatch) => {

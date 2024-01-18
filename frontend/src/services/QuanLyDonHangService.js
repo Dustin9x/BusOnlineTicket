@@ -6,9 +6,6 @@ export class QuanLyDonHangService extends baseService {
         super();
     }
 
-    datVe = (donHang) => {
-        return this.post(`/api/laydanhsachdonhang`,donHang);
-    }
 
     layChiTietDonHang = (id ) => {
         return this.get(`/api/laychitietdonhang/${id}`);

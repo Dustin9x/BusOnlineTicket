@@ -1,11 +1,10 @@
 import { driverService } from "../../services/DriverService";
 import {
-  LAY_CHI_TIET_NGUOI_DUNG,
   GET_USER_LIST,
   LAY_LAI_MAT_KHAU_ACTION,
   LOGIN_ACTION,
-  SET_THONG_TIN_DAT_VE,
   GET_USER_DETAIL,
+  GET_PROFILE_DETAIL,
 } from "../constants";
 import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
@@ -119,38 +118,6 @@ export const forgetPassword = (thongTinEmail) => {
 };
 
 
-export const layThongTinDatVeAction = () => {
-  return async (dispatch) => {
-    try {
-      const result = await driverService.layThongTinDatVe();
-      if (result.data.status === 200) {
-        dispatch({
-          type: SET_THONG_TIN_DAT_VE,
-          thongTinNguoiDung: result.data.content,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-// export const layThongTinNguoiDungAction = (id) => {
-//   return async (dispatch) => {
-//     try {
-//       const result = await UserService.GetListUser(id);
-//       if (result.data.status === 200) {
-//         dispatch({
-//           type: LAY_CHI_TIET_NGUOI_DUNG,
-//           profile: result.data.content,
-//         });
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// };
-
 export const getListUserAction = () => {
   return async (dispatch) => {
     try {
@@ -175,6 +142,22 @@ export const getUserByIdAction = (id) => {
         dispatch({
           type: GET_USER_DETAIL,
           userDetail: result.data.data[0],
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getProfileAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await userService.getUserById(id);
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_PROFILE_DETAIL,
+          profile: result.data.data[0],
         });
       }
     } catch (error) {

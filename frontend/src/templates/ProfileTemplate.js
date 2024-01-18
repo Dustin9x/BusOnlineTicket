@@ -51,8 +51,8 @@ export const ProfileTemplate = (props) => { //path, exact, Component
 
   const content = (
     <div style={{ width: 200 }}>
-      {(profile.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
-      {(profile.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/mod/moviemng">Trang Quản Trị</Button> : ''}
+      {/* {(profile.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
+      {(profile.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/mod/moviemng">Trang Quản Trị</Button> : ''} */}
       <Button type="text" href="/users/profile" className='w-full text-left'>Trang Cá Nhân</Button>
       <Button type="text" href="/home" className='w-full text-left' onClick={() => {
         localStorage.removeItem(USER_LOGIN)
@@ -73,7 +73,7 @@ export const ProfileTemplate = (props) => { //path, exact, Component
           <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
             {profile.avatar !== null ?
               <div style={{ minWidth: '40px', minHeight: 40, width:40, height:40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${profile?.avatar})` }} />
-              : <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={profile?.name.substr(0,1)} />
+              : <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={"H"} />
             }
           </Button>
         </Popover>

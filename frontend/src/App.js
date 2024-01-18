@@ -71,11 +71,7 @@ function App() {
         <HomeTemplate path="/about" exact Component={AboutUs} />
         <HomeTemplate path="/recruitment" exact Component={Recruitment} />
         <HomeTemplate path="/terms" exact Component={GeneralTerms} />
-        <HomeTemplate
-          path="/termsoftransaction"
-          exact
-          Component={TermsOfTransaction}
-        />
+        <HomeTemplate path="/termsoftransaction" exact Component={TermsOfTransaction} />
 
         <UserTemplate path="/login" exact Component={Login} />
         <UserTemplate path="/register" exact Component={Register} />
@@ -84,122 +80,54 @@ function App() {
         <ProfileTemplate path="/users" exact Component={Profile} />
         <ProfileTemplate path="/users/profile" exact Component={Profile} />
         <ProfileTemplate path="/users/edit/:id" exact Component={UserEdit} />
-        <ProfileTemplate
-          path="/users/ordershistory"
-          exact
-          Component={OrderHistory}
-        />
+        <ProfileTemplate path="/users/ordershistory" exact Component={OrderHistory} />
 
         {/* User */}
         <AdminTemplate path="/admin" exact Component={UserMng} />
-        <AdminTemplate
-          path="/admin/adminusers"
-          exact
-          Component={AdminUserMng}
-        />
-        <AdminTemplate
-          path="/admin/users/edit/:id"
-          exact
-          Component={UserEdit}
-        />
+        <AdminTemplate path="/admin/adminusers" exact Component={AdminUserMng} />
+        <AdminTemplate path="/admin/users/edit/:id" exact Component={UserEdit} />
         <AdminTemplate path="/admin/users/adduser" exact Component={AddUser} />
         <AdminTemplate path="/users/order/:id" exact Component={UserOrder} />
 
         {/* Mod */}
         <AdminTemplate path="/admin/modmng" exact Component={ModMng} />
         <AdminTemplate path="/admin/modmng/addmod" exact Component={AddMod} />
-        <AdminTemplate
-          path="/admin/modmng/edit/:id"
-          exact
-          Component={ModEdit}
-        />
+        <AdminTemplate path="/admin/modmng/edit/:id" exact Component={ModEdit} />
 
         {/* Driver */}
         <AdminTemplate path="/admin/drivermng" exact Component={DriverMng} />
-        <AdminTemplate
-          path="/admin/drivermng/edit/:id"
-          exact
-          Component={DriverEdit}
-        />
-        <AdminTemplate
-          path="/admin/drivermng/adddriver"
-          exact
-          Component={AddDriver}
-        />
+        <AdminTemplate path="/admin/drivermng/edit/:id" exact Component={DriverEdit} />
+        <AdminTemplate path="/admin/drivermng/adddriver" exact Component={AddDriver} />
 
         {/* Bus */}
         <AdminTemplate path="/admin/busmng" exact Component={BusMng} />
-        <AdminTemplate
-          path="/admin/busmng/addnew"
-          exact
-          Component={AddNewBus}
-        />
+        <AdminTemplate path="/admin/busmng/addnew" exact Component={AddNewBus} />
         <AdminTemplate path="/admin/busmng/edit/:id" exact Component={Edit} />
 
         {/* Bus Type */}
         <AdminTemplate path="/admin/bustypemng" exact Component={BusTypeMng} />
-        <AdminTemplate
-          path="/admin/bustypemng/addnew"
-          exact
-          Component={AddNewBusType}
-        />
-        <AdminTemplate
-          path="/admin/bustypemng/edit/:id"
-          exact
-          Component={EditBusType}
-        />
+        <AdminTemplate path="/admin/bustypemng/addnew" exact Component={AddNewBusType} />
+        <AdminTemplate path="/admin/bustypemng/edit/:id" exact Component={EditBusType} />
 
         {/* Station */}
         <AdminTemplate path="/admin/stationmng" exact Component={StationMng} />
-        <AdminTemplate
-          path="/admin/stationmng/addnew"
-          exact
-          Component={AddNewStation}
-        />
-        <AdminTemplate
-          path="/admin/stationmng/edit/:id"
-          exact
-          Component={EditStation}
-        />
+        <AdminTemplate path="/admin/stationmng/addnew" exact Component={AddNewStation} />
+        <AdminTemplate path="/admin/stationmng/edit/:id" exact Component={EditStation} />
 
         {/* Trip */}
         <AdminTemplate path="/admin/tripmng" exact Component={TripMng} />
-        <AdminTemplate
-          path="/admin/tripmng/addtrip"
-          exact
-          Component={AddNewTrip}
-        />
-        <AdminTemplate
-          path="/admin/theatremng/edit/:id"
-          exact
-          Component={EditTheatreChild}
-        />
+        <AdminTemplate path="/admin/tripmng/addtrip" exact Component={AddNewTrip} />
+        <AdminTemplate path="/admin/theatremng/edit/:id" exact Component={EditTheatreChild} />
 
         {/* Doanh Thu */}
         <AdminTemplate path="/admin/orderlist" exact Component={OrderList} />
-        <AdminTemplate
-          path="/admin/revenuemonth"
-          exact
-          Component={RevenueMonth}
-        />
-        <AdminTemplate
-          path="/admin/revenuemovie"
-          exact
-          Component={RevenueMovie}
-        />
+        <AdminTemplate path="/admin/revenuemonth" exact Component={RevenueMonth} />
+        <AdminTemplate path="/admin/revenuemovie" exact Component={RevenueMovie} />
 
         {/* FAQ */}
         <AdminTemplate path="/admin/faqmng" exact Component={FAQMng} />
-        <AdminTemplate
-          path="/admin/faqmng/addnew"
-          exact
-          Component={AddNewFAQ}
-        />
-        <AdminTemplate
-          path="/admin/faqmng/edit/:id"
-          exact
-          Component={EditFAQ}
-        />
+        <AdminTemplate path="/admin/faqmng/addnew" exact Component={AddNewFAQ} />
+        <AdminTemplate path="/admin/faqmng/edit/:id" exact Component={EditFAQ} />
 
         <HomeTemplate path="/" exact Component={Home} />
         <HomeTemplate path="/search/:from/:to/:date" exact Component={Search} />

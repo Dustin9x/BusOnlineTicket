@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { layDonHangTheoUserAction } from '../../../redux/actions/QuanLyDonHangAction'
 import { USER_LOGIN } from '../../../util/settings/config'
 import { KetQuaDatVe } from '../../Detail/Detail'
+import { getTicketByUserAction } from '../../../redux/actions/OrderAction'
 
 export default function UserOrder(props) {
   const dispatch = useDispatch()
@@ -14,7 +14,7 @@ export default function UserOrder(props) {
   }
 
   useEffect(() => {
-    const action = layDonHangTheoUserAction(id);
+    const action = getTicketByUserAction(id);
     dispatch(action)
   }, [])
   return (

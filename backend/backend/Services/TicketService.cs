@@ -41,7 +41,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Ticket>> GetTicketByUser(int Id)
         {
-            return await db.Tickets.Include(t => t.Trips).Include(t => t.Users).Where(s => s.UserId == Id).ToListAsync();
+            return await db.Tickets.Include(t => t.Trips).ThenInclude(s => s.FromStation).Include(t => t.Trips).ThenInclude(s => s.ToStation).Include(t => t.Users).Where(s => s.UserId == Id).ToListAsync();
         }
 
         public async Task<Ticket> CancelTicket(int Id, int Day)

@@ -1,11 +1,10 @@
 import { TOKEN, USER_LOGIN } from "../../util/settings/config";
 import {
   GET_DRIVER_LIST,
-  LAY_CHI_TIET_NGUOI_DUNG,
   GET_USER_LIST,
   LOGIN_ACTION,
-  SET_THONG_TIN_DAT_VE,
   GET_USER_DETAIL,
+  GET_PROFILE_DETAIL,
 } from "../constants";
 
 let user = {};
@@ -17,6 +16,7 @@ const initialState = {
   userLogin: user,
   arrUser: [],
   userDetail: {},
+  profile: {}
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -39,9 +39,10 @@ export const UserReducer = (state = initialState, action) => {
       state.userDetail = action.userDetail;
       return { ...state };
 
-    case SET_THONG_TIN_DAT_VE:
-      state.thongTinNguoiDung = action.thongTinNguoiDung;
+    case GET_PROFILE_DETAIL:
+      state.profile = action.profile;
       return { ...state };
+
     default:
       return state;
   }
