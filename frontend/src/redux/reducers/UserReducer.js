@@ -8,17 +8,12 @@ import {
   GET_CURRENT_USER_ACTION,
 } from "../constants";
 
-let user = {};
-if (localStorage.getItem(USER_LOGIN)) {
-  user = JSON.parse(localStorage.getItem(USER_LOGIN));
-}
 
 const initialState = {
-  // loginInfo: {},
   userLogin: {},
   arrUser: [],
   userDetail: {},
-  profile: {}
+  profile: {},
 };
 
 export const UserReducer = (state = initialState, action) => {
@@ -27,17 +22,8 @@ export const UserReducer = (state = initialState, action) => {
       state.arrUser = action.arrUser;
       return { ...state };
 
-    // case LOGIN_ACTION:
-    //   localStorage.setItem(TOKEN, action.userLogin.accessToken);
-    //   return { ...state };
-
     case GET_CURRENT_USER_ACTION:
       state.userLogin = action.userLogin;
-      console.log('userLogin321',state.userLogin)
-      return { ...state };
-
-    case GET_DRIVER_LIST:
-      state.arrDriver = action.arrDriver;
       return { ...state };
 
     case GET_USER_DETAIL:

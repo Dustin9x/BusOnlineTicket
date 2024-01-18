@@ -16,6 +16,9 @@ import { getTripByIdAction } from '../../redux/actions/TripAction';
 import { bookSeatAction, bookTicketAction, getTicketByUserAction, orderConfirmAction } from '../../redux/actions/OrderAction';
 import { values } from 'lodash';
 import { Ticket } from './../../_core/models/Ticket';
+import UserAvatar from '../../components/UserAvatar/UserAvatar';
+import { getCurrentUserAction } from '../../redux/actions/UserAction';
+import SeatMap from '../../components/SeatMap/SeatMap';
 const { TabPane } = Tabs;
 
 
@@ -24,13 +27,18 @@ export default function Detail(props) {
     const { disableTab1 } = useSelector(state => state.OrderReducer)
     const { tabActive } = useSelector(state => state.OrderReducer)
     const { donHang } = useSelector(state => state.OrderReducer)
-    const { profile } = useSelector(state => state.UserReducer)
-
-    let userLogin = {}
-    if (localStorage.getItem(USER_LOGIN)) {
-        userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+    const { userLogin } = useSelector(state => state.UserReducer);
+    const dispatch = useDispatch();
+    
+    let accessToken = {}
+    if (localStorage.getItem(TOKEN)) {
+        accessToken = localStorage.getItem(TOKEN)
     }
-    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getCurrentUserAction(accessToken))
+    }, []);
+
 
     useEffect(() => {
         // dispatch(layThongTinNguoiDungAction(userLogin.id))
@@ -41,34 +49,13 @@ export default function Detail(props) {
     }, [])
 
 
-    const content = (
-        <div style={{ width: 200 }}>
-            {(userLogin.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
-            {(userLogin.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/admin/users">Trang Quản Trị</Button> : ''}
-            <Button type="text" href="/users/profile" className='w-full text-left'>Trang Cá Nhân</Button>
-            <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-                localStorage.removeItem(USER_LOGIN)
-                localStorage.removeItem(TOKEN)
-                window.location.reload()
-            }}>Đăng Xuất</Button>
-        </div>
-    );
-
     const operations = <Fragment>
         {_.isEmpty(userLogin) ? <Fragment>
             <Button type="text" href="/register" className="text-white">Sign Up</Button>
             <Button type="primary" href="/login" className="font-semibold bg-violet-400">Sign In</Button>
         </Fragment> : <div className="d-flex">
             <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
-            <Popover placement="bottomRight" title={userLogin.taiKhoan} content={content} trigger="click">
-                <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
-                    {profile?.avatar !== null ?
-                        <div style={{ minWidth: '40px', minHeight: 40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${profile?.avatar})` }} />
-                        : <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={"H"} />
-                    }
-                    {/* <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={userLogin.name.substr(0, 1)} /> */}
-                </Button>
-            </Popover>
+            <UserAvatar/>
         </div>}
     </Fragment>
 
@@ -104,88 +91,6 @@ function Checkout(props) {
         dispatch(getTripByIdAction(id))
     }, [])
 
-    let occupiedSeats = tripDetail?.seats?.map(s => s.name);
-    console.log('occupiedSeats', occupiedSeats)
-
-    console.log('tripDetail', tripDetail)
-    console.log('occupiedSeats', occupiedSeats)
-
-    const renderSeat = () => {
-
-        const seatCodes = [
-            "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", "A15",
-            "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15",
-        ];
-
-        return (
-            <div className="row">
-                <div className='col-6 px-5'>
-                    <h2 className='text-center'>Floor 1</h2>
-                    <div className='row'>
-
-                        {seatCodes?.slice(0, 15).map((ghe, index) => {
-                            let classSelecting = '';
-                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexSelectSeat != -1) {
-                                classSelecting = 'seatSelected'
-                            }
-
-                            let classOccupied = '';
-                            let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexOccupied != -1) {
-                                classOccupied = 'seatOccupied'
-                            }
-
-                            return <div key={index} className="col-4 flex">
-                                <Button disabled={indexOccupied != -1} type='link' className={`seat p-0 ${classSelecting} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
-                            </div>
-
-                        })}
-                    </div>
-                </div>
-                <div className='col-6 px-5'>
-                    <h2 className='text-center'>Floor 2</h2>
-                    <div className='row'>
-                        {seatCodes?.slice(15, 30).map((ghe, index) => {
-                            let classGheDangDat = '';
-                            let indexGheDD = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexGheDD != -1) {
-                                classGheDangDat = 'seatSelected'
-                            }
-                            let classOccupied = '';
-                            let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexOccupied != -1) {
-                                classOccupied = 'seatOccupied'
-                            }
-                            return <div key={index} className="col-4 flex">
-                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
-                            </div>
-
-                        })}
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
     const renderSeatSelected = () => {
         return _.sortBy(selectingSeats).map((gheDD, index) => {
             return (<b key={index} className='mr-1'>{gheDD}</b>).props.children
@@ -211,7 +116,7 @@ function Checkout(props) {
                     </ul>
 
                     <div className='d-flex justify-center'>
-                        <div>{renderSeat()}</div>
+                        <div><SeatMap tripId={id}/></div>
                     </div>
                 </div>
                 <div className='col-span-4'>

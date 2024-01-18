@@ -8,6 +8,7 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
+import UserAvatar from "../components/UserAvatar/UserAvatar";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -79,7 +80,6 @@ export const AdminTemplate = (props) => { //path, exact, Component
       <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button>
       <Button type="text" href="/users/profile" className='w-full text-left'>Trang Cá Nhân</Button>
       <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-        localStorage.removeItem(USER_LOGIN)
         localStorage.removeItem(TOKEN)
         window.location.reload()
       }}>Đăng Xuất</Button>
@@ -89,10 +89,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
   const operations = <Fragment>
       <div className="d-flex">
         <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
-        <Popover placement="bottomRight" title={"Admin"} content={content} trigger="click">
-          <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
-          </Button>
-        </Popover>
+        <UserAvatar/>
       </div>
   </Fragment>
 

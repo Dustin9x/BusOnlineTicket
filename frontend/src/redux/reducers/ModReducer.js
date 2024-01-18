@@ -1,13 +1,8 @@
-import { TOKEN, USER_LOGIN } from "../../util/settings/config";
 import { GET_MOD_LIST, GET_MOD_DETAIL } from "../constants";
 
-let mod = {};
-if (localStorage.getItem(USER_LOGIN)) {
-  mod = JSON.parse(localStorage.getItem(USER_LOGIN));
-}
+
 
 const initialState = {
-  userLogin: mod,
   arrMod: [],
   modDetail: {},
 };

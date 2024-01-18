@@ -7,6 +7,7 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
+import UserAvatar from "../components/UserAvatar/UserAvatar";
 // import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
 const { Header, Content, Sider } = Layout;
 
@@ -69,14 +70,7 @@ export const ProfileTemplate = (props) => { //path, exact, Component
     </Fragment> :
       <div className="d-flex">
         <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
-        <Popover placement="bottomRight" title={profile.name} content={content} trigger="click">
-          <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
-            {profile.avatar !== null ?
-              <div style={{ minWidth: '40px', minHeight: 40, width:40, height:40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${profile?.avatar})` }} />
-              : <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={"H"} />
-            }
-          </Button>
-        </Popover>
+        <UserAvatar />
       </div>}
   </Fragment>
 
