@@ -30,6 +30,24 @@ namespace backend.Controllers
             this.env = env;
         }
 
+        [HttpPost("getinfo")]
+        public async Task<ActionResult> GetCurrentUser(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt:Key"])),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out SecurityToken validatedToken);
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            string email = (string)jwtToken.Claims.First(x => x.Type == "Email").Value;
+            User user = db.Users.Where(u => u.Email == email).FirstOrDefault();
+            return Ok(user);
+        }
+
         [HttpPost]
         private async Task<User> Authenticate(UserLogin userLogin)
         {
@@ -68,7 +86,7 @@ namespace backend.Controllers
                 new Claim("Password", user.Password),
                 new Claim(ClaimTypes.Role,user.Role)
             };
-            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"], claims, expires: DateTime.Now.AddSeconds(30), signingCredentials: credential);
+            var token = new JwtSecurityToken(config["Jwt:Issuer"], config["Jwt:Audience"], claims, expires: DateTime.Now.AddHours(30), signingCredentials: credential);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 

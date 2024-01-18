@@ -5,6 +5,7 @@ import {
   LOGIN_ACTION,
   GET_USER_DETAIL,
   GET_PROFILE_DETAIL,
+  GET_CURRENT_USER_ACTION,
 } from "../constants";
 
 let user = {};
@@ -13,7 +14,8 @@ if (localStorage.getItem(USER_LOGIN)) {
 }
 
 const initialState = {
-  userLogin: user,
+  // loginInfo: {},
+  userLogin: {},
   arrUser: [],
   userDetail: {},
   profile: {}
@@ -25,11 +27,14 @@ export const UserReducer = (state = initialState, action) => {
       state.arrUser = action.arrUser;
       return { ...state };
 
-    case LOGIN_ACTION:
-      const { loginInfo } = action;
-      localStorage.setItem(USER_LOGIN, JSON.stringify(loginInfo.user));
-      localStorage.setItem(TOKEN, loginInfo.accessToken);
-      return { ...state, userLogin: loginInfo.user };
+    // case LOGIN_ACTION:
+    //   localStorage.setItem(TOKEN, action.userLogin.accessToken);
+    //   return { ...state };
+
+    case GET_CURRENT_USER_ACTION:
+      state.userLogin = action.userLogin;
+      console.log('userLogin321',state.userLogin)
+      return { ...state };
 
     case GET_DRIVER_LIST:
       state.arrDriver = action.arrDriver;

@@ -7,14 +7,14 @@ import { getProfileAction, getUserByIdAction } from '../../redux/actions/UserAct
 const Profile = () => {
   const dispatch = useDispatch();
   const { profile } = useSelector(state => state.UserReducer);
-  let userLogin = {}
-  if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  }
-  console.log('userLogin', userLogin)
+  // let userLogin = {}
+  // if (localStorage.getItem(USER_LOGIN)) {
+  //   userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+  // }
+  // console.log('userLogin', userLogin)
 
   useEffect(() => {
-    dispatch(getProfileAction(userLogin?.id))
+    // dispatch(getProfileAction(userLogin?.id))
   }, [])
 
   console.log('profile', profile)

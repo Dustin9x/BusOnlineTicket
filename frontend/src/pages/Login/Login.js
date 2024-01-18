@@ -9,9 +9,6 @@ export default function Login(props) {
 
   const dispatch = useDispatch();
 
-  const { userLogin } = useSelector(state => state.UserReducer)
-
-
   const onFinish = (values) => {
     const action = loginAction(values);
     dispatch(action)

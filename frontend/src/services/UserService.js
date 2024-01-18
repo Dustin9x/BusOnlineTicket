@@ -18,6 +18,10 @@ export class UserService extends baseService {
         return this.post(`/api/Auth/ForgetPassword?Email=${email}`);
     };
 
+    getCurrentUser = (token) => {
+        return this.post(`/api/Auth/getinfo?token=${token}`);
+    }
+
     getListUser = () => {
         return this.get(`/api/User`);
     };

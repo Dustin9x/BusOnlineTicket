@@ -13,5 +13,10 @@ namespace backend.Models
 
         [NotMapped]
         public IFormFile? UploadImage { get; set; }
+
+        public static implicit operator User(List<User> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

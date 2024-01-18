@@ -5,23 +5,26 @@ import {
   LOGIN_ACTION,
   GET_USER_DETAIL,
   GET_PROFILE_DETAIL,
+  GET_CURRENT_USER_ACTION,
 } from "../constants";
 import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
 import { UserService, userService } from "../../services/UserService";
 import { notification } from "antd";
+import { TOKEN } from "../../util/settings/config";
 
 export const loginAction = (loginInfo) => {
   return async (dispatch) => {
     try {
       dispatch(displayLoadingAction);
       const result = await userService.login(loginInfo);
-      console.log("dang nhap", result);
+      
       if (result.status === 200) {
-        dispatch({
-          type: LOGIN_ACTION,
-          loginInfo: result.data.data,
-        });
+        localStorage.setItem(TOKEN, result.data.data.accessToken);
+        // dispatch({
+        //   type: LOGIN_ACTION,
+        //   userLogin: result.data.data,
+        // });
         notification.success({
           closeIcon: true,
           message: "Success",
@@ -32,7 +35,7 @@ export const loginAction = (loginInfo) => {
             </>
           ),
         });
-        history.push("/admin");
+        history.push("/");
       } else {
         await dispatch(hideLoadingAction);
         history.replace("login");
@@ -157,7 +160,23 @@ export const getProfileAction = (id) => {
       if (result.data.status === 200) {
         dispatch({
           type: GET_PROFILE_DETAIL,
-          profile: result.data.data[0],
+          profie: result.data.data[0],
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getCurrentUserAction = (token) => {
+  return async (dispatch) => {
+    try {
+      const result = await userService.getCurrentUser(token);
+      if (result.status === 200) {
+        dispatch({
+          type: GET_CURRENT_USER_ACTION,
+          userLogin: result.data,
         });
       }
     } catch (error) {

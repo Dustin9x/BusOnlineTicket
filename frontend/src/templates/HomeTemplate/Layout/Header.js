@@ -6,45 +6,23 @@ import _ from 'lodash';
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config';
 import { history } from '../../../App';
 import { useDispatch, useSelector } from 'react-redux';
+import UserAvatar from '../../../components/UserAvatar/UserAvatar';
 
 export default function Header(props) {
-    const dispatch = useDispatch()
-    const { arrUser } = useSelector(state => state.UserReducer)
-    let userLogin = {}
-    if (localStorage.getItem(USER_LOGIN)) {
-        userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
+    let accessToken = {}
+    if (localStorage.getItem(TOKEN)) {
+        accessToken = localStorage.getItem(TOKEN)
     }
-
-    let usLogin = arrUser?.find(obj => obj.id === userLogin.id)
-
-    const content = (
-        <div style={{ width: 200 }}>
-            {(userLogin.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
-            {(userLogin.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Admin Page</Button> : ''}
-            <Button type="text" href="/users/profile" className='w-full text-left'>Profile</Button>
-            <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-                localStorage.removeItem(USER_LOGIN)
-                localStorage.removeItem(TOKEN)
-                window.location.reload()
-            }}>Logout</Button>
-        </div>
-    );
+    
 
     const renderLogin = () => {
-        if (_.isEmpty(userLogin)) {
+        if (_.isEmpty(accessToken)) {
             return <Fragment>
                 <Button type="link" href="/register" className="text-white">Sign Up</Button>
                 <Button type="primary" href="/login" className="font-semibold rounded-full bg-red-400">Sign In</Button>
             </Fragment>
         } else {
-            return <Popover placement="bottomRight" title={userLogin.name} content={content} trigger="click">
-                <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
-                    {usLogin?.avatar == null || usLogin?.avatar == "" 
-                        ? <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={usLogin?.name.substr(0, 1)} />
-                        : <div style={{ minWidth: '40px', minHeight: 40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${usLogin?.avatar})` }} />
-                    }
-                </Button>
-            </Popover>
+            return <UserAvatar />
         }
 
     }
@@ -52,7 +30,7 @@ export default function Header(props) {
 
     return (
         <div>
-            <header className="p-4  text-gray-100 w-full " style={{backgroundColor: '#22577a'}}>
+            <header className="p-4  text-gray-100 w-full " style={{ backgroundColor: '#22577a' }}>
                 <div className="container flex justify-between h-16 mx-auto">
                     <NavLink rel="noopener noreferrer" to="/" aria-label="Back to homepage" className="flex items-center p-2">
                         <div className='d-flex' >
