@@ -16,10 +16,12 @@ namespace backend.Models
         [Required]
         public string Phone { get; set; }
         public string? Email { get; set; }
+        public string Password { get; set; }
         public DateTime? YearOfBirth { get; set; }
         public string? PlaceOfBirth { get; set; }
         public string? Note { get; set; }
         public bool Enabled { get; set; }
+        public bool isApprove { get; set; } = false;
         [NotMapped]
         public IFormFile? UploadImage { get; set; }
         public ICollection<Trip> Trips { get; set; }

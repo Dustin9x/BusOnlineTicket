@@ -1,5 +1,6 @@
 ﻿using backend.IRepository;
 using backend.Models;
+using backend.ResponseData;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -15,9 +16,14 @@ namespace backend.Services
             this.env = env;
         }
 
-        public async Task<IEnumerable<Driver>> GetAllDrivers()
+        public async Task<IEnumerable<Driver>> GetApproveDrivers()
         {
-            return await db.Drivers.Include(d=>d.Trips).ToListAsync();
+            return await db.Drivers.Include(d=>d.Trips).Where(d => d.isApprove == true).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Driver>> GetRegisterDrivers()
+        {
+            return await db.Drivers.Include(d => d.Trips).Where(d => d.isApprove == false).ToListAsync();
         }
 
         public async Task<IEnumerable<Driver>> GetDriverById(int Id)
@@ -132,9 +138,11 @@ namespace backend.Services
                 ExistingDriver.Phone = driver.Phone;
                 ExistingDriver.DriverLicense = driver.DriverLicense;
                 ExistingDriver.Email = driver.Email;
+                ExistingDriver.Password = BCrypt.Net.BCrypt.HashPassword(driver.Password);
                 ExistingDriver.NationalId = driver.NationalId;
                 ExistingDriver.Note = driver.Note;
                 ExistingDriver.Enabled = driver.Enabled;
+                ExistingDriver.isApprove = driver.isApprove;
                 int Result = await db.SaveChangesAsync();
 
                 if (Result > 0)
@@ -144,6 +152,37 @@ namespace backend.Services
 
             }
             return false;
+        }
+
+        public async Task<bool> ApproveDriver(int Id, Driver driver)
+        {
+            var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(b => b.Id == Id);
+            if (ExistingDriver != null)
+            {
+                ExistingDriver.isApprove = driver.isApprove;
+                int Result = await db.SaveChangesAsync();
+
+                if (Result > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<Driver> Login(Driver driver)
+        {
+            Driver loginDriver = await db.Drivers.SingleOrDefaultAsync(d => d.Email == driver.Email);
+            if (loginDriver != null)
+            {
+                var result = BCrypt.Net.BCrypt.Verify(driver.Password, loginDriver.Password);
+                if (result == true)
+                {
+                    return loginDriver;
+                }
+                return null;
+            }
+            return null;
         }
     }
 }
