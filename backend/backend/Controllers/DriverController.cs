@@ -144,12 +144,12 @@ namespace backend.Controllers
         }
 
         [HttpPut("approve")]
-        public async Task<ActionResult> ApproveDriver(int Id, [FromForm] Driver driver)
+        public async Task<ActionResult> ApproveDriver(int Id)
         {
             try
             {
-                bool list = await repo.ApproveDriver(Id, driver);
-                if (list == true)
+                Driver driver = await repo.ApproveDriver(Id);
+                if (driver != null)
                 {
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Approve/Unapprove Driver Successfully ", driver, null);
                     return Ok(response);

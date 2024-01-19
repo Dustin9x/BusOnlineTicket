@@ -54,6 +54,7 @@ import AddNewFAQ from "./pages/Admin/FAQMng/AddNewFAQ";
 import ModMng from "./pages/Admin/UserMng/ModMng/ModMng";
 import AddMod from "./pages/Admin/UserMng/ModMng/AddMod";
 import ModEdit from "./pages/Admin/UserMng/ModMng/ModEdit";
+import RegisterDriverMng from "./pages/Admin/DriverMng/RegisterDriverMng";
 
 export const history = createBrowserHistory();
 
@@ -96,6 +97,7 @@ function App() {
 
         {/* Driver */}
         <AdminTemplate path="/admin/drivermng" exact Component={DriverMng} />
+        <AdminTemplate path="/admin/regdrivermng" exact Component={RegisterDriverMng} />
         <AdminTemplate path="/admin/drivermng/edit/:id" exact Component={DriverEdit} />
         <AdminTemplate path="/admin/drivermng/adddriver" exact Component={AddDriver} />
 

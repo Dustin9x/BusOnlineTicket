@@ -1,5 +1,5 @@
 import { driverService } from "../../services/DriverService"
-import { GET_DRIVER_DETAIL, GET_DRIVER_LIST } from "../constants";
+import { GET_DRIVER_DETAIL, GET_DRIVER_LIST, GET_REGISTER_DRIVER_LIST } from "../constants";
 import { history } from '../../App';
 import { notification } from "antd";
 
@@ -12,6 +12,23 @@ export const getDriverAction = () => {
                 dispatch({
                     type: GET_DRIVER_LIST,
                     arrDriver: result.data.data
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const getRegisterDriverAction = () => {
+    return async (dispatch) => {
+        try {
+            const result = await driverService.getRegisterDriver();
+            console.log('red driver',result)
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_REGISTER_DRIVER_LIST,
+                    arrRegisterDriver: result.data.data
                 })
             }
         } catch (error) {
@@ -84,6 +101,24 @@ export const updateDriver = (id, newDriver) =>{
             history.push('/admin/drivermng');
         } catch (error) {
             alert("Update Fail . Please Try Again")
+        }
+    }
+}
+
+export const approveDriver = (id) =>{
+    return async (dispatch) => {
+        try {
+            const result = await driverService.approveDriver(id)
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>Approve driver successfully.</>
+                ),
+            });
+            dispatch(getRegisterDriverAction())
+        } catch (error) {
+            alert("Approve Fail . Please Try Again")
         }
     }
 }

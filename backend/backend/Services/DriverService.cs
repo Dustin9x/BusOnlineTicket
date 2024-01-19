@@ -154,20 +154,20 @@ namespace backend.Services
             return false;
         }
 
-        public async Task<bool> ApproveDriver(int Id, Driver driver)
+        public async Task<Driver> ApproveDriver(int Id)
         {
             var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(b => b.Id == Id);
             if (ExistingDriver != null)
             {
-                ExistingDriver.isApprove = driver.isApprove;
+                ExistingDriver.isApprove = true;
                 int Result = await db.SaveChangesAsync();
 
                 if (Result > 0)
                 {
-                    return true;
+                    return ExistingDriver;
                 }
             }
-            return false;
+            return null;
         }
 
         public async Task<Driver> Login(Driver driver)

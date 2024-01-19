@@ -6,9 +6,9 @@ import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
-import { deleteDriver, getDriverAction, getDriverByIdAction } from "../../../redux/actions/DriverAction";
+import { approveDriver, deleteDriver, getDriverAction, getDriverByIdAction, getRegisterDriverAction } from "../../../redux/actions/DriverAction";
 
-export default function DriverMng() {
+export default function RegisterDriverMng() {
   let userLogin = {};
   // if (localStorage.getItem(USER_LOGIN)) {
   //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
@@ -22,13 +22,13 @@ export default function DriverMng() {
   //     alert('Bạn không có quyền truy cập trang này!');
   //     history.replace('/')
   // }
-  let { arrDriver } = useSelector((state) => state.DriverReducer);
+  let { arrRegisterDriver } = useSelector((state) => state.DriverReducer);
   const dispatch = useDispatch();
   useEffect((value) => {
-    dispatch(getDriverAction());
+    dispatch(getRegisterDriverAction());
   }, []);
 
-  console.log('arrDriver',arrDriver)
+  console.log('arrRegisterDriver',arrRegisterDriver)
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -45,7 +45,7 @@ export default function DriverMng() {
     setSearchedColumn(dataIndex);
   };
 
-  const data = arrDriver;
+  const data = arrRegisterDriver;
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close, }) => (
@@ -196,27 +196,16 @@ export default function DriverMng() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Note",
-      dataIndex: "note",
-      key: "note",
-      ...getColumnSearchProps("note"),
-    },
-    {
-      title: "Enabled",
-      dataIndex: "enabled",
-      key: "enabled",
-      ...getColumnSearchProps("enabled"),
-    },
-    {
       title: "Manage",
+      width: "12%",
       render: (text, driver, index) => {
         return (
           <Fragment key={index}>
-            <Button key={1} href={`/admin/drivermng/edit/${driver.id}`} type="link" icon={<EditOutlined />}
+            <Button key={1} icon={<EditOutlined />}
               onClick={() => {
-                dispatch(getDriverByIdAction(driver.id))
+                dispatch(approveDriver(driver.id))
               }}
-            ></Button>
+            >Approve</Button>
             <Button key={2} type="link" danger icon={<DeleteOutlined />}
               onClick={() => {
                 if ( window.confirm( "Do you sure want to delete " + driver.fullName + "?")) {
@@ -232,8 +221,7 @@ export default function DriverMng() {
   return (
     <div>
       <div className="d-flex mb-3">
-        <h3 className="text-lg">Driver Management</h3>
-        <Button href="/admin/drivermng/adddriver" type="primary" className="ml-3 small bg-primary" > + Add New Driver</Button>
+        <h3 className="text-lg">Register Driver Management</h3>
       </div>
       <Table columns={columns} dataSource={data} rowKey={"id"} />
     </div>
