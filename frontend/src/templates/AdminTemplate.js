@@ -75,16 +75,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
     getItem('FAQ Management', '11', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
   ] 
 
-  const content = (
-    <div style={{ width: 200 }}>
-      <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button>
-      <Button type="text" href="/users/profile" className='w-full text-left'>Trang Cá Nhân</Button>
-      <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-        localStorage.removeItem(TOKEN)
-        window.location.reload()
-      }}>Đăng Xuất</Button>
-    </div>
-  );
+
 
   const operations = <Fragment>
       <div className="d-flex">

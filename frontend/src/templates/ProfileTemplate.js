@@ -20,29 +20,21 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem('Thông Tin Cá Nhân', '1', <NavLink className='text-decoration-none' to="/users/profile"><SmileOutlined /></NavLink>),
-  getItem('Lịch Sử Mua Vé', '2', <NavLink className='text-decoration-none' to="/users/ordershistory"><HistoryOutlined /></NavLink>),
-];
+
 
 export const ProfileTemplate = (props) => { //path, exact, Component
-  const [collapsed, setCollapsed] = useState(false);
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  const dispatch = useDispatch();
   const { Component, ...restProps } = props;
+  const [collapsed, setCollapsed] = useState(false);
+  const { token: { colorBgContainer }, } = theme.useToken();
+  
   const selectedKeys = ['/users/profile', '/users/ordershistory']
   const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
-  const { profile } = useSelector(state => state.UserReducer)
-  let userLogin = {}
-  if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  }
-  const dispatch = useDispatch();
+
+  
   useEffect(() => {
     window.scrollTo(0, 0);
-    // dispatch(layThongTinNguoiDungAction(userLogin.id))
-  }, [dispatch, userLogin.id])
+  }, [dispatch])
 
 
   // if (!localStorage.getItem(USER_LOGIN)) {
@@ -50,29 +42,17 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   //   history.push('/')
   // }
 
-  const content = (
-    <div style={{ width: 200 }}>
-      {/* {(profile.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
-      {(profile.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/mod/moviemng">Trang Quản Trị</Button> : ''} */}
-      <Button type="text" href="/users/profile" className='w-full text-left'>Trang Cá Nhân</Button>
-      <Button type="text" href="/home" className='w-full text-left' onClick={() => {
-        localStorage.removeItem(USER_LOGIN)
-        localStorage.removeItem(TOKEN)
-        window.location.reload()
-      }}>Đăng Xuất</Button>
-    </div>
-  );
+  const items = [
+    getItem('Thông Tin Cá Nhân', '1', <NavLink className='text-decoration-none' to="/users/profile"><SmileOutlined /></NavLink>),
+    getItem('Lịch Sử Mua Vé', '2', <NavLink className='text-decoration-none' to="/users/ordershistory"><HistoryOutlined /></NavLink>),
+  ];
 
   const operations = <Fragment>
-    {_.isEmpty(profile) ? <Fragment>
-      <Button type="text" href="/register" className="text-white">Sign Up</Button>
-      <Button type="primary" href="/login" className="font-semibold bg-violet-400">Sign In</Button>
-    </Fragment> :
-      <div className="d-flex">
-        <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
-        <UserAvatar />
-      </div>}
-  </Fragment>
+  <div className="d-flex">
+    <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
+    <UserAvatar/>
+  </div>
+</Fragment>
 
 
   return <Route {...restProps} render={(propsRoute) => { //props.location, props.history, props.match

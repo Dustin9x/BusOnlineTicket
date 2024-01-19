@@ -219,7 +219,8 @@ export default function DriverMng() {
               onClick={() => {
                 if ( window.confirm( "Do you sure want to delete " + driver.fullName + "?")) {
                   dispatch(deleteDriver(driver.id));
-                } }}
+                } 
+              }}
             ></Button>
           </Fragment>
         );
