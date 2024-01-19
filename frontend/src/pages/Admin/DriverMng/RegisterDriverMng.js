@@ -203,7 +203,9 @@ export default function RegisterDriverMng() {
           <Fragment key={index}>
             <Button key={1} icon={<EditOutlined />}
               onClick={() => {
-                dispatch(approveDriver(driver.id))
+                if ( window.confirm( "Do you sure want to approve " + driver.fullName + "?")) {
+                  dispatch(approveDriver(driver.id))
+                } 
               }}
             >Approve</Button>
             <Button key={2} type="link" danger icon={<DeleteOutlined />}
