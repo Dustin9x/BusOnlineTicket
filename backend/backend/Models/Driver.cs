@@ -22,5 +22,6 @@ namespace backend.Models
         public bool Enabled { get; set; }
         [NotMapped]
         public IFormFile? UploadImage { get; set; }
+        public ICollection<Trip> Trips { get; set; }
     }
 }

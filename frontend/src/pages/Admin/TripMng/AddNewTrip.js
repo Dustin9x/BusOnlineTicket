@@ -4,20 +4,33 @@ import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBusListAction } from '../../../redux/actions/BusAction';
 import { getStationListAction } from '../../../redux/actions/StationAction';
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
+import isBetween from 'dayjs/plugin/isBetween';
 import { addNewTripAction } from '../../../redux/actions/TripAction';
 import { getDriverAction } from '../../../redux/actions/DriverAction';
+dayjs.extend(isBetween)
 dayjs.extend(customParseFormat);
 
+
+
+const FromTo={
+  from:0,
+  to:0,
+}
 export default function AddNewTrip(props) {
   const dispatch = useDispatch();
-  const [imgSrc, setImgSrc] = useState('');
+  const [imgSrc, setImgSrc] = useState('')
+  const [arrBusNew, setArrBusNew] = useState(null)
+  const [arrBusNewEnd, setArrBusNewEnd] = useState(null)
+  const [arrDriverNew, setArrDriverNew] = useState(null)
   let { arrBus } = useSelector(state => state.BusReducer);
   let { arrStation } = useSelector(state => state.StationReducer);
   let { arrDriver } = useSelector(state => state.DriverReducer);
   const dateFormat = 'DD-MM-YYYY';
   const { RangePicker } = DatePicker;
+
+
 
   useEffect(() => {
     dispatch(getBusListAction())
@@ -55,25 +68,64 @@ export default function AddNewTrip(props) {
     formik.setFieldValue('busId', value)
     console.log('busId', value)
   }
-
-  const handleChangeFromStation = (value) => {
+  const handleChangeFromStation = (value,data) => {
     formik.setFieldValue('fromStationId', value)
-  };
+    FromTo.from=value;
+    if(formik.values.startTime==""||formik.values.finishTime==""){
+      alert("Please enter Start and Finish Time!!!")
+      const focus = document.getElementById('date');
+      focus.focus();
+    return;
+    }
+    
 
-  const handleChangeToStation = (value) => {
+    setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
+  };
+  const handleChangeToStation = (value, data) => {
+    FromTo.to=value;
     formik.setFieldValue('toStationId', value)
+    if(formik.values.startTime==""||formik.values.finishTime==""){
+      alert("Please enter Start and Finish Time!!!")
+      const focus = document.getElementById('date');
+      focus.focus();
+    return;
+    }
+
+    FromTo.to=value;
+    formik.setFieldValue('toStationId', value)
+
+    setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
   };
 
   const handleChangeDriver = (value) => {
     formik.setFieldValue('driverId', value)
   };
 
-  const onChange = (value, dateString) => {
-    console.log('Selected Time: ', value);
-    console.log('Formatted Selected Time: ', dateString);
+  const onChangeDate = (value, dateString) => {
+    if(dateString[0]===""){
+      setArrBusNewEnd(null)
+    }
     formik.setFieldValue('startTime', dateString[0])
     formik.setFieldValue('finishTime', dateString[1])
+ 
+    setArrDriverNew ( arrDriver.filter((item) => 
+             item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1]))  
+               ||  dayjs(item2.finishTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1])))  )).length >0 ?false:true  )  
+      );
+
+
+
+    setArrBusNew ( arrBus.filter((item) => 
+       item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1]))  
+        ||  dayjs(item2.finishTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1])))  )).length >0 ?false:true  )  
+      );
+
+      if((FromTo.from!=0 || FromTo.to!=0)&& arrBusNew!=null){
+        setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
+      }
+    
   };
+  
   const onOk = (value) => {
     console.log('onOk: ', value);
   };
@@ -117,11 +169,12 @@ export default function AddNewTrip(props) {
           ]}
         >
           <RangePicker
+          id='date'
             showTime={{
               format: 'HH:mm',
             }}
             format="YYYY-MM-DD HH:mm"
-            onChange={onChange}
+            onChange={onChangeDate}
             onOk={onOk}
           />
         </Form.Item>
@@ -151,7 +204,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} />
+          <Select options={ arrStation?.map((item, index) =>({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} placeholder='Please enter Start and Finish Time!!' />
         </Form.Item>
         <Form.Item
           label="To Station"
@@ -164,7 +217,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} />
+          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} placeholder='Please enter Start and Finish Time!!' />
         </Form.Item>
 
         <Form.Item
@@ -178,7 +231,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrBus?.map((item, index) => ({ key: index, label: item.busPlate, value: item.id }))} onChange={handleChangeBus} />
+          <Select placeholder="Please enter Station, Start and Finish time!!" options={arrBusNewEnd!=null? arrBusNewEnd?.map(( item, index) => ( { key: index, label: item.busPlate, value: item.id })) :arrBusNewEnd?.map(( item, index) => ( { key: index, label: item.busPlate, value: item.id }))} onChange={handleChangeBus} />
         </Form.Item>
 
         <Form.Item
@@ -192,7 +245,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrDriver?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
+          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
         </Form.Item>
 
         <Form.Item

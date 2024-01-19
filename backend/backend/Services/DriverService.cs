@@ -17,7 +17,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Driver>> GetAllDrivers()
         {
-            return await db.Drivers.ToListAsync();
+            return await db.Drivers.Include(d=>d.Trips).ToListAsync();
         }
 
         public async Task<IEnumerable<Driver>> GetDriverById(int Id)
