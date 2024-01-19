@@ -141,8 +141,8 @@ export default function SeatMap(props) {
         )
     }
 
-    function RenderSeatCodes40 () {
-        const seatCodes40 = [
+    function RenderSeatCodes42 () {
+        const seatCodes42 = [
             "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08", "A09", "A10", "A11", "A12", "A13", "A14", "A15", "A16", "A17", "A18", "A19", "A20", "A21",
             "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B21"
         ];
@@ -152,7 +152,7 @@ export default function SeatMap(props) {
                     <h2 className='text-center'>Floor 1</h2>
                     <div className='row'>
 
-                        {seatCodes40?.slice(0, 21).map((ghe, index) => {
+                        {seatCodes42?.slice(0, 21).map((ghe, index) => {
                             let classSelecting = '';
                             let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
                             if (indexSelectSeat != -1) {
@@ -184,7 +184,7 @@ export default function SeatMap(props) {
                 <div className='col-6 px-5'>
                     <h2 className='text-center'>Floor 2</h2>
                     <div className='row'>
-                        {seatCodes40?.slice(21).map((ghe, index) => {
+                        {seatCodes42?.slice(21).map((ghe, index) => {
                             let classGheDangDat = '';
                             let indexGheDD = selectingSeats?.findIndex(gheDD => gheDD === ghe);
                             if (indexGheDD != -1) {
@@ -217,8 +217,8 @@ export default function SeatMap(props) {
 
     return (
         <div className="row">
-            {numberOfSeat == 40 
-            ? <RenderSeatCodes40/> 
+            {numberOfSeat == 42 
+            ? <RenderSeatCodes42/> 
             : numberOfSeat == 30 
                 ? <RenderSeatCodes30/> 
                 : numberOfSeat == 12 

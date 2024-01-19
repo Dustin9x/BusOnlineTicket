@@ -1,28 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { USER_LOGIN } from '../../../util/settings/config'
+import { TOKEN, USER_LOGIN } from '../../../util/settings/config'
 import { cancelTicketAction, getTicketByUserAction } from '../../../redux/actions/OrderAction'
 import { Button, Input, Space, Table, Tag, Form } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
 import './Ticket.css'
 import dayjs from "dayjs";
+import { getCurrentUserAction } from '../../../redux/actions/UserAction'
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
 export default function OrderHistory() {
   const { arrTicket } = useSelector(state => state.OrderReducer)
+  let { userLogin } = useSelector(state => state.UserReducer);
   const dispatch = useDispatch()
 
-  let userLogin = {}
-  if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  }
-
-  useEffect(() => {
-    const action = getTicketByUserAction(userLogin.id);
-    dispatch(action)
-  }, [dispatch])
+    useEffect(() => {
+        dispatch(getTicketByUserAction(userLogin?.id))
+    }, [dispatch]);
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');

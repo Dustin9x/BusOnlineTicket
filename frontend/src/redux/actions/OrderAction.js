@@ -3,12 +3,16 @@ import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
 import { CHON_GHE, CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
-import { USER_LOGIN } from "../../util/settings/config";
+import { TOKEN, USER_LOGIN } from "../../util/settings/config";
+import { getCurrentUserAction } from "./UserAction";
+import { userService } from "../../services/UserService";
 
-let userLogin = {}
-  if (localStorage.getItem(USER_LOGIN)) {
-    userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  }
+const userLoginId = null;
+
+let accessToken = {}
+if (localStorage.getItem(TOKEN)) {
+    accessToken = localStorage.getItem(TOKEN)
+}
 
 export const orderConfirmAction = (orderDetail = new OrderDetail()) => {
     return async (dispatch) => {
@@ -19,7 +23,7 @@ export const orderConfirmAction = (orderDetail = new OrderDetail()) => {
                 donHang: orderDetail
             })
             await dispatch(hideLoadingAction)
-            dispatch({type:CHUYEN_TAB})
+            dispatch({ type: CHUYEN_TAB })
         } catch (error) {
             console.log(error)
         }
@@ -37,9 +41,9 @@ export const bookSeatAction = (ticket) => {
                 closeIcon: true,
                 message: "Success",
                 description: <>Book ticket Successfully. Thank you!</>,
-              });
+            });
             await dispatch(hideLoadingAction)
-            dispatch({type:CHUYEN_TAB_ACTIVE,number:'3'})
+            dispatch({ type: CHUYEN_TAB_ACTIVE, number: '3' })
         } catch (error) {
             console.log(error)
         }
@@ -60,10 +64,12 @@ export const bookTicketAction = (ticket) => {
 export const getTicketByUserAction = (id) => {
     return async (dispatch) => {
         try {
-            const result = await orderService.getTicketByUser(id);
+            const result = await userService.getCurrentUser(accessToken);
+            const userLoginId = result.data.id;
+            const result2 = await orderService.getTicketByUser(userLoginId);
             dispatch({
                 type: GET_TICKET_BY_USER,
-                arrTicket: result.data.data
+                arrTicket: result2.data.data
             })
         } catch (error) {
             console.log(error)
@@ -71,10 +77,10 @@ export const getTicketByUserAction = (id) => {
     }
 }
 
-export const cancelTicketAction = (id,day) => {
+export const cancelTicketAction = (id, day) => {
     return async (dispatch) => {
         try {
-            const result = await orderService.cancelTicket(id,day);
+            const result = await orderService.cancelTicket(id, day);
             notification.success({
                 closeIcon: true,
                 message: 'Success',
@@ -82,7 +88,7 @@ export const cancelTicketAction = (id,day) => {
                     <>Cancel ticket successfully</>
                 ),
             });
-            dispatch(getTicketByUserAction(userLogin.id))
+            dispatch(getTicketByUserAction(userLoginId))
         } catch (error) {
             console.log(error)
         }
