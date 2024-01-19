@@ -55,6 +55,10 @@ import ModMng from "./pages/Admin/UserMng/ModMng/ModMng";
 import AddMod from "./pages/Admin/UserMng/ModMng/AddMod";
 import ModEdit from "./pages/Admin/UserMng/ModMng/ModEdit";
 import RegisterDriverMng from "./pages/Admin/DriverMng/RegisterDriverMng";
+import LoginDriver from './pages/Driver/LoginDriver';
+import RegisterDriver from "./pages/Driver/RegisterDriver";
+import ForgetPasswordDriver from './pages/Driver/ForgetPasswordDriver';
+import DetailTripOfDriver from "./pages/Driver/DetailTripOfDriver";
 
 export const history = createBrowserHistory();
 
@@ -77,6 +81,11 @@ function App() {
         <UserTemplate path="/login" exact Component={Login} />
         <UserTemplate path="/register" exact Component={Register} />
         <UserTemplate path="/forgetPassword" exact Component={ForgetPassword} />
+
+        <UserTemplate path="/loginDriver" exact Component={LoginDriver} />
+        <UserTemplate path="/registerDriver" exact Component={RegisterDriver} />
+        {/* <UserTemplate path="/forgetPasswordDriver" exact Component={ForgetPasswordDriver} /> */}
+        <HomeTemplate path="/detailTripOfDriver" exact Component={DetailTripOfDriver} />
 
         <ProfileTemplate path="/users" exact Component={Profile} />
         <ProfileTemplate path="/users/profile" exact Component={Profile} />

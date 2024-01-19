@@ -6,6 +6,9 @@ export class DriverService extends baseService {
         super();
     }
 
+    loginDriver = (loginDriverInfo) => {
+        return this.post(`/api/Driver/login`, loginDriverInfo);
+    }
     getDriver = () => {
         return this.get(`/api/Driver/`);
     }

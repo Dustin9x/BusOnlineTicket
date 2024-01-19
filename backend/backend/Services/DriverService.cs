@@ -39,7 +39,7 @@ namespace backend.Services
                 var ExistingUser = await db.Drivers.SingleOrDefaultAsync(b => b.Email == driver.Email);
                 if (ExistingUser == null)
                 {
-                    if (driver.UploadImage.Length > 0)
+                    if (driver.UploadImage != null)
                     {
                         string pathToNewFolder = System.IO.Path.Combine("Images", "Driver");
                         DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
@@ -54,6 +54,7 @@ namespace backend.Services
                         // Tạo đường dẫn cho tệp tin ảnh
                         driver.Avatar = filePath;
                     }
+                    driver.Password = BCrypt.Net.BCrypt.HashPassword(driver.Password);
 
                     await db.Drivers.AddAsync(driver);
                     int result = await db.SaveChangesAsync();
@@ -170,12 +171,12 @@ namespace backend.Services
             return null;
         }
 
-        public async Task<Driver> Login(Driver driver)
+        public async Task<Driver> Login(UserLogin UserLogin)
         {
-            Driver loginDriver = await db.Drivers.SingleOrDefaultAsync(d => d.Email == driver.Email);
+            Driver loginDriver = await db.Drivers.SingleOrDefaultAsync(d => d.Email == UserLogin.Email);
             if (loginDriver != null)
             {
-                var result = BCrypt.Net.BCrypt.Verify(driver.Password, loginDriver.Password);
+                var result = BCrypt.Net.BCrypt.Verify(UserLogin.Password, loginDriver.Password);
                 if (result == true)
                 {
                     return loginDriver;

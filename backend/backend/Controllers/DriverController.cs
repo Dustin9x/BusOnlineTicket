@@ -168,11 +168,11 @@ namespace backend.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult> Login([FromBody] Driver driver)
+        public async Task<ActionResult> Login([FromBody] UserLogin UserLogin)
         {
             try
             {
-                Driver loginDriver = await repo.Login(driver);
+                Driver loginDriver = await repo.Login(UserLogin);
                 if (loginDriver != null)
                 {
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Driver login Successfully ", loginDriver, null);

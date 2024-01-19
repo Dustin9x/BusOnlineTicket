@@ -23,11 +23,13 @@ const AddDriver = () => {
             driverLicense: '',
             phone: '',
             email: '',
+            password: '',
             yearOfBirth: '',
             placeOfBirth: '',
             note: '',
             enabled: '',
-            UploadImage: ''
+            UploadImage: '',
+            trips:[{id:0}]
         },
         onSubmit: async (values) => {
             let newDriver = new FormData();
@@ -159,7 +161,19 @@ const AddDriver = () => {
                     <Input name='email' onChange={formik.handleChange} placeholder="Email" />
                 </Form.Item>
 
-                
+                <Form.Item
+                        label="Password"
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: 'Password is required!',
+                            transform: (value) => value.trim(),
+                          },
+                        ]}
+                      >
+                        <Input.Password name='password' onChange={formik.handleChange}   className="d-flex block text-sm py-2.5 px-4 mt-2 rounded-lg w-full border outline-none" placeholder="Password" />
+                      </Form.Item>
                 <Form.Item
                     label="Year Of Birth"
                     rules={[

@@ -2,6 +2,7 @@ import { driverService } from "../../services/DriverService"
 import { GET_DRIVER_DETAIL, GET_DRIVER_LIST, GET_REGISTER_DRIVER_LIST } from "../constants";
 import { history } from '../../App';
 import { notification } from "antd";
+import { hideLoadingAction } from "./LoadingAction";
 
 
 export const getDriverAction = () => {
@@ -68,6 +69,23 @@ export const addDriverAction = (newDriver) => {
         }
     }
 }
+export const addDriverByUserAction = (newDriver) => {
+    return async (dispatch) => {
+        try {
+            const result = await driverService.postDriver(newDriver);
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>Add driver successfully.</>
+                ),
+            });
+            history.push('/loginDriver');
+        } catch (error) {
+            alert("Create Fail . Please Try Again")
+        }
+    }
+}
 
 export const deleteDriver = (id) => {
     return async (dispatch) => {
@@ -122,5 +140,43 @@ export const approveDriver = (id) =>{
         }
     }
 }
-
+export const loginDriverAction = (loginDriverInfo) => {
+    return async (dispatch) => {
+      try {
+       
+        const result = await driverService.loginDriver(loginDriverInfo);
+        
+        if (result.status === 200) {
+         localStorage.setItem("driverLogin", result.data.data.id);
+          notification.success({
+            closeIcon: true,
+            message: "Success",
+            description: (
+              <>
+                Login successfully.<br />
+                Welcom to PHTV Bus.
+              </>
+            ),
+          });
+          history.push("/detailTripOfDriver");
+        } else {
+          await dispatch(hideLoadingAction);
+          history.replace("login");
+        }
+        await dispatch(hideLoadingAction);
+      } catch (error) {
+        dispatch(hideLoadingAction);
+        notification.error({
+          closeIcon: true,
+          message: "Error",
+          description: (
+            <>
+              Login fail.<br />
+              Please try again.
+            </>
+          ),
+        });
+      }
+    };
+  };
 

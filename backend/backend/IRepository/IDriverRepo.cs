@@ -11,6 +11,6 @@ namespace backend.IRepository
         Task<Driver> ApproveDriver(int Id);
         Task<Driver> DeleteDriver(int Id);
         Task<IEnumerable<Driver>> GetDriverById(int Id);
-        Task<Driver> Login(Driver driver);
+        Task<Driver> Login(UserLogin UserLogin);
     }
 }
