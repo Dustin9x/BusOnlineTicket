@@ -6,8 +6,8 @@ import { getCurrentUserAction } from '../../redux/actions/UserAction';
 
 export default function UserAvatar(props) {
     let { userLogin } = useSelector(state => state.UserReducer);
-    console.log('userLogin123', userLogin)
     const dispatch = useDispatch();
+    console.log('userLogin',userLogin)
     
     let accessToken = {}
     if (localStorage.getItem(TOKEN)) {
@@ -18,11 +18,10 @@ export default function UserAvatar(props) {
         dispatch(getCurrentUserAction(accessToken))
     }, []);
 
-
     const content = (
         <div style={{ width: 200 }}>
-            {(userLogin.role === 'Super') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Super Admin</Button> : ''}
-            {(userLogin.role === 'QuanTri') ? <Button type="text" className='w-full text-left' href="/admin/moviemng">Admin Page</Button> : ''}
+            {(userLogin?.role == 'Admin') ? <Button type="text" className='w-full text-left' href="/admin/tripmng">Super Admin</Button> : ''}
+            {(userLogin?.role == 'Mod') ? <Button type="text" className='w-full text-left' href="/admin/tripmng">Admin Page</Button> : ''}
             <Button type="text" href="/users/profile" className='w-full text-left'>Profile</Button>
             <Button type="text" href="/home" className='w-full text-left' onClick={() => {
                 localStorage.removeItem(TOKEN)

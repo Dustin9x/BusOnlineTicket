@@ -5,18 +5,9 @@ import { Button } from "antd";
 import { DAT_VE } from "../../redux/constants";
 
 
-export default function SeatMap(props) {
-    const { selectingSeats } = useSelector(state => state.OrderReducer)
-    const { tripDetail } = useSelector(state => state.TripReducer)
-    const dispatch = useDispatch();
-    let { tripId } = props
-    useEffect(() => {
-        dispatch(getTripByIdAction(tripId))
-    }, [])
-
-    let numberOfSeat = 42;
-            
-
+export default function SeatMapAdmin(props) {
+    let { tripId, tripDetail } = props
+    let numberOfSeat = tripDetail?.bus.busType.numberOfSeat;
     let occupiedSeats = tripDetail?.seats?.map(s => s.name);
 
     function RenderSeatCodes9 () {
@@ -28,11 +19,6 @@ export default function SeatMap(props) {
                 <div className='col-6 offset-3 mx-auto px-5'>
                     <div className='row mt-15'>
                         {seatCodes9?.map((ghe, index) => {
-                            let classSelecting = '';
-                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexSelectSeat != -1) {
-                                classSelecting = 'seatSelected'
-                            }
 
                             let classOccupied = '';
                             let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
@@ -41,16 +27,7 @@ export default function SeatMap(props) {
                             }
 
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={indexOccupied != -1} type='link' className={`seat my-5 p-0 ${classSelecting} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classOccupied}`}>{ghe}</Button>
                             </div>
                         })}
                     </div>
@@ -69,12 +46,6 @@ export default function SeatMap(props) {
                 <div className='col-6 offset-3 mx-auto px-5'>
                     <div className='row'>
                         {seatCodes12?.map((ghe, index) => {
-                            let classSelecting = '';
-                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexSelectSeat != -1) {
-                                classSelecting = 'seatSelected'
-                            }
-
                             let classOccupied = '';
                             let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
                             if (indexOccupied != -1) {
@@ -82,16 +53,7 @@ export default function SeatMap(props) {
                             }
 
                             return <div key={index} className="col-6 flex">
-                                <Button disabled={indexOccupied != -1} type='link' className={`seat p-0 ${classSelecting} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classOccupied}`}>{ghe}</Button>
                             </div>
                         })}
                     </div>
@@ -110,11 +72,6 @@ export default function SeatMap(props) {
                 <div className='col-6 offset-3 mx-auto px-5'>
                     <div className='row'>
                         {seatCodes30?.map((ghe, index) => {
-                            let classSelecting = '';
-                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexSelectSeat != -1) {
-                                classSelecting = 'seatSelected'
-                            }
 
                             let classOccupied = '';
                             let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
@@ -123,16 +80,7 @@ export default function SeatMap(props) {
                             }
 
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={indexOccupied != -1} type='link' className={`seat p-0 ${classSelecting} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classOccupied}`}>{ghe}</Button>
                             </div>
                         })}
                     </div>
@@ -153,11 +101,6 @@ export default function SeatMap(props) {
                     <div className='row'>
 
                         {seatCodes42?.slice(0, 21).map((ghe, index) => {
-                            let classSelecting = '';
-                            let indexSelectSeat = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexSelectSeat != -1) {
-                                classSelecting = 'seatSelected'
-                            }
 
                             let classOccupied = '';
                             let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
@@ -166,16 +109,7 @@ export default function SeatMap(props) {
                             }
 
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={indexOccupied != -1} type='link' className={`seat p-0 ${classSelecting} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classOccupied}`}>{ghe}</Button>
                             </div>
 
                         })}
@@ -185,27 +119,13 @@ export default function SeatMap(props) {
                     <h2 className='text-center'>Floor 2</h2>
                     <div className='row'>
                         {seatCodes42?.slice(21).map((ghe, index) => {
-                            let classGheDangDat = '';
-                            let indexGheDD = selectingSeats?.findIndex(gheDD => gheDD === ghe);
-                            if (indexGheDD != -1) {
-                                classGheDangDat = 'seatSelected'
-                            }
                             let classOccupied = '';
                             let indexOccupied = occupiedSeats?.findIndex(gheDD => gheDD === ghe);
                             if (indexOccupied != -1) {
                                 classOccupied = 'seatOccupied'
                             }
                             return <div key={index} className="col-4 flex">
-                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classGheDangDat} ${classOccupied}`}
-                                    onClick={() => {
-                                        dispatch({
-                                            type: DAT_VE,
-                                            gheDuocChon: ghe
-                                        })
-                                    }}
-                                >
-                                    {ghe}
-                                </Button>
+                                <Button disabled={ghe.nguoiDat} type='link' className={`seat p-0 ${classOccupied}`}>{ghe}</Button>
                             </div>
 
                         })}

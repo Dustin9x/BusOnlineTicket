@@ -31,7 +31,7 @@ export const loginAction = (loginInfo) => {
           description: (
             <>
               Login successfully.<br />
-              Welcom to PHTV Bus.
+              Welcome to PHTV Bus.
             </>
           ),
         });

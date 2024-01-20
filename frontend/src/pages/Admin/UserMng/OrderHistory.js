@@ -5,7 +5,6 @@ import { cancelTicketAction, getTicketByUserAction } from '../../../redux/action
 import { Button, Input, Space, Table, Tag, Form } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
-import './Ticket.css'
 import dayjs from "dayjs";
 import { getCurrentUserAction } from '../../../redux/actions/UserAction'
 var relativeTime = require('dayjs/plugin/relativeTime')

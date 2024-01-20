@@ -15,10 +15,10 @@
 .cardLeft {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    width: 23em;
+    width: 27em;
 }
 .cardRight {
-    width: 10.5em;
+    width: 14.5em;
     border-left: 0.18em dashed #fff;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;

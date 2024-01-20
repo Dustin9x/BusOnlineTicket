@@ -1,20 +1,34 @@
-import React, { Fragment, useEffect } from 'react'
-import { EditOutlined, DeleteOutlined,AppstoreOutlined } from '@ant-design/icons';
-import { Avatar, Button, Table, Tag } from 'antd';
+import React, { Fragment, useEffect, useState } from 'react'
+import { EditOutlined, DeleteOutlined, AppstoreOutlined } from '@ant-design/icons';
+import { Avatar, Button, Modal, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { deleteTripAction, getTripListAction } from '../../../redux/actions/TripAction';
 import { DOMAIN } from '../../../util/settings/config';
+import SeatMapAdmin from '../../../components/SeatMap/SeatMapAdmin';
 
 
 export default function TripMng() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tripId, setTripId] = useState();
+  const [tripDetail, setTripDetail] = useState({});
   const dispatch = useDispatch();
+
   let { arrTrip } = useSelector(state => state.TripReducer);
   useEffect(() => {
     dispatch(getTripListAction())
   }, [])
 
-  console.log('arrTrip',arrTrip)
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
 
   const data = arrTrip;
 
@@ -99,9 +113,13 @@ export default function TripMng() {
     {
       title: 'Action',
       render: (text, trip) => {
-        return <Fragment>
-          <Button><AppstoreOutlined />Seat Map</Button>
-          <Button key={1} href={`/admin/theatremng/edit/${trip.maRap}`} type="link" icon={<EditOutlined />} onClick={() => {
+        return <div className="d-flex">
+          <Button onClick={() => {
+            showModal()
+            setTripId(trip.id)
+            setTripDetail(trip)
+          }}>Seat Map</Button>
+          <Button key={1} href={`/admin/theatremng/edit/${trip.id}`} type="link" icon={<EditOutlined />} onClick={() => {
             localStorage.setItem('theatreParams', JSON.stringify(trip));
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
@@ -109,7 +127,7 @@ export default function TripMng() {
               dispatch(deleteTripAction(trip.id))
             }
           }}></Button>
-        </Fragment>
+        </div>
       }
     },
   ];
@@ -119,5 +137,8 @@ export default function TripMng() {
       <Button href='/admin/tripmng/addtrip' type="primary" className='ml-3 small bg-primary'>+ Add New Trip</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
+    <Modal title="Seat Map" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <SeatMapAdmin tripId={tripId} tripDetail={tripDetail} />
+    </Modal>
   </div>
 }
