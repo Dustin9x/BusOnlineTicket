@@ -31,7 +31,6 @@ import RevenueMovie from "./pages/Admin/Revenue/RevenueMovie";
 import UserOrder from "./pages/Admin/UserMng/UserOrder";
 import OrderList from "./pages/Admin/Revenue/OrderList";
 import AboutUs from "./pages/AboutUs/AboutUs";
-import Recruitment from "./pages/Recruitment/Recruitment";
 import GeneralTerms from "./pages/Terms/GeneralTerms";
 import TermsOfTransaction from "./pages/Terms/TermsOfTransaction";
 import ForgetPassword from "./pages/Login/ForgetPassword";
@@ -74,7 +73,6 @@ function App() {
 
         {/* Footer */}
         <HomeTemplate path="/about" exact Component={AboutUs} />
-        <HomeTemplate path="/recruitment" exact Component={Recruitment} />
         <HomeTemplate path="/terms" exact Component={GeneralTerms} />
         <HomeTemplate path="/termsoftransaction" exact Component={TermsOfTransaction} />
 

@@ -26,6 +26,8 @@ namespace backend.SeedData
                  new Bus{Id=16,BusPlate="59A1-55906",BusTypeId=4,StationId="1",isAvailable=true,Note=""},
                  new Bus{Id=17,BusPlate="59A1-55907",BusTypeId=1,StationId="2",isAvailable=true,Note=""},
                  new Bus{Id=18,BusPlate="59A1-55908",BusTypeId=2,StationId="3",isAvailable=true,Note=""},
+                 new Bus{Id=19,BusPlate="59A1-55909",BusTypeId=3,StationId="4",isAvailable=true,Note=""},
+                 new Bus{Id=20,BusPlate="59A1-55911",BusTypeId=4,StationId="5",isAvailable=true,Note=""},
             };
         }
     }

@@ -1,15 +1,8 @@
 import { driverService } from "../../services/DriverService";
-import {
-  GET_USER_LIST,
-  LAY_LAI_MAT_KHAU_ACTION,
-  LOGIN_ACTION,
-  GET_USER_DETAIL,
-  GET_PROFILE_DETAIL,
-  GET_CURRENT_USER_ACTION,
-} from "../constants";
+import { GET_USER_LIST, LAY_LAI_MAT_KHAU_ACTION, GET_USER_DETAIL, GET_PROFILE_DETAIL, GET_CURRENT_USER_ACTION } from "../constants";
 import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
-import { UserService, userService } from "../../services/UserService";
+import { userService } from "../../services/UserService";
 import { notification } from "antd";
 import { TOKEN } from "../../util/settings/config";
 
@@ -21,10 +14,6 @@ export const loginAction = (loginInfo) => {
       
       if (result.status === 200) {
         localStorage.setItem(TOKEN, result.data.data.accessToken);
-        // dispatch({
-        //   type: LOGIN_ACTION,
-        //   userLogin: result.data.data,
-        // });
         notification.success({
           closeIcon: true,
           message: "Success",
@@ -220,7 +209,15 @@ export const updateUserAction = (id, newUser) => {
           <>Update user successfully.</>
         ),
       });
-      history.push("/admin/adminusers");
+      const result2 = await userService.getUserById(id);
+      const userDetail = result2.data.data[0]
+      console.log('userDetail nha',userDetail)
+      if(userDetail.role = "user"){
+        history.push("/users/profile");
+      }else{
+        history.push("/admin/adminusers");
+      }
+      
     } catch (error) {
       console.log(error);
     }

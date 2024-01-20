@@ -17,7 +17,6 @@ export default function Footer() {
           <div className="space-y-3">
             <h3 className="tracking-wide uppercase dark:text-gray-50">PHTV Việt Nam</h3>
             <NavLink to="/about" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Giới thiệu</NavLink><br />
-            <NavLink to="/recruitment" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Tuyển dụng</NavLink><br />
             <NavLink to="/home" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Liên hệ</NavLink><br />
           </div>
           <div className="space-y-3">

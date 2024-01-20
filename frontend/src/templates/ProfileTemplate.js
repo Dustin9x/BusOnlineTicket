@@ -43,8 +43,8 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   // }
 
   const items = [
-    getItem('Thông Tin Cá Nhân', '1', <NavLink className='text-decoration-none' to="/users/profile"><SmileOutlined /></NavLink>),
-    getItem('Lịch Sử Mua Vé', '2', <NavLink className='text-decoration-none' to="/users/ordershistory"><HistoryOutlined /></NavLink>),
+    getItem('Your Profile Detail', '1', <NavLink className='text-decoration-none' to="/users/profile"><i class="fa-solid fa-user"></i></NavLink>),
+    getItem('Your Tickets', '2', <NavLink className='text-decoration-none' to="/users/ordershistory"><i className="fa-solid fa-ticket"></i></NavLink>),
   ];
 
   const operations = <Fragment>
@@ -59,7 +59,7 @@ export const ProfileTemplate = (props) => { //path, exact, Component
     return <Fragment>
       <Layout style={{ minHeight: '100vh' }} >
         <Sider width={300} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div className="demo-logo-vertical text-white text-2xl text-center my-10" >Trang Cá Nhân</div>
+          <div className="demo-logo-vertical text-white text-2xl text-center my-10" >User Profile</div>
           <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={items} />
         </Sider>
         <Layout>

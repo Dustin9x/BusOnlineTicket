@@ -22,14 +22,6 @@ export class TripService extends baseService {
     return this.post(`/api/Trip`, formData);
   };
 
-  // getBusById = (id) => {
-  //     return this.get(`/Bus/${id}`);
-  // }
-
-  // updateBus = (id,formData) => {
-  //     return this.put(`/Bus?Id=${id}`, formData);
-  // }
-
   deleteTrip = (tripId) => {
     return this.delete(`/api/Trip/${tripId}`);
   };

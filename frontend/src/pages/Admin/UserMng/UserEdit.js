@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserByIdAction, updateUser, updateUserAction } from "../../../redux/actions/UserAction";
+import { getCurrentUserAction, getUserByIdAction, updateUser, updateUserAction } from "../../../redux/actions/UserAction";
 import { useFormik } from "formik";
 import { values } from "lodash";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
@@ -13,9 +13,15 @@ const UserEdit = (props) => {
   const dispatch = useDispatch();
   const [checked, setChecked] = useState(false);
   const { userDetail } = useSelector((state) => state.UserReducer);
+  const { userLogin } = useSelector(state => state.UserReducer);
   let { id } = props.match.params;
+  let accessToken = {}
+  if (localStorage.getItem(TOKEN)) {
+    accessToken = localStorage.getItem(TOKEN)
+  }
   useEffect(() => {
     dispatch(getUserByIdAction(id));
+    dispatch(getCurrentUserAction(accessToken))
   }, [dispatch, id])
 
   const [imgSrc, setImgSrc] = useState("");
@@ -24,6 +30,7 @@ const UserEdit = (props) => {
     initialValues: {
       email: userDetail?.email,
       password: null,
+      fullname: userDetail?.fullname,
       role: userDetail?.role,
       avatar: userDetail?.avatar,
     },
@@ -91,6 +98,12 @@ const UserEdit = (props) => {
           <Input disabled className="text-dark" name="email" onChange={formik.handleChange} value={formik.values.email} placeholder="Email" />
         </Form.Item>
 
+        <Form.Item
+          label="Full Name"
+        >
+          <Input className="text-dark" name="fullname" onChange={formik.handleChange} value={formik.values.fullname} placeholder="Full Name" />
+        </Form.Item>
+
         <Form.Item label="Change password?">
           <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
         </Form.Item>
@@ -111,7 +124,8 @@ const UserEdit = (props) => {
           ""
         )}
 
-          <Form.Item
+        {userLogin && userLogin.role != "User"
+          ? <Form.Item
             label="Role"
             rules={[
               {
@@ -125,6 +139,8 @@ const UserEdit = (props) => {
               <Option value="User">User</Option>
             </Select>
           </Form.Item>
+          : ""}
+
 
         <Form.Item label="Avatar">
           <input

@@ -1,5 +1,5 @@
 import { Button, Avatar, Popover } from 'antd';
-import { TOKEN, USER_LOGIN } from '../../util/settings/config';
+import { DOMAIN, TOKEN, USER_LOGIN } from '../../util/settings/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
@@ -7,7 +7,6 @@ import { getCurrentUserAction } from '../../redux/actions/UserAction';
 export default function UserAvatar(props) {
     let { userLogin } = useSelector(state => state.UserReducer);
     const dispatch = useDispatch();
-    console.log('userLogin',userLogin)
     
     let accessToken = {}
     if (localStorage.getItem(TOKEN)) {
@@ -34,7 +33,7 @@ export default function UserAvatar(props) {
         <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
             {userLogin?.avatar == null || userLogin?.avatar == ""
                 ? <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={userLogin?.email?.substr(0,1)} />
-                : <div style={{ minWidth: '40px', minHeight: 40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${userLogin?.avatar})` }} />
+                : <div style={{ minWidth: 40, minHeight: 40, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${DOMAIN + "/Images/User/" + userLogin.avatar})` }} />
             }
         </Button>
     </Popover>

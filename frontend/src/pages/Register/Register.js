@@ -102,7 +102,7 @@ export default function Register(props) {
 
         <Form.Item
           label=""
-          name="name"
+          name="fullname"
           rules={[
             {
               required: true,
