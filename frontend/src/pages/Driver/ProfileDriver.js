@@ -20,7 +20,6 @@ const ProfileDriver = () =>  {
    }
   console.log('Id', id)
   const [checked, setChecked] = useState(false);
-  const [NewPassword, setNewPassword] = useState(null);
   useEffect(() => {
     dispatch(getDriverByIdAction(id))
   }, [])
@@ -69,7 +68,7 @@ const profile= driverDetail;
 
   return (
     <div >
-      <h3 className='mb-5'>Thông tin người dùng: {profile?.email}</h3>
+      <h3 className='mb-5'>Infomation: {profile?.email}</h3>
       <div className='row mx-10'>
         <div className='col-4'>
           {/* {profile.avatar ? <img style={{width:200, height:200, objectFit: 'cover', borderRadius: '50%'}} src={profile.avatar} alt={profile.avatar} /> : <Avatar size={200} style={{ fontSize: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={userLogin.name.substr(0, 1)} />} */}
@@ -153,7 +152,7 @@ const profile= driverDetail;
           </div>
           <div className='col-12'>
             <Typography>
-              <pre>Loại Tài Khoản: Driver</pre>
+              <pre>Type account: Driver</pre>
             </Typography>
           </div>
           <div className='col-12'>
