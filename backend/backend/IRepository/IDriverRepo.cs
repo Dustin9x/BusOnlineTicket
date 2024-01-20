@@ -12,5 +12,6 @@ namespace backend.IRepository
         Task<Driver> DeleteDriver(int Id);
         Task<IEnumerable<Driver>> GetDriverById(int Id);
         Task<Driver> Login(UserLogin UserLogin);
+        Task<bool> SendEmailAsync(string Email);
     }
 }

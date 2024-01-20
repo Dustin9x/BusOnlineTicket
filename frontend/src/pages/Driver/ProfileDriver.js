@@ -1,23 +1,71 @@
-import React, { useEffect } from 'react';
-import { Avatar, Button, Typography, } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Checkbox, Form, Input, Typography, } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 // import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
-import { USER_LOGIN } from '../../util/settings/config';
-import { getProfileAction, getUserByIdAction } from '../../redux/actions/UserAction';
-const ProfileDriver = () => {
-  const dispatch = useDispatch();
-  const { profile } = useSelector(state => state.UserReducer);
-  // let userLogin = {}
-  // if (localStorage.getItem(USER_LOGIN)) {
-  //   userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  // }
-  // console.log('userLogin', userLogin)
+import { DOMAIN, USER_LOGIN } from '../../util/settings/config';
+import { getDriverByIdAction, updateDriver } from '../../redux/actions/DriverAction';
+import { useFormik } from 'formik';
+import { history } from '../../App';
 
+
+const ProfileDriver = () =>  {
+  const dispatch = useDispatch();
+  const { driverDetail } = useSelector(state => state.DriverReducer);
+  let id = {}
+  if (localStorage.getItem("driverId")) {
+    id = JSON.parse(localStorage.getItem("driverId"))
+  }else{
+    history.push("/loginDriver")
+ 
+   }
+  console.log('Id', id)
+  const [checked, setChecked] = useState(false);
+  const [NewPassword, setNewPassword] = useState(null);
   useEffect(() => {
-    // dispatch(getProfileAction(userLogin?.id))
+    dispatch(getDriverByIdAction(id))
   }, [])
 
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      fullName: driverDetail?.fullName,
+      nationalId: driverDetail?.nationalId,
+      driverLicense: driverDetail?.driverLicense,
+      password: "",
+      phone: driverDetail?.phone,
+      email: driverDetail?.email,
+      yearOfBirth: driverDetail?.yearOfBirth,
+      placeOfBirth: driverDetail?.placeOfBirth,
+      note: driverDetail?.note,
+      enabled: driverDetail?.enabled,
+      avatar: driverDetail?.avatar,
+      trips:[{id:0}]
+    },
+    onSubmit: async (values) => {
+      let newDriver = new FormData();
+      for (let key in values) {
+        if (key !== "avatar") {
+          newDriver.append(key, values[key]);
+        } else {
+          newDriver.append("avatar", values["avatar"]);
+        }
+      }
+      console.table("newDriver", [...newDriver]);
+      dispatch(updateDriver(id, newDriver));
+    },
+  });
+const profile= driverDetail;
   console.log('profile', profile)
+
+
+  const onChangeCheck = (e) => {
+    setChecked("check: ",e.target.checked);
+    
+  };
+
+  const handleChangePass=(e)=>{
+    setNewPassword(e.target.value)
+  }
 
   return (
     <div >
@@ -27,44 +75,98 @@ const ProfileDriver = () => {
           {/* {profile.avatar ? <img style={{width:200, height:200, objectFit: 'cover', borderRadius: '50%'}} src={profile.avatar} alt={profile.avatar} /> : <Avatar size={200} style={{ fontSize: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={userLogin.name.substr(0, 1)} />} */}
           {profile?.avatar == null || profile?.avatar == ""
             ? <Avatar size={200} style={{ fontSize: '200px', lineHeight: '170px' }} icon={"H"} />
-            : <div style={{ minWidth: '40px', minHeight: 40, width: 200, height: 200, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${profile?.avatar})` }} />
+            : <div style={{ minWidth: '40px', minHeight: 40, width: 200, height: 200, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${DOMAIN+"/Images/Driver/"+ profile?.avatar})` }} />
           }
         </div>
-        <div className='col-8'>
-          <div className='col-6'>
-            <Typography>
+        <div className='col-4'>
+          <div className='col-12'>
+            {/* <Typography>
               <pre>Tên Đăng Nhập: {profile?.email}</pre>
-            </Typography>
+            </Typography> */}
           </div>
-          <div className='col-6'>
+          <div className='col-12'>
             <Typography>
               <pre>Email: {profile?.email}</pre>
             </Typography>
           </div>
-          <div className='col-6'>
+          <div className='col-12'>
             <Typography>
-              {/* <pre>Email: {profile.soDt}</pre> */}
+              <pre>Phone: {profile?.phone}</pre>
             </Typography>
           </div>
-          <div className='col-6'>
+          <div className='col-12'>
             <Typography>
-              {/* <pre>Họ Tên: {profile.hoTen}</pre> */}
+              <pre>Full Name: {profile.fullName}</pre>
             </Typography>
           </div>
-          <div className='col-6'>
+          <div className='col-12'>
             <Typography>
-              <pre>Loại Tài Khoản: {profile?.role}</pre>
+              <pre>National Id: {profile.nationalId}</pre>
             </Typography>
           </div>
-          <div className='col-6'>
-            <Button href={`/users/edit/${profile?.id}`} className='btn-primary bg-primary mt-3 px-5' type='primary' onClick={() => {
-              localStorage.setItem('userParams', JSON.stringify(profile));
-            }}>Thay đổi thông tin</Button>
+          <div className='col-12'>
+            <Typography>
+              <pre>Driver License: {profile.driverLicense}</pre>
+            </Typography>
           </div>
+          <div className='col-12'>
+          <Form.Item label="Change password?">
+          <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
+        </Form.Item>
+
+          {checked ? (
+               <div className='col-12'>
+                   <Form   labelCol={{ span: 4,}}  wrapperCol={{span: 14,}} layout="horizontal" onSubmitCapture={formik.handleSubmit} >
+                        <Form.Item  rules={[ {
+                              required: true,
+                              message: "Password  cannot be blank!",  }, ]}  >
+                          <Input.Password name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
+                        </Form.Item>
+                        <Form.Item label="Action">
+                        <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Change</Button>
+                      </Form.Item>
+                   </Form>
+          </div>
+        ) : (
+          ""
+        )}
+          </div>
+         
+       
+        </div>
+        <div className='col-4'>
+ 
+          <div className='col-12'>
+            <Typography>
+              <pre>YOB: {profile.yearOfBirth}</pre>
+            </Typography>
+          </div>
+          <div className='col-12'>
+            <Typography>
+              <pre>Place of birth: {profile.placeOfBirth}</pre>
+            </Typography>
+          </div>
+          <div className='col-12'>
+            <Typography>
+              <pre>Enabled: {profile.enabled?"true":"false"}</pre>
+            </Typography>
+          </div>
+          <div className='col-12'>
+            <Typography>
+              <pre>Loại Tài Khoản: Driver</pre>
+            </Typography>
+          </div>
+          <div className='col-12'>
+            <Typography>
+              <pre>Note: {profile.note}</pre>
+            </Typography>
+          </div>
+    
         </div>
       </div>
     </div>
   );
 };
+
 
 export default ProfileDriver;

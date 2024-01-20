@@ -13,9 +13,6 @@ export class DriverService extends baseService {
         return this.get(`/api/Driver/`);
     }
 
-    getRegisterDriver = () => {
-        return this.get(`/api/Driver/registerdriver`);
-    }
 
     getDriverById = (id) => {
         return this.get(`/api/Driver/${id}`);
@@ -36,6 +33,9 @@ export class DriverService extends baseService {
     approveDriver = (id) => {
         return this.put(`/api/Driver/approve?Id=${id}`);
     }
+    forgetPassword = (email) => {
+        return this.post(`/api/Driver/ForgetPassword?Email=${email}`);
+    };
 }
 
 export const driverService = new DriverService();

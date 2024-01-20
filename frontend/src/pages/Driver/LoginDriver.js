@@ -45,7 +45,8 @@ export default function LoginDriver(props) {
       >
         <div>
           <h1 className="text-3xl font-bold text-center mb-4 cursor-pointer">Sign In Driver</h1>
-          <p className="text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide">Sign in to continue to PHTV Bus</p>
+          <p className="text-center text-sm mb-8 font-semibold text-gray-700 tracking-wide">Sign in to view your trip information</p>
+          <div className="text-center mb-4" style={{fontSize:"12px"}}>For registered drivers only !!</div> 
         </div>
         <Form.Item
           label=""
@@ -90,14 +91,15 @@ export default function LoginDriver(props) {
           }}
         >
           <div className='d-flex justify-between'>
-            {/* <Checkbox >Ghi nhớ</Checkbox> */}
-            <a className="block cursor-pointer w-full text-right" href="/forgetPassword">Forgot Password</a>
+          
+            <a className="block cursor-pointer w-full text-right" href="/forgetPasswordDriver">Forgot Password Driver</a>
           </div>
         </Form.Item>
 
         <div className="text-center">
           <button type="submit" className="py-2 w-64 text-base text-white bg-red-400 rounded-full">Sign In</button>
-          <div className="mt-2 text-sm">Don't have account yet? <a href='registerDriver' className="underline  cursor-pointer"> Sign Up</a></div>
+          <div className="mt-2 text-sm">You want to register as a driver?  <a href='registerDriver' className="underline  cursor-pointer"> Sign Up Driver</a></div>
+          <div className="mt-2 text-sm">  <a href='login' className="underline  cursor-pointer"> Back</a></div>
         </div>
       </Form>
     </div>

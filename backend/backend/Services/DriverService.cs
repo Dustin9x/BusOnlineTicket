@@ -1,7 +1,11 @@
 ﻿using backend.IRepository;
 using backend.Models;
-using backend.ResponseData;
+using MailKit.Net.Smtp;
+using backend.Settings;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using System.Text;
+using Microsoft.Extensions.Options;
 
 namespace backend.Services
 {
@@ -9,11 +13,13 @@ namespace backend.Services
     {
         private readonly DatabaseContext db;
         private readonly IWebHostEnvironment env;
+        private readonly MailSetting _mailsettings;
 
-        public DriverService(DatabaseContext db, IWebHostEnvironment env)
+        public DriverService(DatabaseContext db, IWebHostEnvironment env, IOptions<MailSetting> mailsettings)
         {
             this.db = db;
             this.env = env;
+            _mailsettings = mailsettings.Value;
         }
 
         public async Task<IEnumerable<Driver>> GetApproveDrivers()
@@ -185,5 +191,55 @@ namespace backend.Services
             }
             return null;
         }
+
+
+        public async Task<bool> SendEmailAsync(string Email)
+        {
+
+
+            var ExistingDriver = await db.Drivers.SingleOrDefaultAsync(b => b.Email == Email);
+
+
+            if (ExistingDriver != null)
+            {
+                var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                var password = new StringBuilder();
+                for (int i = 0; i < 8; i++)
+                {
+                    var index = new Random().Next(characters.Length);
+                    password.Append(characters[index]);
+                }
+                Mail mail = new Mail()
+                {
+                    ToEmail = Email,
+                    Body = "<h1>Your new password: </h1>" + password.ToString(),
+                    Subject = "Forget Password"
+                };
+
+                ExistingDriver.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
+                int result = await db.SaveChangesAsync();
+
+                if (result > 0)
+                {
+                    var email = new MimeMessage();
+                    email.Sender = MailboxAddress.Parse(_mailsettings.Mail);
+                    email.To.Add(MailboxAddress.Parse(mail.ToEmail));
+                    email.Subject = mail.Subject;
+                    var builder = new BodyBuilder();
+                    builder.HtmlBody = mail.Body;
+                    email.Body = builder.ToMessageBody();
+                    using var smtp = new SmtpClient();
+                    smtp.Connect(_mailsettings.Host, _mailsettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+                    smtp.Authenticate(_mailsettings.Mail, _mailsettings.Password);
+                    await smtp.SendAsync(email);
+                    smtp.Disconnect(true);
+                    return true;
+                }
+
+           
+            }
+            return false;
+        }
+
     }
 }

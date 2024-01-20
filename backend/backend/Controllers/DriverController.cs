@@ -188,5 +188,27 @@ namespace backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+        [HttpPost("ForgetPassword")]
+        public async Task<ActionResult> ForgetPassword(string Email)
+        {
+            try
+            {
+                bool result = await repo.SendEmailAsync(Email);
+                if (result)
+                {
+                    var response = new ResponseData<string>(StatusCodes.Status200OK, "Foget password successfully", Email, null);
+                    return Ok(response);
+                }
+                return BadRequest(new { msg = "Foget password fail", status = 400 });
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }

@@ -58,6 +58,7 @@ import LoginDriver from './pages/Driver/LoginDriver';
 import RegisterDriver from "./pages/Driver/RegisterDriver";
 import ForgetPasswordDriver from './pages/Driver/ForgetPasswordDriver';
 import DetailTripOfDriver from "./pages/Driver/DetailTripOfDriver";
+import ProfileDriver from "./pages/Driver/ProfileDriver";
 
 export const history = createBrowserHistory();
 
@@ -82,8 +83,9 @@ function App() {
 
         <UserTemplate path="/loginDriver" exact Component={LoginDriver} />
         <UserTemplate path="/registerDriver" exact Component={RegisterDriver} />
-        {/* <UserTemplate path="/forgetPasswordDriver" exact Component={ForgetPasswordDriver} /> */}
+        <UserTemplate path="/forgetPasswordDriver" exact Component={ForgetPasswordDriver} />
         <HomeTemplate path="/detailTripOfDriver" exact Component={DetailTripOfDriver} />
+        <ProfileTemplate path="/profileDriver" exact Component={ProfileDriver} />
 
         <ProfileTemplate path="/users" exact Component={Profile} />
         <ProfileTemplate path="/users/profile" exact Component={Profile} />

@@ -1,8 +1,8 @@
-import { driverService } from "../../services/DriverService"
+import { DriverService, driverService } from "../../services/DriverService"
 import { GET_DRIVER_DETAIL, GET_DRIVER_LIST, GET_REGISTER_DRIVER_LIST } from "../constants";
 import { history } from '../../App';
 import { notification } from "antd";
-import { hideLoadingAction } from "./LoadingAction";
+import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
 
 
 export const getDriverAction = () => {
@@ -140,6 +140,35 @@ export const approveDriver = (id) =>{
         }
     }
 }
+export const forgetPassword = (thongTinEmail) => {
+    return async (dispatch) => {
+      try {
+        dispatch(displayLoadingAction);
+        const result = await driverService.forgetPassword(thongTinEmail);
+        if (result.data.status === 200) {
+        //   dispatch({
+        //     type: LAY_LAI_MAT_KHAU_ACTION,
+        //     thongTinEmail: result.data.content,
+        //   });
+          await dispatch(hideLoadingAction);
+          notification.success({
+            closeIcon: false,
+            message: "Success",
+            description: (
+              <>
+                Your new password has been sent to your email, please check your email or spam box and login again.
+              </>
+            ),
+          });
+          history.replace("login");
+        }
+      } catch (error) {
+        console.log(error);
+        await dispatch(hideLoadingAction);
+        alert(error.response.data.message);
+      }
+    };
+  };
 export const loginDriverAction = (loginDriverInfo) => {
     return async (dispatch) => {
       try {
@@ -147,7 +176,7 @@ export const loginDriverAction = (loginDriverInfo) => {
         const result = await driverService.loginDriver(loginDriverInfo);
         
         if (result.status === 200) {
-         localStorage.setItem("driverLogin", result.data.data.id);
+         localStorage.setItem("driverId", result.data.data.id);
           notification.success({
             closeIcon: true,
             message: "Success",

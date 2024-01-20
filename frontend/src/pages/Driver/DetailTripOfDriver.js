@@ -1,38 +1,46 @@
 import React, { Fragment, useEffect } from 'react'
 import { EditOutlined, DeleteOutlined,AppstoreOutlined } from '@ant-design/icons';
-import { Avatar, Button, Table, Tag } from 'antd';
+import { Avatar, Button, Table, Tabs, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
-import { deleteTripAction, getTripListAction } from '../../redux/actions/TripAction';
+import {  getTripListAction } from '../../redux/actions/TripAction';
+import { getDriverByIdAction, updateDriver } from '../../redux/actions/DriverAction';
 import { DOMAIN } from '../../util/settings/config';
 import dayjs from 'dayjs';
+import { history } from '../../App';
 
 
 export default function DetailTripOfDriver() {
+  let Id = {}
+  if (localStorage.getItem("driverId")) {
+    Id = localStorage.getItem("driverId")
+  }else{
+   history.push("/loginDriver")
+
+  }
   const dispatch = useDispatch();
   let { arrTrip } = useSelector(state => state.TripReducer);
+  const { driverDetail } = useSelector(state => state.DriverReducer);
   useEffect(() => {
     dispatch(getTripListAction())
+    dispatch(getDriverByIdAction(Id))
   }, [])
-  let Id = {}
-  if (localStorage.getItem("driverLogin")) {
-    Id = localStorage.getItem("driverLogin")
-  }
 
-  const data = arrTrip.filter(item=>item.driverId==Id && Date.now()<= dayjs(item.finishTime)).sort((a, b) => {
+
+  const TripNotComplete = arrTrip.filter(item=>item.driverId==Id && Date.now()<= dayjs(item.finishTime)).sort((a, b) => {
     const aDate = Date.parse(a.finishTime);
     const bDate = Date.parse(b.finishTime);
     return aDate - bDate;
   });;
 
-  const dataOld = arrTrip.filter(item=>item.driverId==Id && Date.now()> dayjs(item.finishTime)).sort((a, b) => {
+  const TripComplete = arrTrip.filter(item=>item.driverId==Id && Date.now()> dayjs(item.finishTime)).sort((a, b) => {
     const aDate = Date.parse(a.finishTime);
     const bDate = Date.parse(b.finishTime);
     return  bDate-aDate ;
   });;
 
-  const data2= data?data[0]:"";
-  console.log("check data filter: ", data);
+  const data2= TripNotComplete?TripNotComplete[0]:"";
+  console.log("check data filter: ", driverDetail);
 
   const columns = [
     {
@@ -150,37 +158,46 @@ export default function DetailTripOfDriver() {
   
       },
     },
-    
-    // {
-    //   title: 'Action',
-    //   render: (text, trip) => {
-    //     return <Fragment>
-    //       <Button><AppstoreOutlined />Seat Map</Button>
-    //       <Button key={1} href={`/admin/theatremng/edit/${trip.maRap}`} type="link" icon={<EditOutlined />} onClick={() => {
-    //         localStorage.setItem('theatreParams', JSON.stringify(trip));
-    //       }}></Button>
-    //       <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-    //         if (window.confirm('Do you want to delete trip PHTV' + trip.id + '?')) {
-    //           dispatch(deleteTripAction(trip.id))
-    //         }
-    //       }}></Button>
-    //     </Fragment>
-    //   }
-    // },
   ];
+  
   const style = {
     ".ant-table-row-header:nth-of-type(1) .ant-table-cell": {
       fontWeight: "bold",
     },
-  };
+  };const items = [
+    {
+      key: '1',
+      label: 'The trip is about to leave',
+      children:  <Table  columns={columns} dataSource={TripNotComplete} rowKey={'id'} />,
+    },
+    {
+      key: '2',
+      label: 'The trip has been completed',
+      children: <Table  columns={columns} dataSource={TripComplete} rowKey={'id'} />,
+    }]
   return <div>
     
     <div style={{margin:20}} >
-    <div className=' center'><h3 className='text-lg' >The journey you must run early</h3></div>
-    
-      <Table  columns={columns} dataSource={data} rowKey={'id'} />
-      <div className=' center'><h3 className='text-lg' >The trips you took</h3></div>
-      <Table  columns={columns} dataSource={dataOld} rowKey={'id'} />
+  
+    <div >
+      <div className='flex justify-content-space-between align-items-center'>
+          <div className='text-lg flex' >
+          
+                { driverDetail?.avatar == ""
+                          ?<a href='/profileDriver'><img style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Trip/${driverDetail.image}`} alt={driverDetail.image} /></a> 
+                          :<a href='/profileDriver'> <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={"H"} /> </a> }   <span style={{margin:5}}> {driverDetail?.fullName} </span>
+                      
+      
+          </div> 
+          <div className='flex justify-content-end' style={{ width: "160vh"}} >
+              <Button style={{ width: 90}} type="text" href="/home"  className="font-semibold rounded-full bg-red-400" onClick={() => {
+                                localStorage.removeItem("driverId")
+                                history.push("/loginDriver")}}>Logout</Button>
+          </div>
+      </div>
+
+    </div>
+        <Tabs defaultActiveKey="1" items={items}  />;
     </div>
  
   </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { forgetPassword } from "../../redux/actions/UserAction";
+import { forgetPassword } from "../../redux/actions/DriverAction";
 import { UserReducer } from "../../redux/reducers/UserReducer";
 
 export default function ForgetPasswordDriver(props) {
@@ -10,12 +10,12 @@ export default function ForgetPasswordDriver(props) {
   const { matkhau } = useSelector((state) => state.UserReducer);
 
   const onFinish = (values) => {
-    const action = forgetPassword(values.email);
-    dispatch(action);
+    dispatch(forgetPassword(values.email));
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
 
   return (
     <div className="py-8 px-8 bg-white rounded-2xl shadow-xl z-20">

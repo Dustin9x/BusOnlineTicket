@@ -26,6 +26,7 @@ const DriverEdit = (props) => {
       fullName: driverDetail?.fullName,
       nationalId: driverDetail?.nationalId,
       driverLicense: driverDetail?.driverLicense,
+      password: driverDetail?.password,
       phone: driverDetail?.phone,
       email: driverDetail?.email,
       yearOfBirth: driverDetail?.yearOfBirth,
@@ -33,6 +34,7 @@ const DriverEdit = (props) => {
       note: driverDetail?.note,
       enabled: driverDetail?.enabled,
       avatar: driverDetail?.avatar,
+      trips:[{id:0}]
     },
     onSubmit: async (values) => {
       let newDriver = new FormData();
