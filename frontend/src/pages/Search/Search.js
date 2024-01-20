@@ -67,8 +67,8 @@ export default function Search(props) {
         <SelectBus />
       </Card>
 
-      <div class="flex flex-row flex-wrap py-4">
-        <aside class="w-full sm:w-1/3 md:w-1/4 px-2">
+      <div className="flex flex-row flex-wrap py-4">
+        <div className="w-full sm:w-1/3 md:w-1/4 px-2">
           <Card title="Sort" onChange={(e) => handleOnChangeSort(e)}>
             <Radio.Group>
               <Radio value="earliest-departure">Earliest departure</Radio>
@@ -94,8 +94,8 @@ export default function Search(props) {
             <Checkbox value="Volvo Non-AC" onChange={(e) => handleOnChangeFilter(e)}>Volvo Non-AC</Checkbox><br />
             <Checkbox value="Volvo AC" onChange={(e) => handleOnChangeFilter(e)}>Volvo AC</Checkbox>
           </Card>
-        </aside>
-        <div class="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
+        </div>
+        <div className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
           {arrTrip?.map((item, index) => {
             return (
               <TripCard tripDetail={item} />

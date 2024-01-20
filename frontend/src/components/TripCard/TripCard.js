@@ -2,9 +2,12 @@ import { Card, Modal } from "antd"
 import { DOMAIN } from "../../util/settings/config"
 import { useState } from "react";
 import SeatMap from "../SeatMap/SeatMap";
+import { useDispatch } from "react-redux";
+import { DELETE_SELECTING_SEATS } from "../../redux/constants";
 
 
 export default function TripCard(props) {
+    const dispatch = useDispatch();
     let { tripDetail } = props
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,31 +26,31 @@ export default function TripCard(props) {
     return (
         <div>
             <Card hoverable style={{ marginBottom: 10 }}>
-                <div class="row">
+                <div className="row">
                     <div style={{ position: "absolute", right: 20, top: 20 }}>
                         <p className="text-center font-bold text-2xl text-green-800">
                             ${tripDetail.ticketPrice}
                         </p>
                     </div>
                     <div className="col-3">
-                        <img src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt="" />
+                        <img className="w-100 h-100 object-fit-cover border rounded" src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt={tripDetail.image} />
                     </div>
                     <div className="col-9">
-                        <h3 className="text-2xl">{tripDetail.fromStation.name} -{tripDetail.toStation.name}</h3>
-                        <p>{tripDetail.bus.busType.name} {tripDetail.bus.busType.numberOfSeat}{" "}seats</p>
-                        <div class="d-flex">
-                            <div class="hour font-bold mr-1">
-                                <i class="fa-solid fa-circle-dot fa-sm w-4"></i>
+                        <h3 className="text-2xl">{tripDetail.fromStation.name} - {tripDetail.toStation.name}</h3>
+                        <p>{tripDetail.bus.busType.name} {tripDetail.bus.busType.numberOfSeat} seats</p>
+                        <div className="d-flex">
+                            <div className="hour font-bold mr-1">
+                                <i className="fa-solid fa-circle-dot fa-sm w-4"></i>
                                 {tripDetail.startTime}
                             </div>
-                            <div class="place">• {tripDetail.fromStation.name}</div>
+                            <div className="place">• {tripDetail.fromStation.name}</div>
                         </div>
-                        <div class="d-flex">
-                            <div class="hour font-bold mr-1">
-                                <i class="fa-solid fa-location-dot w-4"></i>
+                        <div className="d-flex">
+                            <div className="hour font-bold mr-1">
+                                <i className="fa-solid fa-location-dot w-4"></i>
                                 {tripDetail.finishTime}
                             </div>
-                            <div class="place">•{tripDetail.toStation.name}</div>
+                            <div className="place">• {tripDetail.toStation.name}</div>
                         </div>
                         <h3 className="mt-3 font-bold text-emerald-800">
                             {hours} Hours
@@ -59,7 +62,7 @@ export default function TripCard(props) {
                                 type="submit"
                                 onClick={showModal}
                             >
-                                <span class="pl2">
+                                <span className="pl2">
                                     <i className="fas fa-bus f3"></i>
                                 </span>
                                 <span className="ml-2 flex-auto">Book</span>
@@ -68,8 +71,21 @@ export default function TripCard(props) {
                     </div>
                 </div>
             </Card>
-            <Modal title="Seat Map" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-                <SeatMap tripId={tripDetail.id} tripDetail={tripDetail} />
+            <Modal
+                title={`Trip Code: PHTV${tripDetail.id}`}
+                open={isModalOpen}
+                destroyOnClose={true}
+                width={800}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                afterClose={()=>{
+                    dispatch({
+                        type: DELETE_SELECTING_SEATS
+                    })
+                }}
+                footer={null}
+            >
+                <SeatMap tripId={tripDetail.id} />
             </Modal>
         </div>
 

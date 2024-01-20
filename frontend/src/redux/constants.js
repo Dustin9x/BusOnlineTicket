@@ -32,9 +32,8 @@ export const GET_FAQ_DETAIL = "GET_FAQ_DETAIL";
 export const CHON_GHE = "CHON_GHE";
 export const ORDER_CONFIRM = "ORDER_CONFIRM";
 export const DAT_VE = "DAT_VE";
+export const DELETE_SELECTING_SEATS = "DELETE_SELECTING_SEATS";
 export const GET_TICKET_BY_USER = "GET_TICKET_BY_USER";
-export const LAY_DANH_SACH_DON_HANG_THEO_USER =
-  "LAY_DANH_SACH_DON_HANG_THEO_USER";
 export const DAT_VE_HOAN_TAT = "DAT_VE_HOAN_TAT";
 export const LAY_DOANH_THU = "LAY_DOANH_THU";
 

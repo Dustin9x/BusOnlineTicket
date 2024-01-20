@@ -1,4 +1,4 @@
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, GET_TICKET_BY_USER, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTING_SEATS, GET_TICKET_BY_USER, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
     selectingSeats: [],
@@ -22,6 +22,7 @@ export const OrderReducer = (state = initialState, action) => {
 
         case DAT_VE:
             let danhSachGheCapNhat = [...state.selectingSeats];
+            console.log('Ghe duoc chon', action.gheDuocChon)
             let index = danhSachGheCapNhat.findIndex(gheDD => gheDD === action.gheDuocChon);
             if (index != -1) {
                 danhSachGheCapNhat.splice(index, 1)
@@ -31,6 +32,10 @@ export const OrderReducer = (state = initialState, action) => {
             state.selectingSeats = danhSachGheCapNhat
             return { ...state }
 
+        case DELETE_SELECTING_SEATS:
+            state.selectingSeats = [];
+            return { ...state }
+            
         case DAT_VE_HOAN_TAT:
             state.selectingSeats = [];
             return { ...state }

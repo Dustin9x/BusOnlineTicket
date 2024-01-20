@@ -17,10 +17,10 @@ export default function PopularRoute() {
     return (
         <div>
             <h1 className="text-center text-2xl">Popular bus routes</h1>
-            <div className="row w-100 p-4 rounded-xl bg-white">
+            <div className="row p-4 rounded-xl bg-white">
                 {arrTrip?.map((item, index) => {
                     return (
-                        <a href={`/detail/${item.id}`} className="hover:no-underline col-2">
+                        <a href={`/detail/${item.id}`} key={index} className="hover:no-underline col-2">
                             <Card
                                 hoverable
                                 style={{ width: '100%' }}

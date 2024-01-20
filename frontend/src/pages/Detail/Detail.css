@@ -1,6 +1,13 @@
+
+.seatfloor {
+	background-color: #ddd;
+    padding-top: 20px;
+    border-radius: 30px 30px 0 0;
+}
+
 .seat {
-	width: 39.6px;
-	height: 44px;
+	width: 28px;
+	height: 27px;
 	border-radius: 4px 4px 8px 8px;
 	background: #cc1f2f;
 	background: linear-gradient(#cc1f2f 0%, #cc1f2f 70%, #000 70%, #cc1f2f 77%);
@@ -20,8 +27,8 @@
 .seat:before {
 	content: '';
 	display: block;
-	width: 7.3333333333px;
-	height: 24.4444444444px;
+	width: 7px;
+	height: 24px;
 	position: absolute;
 	background: linear-gradient(#cc1f2f 0%, #cc1f2f 70%, #000 70%, #cc1f2f 77%);
 	border-radius: 4px;
@@ -62,7 +69,7 @@
 .seatOccupied,
 .seatOccupied:after,
 .seatOccupied:before {
-	background: linear-gradient(darkgray 0%, darkgray 70%, #000 70%, darkgray 77%);
+	background: linear-gradient(gray 0%, gray 70%, #000 70%, gray 77%);
 	cursor: default;
 }
 

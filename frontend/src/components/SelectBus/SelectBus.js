@@ -21,7 +21,6 @@ export default function SelectBus(props) {
   const [From, setFrom] = useState(from != "undefined" ? from : null);
   const [To, setTo] = useState(to != "undefined" ? to : null);
   const [Date, setDate] = useState(date != "undefined" ? date : null);
-  const [trueOrFalse, setTrueOrFalse] = useState(true);
 
   const handleFromChange = (value) => {
     setFrom(value);
@@ -63,15 +62,17 @@ export default function SelectBus(props) {
       return;
     }
   };
-  const handleChangeTrueOrFalse = () => {
-    setTrueOrFalse(!trueOrFalse)
-    console.log("check ", trueOrFalse);
+
+  const swapStation = () => {
+    setFrom(To);
+    setTo(From);
   }
+  
   return (
     <div className="w-100 p-2 rounded-xl bg-white">
       <form
         onSubmit={handleSubmit}
-        autocomplete="off"
+        autoComplete="off"
         className=" w-100"
         action={`/search/${From}/${To}/${Date}`}
       >
@@ -79,60 +80,44 @@ export default function SelectBus(props) {
           Bus Ticket & Bus Schedule in whole Vietnam
         </h4>
         <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
-          <div className="d-flex w-120 justify-around" >
-            {trueOrFalse ? <div className="w-80" >
+          <div className="d-flex w-100 justify-around" >
+            
+            <div className="w-80" >
               <Form.Item
                 style={{ minWidth: '100%' }}
               >
                 <Select
-                  style={{ height: 40 }}
+                  size={"large"}
                   id="fromFocus"
+                  style={{ minWidth: '100%' }}
                   showSearch
                   value={From} required placeholder="Leaving from"
                   options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
                   onChange={handleFromChange} />
               </Form.Item>
-            </div> : <div className="w-80">
-              <Form.Item
-                style={{ minWidth: '100%' }}
-              >
-                <Select value={To}
-                  style={{ height: 40 }}
-                  id="toFocus"
-                  showSearch
-                  placeholder="Going to" options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
-                  onChange={handleToChange} />
-              </Form.Item>
-            </div>}
-
+            </div>  
 
             <div id="btn" className="w-10 br3 mb0-l mb2-m flex justify-center items-center bg-white dim pointer" style={{ height: "3em", borderRadius: ".5rem !important", cursor: "pointer" }}  >
-              <i onClick={handleChangeTrueOrFalse} className="fas fa-exchange-alt pointer"></i>
+              <i onClick={swapStation} className="fas fa-exchange-alt pointer"></i>
             </div>
-            {trueOrFalse ? <div className="w-80">
+
+            <div className="w-80">
               <Form.Item
                 style={{ minWidth: '100%' }}
               >
                 <Select value={To}
-                  style={{ height: 40 }}
+                  size={"large"}
                   id="toFocus"
+                  style={{ minWidth: '100%' }}
                   showSearch
                   placeholder="Going to" options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
                   onChange={handleToChange} />
               </Form.Item>
-            </div> : <div className="w-80" >
-              <Form.Item
-                style={{ minWidth: '100%' }}
-              >
-                <Select
-                  style={{ height: 40 }}
-                  id="fromFocus"
-                  showSearch
-                  value={From} required placeholder="Leaving from"
-                  options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
-                  onChange={handleFromChange} />
-              </Form.Item>
-            </div>}
+            </div>
+
+
+            
+            
             <div className="ml-3" >
               <DatePicker
                 value={Date != null ? dayjs(Date) : ""}

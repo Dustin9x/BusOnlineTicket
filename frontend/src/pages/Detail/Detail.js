@@ -116,7 +116,7 @@ function Checkout(props) {
                     </ul>
 
                     <div className='d-flex justify-center'>
-                        <div><SeatMap tripId={id}/></div>
+                        {/* <SeatMap tripId={tripDetail.id}/> */}
                     </div>
                 </div>
                 <div className='col-span-4'>
