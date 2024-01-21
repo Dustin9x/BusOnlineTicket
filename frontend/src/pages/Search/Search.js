@@ -21,10 +21,11 @@ export default function Search(props) {
   const dispatch = useDispatch();
   let { from, to, date } = useParams();
 
+  console.log("date:", date)
   useEffect(() => {
     setInput.from = from;
     setInput.to = to;
-    setInput.dayStart = date;
+    setInput.dayStart = date=="undefined"?"":date;
 
     dispatch(getTripListOptionsAction(setInput));
   }, [dispatch]);

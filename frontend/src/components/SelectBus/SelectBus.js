@@ -20,7 +20,7 @@ export default function SelectBus(props) {
 
   const [From, setFrom] = useState(from != "undefined" ? from : null);
   const [To, setTo] = useState(to != "undefined" ? to : null);
-  const [Date, setDate] = useState(date != "undefined" ? date : null);
+  const [Date, setDate] = useState((date != "undefined") ? date : null);
 
   const handleFromChange = (value) => {
     setFrom(value);
@@ -31,6 +31,7 @@ export default function SelectBus(props) {
   const handleDateChange = (date, dateString) => {
 
     if (dateString == "") {
+      console.log("check date:", dateString)
       setDate(null);
     }
     else {
@@ -54,13 +55,6 @@ export default function SelectBus(props) {
       e.preventDefault();
       return;
     }
-    if(Date==null){
-      alert("Sorry, Fields 'Journey date' cannot be left blank!!");
-      const myInput = document.getElementById('dateFocus');
-        myInput.focus();
-      e.preventDefault();
-      return;
-    }
   };
 
   const swapStation = () => {
@@ -74,7 +68,7 @@ export default function SelectBus(props) {
         onSubmit={handleSubmit}
         autoComplete="off"
         className=" w-100"
-        action={`/search/${From}/${To}/${Date}`}
+        action={`/search/${From}/${To}/${Date==null?"undefined":Date}`}
       >
         <h4 className="w-100 text-left" style={{ color: "#1867aa" }} >
           Bus Ticket & Bus Schedule in whole Vietnam
@@ -120,7 +114,7 @@ export default function SelectBus(props) {
             
             <div className="ml-3" >
               <DatePicker
-                value={Date != null ? dayjs(Date) : ""}
+                value={(Date != null ) ? dayjs(Date) : ""}
                 id="dateFocus"
                 size="large"
                 type="date"
