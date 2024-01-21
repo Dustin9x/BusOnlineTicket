@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
 import { approveDriver, deleteDriver, getDriverAction, getDriverByIdAction, getRegisterDriverAction } from "../../../redux/actions/DriverAction";
+import dayjs from "dayjs";
 
 export default function RegisterDriverMng() {
   let userLogin = {};
@@ -180,12 +181,15 @@ export default function RegisterDriverMng() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Year of Birth",
+      title: "Date of Birth",
       dataIndex: "yearOfBirth",
       key: "yearOfBirth",
       ...getColumnSearchProps("yearOfBirth"),
       sorter: (a, b) => a.yearOfBirth.length - b.yearOfBirth.length,
       sortDirections: ["descend", "ascend"],
+      render: (text, driver) => {
+        return dayjs(driver.yearOfBirth).format('DD-MM-YYYY') 
+      },
     },
     {
       title: "Place of Birth",
@@ -200,7 +204,7 @@ export default function RegisterDriverMng() {
       width: "12%",
       render: (text, driver, index) => {
         return (
-          <Fragment key={index}>
+          <div key={index} className="flex">
             <Button key={1} icon={<EditOutlined />}
               onClick={() => {
                 if ( window.confirm( "Do you sure want to approve " + driver.fullName + "?")) {
@@ -215,7 +219,7 @@ export default function RegisterDriverMng() {
                 } 
               }}
             ></Button>
-          </Fragment>
+          </div>
         );
       },
     },

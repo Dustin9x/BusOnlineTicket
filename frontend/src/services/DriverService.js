@@ -13,6 +13,10 @@ export class DriverService extends baseService {
         return this.get(`/api/Driver/`);
     }
 
+    getRegisterDriver = () => {
+        return this.get(`/api/Driver/registerdriver`);
+    }
+
 
     getDriverById = (id) => {
         return this.get(`/api/Driver/${id}`);

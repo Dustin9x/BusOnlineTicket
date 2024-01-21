@@ -8,16 +8,16 @@ import { useFormik } from 'formik';
 import { history } from '../../App';
 
 
-const ProfileDriver = () =>  {
+const ProfileDriver = () => {
   const dispatch = useDispatch();
   const { driverDetail } = useSelector(state => state.DriverReducer);
   let id = {}
   if (localStorage.getItem("driverId")) {
     id = JSON.parse(localStorage.getItem("driverId"))
-  }else{
+  } else {
     history.push("/loginDriver")
- 
-   }
+
+  }
   console.log('Id', id)
   const [checked, setChecked] = useState(false);
   useEffect(() => {
@@ -38,7 +38,7 @@ const ProfileDriver = () =>  {
       note: driverDetail?.note,
       enabled: driverDetail?.enabled,
       avatar: driverDetail?.avatar,
-      trips:[{id:0}]
+      trips: [{ id: 0 }]
     },
     onSubmit: async (values) => {
       let newDriver = new FormData();
@@ -53,17 +53,17 @@ const ProfileDriver = () =>  {
       dispatch(updateDriver(id, newDriver));
     },
   });
-const profile= driverDetail;
+  const profile = driverDetail;
   console.log('profile', profile)
 
 
   const onChangeCheck = (e) => {
-    setChecked("check: ",e.target.checked);
-    
+    setChecked("check: ", e.target.checked);
+
   };
 
-  const handleChangePass=(e)=>{
-    setNewPassword(e.target.value)
+  const handleChangePass = (e) => {
+    // setNewPassword(e.target.value)
   }
 
   return (
@@ -74,7 +74,7 @@ const profile= driverDetail;
           {/* {profile.avatar ? <img style={{width:200, height:200, objectFit: 'cover', borderRadius: '50%'}} src={profile.avatar} alt={profile.avatar} /> : <Avatar size={200} style={{ fontSize: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={userLogin.name.substr(0, 1)} />} */}
           {profile?.avatar == null || profile?.avatar == ""
             ? <Avatar size={200} style={{ fontSize: '200px', lineHeight: '170px' }} icon={"H"} />
-            : <div style={{ minWidth: '40px', minHeight: 40, width: 200, height: 200, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${DOMAIN+"/Images/Driver/"+ profile?.avatar})` }} />
+            : <div style={{ minWidth: '40px', minHeight: 40, width: 200, height: 200, backgroundSize: 'cover', borderRadius: '50%', backgroundImage: `url(${DOMAIN + "/Images/Driver/" + profile?.avatar})` }} />
           }
         </div>
         <div className='col-4'>
@@ -109,32 +109,33 @@ const profile= driverDetail;
             </Typography>
           </div>
           <div className='col-12'>
-          <Form.Item label="Change password?">
-          <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
-        </Form.Item>
+            <Form.Item label="Change password?">
+              <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
+            </Form.Item>
 
-          {checked ? (
-               <div className='col-12'>
-                   <Form   labelCol={{ span: 4,}}  wrapperCol={{span: 14,}} layout="horizontal" onSubmitCapture={formik.handleSubmit} >
-                        <Form.Item  rules={[ {
-                              required: true,
-                              message: "Password  cannot be blank!",  }, ]}  >
-                          <Input.Password name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
-                        </Form.Item>
-                        <Form.Item label="Action">
-                        <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Change</Button>
-                      </Form.Item>
-                   </Form>
+            {checked ? (
+              <div className='col-12'>
+                <Form labelCol={{ span: 4, }} wrapperCol={{ span: 14, }} layout="horizontal" onSubmitCapture={formik.handleSubmit} >
+                  <Form.Item rules={[{
+                    required: true,
+                    message: "Password  cannot be blank!",
+                  },]}  >
+                    <Input.Password name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
+                  </Form.Item>
+                  <Form.Item label="Action">
+                    <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Change</Button>
+                  </Form.Item>
+                </Form>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-        ) : (
-          ""
-        )}
-          </div>
-         
-       
+
+
         </div>
         <div className='col-4'>
- 
+
           <div className='col-12'>
             <Typography>
               <pre>YOB: {profile.yearOfBirth}</pre>
@@ -147,7 +148,7 @@ const profile= driverDetail;
           </div>
           <div className='col-12'>
             <Typography>
-              <pre>Enabled: {profile.enabled?"true":"false"}</pre>
+              <pre>Enabled: {profile.enabled ? "true" : "false"}</pre>
             </Typography>
           </div>
           <div className='col-12'>
@@ -160,7 +161,7 @@ const profile= driverDetail;
               <pre>Note: {profile.note}</pre>
             </Typography>
           </div>
-    
+
         </div>
       </div>
     </div>

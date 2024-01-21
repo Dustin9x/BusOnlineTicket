@@ -7,22 +7,17 @@ import dayjs from 'dayjs';
 import _ from 'lodash';
 import { orderConfirmAction } from "../../redux/actions/OrderAction";
 import { OrderDetail } from "../../_core/models/OrderDetail";
+import Detail from "../../pages/Detail/Detail";
+import { Link, NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function SeatMap(props) {
-    const { selectingSeats } = useSelector(state => state.OrderReducer)
-    const { tripDetail } = useSelector(state => state.TripReducer)
-    const { userLogin } = useSelector(state => state.UserReducer)
     const dispatch = useDispatch();
-    let { tripId } = props
+    const { selectingSeats } = useSelector(state => state.OrderReducer)
+    const { userLogin } = useSelector(state => state.UserReducer)
+    let { tripId, tripDetail } = props
     const numberOfSeat = tripDetail?.bus?.busType?.numberOfSeat;
     const occupiedSeats = tripDetail?.seats?.map(s => s.name);
-    useEffect(() => {
-        dispatch(getTripByIdAction(tripId))
-    }, [])
-
-    console.log('numberOfSeat', numberOfSeat)
-    console.log('occupiedSeats', occupiedSeats)
 
     function RenderSeatCodes9() {
         const seatCodes9 = [
@@ -229,9 +224,11 @@ export default function SeatMap(props) {
 
     const totalMoney = selectingSeats?.length * tripDetail?.ticketPrice
 
+    const orderDetail = new OrderDetail();
+
     return (
         <div>
-            <div class="alert alert-success" role="alert" style={{height: '135px'}}>
+            <div className="alert alert-success" role="alert" style={{ height: '135px' }}>
                 <div className='row'>
                     <div className="col-6">
                         <Timeline
@@ -294,16 +291,16 @@ export default function SeatMap(props) {
                 <div className="w-100 flex justify-between items-center mt-3 mx-3">
                     <div className="w-100 flex justify-between items-center">
                         <div>You're selecting: <b>{renderSeatSelected()}</b></div>
-                        <div className='text-red-400 text-lg font-bold mr-2'>${totalMoney.toLocaleString()}</div>
+                        <div className='text-red-400 text-lg font-bold mr-2'>{totalMoney.toLocaleString("en-US", { style: "currency", currency: "USD" })}</div>
                     </div>
 
                     <div className="" style={{ width: 170 }}>
                         {selectingSeats?.length == 0
-                            ? <button type="button" disabled className="focus:outline-none text-white bg-purple-300 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm py-2.5 w-full">Continue</button>
-                            : <button type="button" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm py-2.5 w-full"
+                            ? <a disabled className="focus:outline-none text-white bg-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full">Continue</a>
+                            : <Link Component={<Detail donhang={orderDetail} />} to={`/detail/${tripId}`} style={{ textDecoration: 'none' }}
+                                className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full"
                                 onClick={() => {
-                                    const orderDetail = new OrderDetail();
-                                    orderDetail.tripId = parseInt(props.match.params.id);
+                                    orderDetail.tripId = tripId;
                                     orderDetail.busId = tripDetail.busId;
                                     orderDetail.driverId = tripDetail.driverId;
                                     orderDetail.driver = tripDetail.driver?.fullName;
@@ -321,12 +318,11 @@ export default function SeatMap(props) {
                                     orderDetail.email = userLogin.email;
                                     dispatch(orderConfirmAction(orderDetail))
                                 }}
-                            >Continue</button>
+                            >Continue</Link>
                         }
+
                     </div>
                 </div>
-
-
             </div>
         </div>
     )

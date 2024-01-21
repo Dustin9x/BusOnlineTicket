@@ -43,7 +43,7 @@ export const bookSeatAction = (ticket) => {
                 description: <>Book ticket Successfully. Thank you!</>,
             });
             await dispatch(hideLoadingAction)
-            dispatch({ type: CHUYEN_TAB_ACTIVE, number: '3' })
+            dispatch({ type: CHUYEN_TAB_ACTIVE, number: '2' })
         } catch (error) {
             console.log(error)
         }

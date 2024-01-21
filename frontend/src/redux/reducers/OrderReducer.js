@@ -1,4 +1,4 @@
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTING_SEATS, GET_TICKET_BY_USER, LAY_CHI_TIET_LICH_CHIEU, LAY_DANH_SACH_DON_HANG_THEO_USER, LAY_DANH_SACH_GHE, LAY_DANH_SACH_LICH_CHIEU, LAY_LICH_CHIEU_THEO_PHIM, ORDER_CONFIRM } from "../constants"
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTING_SEATS, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
     selectingSeats: [],
@@ -22,7 +22,6 @@ export const OrderReducer = (state = initialState, action) => {
 
         case DAT_VE:
             let danhSachGheCapNhat = [...state.selectingSeats];
-            console.log('Ghe duoc chon', action.gheDuocChon)
             let index = danhSachGheCapNhat.findIndex(gheDD => gheDD === action.gheDuocChon);
             if (index != -1) {
                 danhSachGheCapNhat.splice(index, 1)
@@ -41,14 +40,13 @@ export const OrderReducer = (state = initialState, action) => {
             return { ...state }
 
         case CHUYEN_TAB:
-            state.tabActive = '2'
+            state.tabActive = '1'
             state.disableTab = true
             return { ...state }
 
         case CHUYEN_TAB_ACTIVE:
             state.tabActive = action.number
             state.disableTab = true
-            state.disableTab1 = true
             return { ...state }
 
         default:

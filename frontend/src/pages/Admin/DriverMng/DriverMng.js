@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
 import { deleteDriver, getDriverAction, getDriverByIdAction } from "../../../redux/actions/DriverAction";
+import dayjs from "dayjs";
 
 export default function DriverMng() {
   let userLogin = {};
@@ -27,8 +28,6 @@ export default function DriverMng() {
   useEffect((value) => {
     dispatch(getDriverAction());
   }, []);
-
-  console.log('arrDriver',arrDriver)
 
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
@@ -180,12 +179,15 @@ export default function DriverMng() {
       sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Year of Birth",
+      title: "Date of Birth",
       dataIndex: "yearOfBirth",
       key: "yearOfBirth",
       ...getColumnSearchProps("yearOfBirth"),
       sorter: (a, b) => a.yearOfBirth.length - b.yearOfBirth.length,
       sortDirections: ["descend", "ascend"],
+      render: (text, driver) => {
+        return dayjs(driver.yearOfBirth).format('DD-MM-YYYY') 
+      },
     },
     {
       title: "Place of Birth",

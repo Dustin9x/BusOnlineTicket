@@ -23,13 +23,17 @@ export default function TripCard(props) {
     };
     const hours = (new Date(tripDetail.finishTime).getTime() - new Date(tripDetail.startTime).getTime()) / (1000 * 60 * 60);
 
+    const numberOfSeat = tripDetail?.bus?.busType?.numberOfSeat;
+    const occupiedSeats = tripDetail?.seats && Object.keys(tripDetail?.seats).length;
+    const seatLeft = numberOfSeat - occupiedSeats;
+
     return (
         <div>
             <Card hoverable style={{ marginBottom: 10 }}>
                 <div className="row">
                     <div style={{ position: "absolute", right: 20, top: 20 }}>
                         <p className="text-center font-bold text-2xl text-green-800">
-                            ${tripDetail.ticketPrice}
+                            {tripDetail.ticketPrice.toLocaleString("en-US", {style:"currency", currency:"USD"})}
                         </p>
                     </div>
                     <div className="col-3">
@@ -56,16 +60,16 @@ export default function TripCard(props) {
                             {hours} Hours
                         </h3>
                         <div style={{ position: "absolute", right: 10, bottom: 0 }}>
-                            <p className="text-center">Only 3 seats left</p>
+                            <p className="text-center">{seatLeft} seats left</p>
                             <button
-                                className="px-5 py-2 mt-3 flex items-center focus:outline-none  rounded-full font-semibold  bg-red-50 text-red-700 hover:bg-red-100 focus:bg-red-500 active:bg-red-500 focus:text-white"
+                                className="px-5 py-2 flex items-center focus:outline-none  rounded-full font-semibold  bg-red-50 text-red-700 hover:bg-red-100 focus:bg-red-500 active:bg-red-500 focus:text-white"
                                 type="submit"
                                 onClick={showModal}
                             >
                                 <span className="pl2">
                                     <i className="fas fa-bus f3"></i>
                                 </span>
-                                <span className="ml-2 flex-auto">Book</span>
+                                <span className="ml-2 flex-auto">Book Now</span>
                             </button>
                         </div>
                     </div>
@@ -85,7 +89,7 @@ export default function TripCard(props) {
                 }}
                 footer={null}
             >
-                <SeatMap tripId={tripDetail.id} />
+                <SeatMap tripId={tripDetail.id} tripDetail={tripDetail}/>
             </Modal>
         </div>
 

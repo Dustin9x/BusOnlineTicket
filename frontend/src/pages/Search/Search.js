@@ -1,4 +1,4 @@
-import React, { useEffect  } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Radio, Checkbox, Slider } from "antd";
 import { useParams } from "react-router-dom";
@@ -97,8 +97,10 @@ export default function Search(props) {
         </div>
         <div className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
           {arrTrip?.map((item, index) => {
-            return (
+            return (<div key={index}>
               <TripCard tripDetail={item} />
+            </div>
+
             );
           })}
         </div>

@@ -59,6 +59,7 @@ import RegisterDriver from "./pages/Driver/RegisterDriver";
 import ForgetPasswordDriver from './pages/Driver/ForgetPasswordDriver';
 import DetailTripOfDriver from "./pages/Driver/DetailTripOfDriver";
 import ProfileDriver from "./pages/Driver/ProfileDriver";
+import { combineReducers } from 'redux';
 
 export const history = createBrowserHistory();
 

@@ -21,7 +21,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s=>s.Seats).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).ToListAsync();
         }
 
         public async Task<IEnumerable<Trip>> GetTripById(int Id)
@@ -152,7 +152,7 @@ namespace backend.Services
         public List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {
 
-            var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(s => s.FromStation).Include(s => s.ToStation).AsQueryable();
+            var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchBusType))
             {
@@ -225,6 +225,8 @@ namespace backend.Services
                 ToStationId = trip.ToStationId,
                 FromStation = trip.FromStation,
                 ToStation = trip.ToStation,
+                Driver = trip.Driver,
+                Seats = trip.Seats.ToList(),
                 Bus = trip.Bus,
                 Image = trip.Image
             });
