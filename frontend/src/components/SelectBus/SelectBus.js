@@ -4,8 +4,11 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { getStationListAction } from '../../redux/actions/StationAction';
 import dayjs from "dayjs";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import Search from "../../pages/Search/Search";
 
 export default function SelectBus(props) {
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -13,14 +16,18 @@ export default function SelectBus(props) {
   }, []);
 
   let { arrStation } = useSelector(state => state.StationReducer);
-  let { from } = useParams();
-  let { to } = useParams();
-  let { date } = useParams();
+  // let { from } = useParams();
+  // let { to } = useParams();
+  // let { date } = useParams();
 
 
-  const [From, setFrom] = useState(from != "undefined" ? from : null);
-  const [To, setTo] = useState(to != "undefined" ? to : null);
-  const [Date, setDate] = useState((date != "undefined") ? date : null);
+  // const [From, setFrom] = useState(from != "undefined" ? from : null);
+  // const [To, setTo] = useState(to != "undefined" ? to : null);
+  // const [Date, setDate] = useState(date != null ? date : null);
+
+  const [From, setFrom] = useState();
+  const [To, setTo] = useState();
+  const [Date, setDate] = useState();
 
   const handleFromChange = (value) => {
     setFrom(value);
@@ -29,12 +36,7 @@ export default function SelectBus(props) {
     setTo(value);
   };
   const handleDateChange = (date, dateString) => {
-
-    if (dateString == "") {
-      console.log("check date:", dateString)
-      setDate(null);
-    }
-    else {
+    if (dateString != "") {
       setDate(dateString);
     }
   };
@@ -61,21 +63,21 @@ export default function SelectBus(props) {
     setFrom(To);
     setTo(From);
   }
-  
+
   return (
     <div className="w-100 p-2 rounded-xl bg-white">
       <form
         onSubmit={handleSubmit}
         autoComplete="off"
         className=" w-100"
-        action={`/search/${From}/${To}/${Date==null?"undefined":Date}`}
+        action={Date !== 'undefined' ? `/search/${From}/${To}/${Date}` : `/search/${From}/${To}`}
       >
         <h4 className="w-100 text-left" style={{ color: "#1867aa" }} >
           Bus Ticket & Bus Schedule in whole Vietnam
         </h4>
         <div className="autocomplete  br3 cf w-100 flex flex-wrap justify-center">
           <div className="d-flex w-100 justify-around" >
-            
+
             <div className="w-80" >
               <Form.Item
                 style={{ minWidth: '100%' }}
@@ -89,7 +91,7 @@ export default function SelectBus(props) {
                   options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
                   onChange={handleFromChange} />
               </Form.Item>
-            </div>  
+            </div>
 
             <div id="btn" className="w-10 br3 mb0-l mb2-m flex justify-center items-center bg-white dim pointer" style={{ height: "3em", borderRadius: ".5rem !important", cursor: "pointer" }}  >
               <i onClick={swapStation} className="fas fa-exchange-alt pointer"></i>
@@ -110,11 +112,11 @@ export default function SelectBus(props) {
             </div>
 
 
-            
-            
+
+
             <div className="ml-3" >
               <DatePicker
-                value={(Date != null ) ? dayjs(Date) : ""}
+                value={(Date != null) ? dayjs(Date) : ""}
                 id="dateFocus"
                 size="large"
                 type="date"
@@ -136,6 +138,10 @@ export default function SelectBus(props) {
               </span>
               <span className="ml-2 flex-auto">Search Buses</span>
             </button>
+            <Link to={`/search/${From}/${To}`} style={{ textDecoration: 'none' }}
+              className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full"
+
+            >Continue</Link>
           </div>
         </div>
       </form>

@@ -143,6 +143,7 @@ function App() {
 
         <HomeTemplate path="/" exact Component={Home} />
         <HomeTemplate path="/search/:from/:to/:date" exact Component={Search} />
+        <HomeTemplate path="/search/:from/:to" exact Component={Search} />
         <HomeTemplate Component={Home} />
       </Switch>
     </Router>

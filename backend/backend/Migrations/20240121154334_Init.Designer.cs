@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240120141112_Init")]
+    [Migration("20240121154334_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -365,7 +365,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Nguyen Van Toan",
                             NationalId = "2345678",
-                            Password = "$2a$11$wLzjQFuRK6UpsHsi8fUjFOZiU0AEaE7pey5T4fLx/gc1tLhLyZ8Ia",
+                            Password = "$2a$11$cwaOTTtLQMfpKRsfXcx42.AKr40TPXl8vtpmBiD2y47HmdRClk1uC",
                             Phone = "090123456",
                             PlaceOfBirth = "Ho Chi Minh",
                             YearOfBirth = new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -380,7 +380,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345678",
-                            Password = "$2a$11$cEHEBqy3e7Jmzx4Eci2WBOde/fB4LyoUUbbdFICxjkj2bBOqnAXkO",
+                            Password = "$2a$11$5dUIkC4IwdjH3Xqw5dO2j.nC0JmKagwCk8z4xpCa34saL/dHexzHi",
                             Phone = "090123456",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -395,7 +395,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Bui Quoc Viet",
                             NationalId = "2345679",
-                            Password = "$2a$11$NfYP2sGmYs.WxzE8QtyaA.U4M15Z9jDQI3D7M8pk73hXP7R.CLYeW",
+                            Password = "$2a$11$jIS846vI2tdbP9ev68d1H.PlwPT.sCnDflu9ptsCdpGPxhUW3iYWa",
                             Phone = "090123457",
                             PlaceOfBirth = "Binh Thuam",
                             YearOfBirth = new DateTime(1993, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -410,7 +410,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Pham Huy Hoang",
                             NationalId = "2345670",
-                            Password = "$2a$11$ivF2AY33jSDnZW/FF7gxv.HTpcfly58LbOFSbLphLq7She2Pn1WSy",
+                            Password = "$2a$11$vO07jzyO4qIpdfNcAHpK0eL8laSj2VzKiiuVq5PoV4kTBKuQa0NVi",
                             Phone = "090123458",
                             PlaceOfBirth = "Gia Lai",
                             YearOfBirth = new DateTime(1990, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -425,7 +425,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Chuong",
                             NationalId = "2345671",
-                            Password = "$2a$11$0I3e7YpBRd1K.EuwQYZEt.nuztBxEYLlJZWbaRy7dJdt16DDckeyq",
+                            Password = "$2a$11$MGJa4njVPD5itdF0NvjBCuE0WxL7zBXujIhCIU8t6/P3q.TpbtGQy",
                             Phone = "090123459",
                             PlaceOfBirth = "Vung Tau",
                             YearOfBirth = new DateTime(1999, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -440,7 +440,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Thanh Thien",
                             NationalId = "2345672",
-                            Password = "$2a$11$lQLhOdN.5lnpE.ZD2fX1bOBQDQ.rNe3mxg6CjOPtV8H9KJ201s98S",
+                            Password = "$2a$11$5Md/6YCn5MRYY3lJmkr.jOL40HjIHQP0Ica6C19qoCIBejTsro/nS",
                             Phone = "090123450",
                             PlaceOfBirth = "Hà Nội",
                             YearOfBirth = new DateTime(1997, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -455,7 +455,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Dai Vi",
                             NationalId = "2345673",
-                            Password = "$2a$11$xmz/A6gpiaxAhnjJ3o312Oo9ZN.um80jZUb/qlQJLWBayKFD3vK0a",
+                            Password = "$2a$11$Ekv2UK8B76Z3Y33tPLgi3.WBKYj8AXe7TkFXDO6sTra1oJHqQmCF2",
                             Phone = "090123452",
                             PlaceOfBirth = "Ca Mau",
                             YearOfBirth = new DateTime(1996, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -470,7 +470,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345674",
-                            Password = "$2a$11$g3eQQv1jlwElVd6XBPVU1.nxc3g5osOyF8tWvBaJhHihQ5uTqtY7y",
+                            Password = "$2a$11$kFk3YnPWuCfHsz2r386n7upO4I6fJ5sYscGIiyX4Bcz1Goolco7m.",
                             Phone = "090123451",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1994, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -485,7 +485,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Quan",
                             NationalId = "2345675",
-                            Password = "$2a$11$E4Ap5exxH7rd8klfk1ordOOkCGYVuO50pyCKijlrHp7K8SPbYRcta",
+                            Password = "$2a$11$c83Jawm5CKEE/5TjppmXkOdTd1tS7k5kDZfuUpNcBe07lNKHjGtta",
                             Phone = "090123453",
                             PlaceOfBirth = "Ben Tre",
                             YearOfBirth = new DateTime(2000, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -500,7 +500,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Linh",
                             NationalId = "2345676",
-                            Password = "$2a$11$UCwRKJ9YmpfiSKZ7uztzduIEQRFg4d.ux9nx0wzLFj4gFxsUwiofW",
+                            Password = "$2a$11$ZW9pyuO4ohWkxGFMoLEDauKelUdetcJ4qUtuhhSnCbNts7yjWi7ES",
                             Phone = "090123455",
                             PlaceOfBirth = "Dong Thap",
                             YearOfBirth = new DateTime(1978, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -553,6 +553,31 @@ namespace backend.Migrations
                             Answer = "Ans: If you cancel before 2 days of Journey date then the whole money will be returned, if done one day before then 15% is debited from the total amount is returned, and if done on that day 30% is debited from the total amount is to be returned back.",
                             Question = "Q. Can I cancel my ticket and get a refund?"
                         });
+                });
+
+            modelBuilder.Entity("backend.Models.PromoteTrip", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FromStation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("MinPrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ToStation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PromoteTrips");
                 });
 
             modelBuilder.Entity("backend.Models.Seat", b =>
@@ -781,8 +806,8 @@ namespace backend.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("TicketPrice")
-                        .HasColumnType("int");
+                    b.Property<double>("TicketPrice")
+                        .HasColumnType("float");
 
                     b.Property<int?>("ToStationId")
                         .HasColumnType("int");
@@ -809,7 +834,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 100,
+                            TicketPrice = 100.0,
                             ToStationId = 2
                         },
                         new
@@ -821,7 +846,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 200,
+                            TicketPrice = 200.0,
                             ToStationId = 2
                         },
                         new
@@ -833,7 +858,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 300,
+                            TicketPrice = 300.0,
                             ToStationId = 2
                         },
                         new
@@ -845,7 +870,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 350,
+                            TicketPrice = 350.0,
                             ToStationId = 2
                         },
                         new
@@ -857,7 +882,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 400,
+                            TicketPrice = 400.0,
                             ToStationId = 3
                         },
                         new
@@ -869,7 +894,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 3
                         },
                         new
@@ -881,7 +906,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 150,
+                            TicketPrice = 150.0,
                             ToStationId = 3
                         },
                         new
@@ -893,7 +918,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 160,
+                            TicketPrice = 160.0,
                             ToStationId = 4
                         },
                         new
@@ -905,7 +930,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 180,
+                            TicketPrice = 180.0,
                             ToStationId = 4
                         },
                         new
@@ -917,7 +942,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 190,
+                            TicketPrice = 190.0,
                             ToStationId = 4
                         },
                         new
@@ -929,7 +954,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 290,
+                            TicketPrice = 290.0,
                             ToStationId = 5
                         },
                         new
@@ -941,7 +966,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 5
                         },
                         new
@@ -953,7 +978,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 360,
+                            TicketPrice = 360.0,
                             ToStationId = 5
                         },
                         new
@@ -965,7 +990,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 5
                         },
                         new
@@ -977,7 +1002,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 420,
+                            TicketPrice = 420.0,
                             ToStationId = 6
                         },
                         new
@@ -989,7 +1014,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 6
                         },
                         new
@@ -1001,7 +1026,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 6
                         },
                         new
@@ -1013,7 +1038,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 210,
+                            TicketPrice = 210.0,
                             ToStationId = 7
                         },
                         new
@@ -1025,7 +1050,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 7
                         },
                         new
@@ -1037,7 +1062,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 7
                         },
                         new
@@ -1049,7 +1074,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 8
                         },
                         new
@@ -1061,7 +1086,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 8
                         },
                         new
@@ -1073,7 +1098,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 410,
+                            TicketPrice = 410.0,
                             ToStationId = 8
                         },
                         new
@@ -1085,7 +1110,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 8
                         },
                         new
@@ -1097,7 +1122,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 590,
+                            TicketPrice = 590.0,
                             ToStationId = 9
                         },
                         new
@@ -1109,7 +1134,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 490,
+                            TicketPrice = 490.0,
                             ToStationId = 9
                         },
                         new
@@ -1121,7 +1146,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 9
                         },
                         new
@@ -1133,7 +1158,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 220,
+                            TicketPrice = 220.0,
                             ToStationId = 10
                         },
                         new
@@ -1145,7 +1170,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 390,
+                            TicketPrice = 390.0,
                             ToStationId = 10
                         },
                         new
@@ -1157,7 +1182,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 10
                         },
                         new
@@ -1169,7 +1194,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 100,
+                            TicketPrice = 100.0,
                             ToStationId = 2
                         },
                         new
@@ -1181,7 +1206,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 200,
+                            TicketPrice = 200.0,
                             ToStationId = 2
                         },
                         new
@@ -1193,7 +1218,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 300,
+                            TicketPrice = 300.0,
                             ToStationId = 2
                         },
                         new
@@ -1205,7 +1230,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 350,
+                            TicketPrice = 350.0,
                             ToStationId = 2
                         },
                         new
@@ -1217,7 +1242,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 400,
+                            TicketPrice = 400.0,
                             ToStationId = 3
                         },
                         new
@@ -1229,7 +1254,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 3
                         },
                         new
@@ -1241,7 +1266,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 150,
+                            TicketPrice = 150.0,
                             ToStationId = 3
                         },
                         new
@@ -1253,7 +1278,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 160,
+                            TicketPrice = 160.0,
                             ToStationId = 4
                         },
                         new
@@ -1265,7 +1290,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 180,
+                            TicketPrice = 180.0,
                             ToStationId = 4
                         },
                         new
@@ -1277,7 +1302,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 190,
+                            TicketPrice = 190.0,
                             ToStationId = 4
                         },
                         new
@@ -1289,7 +1314,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 290,
+                            TicketPrice = 290.0,
                             ToStationId = 5
                         },
                         new
@@ -1301,7 +1326,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 5
                         },
                         new
@@ -1313,7 +1338,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 360,
+                            TicketPrice = 360.0,
                             ToStationId = 5
                         },
                         new
@@ -1325,7 +1350,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 5
                         },
                         new
@@ -1337,7 +1362,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 420,
+                            TicketPrice = 420.0,
                             ToStationId = 6
                         },
                         new
@@ -1349,7 +1374,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 6
                         },
                         new
@@ -1361,7 +1386,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 6
                         },
                         new
@@ -1373,7 +1398,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 210,
+                            TicketPrice = 210.0,
                             ToStationId = 7
                         },
                         new
@@ -1385,7 +1410,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 7
                         },
                         new
@@ -1397,7 +1422,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 7
                         },
                         new
@@ -1409,7 +1434,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 8
                         },
                         new
@@ -1421,7 +1446,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 8
                         },
                         new
@@ -1433,7 +1458,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 410,
+                            TicketPrice = 410.0,
                             ToStationId = 8
                         },
                         new
@@ -1445,7 +1470,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 8
                         },
                         new
@@ -1457,7 +1482,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 590,
+                            TicketPrice = 590.0,
                             ToStationId = 9
                         },
                         new
@@ -1469,7 +1494,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 490,
+                            TicketPrice = 490.0,
                             ToStationId = 9
                         },
                         new
@@ -1481,7 +1506,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 9
                         },
                         new
@@ -1493,7 +1518,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 220,
+                            TicketPrice = 220.0,
                             ToStationId = 10
                         },
                         new
@@ -1505,7 +1530,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 390,
+                            TicketPrice = 390.0,
                             ToStationId = 10
                         },
                         new
@@ -1517,7 +1542,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 1, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 10
                         },
                         new
@@ -1529,7 +1554,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 100,
+                            TicketPrice = 100.0,
                             ToStationId = 2
                         },
                         new
@@ -1541,7 +1566,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 200,
+                            TicketPrice = 200.0,
                             ToStationId = 2
                         },
                         new
@@ -1553,7 +1578,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 300,
+                            TicketPrice = 300.0,
                             ToStationId = 2
                         },
                         new
@@ -1565,7 +1590,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 350,
+                            TicketPrice = 350.0,
                             ToStationId = 2
                         },
                         new
@@ -1577,7 +1602,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 400,
+                            TicketPrice = 400.0,
                             ToStationId = 3
                         },
                         new
@@ -1589,7 +1614,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 3
                         },
                         new
@@ -1601,7 +1626,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 150,
+                            TicketPrice = 150.0,
                             ToStationId = 3
                         },
                         new
@@ -1613,7 +1638,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 160,
+                            TicketPrice = 160.0,
                             ToStationId = 4
                         },
                         new
@@ -1625,7 +1650,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 180,
+                            TicketPrice = 180.0,
                             ToStationId = 4
                         },
                         new
@@ -1637,7 +1662,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 190,
+                            TicketPrice = 190.0,
                             ToStationId = 4
                         },
                         new
@@ -1649,7 +1674,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 290,
+                            TicketPrice = 290.0,
                             ToStationId = 5
                         },
                         new
@@ -1661,7 +1686,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 5
                         },
                         new
@@ -1673,7 +1698,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 360,
+                            TicketPrice = 360.0,
                             ToStationId = 5
                         },
                         new
@@ -1685,7 +1710,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 5
                         },
                         new
@@ -1697,7 +1722,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 420,
+                            TicketPrice = 420.0,
                             ToStationId = 6
                         },
                         new
@@ -1709,7 +1734,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 6
                         },
                         new
@@ -1721,7 +1746,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 6
                         },
                         new
@@ -1733,7 +1758,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 210,
+                            TicketPrice = 210.0,
                             ToStationId = 7
                         },
                         new
@@ -1745,7 +1770,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 7
                         },
                         new
@@ -1757,7 +1782,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 7
                         },
                         new
@@ -1769,7 +1794,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 8
                         },
                         new
@@ -1781,7 +1806,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 8
                         },
                         new
@@ -1793,7 +1818,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 410,
+                            TicketPrice = 410.0,
                             ToStationId = 8
                         },
                         new
@@ -1805,7 +1830,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 8
                         },
                         new
@@ -1817,7 +1842,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 590,
+                            TicketPrice = 590.0,
                             ToStationId = 9
                         },
                         new
@@ -1829,7 +1854,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 490,
+                            TicketPrice = 490.0,
                             ToStationId = 9
                         },
                         new
@@ -1841,7 +1866,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 9
                         },
                         new
@@ -1853,7 +1878,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 220,
+                            TicketPrice = 220.0,
                             ToStationId = 10
                         },
                         new
@@ -1865,7 +1890,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 390,
+                            TicketPrice = 390.0,
                             ToStationId = 10
                         },
                         new
@@ -1877,7 +1902,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 10
                         },
                         new
@@ -1889,7 +1914,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 100,
+                            TicketPrice = 100.0,
                             ToStationId = 2
                         },
                         new
@@ -1901,7 +1926,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 200,
+                            TicketPrice = 200.0,
                             ToStationId = 2
                         },
                         new
@@ -1913,7 +1938,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 300,
+                            TicketPrice = 300.0,
                             ToStationId = 2
                         },
                         new
@@ -1925,7 +1950,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 350,
+                            TicketPrice = 350.0,
                             ToStationId = 2
                         },
                         new
@@ -1937,7 +1962,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 400,
+                            TicketPrice = 400.0,
                             ToStationId = 3
                         },
                         new
@@ -1949,7 +1974,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 3
                         },
                         new
@@ -1961,7 +1986,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 150,
+                            TicketPrice = 150.0,
                             ToStationId = 3
                         },
                         new
@@ -1973,7 +1998,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 160,
+                            TicketPrice = 160.0,
                             ToStationId = 4
                         },
                         new
@@ -1985,7 +2010,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 180,
+                            TicketPrice = 180.0,
                             ToStationId = 4
                         },
                         new
@@ -1997,7 +2022,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 190,
+                            TicketPrice = 190.0,
                             ToStationId = 4
                         },
                         new
@@ -2009,7 +2034,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 290,
+                            TicketPrice = 290.0,
                             ToStationId = 5
                         },
                         new
@@ -2021,7 +2046,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 5
                         },
                         new
@@ -2033,7 +2058,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 360,
+                            TicketPrice = 360.0,
                             ToStationId = 5
                         },
                         new
@@ -2045,7 +2070,7 @@ namespace backend.Migrations
                             FromStationId = 4,
                             Image = "image4.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 5
                         },
                         new
@@ -2057,7 +2082,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 420,
+                            TicketPrice = 420.0,
                             ToStationId = 6
                         },
                         new
@@ -2069,7 +2094,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 340,
+                            TicketPrice = 340.0,
                             ToStationId = 6
                         },
                         new
@@ -2081,7 +2106,7 @@ namespace backend.Migrations
                             FromStationId = 5,
                             Image = "image5.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 6
                         },
                         new
@@ -2093,7 +2118,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 210,
+                            TicketPrice = 210.0,
                             ToStationId = 7
                         },
                         new
@@ -2105,7 +2130,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 7
                         },
                         new
@@ -2117,7 +2142,7 @@ namespace backend.Migrations
                             FromStationId = 6,
                             Image = "image6.jpg",
                             StartTime = new DateTime(2024, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 7
                         },
                         new
@@ -2129,7 +2154,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 280,
+                            TicketPrice = 280.0,
                             ToStationId = 8
                         },
                         new
@@ -2141,7 +2166,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 320,
+                            TicketPrice = 320.0,
                             ToStationId = 8
                         },
                         new
@@ -2153,7 +2178,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image7.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 410,
+                            TicketPrice = 410.0,
                             ToStationId = 8
                         },
                         new
@@ -2165,7 +2190,7 @@ namespace backend.Migrations
                             FromStationId = 7,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 8
                         },
                         new
@@ -2177,7 +2202,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 590,
+                            TicketPrice = 590.0,
                             ToStationId = 9
                         },
                         new
@@ -2189,7 +2214,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 490,
+                            TicketPrice = 490.0,
                             ToStationId = 9
                         },
                         new
@@ -2201,7 +2226,7 @@ namespace backend.Migrations
                             FromStationId = 8,
                             Image = "image8.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 230,
+                            TicketPrice = 230.0,
                             ToStationId = 9
                         },
                         new
@@ -2213,7 +2238,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 220,
+                            TicketPrice = 220.0,
                             ToStationId = 10
                         },
                         new
@@ -2225,7 +2250,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 390,
+                            TicketPrice = 390.0,
                             ToStationId = 10
                         },
                         new
@@ -2237,7 +2262,7 @@ namespace backend.Migrations
                             FromStationId = 9,
                             Image = "image9.jpg",
                             StartTime = new DateTime(2024, 2, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 270,
+                            TicketPrice = 270.0,
                             ToStationId = 10
                         },
                         new
@@ -2249,7 +2274,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 100,
+                            TicketPrice = 100.0,
                             ToStationId = 2
                         },
                         new
@@ -2261,7 +2286,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 200,
+                            TicketPrice = 200.0,
                             ToStationId = 2
                         },
                         new
@@ -2273,7 +2298,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 300,
+                            TicketPrice = 300.0,
                             ToStationId = 2
                         },
                         new
@@ -2285,7 +2310,7 @@ namespace backend.Migrations
                             FromStationId = 1,
                             Image = "image1.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 350,
+                            TicketPrice = 350.0,
                             ToStationId = 2
                         },
                         new
@@ -2297,7 +2322,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 400,
+                            TicketPrice = 400.0,
                             ToStationId = 3
                         },
                         new
@@ -2309,7 +2334,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 250,
+                            TicketPrice = 250.0,
                             ToStationId = 3
                         },
                         new
@@ -2321,7 +2346,7 @@ namespace backend.Migrations
                             FromStationId = 2,
                             Image = "image2.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 150,
+                            TicketPrice = 150.0,
                             ToStationId = 3
                         },
                         new
@@ -2333,7 +2358,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 160,
+                            TicketPrice = 160.0,
                             ToStationId = 4
                         },
                         new
@@ -2345,7 +2370,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 180,
+                            TicketPrice = 180.0,
                             ToStationId = 4
                         },
                         new
@@ -2357,7 +2382,7 @@ namespace backend.Migrations
                             FromStationId = 3,
                             Image = "image3.jpg",
                             StartTime = new DateTime(2024, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TicketPrice = 190,
+                            TicketPrice = 190.0,
                             ToStationId = 4
                         });
                 });
@@ -2397,21 +2422,21 @@ namespace backend.Migrations
                         {
                             Id = 1,
                             Email = "admin@phtv.com",
-                            Password = "$2a$11$6zvT0Sa5dv4YIiPOlKDSL.t1yFuIQ7G14MgeqvUciowTDqgJd98A6",
+                            Password = "$2a$11$YTwn.ieuRbL4xzMcEV7n6.qUPL1sigRJ29XL0hL87vnCUstIXe5jC",
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2,
                             Email = "emp@phtv.com",
-                            Password = "$2a$11$ypUAFnZ/eLHybJdXmOLd3OjHOWQ08/TEYrwe0E89HSMXI66/zxvxi",
+                            Password = "$2a$11$On4k2xzEIyrvd5VJtLPstuW3ajdAZhHAbQG6FlRBuGa.dqOD3C4G2",
                             Role = "Mod"
                         },
                         new
                         {
                             Id = 3,
                             Email = "user@phtv.com",
-                            Password = "$2a$11$tGRr/KXWOtYu/t8nVXKGIuMYx/PKBquDctHbL.BktrD4xq5iUO1Xe",
+                            Password = "$2a$11$JY0nwjR2ZS6s1f68OJ64J.pMWDcwqgE1uEKgNjXyexg9GIRIcdDm.",
                             Role = "User"
                         });
                 });

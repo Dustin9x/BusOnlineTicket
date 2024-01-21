@@ -9,7 +9,7 @@ import TripCard from "../../components/TripCard/TripCard";
 
 const setInput = {
   sort: "",
-  BusType: "",
+  busType: "",
   fromPrice: 0,
   toPrice: "",
   from: "",
@@ -21,11 +21,13 @@ export default function Search(props) {
   const dispatch = useDispatch();
   let { from, to, date } = useParams();
 
-  console.log("date:", date)
   useEffect(() => {
     setInput.from = from;
     setInput.to = to;
-    setInput.dayStart = date=="undefined"?"":date;
+    if(date != null){
+      setInput.dayStart = date;
+    }
+    
 
     dispatch(getTripListOptionsAction(setInput));
   }, [dispatch]);

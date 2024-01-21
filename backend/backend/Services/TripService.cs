@@ -122,7 +122,6 @@ namespace backend.Services
                         {
                             System.IO.File.Delete(Path.Combine(upload, ExistingTrip.Image));
                         }
-
                     }
                     ExistingTrip.Image = filePath;
                 }
@@ -152,7 +151,7 @@ namespace backend.Services
         public List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {
 
-            var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).AsQueryable();
+            var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).Where(x => x.StartTime >= DateTime.Today).AsQueryable();
 
             if (!string.IsNullOrEmpty(searchBusType))
             {
@@ -178,13 +177,13 @@ namespace backend.Services
             }
             if (!string.IsNullOrEmpty(fromPrice))
             {
-                allTrips = allTrips.Where(tr => tr.TicketPrice >= int.Parse(fromPrice));
+                allTrips = allTrips.Where(tr => tr.TicketPrice >= double.Parse(fromPrice));
             }
 
             if (!string.IsNullOrEmpty(toPrice))
             {
 
-                allTrips = allTrips.Where(tr => tr.TicketPrice <= int.Parse(toPrice));
+                allTrips = allTrips.Where(tr => tr.TicketPrice <= double.Parse(toPrice));
             }
 
 

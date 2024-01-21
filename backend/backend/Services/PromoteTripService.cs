@@ -7,10 +7,12 @@ namespace backend.Services
     public class PromoteTripService : IPromoteTripRepo
     {
         private readonly DatabaseContext db;
+        private readonly IWebHostEnvironment env;
 
-        public PromoteTripService(DatabaseContext db)
+        public PromoteTripService(DatabaseContext db, IWebHostEnvironment env)
         {
             this.db = db;
+            this.env = env;
         }
 
         public async Task<IEnumerable<PromoteTrip>> GetAllPromoteTrip()
@@ -25,7 +27,7 @@ namespace backend.Services
 
         public async Task<bool> CreatePromoteTrip(PromoteTrip PromoteTrip)
         {
-            double min = 0;
+            double min = Double.MaxValue;
             var list = await db.Trips.Where(t => t.FromStation.Name == PromoteTrip.FromStation && t.ToStation.Name == PromoteTrip.ToStation).ToListAsync();
             if (list != null)
             {
@@ -33,6 +35,20 @@ namespace backend.Services
                 {
                     min = Math.Min(min, t.TicketPrice);
                 }
+            }
+            if (PromoteTrip.UploadImage.Length > 0)
+            {
+                string pathToNewFolder = System.IO.Path.Combine("Images", "PromoteTrip");
+                DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
+                var filePath = Path.Combine(Path.GetRandomFileName() + PromoteTrip.UploadImage.FileName);
+
+                using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                {
+                    await PromoteTrip.UploadImage.CopyToAsync(stream);
+                }
+
+                PromoteTrip.Image = filePath;
             }
             PromoteTrip.MinPrice = min;
             db.PromoteTrips.Add(PromoteTrip);
@@ -54,7 +70,7 @@ namespace backend.Services
 
         public async Task<bool> PutPromoteTrip(int Id, PromoteTrip PromoteTrip)
         {
-            double min = 0;
+            double min = Double.MaxValue;
             var oldPromoteTrip = await db.PromoteTrips.FindAsync(Id);
             if (oldPromoteTrip != null)
             {
@@ -65,6 +81,29 @@ namespace backend.Services
                     {
                         min = Math.Min(min, t.TicketPrice);
                     }
+                }
+                if (PromoteTrip.UploadImage != null)
+                {
+                    string pathToNewFolder = System.IO.Path.Combine("Images", "PromoteTrip");
+                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
+                    var filePath = Path.Combine(Path.GetRandomFileName() + PromoteTrip.UploadImage.FileName);
+
+                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                    {
+                        await PromoteTrip.UploadImage.CopyToAsync(stream);
+                    }
+
+                    if (!string.IsNullOrEmpty(oldPromoteTrip.Image))
+                    {
+
+
+                        if (System.IO.File.Exists(Path.Combine(upload, oldPromoteTrip.Image)))
+                        {
+                            System.IO.File.Delete(Path.Combine(upload, oldPromoteTrip.Image));
+                        }
+                    }
+                    oldPromoteTrip.Image = filePath;
                 }
                 oldPromoteTrip.FromStation = PromoteTrip.FromStation;
                 oldPromoteTrip.ToStation = PromoteTrip.ToStation;
