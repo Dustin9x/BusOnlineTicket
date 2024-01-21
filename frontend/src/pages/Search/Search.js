@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Card, Radio, Checkbox, Slider } from "antd";
+import { Card, Radio, Checkbox, Slider, Result } from "antd";
+import { FrownOutlined } from '@ant-design/icons';
 import { useParams } from "react-router-dom";
 import SelectBus from "../../components/SelectBus/SelectBus";
 import { getTripListOptionsAction } from "../../redux/actions/TripAction";
@@ -96,13 +97,21 @@ export default function Search(props) {
           </Card>
         </div>
         <div className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
-          {arrTrip?.map((item, index) => {
-            return (<div key={index}>
-              <TripCard tripDetail={item} />
-            </div>
+          {arrTrip.length > 0
+            ?
+            arrTrip?.map((item, index) => {
+              return (<div key={index}>
+                <TripCard tripDetail={item} />
+              </div>
 
-            );
-          })}
+              );
+            })
+            : <Result
+              icon={<FrownOutlined />}
+              title="Oops!"
+              subTitle="Sorry, we can not found any schedule matched your request!"
+            />
+          }
         </div>
       </div>
     </div>

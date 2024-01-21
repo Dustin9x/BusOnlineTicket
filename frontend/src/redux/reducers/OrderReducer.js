@@ -2,7 +2,6 @@ import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTIN
 
 const initialState = {
     selectingSeats: [],
-    danhSachGheKhachDat: [{ maGhe: 61641 }, { maGhe: 61642 }],
     tabActive: '1',
     donhang: {},
     arrTicket: [],

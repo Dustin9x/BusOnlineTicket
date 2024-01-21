@@ -45,6 +45,7 @@ builder.Services.AddScoped<IBusTypeRepo, BusTypeService>();
 builder.Services.AddScoped<ISeatRepo, SeatService>();
 builder.Services.AddScoped<ITicketRepo, TicketService>();
 builder.Services.AddScoped<IFAQrepo, FAQService>();
+builder.Services.AddScoped<IPromoteTripRepo, PromoteTripService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));

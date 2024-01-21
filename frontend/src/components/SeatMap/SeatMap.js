@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTripByIdAction } from "../../redux/actions/TripAction";
 import { Button, Timeline } from "antd";
 import { DAT_VE } from "../../redux/constants";
 import dayjs from 'dayjs';
@@ -8,7 +6,7 @@ import _ from 'lodash';
 import { orderConfirmAction } from "../../redux/actions/OrderAction";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import Detail from "../../pages/Detail/Detail";
-import { Link, NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function SeatMap(props) {

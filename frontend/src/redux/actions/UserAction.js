@@ -79,15 +79,15 @@ export const registerAction = (thongTinDangKy) => {
   };
 };
 
-export const forgetPassword = (thongTinEmail) => {
+export const forgetPassword = (emailInfo) => {
   return async (dispatch) => {
     try {
       dispatch(displayLoadingAction);
-      const result = await userService.forgetPassword(thongTinEmail);
+      const result = await userService.forgetPassword(emailInfo);
       if (result.data.status === 200) {
         dispatch({
           type: LAY_LAI_MAT_KHAU_ACTION,
-          thongTinEmail: result.data.content,
+          emailInfo: result.data.content,
         });
         await dispatch(hideLoadingAction);
         notification.success({

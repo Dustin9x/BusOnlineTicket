@@ -7,7 +7,7 @@ namespace backend.Models
         public int Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime FinishTime { get; set; }
-        public int TicketPrice { get; set; }
+        public double TicketPrice { get; set; }
         public int BusId { get; set; }
         public int DriverId { get; set; }
         public int? FromStationId { get; set; }

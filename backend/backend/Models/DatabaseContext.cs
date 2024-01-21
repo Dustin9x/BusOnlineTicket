@@ -11,6 +11,7 @@ namespace backend.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Station> Stations { get; set; }
         public DbSet<Trip> Trips { get; set; }
+        public DbSet<PromoteTrip> PromoteTrips { get; set; }
         public DbSet<Bus> Buses { get; set; }
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Driver> Drivers { get; set; }
@@ -68,6 +69,10 @@ namespace backend.Models
                 .UsingEntity<BusStation>();
 
             modelBuilder.Entity<Seat>(t =>
+            {
+                t.HasKey(t => t.Id);
+            });
+            modelBuilder.Entity<PromoteTrip>(t =>
             {
                 t.HasKey(t => t.Id);
             });

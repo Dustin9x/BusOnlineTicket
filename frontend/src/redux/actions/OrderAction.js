@@ -1,10 +1,9 @@
 import { notification } from "antd";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
-import { CHON_GHE, CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants";
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
-import { TOKEN, USER_LOGIN } from "../../util/settings/config";
-import { getCurrentUserAction } from "./UserAction";
+import { TOKEN } from "../../util/settings/config";
 import { userService } from "../../services/UserService";
 
 const userLoginId = null;

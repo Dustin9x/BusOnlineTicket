@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-constructor */
 import { baseService } from "./baseService";
 
-export class QuanLyDonHangService extends baseService {
+export class ProfitService extends baseService {
     constructor() {
         super();
     }
@@ -25,4 +25,4 @@ export class QuanLyDonHangService extends baseService {
 
 }
 
-export const quanLyDonHangService = new QuanLyDonHangService();
+export const profitService = new ProfitService();

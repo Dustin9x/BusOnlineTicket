@@ -12,7 +12,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import "./revenueMovie.css";
 import { useDispatch, useSelector } from "react-redux";
-import { layDoanhThuAction } from "../../../redux/actions/QuanLyDonHangAction";
+import { GetProfitAction } from "../../../redux/actions/ProfitAction";
 import dayjs from "dayjs";
 import { groupBy, sumBy } from "lodash";
 import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
@@ -56,7 +56,7 @@ export default function RevenueMonth() {
 
   const year = dayjs().year()
   useEffect(() => {
-    dispatch(layDoanhThuAction(year))
+    dispatch(GetProfitAction(year))
   }, [dispatch, year]);
 
   const datachart = {
@@ -101,7 +101,7 @@ export default function RevenueMonth() {
 
   const onChange = (value) => {
     let year = (dayjs(value).format('YYYY'))
-    dispatch(layDoanhThuAction(year))
+    dispatch(GetProfitAction(year))
   };
 
   return (

@@ -140,15 +140,15 @@ export const approveDriver = (id) =>{
         }
     }
 }
-export const forgetPassword = (thongTinEmail) => {
+export const forgetPassword = (emailInfo) => {
     return async (dispatch) => {
       try {
         dispatch(displayLoadingAction);
-        const result = await driverService.forgetPassword(thongTinEmail);
+        const result = await driverService.forgetPassword(emailInfo);
         if (result.data.status === 200) {
         //   dispatch({
         //     type: LAY_LAI_MAT_KHAU_ACTION,
-        //     thongTinEmail: result.data.content,
+        //     emailInfo: result.data.content,
         //   });
           await dispatch(hideLoadingAction);
           notification.success({

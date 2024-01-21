@@ -1,37 +1,26 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Avatar, Button, Card, Form, Input, Pagination, Popover, QRCode, Tabs, InputNumber, notification, Timeline } from 'antd';
+import { Button, Form, Input, QRCode, Tabs, InputNumber, notification, Timeline } from 'antd';
 import { UserOutlined, HomeOutlined, CreditCardOutlined, KeyOutlined } from '@ant-design/icons';
 import './Detail.css'
 import './Ticket.css'
-import { CHUYEN_TAB_ACTIVE, DAT_VE } from '../../redux/constants';
+import { CHUYEN_TAB_ACTIVE } from '../../redux/constants';
 import _ from 'lodash';
-import { OrderDetail } from '../../_core/models/OrderDetail';
-// import { layThongTinNguoiDungAction } from '../../redux/actions/DriverAction';
-import { datVeAction, layDonHangTheoUserAction } from '../../redux/actions/QuanLyDonHangAction';
-import { TOKEN, USER_LOGIN } from '../../util/settings/config';
+import { TOKEN } from '../../util/settings/config';
 import dayjs from 'dayjs';
-import { history } from './../../App';
-import { getTripByIdAction } from '../../redux/actions/TripAction';
-import { bookSeatAction, bookTicketAction, getTicketByUserAction, orderConfirmAction } from '../../redux/actions/OrderAction';
-import { values } from 'lodash';
+import { bookSeatAction, bookTicketAction } from '../../redux/actions/OrderAction';
 import { Ticket } from './../../_core/models/Ticket';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
-import SeatMap from '../../components/SeatMap/SeatMap';
 const { TabPane } = Tabs;
 
 
 export default function Detail(props) {
     const { donHang } = useSelector(state => state.OrderReducer)
     const { disableTab } = useSelector(state => state.OrderReducer)
-    const { disableTab1 } = useSelector(state => state.OrderReducer)
     const { tabActive } = useSelector(state => state.OrderReducer)
     const { userLogin } = useSelector(state => state.UserReducer);
     const dispatch = useDispatch();
-
-    console.log('donHang 1', donHang)
-    console.log('props 1', props.donHang)
 
     let accessToken = {}
     if (localStorage.getItem(TOKEN)) {
@@ -97,8 +86,11 @@ export function SettlePayment(props) {
     const handleChangeOldman = (value) => {
         setOldman(value)
     }
-    const totalTicket = donHang?.numberOfSeat - children - teenage - oldman;
-    const finalPrice = donHang?.totalMoney - children * donHang?.ticketPrice - teenage * donHang?.ticketPrice * 0.5 - oldman * donHang?.ticketPrice * 0.3
+    const totalTicket = donHang && donHang?.numberOfSeat - children - teenage - oldman;
+    const totalPrice = donHang && donHang?.totalMoney;
+    const discount = donHang && children * donHang?.ticketPrice + teenage * donHang?.ticketPrice * 0.5 + oldman * donHang?.ticketPrice * 0.3
+    const finalPrice = totalPrice - discount;
+
     const onFinish = (values) => {
         setShow(true)
     };
@@ -111,7 +103,7 @@ export function SettlePayment(props) {
             ticket.SeatsList = donHang.seatList;
             ticket.TotalPrice = finalPrice;
             ticket.isCancel = false;
-            console.log('ticket', ticket)
+
             dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))
         } else {
@@ -139,55 +131,66 @@ export function SettlePayment(props) {
                 <div><small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small></div>
             </div>
             <div className='row'>
-                <div className='col-6 w-full alert alert-light'>
+                <div className='col-6 w-full alert alert-light' style={{ height: 370 }}>
                     <p className="font-bold">Your order detail</p>
                     <div className='row'>
-                    <div className="col-6">
-                        <Timeline
-                            items={[
-                                {
-                                    color: 'red',
-                                    children: (
-                                        <>
-                                            <div><b>{donHang?.fromStation}</b></div>
-                                            <div>{dayjs(donHang?.startTime).format('DD-MM-YYYY h:mm A')}</div>
-                                        </>
-                                    ),
-                                },
-                                {
-                                    children: (
-                                        <>
-                                            <div><b>{donHang?.toStation}</b></div>
-                                            <div>{dayjs(donHang?.finishTime).format('DD-MM-YYYY h:mm A')}</div>
-                                        </>
-                                    ),
-                                },
-                            ]}
-                        />
-                    </div>
-                    <div className="pl-5 col-6">
-                        <div className='d-flex justify-between'><div>Bus Plate:</div>{donHang?.busPlate}</div>
-                        <div className='d-flex justify-between'><div>Bus Type:</div>{donHang?.busType} ({donHang?.numberOfSeat} seats)</div>
-                        <div className='d-flex justify-between'><div>Driver:</div>{donHang?.driver}</div>
-                        <div className='d-flex justify-between'><div>Ticket Price:</div><b>${donHang?.ticketPrice}/seat</b></div>
-                        <div className='d-flex justify-between'><div >Your selected seats:</div><b>{donHang?.seatList}</b></div>
-                    </div>
+                        <div className="col-6">
+                            <Timeline
+                                items={[
+                                    {
+                                        color: 'red',
+                                        children: (
+                                            <>
+                                                <div><b>{donHang?.fromStation}</b></div>
+                                                <div>{dayjs(donHang?.startTime).format('DD-MM-YYYY h:mm A')}</div>
+                                            </>
+                                        ),
+                                    },
+                                    {
+                                        children: (
+                                            <>
+                                                <div><b>{donHang?.toStation}</b></div>
+                                                <div>{dayjs(donHang?.finishTime).format('DD-MM-YYYY h:mm A')}</div>
+                                            </>
+                                        ),
+                                    },
+                                ]}
+                            />
+                        </div>
+                        <div className="pl-5 col-6">
+                            <div className='d-flex justify-between'><div>Bus Plate:</div>{donHang?.busPlate}</div>
+                            <div className='d-flex justify-between'><div>Bus Type:</div>{donHang?.busType} ({donHang?.numberOfSeat} seats)</div>
+                            <div className='d-flex justify-between'><div>Driver:</div>{donHang?.driver}</div>
+                            <div className='d-flex justify-between'><div>Ticket Price:</div><b>${donHang?.ticketPrice}/seat</b></div>
+                            <div className='d-flex justify-between'><div >Your selected seats:</div><b>{donHang?.seatList}</b></div>
+                        </div>
                     </div>
                     <hr></hr>
-                    <Card className='m-2 w-full bg-indigo-300'>
-                        <div className='d-flex justify-between'><p className="font-bold">Total Price</p><h3 className=' text-xl font-bold'>{finalPrice.toLocaleString()} đ</h3></div>
-                    </Card>
+                    <div className='d-flex justify-between mt-3'>
+                        <p className="font-bold">Total Price</p>
+                        <h3 className='font-bold'>{totalPrice?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
+                    </div>
+                    <div className='d-flex justify-between'>
+                        <p>Discount</p>
+                        <h3>{discount?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
+                    </div>
+                    <hr></hr>
+                    <div className='d-flex justify-between mt-3'>
+                        <p className="font-bold">Final Price</p>
+                        <h3 className='text-xl font-bold text-red-600'>{finalPrice?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
+                    </div>
                     <p className='text-gray-400 m-2'>(*) Please check the information carefully, orders once placed will not be canceled or refunded.</p>
 
                 </div>
                 <div className='col-6 '>
-                    <div className='row ml-3 alert alert-light'>
-                        <div className='col-6 mx-auto'>
+                    <div className='row ml-3 alert alert-light' style={{ height: 370 }}>
+                        <div className='mx-auto'>
                             <h1 className='text-center text-xl my-5'>PAYMENT BY CREDIT CARD</h1>
                             {!show ? <Form
                                 name="basic"
                                 onFinish={onFinish}
                                 autoComplete="off"
+                                style={{width: 370}}
                             >
                                 <Form.Item
                                     name="cardnumber"
@@ -229,6 +232,7 @@ export function SettlePayment(props) {
                                     name="basic"
                                     onFinish={handleSubmit}
                                     autoComplete="off"
+                                    style={{width: 370}}
                                 >
                                     <Form.Item
                                         name="otp"
@@ -264,11 +268,6 @@ export function SettlePayment(props) {
 
 export function KetQuaDatVe(props) {
     const { donHang } = useSelector(state => state.OrderReducer)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-
-    }, [])
 
     return <div className='row'>
         <div className='col-12'>
