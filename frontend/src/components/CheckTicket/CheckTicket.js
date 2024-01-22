@@ -4,6 +4,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { checkTicketAction } from "../../redux/actions/OrderAction";
 import dayjs from "dayjs";
+import { values } from 'lodash';
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
@@ -12,25 +13,21 @@ export default function CheckTicket() {
   const dispatch = useDispatch()
   const [code, setCode] = useState(null)
   const { ticketDetail } = useSelector(state => state.OrderReducer)
-  console.log("check", ticketDetail);
+
   const handleOnChange = (e) => {
     const searchCode = e.target.value;
-    if (!searchCode.startsWith(' ')) {
-      //  setCode(e.target.value)
-      setCode(searchCode);
-    }
+    setCode(searchCode.trim());
+
   }
 
   const handleSubmit = () => {
     if (code !== null) {
-      dispatch(checkTicketAction(code));
+      dispatch(checkTicketAction(code.split(' ')));
     }
   }
 
-  let remainHour = dayjs(ticketDetail.trips.startTime).diff(dayjs(new Date), 'hour')
-  
+  let remainHour = dayjs(ticketDetail?.trips?.startTime).diff(dayjs(new Date), 'hour')
 
-  console.log('remainDay',remainHour)
 
   return (
     <div className="w-100 p-4 rounded-xl bg-white">
@@ -42,7 +39,7 @@ export default function CheckTicket() {
           </h4>
           <div className="d-flex w-100">
             <div style={{ flex: 1 }}>
-              <Input size="large" onChange={handleOnChange} placeholder="Input your ticket number" prefix={<SearchOutlined />} />
+              <Input size="large" onChange={handleOnChange} value={code} placeholder="Input your ticket number" prefix={<SearchOutlined />} />
             </div>
             <button
               className="ml-5 px-5 py-2 flex items-center focus:outline-none  rounded-full font-semibold  bg-red-50 text-red-700 hover:bg-red-100 focus:bg-red-500 active:bg-red-500 focus:text-white"
@@ -58,7 +55,7 @@ export default function CheckTicket() {
           </div>
         </div>
       </div>
-      
+
       {ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">
         <Descriptions title="Ticket Info">
           <Descriptions.Item label="Customer">{ticketDetail.users.email}</Descriptions.Item>
@@ -67,7 +64,7 @@ export default function CheckTicket() {
           <Descriptions.Item label="Departure Time">{dayjs(ticketDetail.trips.startTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
           <Descriptions.Item label="Arrival Time">{dayjs(ticketDetail.trips.finishTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
           <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
-          <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed": `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
+          <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed" : `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
         </Descriptions>
       </div> : ""}
 

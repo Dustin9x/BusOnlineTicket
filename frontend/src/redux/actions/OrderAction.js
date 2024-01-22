@@ -97,38 +97,40 @@ export const cancelTicketAction = (id, day) => {
 
 export const checkTicketAction = (id) => {
     return async (dispatch) => {
-      try {
-        const result = await orderService.checkTicket(id);
-        if (result.data.status === 200) {
-          dispatch({
-            type: GET_TICKET_STATUS,
-            ticketDetail: result.data.data[0],
-          });
-        } else{
+        try {
+            const result = await orderService.checkTicket(id);
+            if (result.data.status === 200) {
+                if (result.data.data.length == 0) {
+                    notification.error({
+                        closeIcon: true,
+                        message: "Error",
+                        description: (
+                            <>
+                                Ticket is not found! <br></br>Please re-check your ticket number.
+                            </>
+                        ),
+                    });
+                } else {
+                    dispatch({
+                        type: GET_TICKET_STATUS,
+                        ticketDetail: result.data.data[0],
+                    });
+                }
+            } 
+        } catch (error) {
             notification.error({
                 closeIcon: true,
                 message: "Error",
                 description: (
-                  <>
-                    Ticket is not found! <br></br>Please re-check your ticket number.
-                  </>
+                    <>
+                        Ticket is not found! <br></br>Please re-check your ticket number.
+                    </>
                 ),
-              });
+            });
+            console.log(error);
         }
-      } catch (error) {
-        notification.error({
-            closeIcon: true,
-            message: "Error",
-            description: (
-              <>
-                Ticket is not found! <br></br>Please re-check your ticket number.
-              </>
-            ),
-          });
-        console.log(error);
-      }
     };
-  };
+};
 
 
 
