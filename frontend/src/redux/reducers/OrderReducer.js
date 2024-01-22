@@ -1,11 +1,12 @@
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTING_SEATS, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants"
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, DAT_VE, DAT_VE_HOAN_TAT, DELETE_SELECTING_SEATS, GET_TICKET_BY_USER, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants"
 
 const initialState = {
     selectingSeats: [],
     tabActive: '1',
     donhang: {},
     arrTicket: [],
-    disableTab: false
+    disableTab: false,
+    ticketDetail: null
 }
 
 export const OrderReducer = (state = initialState, action) => {
@@ -33,10 +34,10 @@ export const OrderReducer = (state = initialState, action) => {
         case DELETE_SELECTING_SEATS:
             state.selectingSeats = [];
             return { ...state }
-            
-        case DAT_VE_HOAN_TAT:
-            state.selectingSeats = [];
-            return { ...state }
+
+        case GET_TICKET_STATUS:
+            state.ticketDetail = action.ticketDetail;
+            return { ...state };
 
         case CHUYEN_TAB:
             state.tabActive = '1'

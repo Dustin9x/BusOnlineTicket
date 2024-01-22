@@ -75,6 +75,7 @@ namespace backend.Models
             modelBuilder.Entity<PromoteTrip>(t =>
             {
                 t.HasKey(t => t.Id);
+                t.HasData(SeedData.PromoteTripData.PromoteTripSeedData());
             });
             modelBuilder.Entity<Trip>(b =>
             {

@@ -10,7 +10,7 @@ import TripCard from "../../components/TripCard/TripCard";
 const setInput = {
   sort: "",
   busType: "",
-  fromPrice: 0,
+  fromPrice: 10,
   toPrice: "",
   from: "",
   to: "",
@@ -32,12 +32,12 @@ export default function Search(props) {
 
 
   const marks = {
-    1: {
-      label: <small>1 $</small>,
+    10: {
+      label: <small>$10.00</small>,
     },
     1000: {
       style: { color: "#f50" },
-      label: <small>10.000$</small>,
+      label: <small>$1,000.00</small>,
     },
   };
 
@@ -83,10 +83,10 @@ export default function Search(props) {
               range
               marks={marks}
               step={10}
-              min={1}
+              min={10}
               max={1000}
-              onChangeComplete={(e) => handleOnChangePrice(e)}
-              defaultValue={[100, 800]}
+              onAfterChange={(e) => handleOnChangePrice(e)}
+              defaultValue={[10, 800]}
               className="mx-4 mb-5"
             />
             {/* ...Other code... */}
@@ -98,12 +98,10 @@ export default function Search(props) {
         </div>
         <div className="w-full sm:w-2/3 md:w-3/4 pt-1 px-2">
           {arrTrip.length > 0
-            ?
-            arrTrip?.map((item, index) => {
+            ? arrTrip?.map((item, index) => {
               return (<div key={index}>
                 <TripCard tripDetail={item} />
               </div>
-
               );
             })
             : <Result

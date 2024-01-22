@@ -1,6 +1,7 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -113,6 +114,7 @@ namespace backend.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("Options")]
         public IActionResult OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {

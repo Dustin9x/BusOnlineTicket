@@ -7,5 +7,6 @@ namespace backend.IRepository
         Task<IEnumerable<Ticket>> GetTicketByUser(int Id);
         Task<bool> AddTicket(Ticket ticket);
         Task<Ticket> CancelTicket(int Id, int Day);
+        Task<IEnumerable<Ticket>> SearchTicket(int Id);
     }
 }

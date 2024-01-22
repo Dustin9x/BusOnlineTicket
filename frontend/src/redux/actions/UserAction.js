@@ -11,7 +11,7 @@ export const loginAction = (loginInfo) => {
     try {
       dispatch(displayLoadingAction);
       const result = await userService.login(loginInfo);
-      
+
       if (result.status === 200) {
         localStorage.setItem(TOKEN, result.data.data.accessToken);
         notification.success({
@@ -167,8 +167,13 @@ export const getCurrentUserAction = (token) => {
           type: GET_CURRENT_USER_ACTION,
           userLogin: result.data,
         });
+      } else {
+        localStorage.removeItem(TOKEN)
+        history.replace("/");
       }
     } catch (error) {
+      localStorage.removeItem(TOKEN)
+      history.replace("/");
       console.log(error);
     }
   };
@@ -211,13 +216,13 @@ export const updateUserAction = (id, newUser) => {
       });
       const result2 = await userService.getUserById(id);
       const userDetail = result2.data.data[0]
-      console.log('userDetail nha',userDetail)
-      if(userDetail.role = "user"){
+      console.log('userDetail nha', userDetail)
+      if (userDetail.role = "user") {
         history.push("/users/profile");
-      }else{
+      } else {
         history.push("/admin/adminusers");
       }
-      
+
     } catch (error) {
       console.log(error);
     }

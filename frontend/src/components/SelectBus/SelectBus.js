@@ -9,11 +9,11 @@ dayjs.extend(customParseFormat);
 export default function SelectBus(props) {
   const { arrStation } = useSelector(state => state.StationReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(getStationListAction())
   }, [dispatch]);
 
-  console.log('props',props)
   let searchParams = new URLSearchParams(props.props.location?.search);
 
   const [From, setFrom] = useState(searchParams.get('from'));
@@ -67,7 +67,7 @@ export default function SelectBus(props) {
                   id="fromFocus"
                   style={{ minWidth: '100%' }}
                   showSearch
-                  value={From} required 
+                  value={From} 
                   placeholder="Leaving from"
                   options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
                   onChange={handleFromChange}
@@ -84,12 +84,12 @@ export default function SelectBus(props) {
             <div className="w-80">
               <Select
                 value={To}
-                name="to"
                 size={"large"}
                 id="toFocus"
                 style={{ minWidth: '100%' }}
                 showSearch
-                placeholder="Going to" options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
+                placeholder="Going to" 
+                options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.name }))}
                 onChange={handleToChange}
               />
               <Input type="hidden" name="to" value={To} />

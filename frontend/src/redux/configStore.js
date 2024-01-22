@@ -10,6 +10,7 @@ import { TripReducer } from './reducers/TripReducer';
 import { DriverReducer } from './reducers/DriverReducer';
 import { OrderReducer } from './reducers/OrderReducer';
 import { ModReducer } from './reducers/ModReducer';
+import { PromoteTripReducer } from './reducers/PromoteTripReducer';
 
 
 
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     OrderReducer,
     LoadingReducer,
     FAQReducer,
-    OrderDetailReducer
+    OrderDetailReducer,
+    PromoteTripReducer
 })
 
 export const store = createStore(rootReducer,applyMiddleware(reduxThunk));

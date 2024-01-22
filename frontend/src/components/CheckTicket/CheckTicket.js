@@ -1,25 +1,54 @@
-import { Badge, Descriptions, Input } from "antd";
-import React, { useEffect, useRef } from "react";
+import { Badge, Descriptions, Form, Input } from "antd";
+import React, { useEffect, useRef, useState } from "react";
 import { SearchOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from "react-redux";
+import { checkTicketAction } from "../../redux/actions/OrderAction";
+import dayjs from "dayjs";
+var relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
 
 
 export default function CheckTicket() {
+  const dispatch = useDispatch()
+  const [code, setCode] = useState(null)
+  const { ticketDetail } = useSelector(state => state.OrderReducer)
+  console.log("check", ticketDetail);
+  const handleOnChange = (e) => {
+    const searchCode = e.target.value;
+    if (!searchCode.startsWith(' ')) {
+      //  setCode(e.target.value)
+      setCode(searchCode);
+    }
+  }
+
+  const handleSubmit = () => {
+    if (code !== null) {
+      dispatch(checkTicketAction(code));
+    }
+  }
+
+  let remainHour = dayjs(ticketDetail.trips.startTime).diff(dayjs(new Date), 'hour')
+  
+
+  console.log('remainDay',remainHour)
 
   return (
     <div className="w-100 p-4 rounded-xl bg-white">
-      <form autoComplete="off" className=" w-100" action="/bus/schedule/">
+
+      <div>
         <div className="autoComplete w-100 justify-center">
           <h4 className="tc-l tl f4 w-100 ttn" style={{ color: "#1867aa" }}>
             Checking your Bus Ticket here
           </h4>
           <div className="d-flex w-100">
             <div style={{ flex: 1 }}>
-              <Input size="large" placeholder="Input your ticket number" prefix={<SearchOutlined />} />
+              <Input size="large" onChange={handleOnChange} placeholder="Input your ticket number" prefix={<SearchOutlined />} />
             </div>
             <button
               className="ml-5 px-5 py-2 flex items-center focus:outline-none  rounded-full font-semibold  bg-red-50 text-red-700 hover:bg-red-100 focus:bg-red-500 active:bg-red-500 focus:text-white"
               type="submit"
               value="Search Ticket"
+              onClick={handleSubmit}
             >
               <span className="pl2">
                 <i className="fa-solid fa-ticket"></i>
@@ -28,18 +57,20 @@ export default function CheckTicket() {
             </button>
           </div>
         </div>
-      </form>
-      <div className="pt-3">
-        <Descriptions title="Ticket Info">
-          <Descriptions.Item label="Customer">Nguyen Van An</Descriptions.Item>
-          <Descriptions.Item label="Telephone">1810000000</Descriptions.Item>
-          <Descriptions.Item label="Route">Ho Chi Minh - Da Nang</Descriptions.Item>
-          <Descriptions.Item label="Departure Time">12:00 15-12-2023</Descriptions.Item>
-          <Descriptions.Item label="Arrival Time">12:00 16-12-2023</Descriptions.Item>
-          <Descriptions.Item label="Bus Number">59A1-56789</Descriptions.Item>
-          <Descriptions.Item label="Status"><span  className="text-red-500 font-semibold">Already departed</span>  </Descriptions.Item>
-        </Descriptions>
       </div>
+      
+      {ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">
+        <Descriptions title="Ticket Info">
+          <Descriptions.Item label="Customer">{ticketDetail.users.email}</Descriptions.Item>
+          <Descriptions.Item label="Seat List">{ticketDetail.seatsList}</Descriptions.Item>
+          <Descriptions.Item label="Route">{ticketDetail.trips.fromStation.name} - {ticketDetail.trips.toStation.name}</Descriptions.Item>
+          <Descriptions.Item label="Departure Time">{dayjs(ticketDetail.trips.startTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+          <Descriptions.Item label="Arrival Time">{dayjs(ticketDetail.trips.finishTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+          <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
+          <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed": `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
+        </Descriptions>
+      </div> : ""}
+
     </div>
   )
 }

@@ -1,6 +1,7 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -35,6 +36,28 @@ namespace backend.Controllers
             }
 
         }
+
+        [AllowAnonymous]
+        [HttpGet("search/{Id}")]
+        public async Task<ActionResult> SearchTicket(int Id)
+        {
+            try
+            {
+                var list = await repo.SearchTicket(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Ticket>>(StatusCodes.Status200OK, "Get ticket successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
 
         [HttpPost]

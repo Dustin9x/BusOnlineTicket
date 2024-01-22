@@ -59,7 +59,9 @@ import RegisterDriver from "./pages/Driver/RegisterDriver";
 import ForgetPasswordDriver from './pages/Driver/ForgetPasswordDriver';
 import DetailTripOfDriver from "./pages/Driver/DetailTripOfDriver";
 import ProfileDriver from "./pages/Driver/ProfileDriver";
-import { combineReducers } from 'redux';
+import PromoteTripMng from "./pages/Admin/PromoteTripMng/PromoteTripMng";
+import AddNewPromoteTrip from "./pages/Admin/PromoteTripMng/AddNewPromoteTrip";
+import EditPromoteTrip from "./pages/Admin/PromoteTripMng/EditPromoteTrip";
 
 export const history = createBrowserHistory();
 
@@ -82,6 +84,7 @@ function App() {
         <UserTemplate path="/register" exact Component={Register} />
         <UserTemplate path="/forgetPassword" exact Component={ForgetPassword} />
 
+        {/* Become Driver */}
         <UserTemplate path="/loginDriver" exact Component={LoginDriver} />
         <UserTemplate path="/registerDriver" exact Component={RegisterDriver} />
         <UserTemplate path="/forgetPasswordDriver" exact Component={ForgetPasswordDriver} />
@@ -105,7 +108,7 @@ function App() {
         <AdminTemplate path="/admin/modmng/addmod" exact Component={AddMod} />
         <AdminTemplate path="/admin/modmng/edit/:id" exact Component={ModEdit} />
 
-        {/* Driver */}
+        {/* Driver Management */}
         <AdminTemplate path="/admin/drivermng" exact Component={DriverMng} />
         <AdminTemplate path="/admin/regdrivermng" exact Component={RegisterDriverMng} />
         <AdminTemplate path="/admin/drivermng/edit/:id" exact Component={DriverEdit} />
@@ -130,6 +133,11 @@ function App() {
         <AdminTemplate path="/admin/tripmng" exact Component={TripMng} />
         <AdminTemplate path="/admin/tripmng/addtrip" exact Component={AddNewTrip} />
         <AdminTemplate path="/admin/theatremng/edit/:id" exact Component={EditTheatreChild} />
+
+        {/* Promote Trip */}
+        <AdminTemplate path="/admin/promotripmng" exact Component={PromoteTripMng} />
+        <AdminTemplate path="/admin/promotripmng/addnew" exact Component={AddNewPromoteTrip} />
+        <AdminTemplate path="/admin/promotripmng/edit/:id" exact Component={EditPromoteTrip} />
 
         {/* Doanh Thu */}
         <AdminTemplate path="/admin/orderlist" exact Component={OrderList} />

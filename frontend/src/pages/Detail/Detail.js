@@ -120,7 +120,7 @@ export function SettlePayment(props) {
     const dispatch = useDispatch();
     return (
         <div className='container min-h-screen mt-2'>
-            <div class="row alert alert-primary" role="alert">
+            <div className="row alert alert-primary" role="alert">
                 Please enter the number of passengers according to the classification below to receive additional incentives:
                 <div className='w-full mt-3 mx-5'><b>Number of unclassified tickets: {totalTicket}</b></div>
                 <ul className='d-flex justify-between mx-5'>

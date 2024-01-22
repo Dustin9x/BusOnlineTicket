@@ -63,9 +63,32 @@ namespace backend.Services
             }
         }
 
-        public Task<PromoteTrip> DeletePromoteTrip(int Id)
+        public async Task<PromoteTrip> DeletePromoteTrip(int Id)
         {
-            throw new NotImplementedException();
+            var delPromoteTrip = await db.PromoteTrips.SingleOrDefaultAsync(x => x.Id == Id);
+            if (delPromoteTrip != null)
+            {
+                if (!string.IsNullOrEmpty(delPromoteTrip.Image))
+                {
+                    var upload = Path.Combine(env.ContentRootPath, "Images/PromoteTrip");
+                    if (System.IO.File.Exists(Path.Combine(upload, delPromoteTrip.Image)))
+                    {
+                        System.IO.File.Delete(Path.Combine(upload, delPromoteTrip.Image)); // Xóa tệp tin ảnh
+                    }
+                }
+
+                db.PromoteTrips.Remove(delPromoteTrip);
+                int result = await db.SaveChangesAsync();
+                if (result == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    return delPromoteTrip;
+                }
+            }
+            return null;
         }
 
         public async Task<bool> PutPromoteTrip(int Id, PromoteTrip PromoteTrip)

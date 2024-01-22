@@ -43,7 +43,7 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   // }
 
   const items = [
-    getItem('Your Profile Detail', '1', <NavLink className='text-decoration-none' to="/users/profile"><i class="fa-solid fa-user"></i></NavLink>),
+    getItem('Your Profile Detail', '1', <NavLink className='text-decoration-none' to="/users/profile"><i className="fa-solid fa-user"></i></NavLink>),
     getItem('Your Tickets', '2', <NavLink className='text-decoration-none' to="/users/ordershistory"><i className="fa-solid fa-ticket"></i></NavLink>),
   ];
 

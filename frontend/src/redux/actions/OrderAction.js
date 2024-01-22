@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, ORDER_CONFIRM } from "../constants";
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
 import { TOKEN } from "../../util/settings/config";
 import { userService } from "../../services/UserService";
@@ -93,6 +93,42 @@ export const cancelTicketAction = (id, day) => {
         }
     }
 }
+
+
+export const checkTicketAction = (id) => {
+    return async (dispatch) => {
+      try {
+        const result = await orderService.checkTicket(id);
+        if (result.data.status === 200) {
+          dispatch({
+            type: GET_TICKET_STATUS,
+            ticketDetail: result.data.data[0],
+          });
+        } else{
+            notification.error({
+                closeIcon: true,
+                message: "Error",
+                description: (
+                  <>
+                    Ticket is not found! <br></br>Please re-check your ticket number.
+                  </>
+                ),
+              });
+        }
+      } catch (error) {
+        notification.error({
+            closeIcon: true,
+            message: "Error",
+            description: (
+              <>
+                Ticket is not found! <br></br>Please re-check your ticket number.
+              </>
+            ),
+          });
+        console.log(error);
+      }
+    };
+  };
 
 
 

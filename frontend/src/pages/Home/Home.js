@@ -24,7 +24,7 @@ export default function Home(props) {
 
   return (
     <div>
-      <div style={{ backgroundImage: 'url(./img/vietnambackground.jpg)', backgroundSize: 'cover' }}>
+      <div style={{ backgroundImage: 'url(../../img/vietnambackground.jpg)', backgroundSize: 'cover' }}>
         <div className="container mx-auto" style={{ maxWidth: '1000px', height: '400px' }}>
           <Tabs
             defaultActiveKey="1"

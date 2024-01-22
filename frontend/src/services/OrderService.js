@@ -22,6 +22,10 @@ export class OrderService extends baseService {
     cancelTicket = (id,day) => {
         return this.put(`/api/Ticket?Id=${id}&Day=${day}`,);
     };
+
+    checkTicket = (id) =>{
+        return this.get(`/api/Ticket/search/${id}`)
+    }
 }
 
 export const orderService = new OrderService();

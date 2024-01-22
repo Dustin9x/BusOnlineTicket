@@ -44,6 +44,11 @@ namespace backend.Services
             return await db.Tickets.Include(t => t.Trips).ThenInclude(s => s.FromStation).Include(t => t.Trips).ThenInclude(s => s.ToStation).Include(t => t.Users).Where(s => s.UserId == Id).ToListAsync();
         }
 
+        public async Task<IEnumerable<Ticket>> SearchTicket(int Id)
+        {
+            return await db.Tickets.Include(t => t.Trips).ThenInclude(s => s.FromStation).Include(t => t.Trips).ThenInclude(s => s.ToStation).Include(t => t.Users).Include(t => t.Trips).ThenInclude(b => b.Bus).Where(s => s.Id == Id).ToListAsync();
+        }
+
         public async Task<Ticket> CancelTicket(int Id, int Day)
         {
             var oldTicket = await db.Tickets.SingleOrDefaultAsync(x => x.Id == Id);
