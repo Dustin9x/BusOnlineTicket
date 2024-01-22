@@ -9,7 +9,7 @@ import TripCard from "../../components/TripCard/TripCard";
 
 const setInput = {
   sort: "",
-  busType: "",
+  searchBusType: "",
   fromPrice: 10,
   toPrice: "",
   from: "",
@@ -47,10 +47,11 @@ export default function Search(props) {
   };
 
   const handleOnChangeFilter = (event) => {
+    console.log('bustype',event.target.value)
     if (event.target.checked && event.target.value != "undefine") {
-      setInput.busType += event.target.value + ",";
+      setInput.searchBusType += event.target.value + ",";
     } else {
-      setInput.busType = setInput.busType.replace(event.target.value + ",", "");
+      setInput.searchBusType = setInput.searchBusType.replace(event.target.value + ",", "");
     }
 
     dispatch(getTripListOptionsAction(setInput));
