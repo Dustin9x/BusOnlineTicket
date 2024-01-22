@@ -70,7 +70,8 @@ export const getTripListOptionsAction = (options) => {
   return async (dispatch) => {
     try {
       const result = await tripService.getTripListOptions(options);
-      console.log("data Trip Options : ", result.data.data);
+      console.log("options : ", options);
+      console.log("data Trip Options : ", result);
       if (result.data.status === 200) {
         dispatch({
           type: GET_TRIP_LIST,

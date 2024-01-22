@@ -39,7 +39,7 @@ export default function Home(props) {
               > BUS SCHEDULE </button>}
             >
               <Card className='mt-10'>
-                <SelectBus />
+                <SelectBus props={props}/>
               </Card>
             </TabPane>
             <TabPane key="2"

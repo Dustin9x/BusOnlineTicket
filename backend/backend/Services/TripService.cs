@@ -148,14 +148,14 @@ namespace backend.Services
         }
 
 
-        public List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
+        public List<Trip> OptionsAsDesired(string? busType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1)
         {
 
             var allTrips = db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).Where(x => x.StartTime >= DateTime.Today).AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchBusType))
+            if (!string.IsNullOrEmpty(busType))
             {
-                List<string> list = searchBusType.Split(",").ToList();
+                List<string> list = busType.Split(",").ToList();
                 if (list.Any())
                 {
                     allTrips = allTrips.Where(tr => list.Contains(tr.Bus.BusType.Name));
@@ -173,7 +173,7 @@ namespace backend.Services
             }
             if (!string.IsNullOrEmpty(dayStart))
             {
-                allTrips = allTrips.Where(tr => tr.StartTime.Date == DateTime.ParseExact(dayStart, "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                allTrips = allTrips.Where(tr => tr.StartTime.Date == DateTime.ParseExact(dayStart, "dd-MM-yyyy", CultureInfo.InvariantCulture));
             }
             if (!string.IsNullOrEmpty(fromPrice))
             {

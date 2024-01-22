@@ -18,27 +18,24 @@ const setInput = {
 };
 
 export default function Search(props) {
+  const { arrTrip } = useSelector((state) => state.TripReducer);
   const dispatch = useDispatch();
-  let { from, to, date } = useParams();
+  let searchParams = new URLSearchParams(props.location.search);
 
   useEffect(() => {
-    setInput.from = from;
-    setInput.to = to;
-    if(date != null){
-      setInput.dayStart = date;
-    }
-    
+    setInput.from = searchParams.get('from') || '';
+    setInput.to = searchParams.get('to') || '';
+    setInput.dayStart = searchParams.get('date') || '';
 
     dispatch(getTripListOptionsAction(setInput));
   }, [dispatch]);
 
-  const { arrTrip } = useSelector((state) => state.TripReducer);
 
   const marks = {
     1: {
       label: <small>1 $</small>,
     },
-    10000: {
+    1000: {
       style: { color: "#f50" },
       label: <small>10.000$</small>,
     },
@@ -51,9 +48,9 @@ export default function Search(props) {
 
   const handleOnChangeFilter = (event) => {
     if (event.target.checked && event.target.value != "undefine") {
-      setInput.BusType += event.target.value + ",";
+      setInput.busType += event.target.value + ",";
     } else {
-      setInput.BusType = setInput.BusType.replace(event.target.value + ",", "");
+      setInput.busType = setInput.busType.replace(event.target.value + ",", "");
     }
 
     dispatch(getTripListOptionsAction(setInput));
@@ -68,7 +65,7 @@ export default function Search(props) {
   return (
     <div className="container" style={{ maxWidth: 1200 }}>
       <Card className="mx-2 mt-3">
-        <SelectBus />
+        <SelectBus props={props}/>
       </Card>
 
       <div className="flex flex-row flex-wrap py-4">
@@ -85,11 +82,11 @@ export default function Search(props) {
             <Slider
               range
               marks={marks}
-              step={5}
+              step={10}
               min={1}
-              max={10000}
+              max={1000}
               onChangeComplete={(e) => handleOnChangePrice(e)}
-              defaultValue={[1000, 8000]}
+              defaultValue={[100, 800]}
               className="mx-4 mb-5"
             />
             {/* ...Other code... */}
