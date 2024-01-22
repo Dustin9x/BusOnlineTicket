@@ -20,8 +20,6 @@ const CheckOutTemplate = (props) => { //path, exact, Component
             </Fragment>
         }}/>
     }
-
-   
 }
 
 export default CheckOutTemplate;
