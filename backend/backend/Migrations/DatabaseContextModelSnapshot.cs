@@ -362,7 +362,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Nguyen Van Toan",
                             NationalId = "2345678",
-                            Password = "$2a$11$fMQrl.FsV.w0MBC9Av5DWOxILzuG1PelA2nfQHidZUSLCF.swQkNG",
+                            Password = "$2a$11$kA6YU0fAUkApBfr6D4ECFeBSQ.aYzvYELnYojR9Sj58UNnTh2uy4.",
                             Phone = "090123456",
                             PlaceOfBirth = "Ho Chi Minh",
                             YearOfBirth = new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -377,7 +377,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345678",
-                            Password = "$2a$11$2HKo4uZaWEINfR9lISlDUucGnaC9Ekuvu24PdRqpTjR59mmFjlyLm",
+                            Password = "$2a$11$7vbsSwhZ1xwR766cKvqmG.HVIRFE/p9HpC.0CfteK0z5LyqMe8Uei",
                             Phone = "090123456",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -392,7 +392,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Bui Quoc Viet",
                             NationalId = "2345679",
-                            Password = "$2a$11$pQMdDwkP4MHVDgMlGFMwJu8iK.owfFuSm64T3MsKj5XXHwUxQYPpO",
+                            Password = "$2a$11$zNNrMqTB72ccl7Zyz3EcCuDxJTpXGlsea3QQjvM/M6dBcW80vxa6u",
                             Phone = "090123457",
                             PlaceOfBirth = "Binh Thuam",
                             YearOfBirth = new DateTime(1993, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -407,7 +407,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Pham Huy Hoang",
                             NationalId = "2345670",
-                            Password = "$2a$11$v5jxVKc2jeCSclNEmFWomOBzh2SO5720gFMUz8y61StBDGm2cH/Ai",
+                            Password = "$2a$11$9tblFrut9zEajHPXi.ebieCSGg6lo2IIcz068KYB7cr6LJUUftK6a",
                             Phone = "090123458",
                             PlaceOfBirth = "Gia Lai",
                             YearOfBirth = new DateTime(1990, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -422,7 +422,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Chuong",
                             NationalId = "2345671",
-                            Password = "$2a$11$2Y4lrspjcoPjTQSsCL3PbuIupt0acirgl1VNCCJXKWg1tpJ1aZ3xG",
+                            Password = "$2a$11$.DpZqDdHrv4sOO5xVwXF5edAKy5Dc9RlYaAg0bx7bJMVdWWPW7/tK",
                             Phone = "090123459",
                             PlaceOfBirth = "Vung Tau",
                             YearOfBirth = new DateTime(1999, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -437,7 +437,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Thanh Thien",
                             NationalId = "2345672",
-                            Password = "$2a$11$FBzxlI1ireKbgJFY0/e1c.6cxDoMFyIMFRamnF2HNFdpfQWhKxBMa",
+                            Password = "$2a$11$Rs7xNKzas0VoWKkPqaMPGuy5iLF5gZr4CijfZykAiirGPNRA2htSq",
                             Phone = "090123450",
                             PlaceOfBirth = "Hà Nội",
                             YearOfBirth = new DateTime(1997, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -452,7 +452,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Dai Vi",
                             NationalId = "2345673",
-                            Password = "$2a$11$RExQ3qf8wTZPcHNrxhPWAu3uRF2SM78PSRHo.6Q22jQEgodF/Hn9W",
+                            Password = "$2a$11$W3i84pd3cfxmxP10M45iwOM423EBfRVHmOnzIAU8Xad8eA1HmYRiW",
                             Phone = "090123452",
                             PlaceOfBirth = "Ca Mau",
                             YearOfBirth = new DateTime(1996, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -467,7 +467,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345674",
-                            Password = "$2a$11$B2kvEypVC.Z2Qa9OXRwj2ezkm28.Qj1PYUPFHFCZHHotbgsnSdeD2",
+                            Password = "$2a$11$ZiCxyV1m/FMeG5uYaofVp.UNMGP0tSVWSVYG7W42R01IgDbG/XLDG",
                             Phone = "090123451",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1994, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -482,7 +482,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Quan",
                             NationalId = "2345675",
-                            Password = "$2a$11$hefgjhkgTseH/cO5NXeYS.9ijyjXwTazeXd9WM2Xwj6RQhpX3cIBG",
+                            Password = "$2a$11$OKRIE5bjPtcOUXPNEq6nzOWZz1PwFxW5OodrBvNNjSklfbFDqZKRu",
                             Phone = "090123453",
                             PlaceOfBirth = "Ben Tre",
                             YearOfBirth = new DateTime(2000, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -497,7 +497,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Linh",
                             NationalId = "2345676",
-                            Password = "$2a$11$hXAqAxFvF/DGUylFwTiDBuw9uxI83WIacat6OBZxMSZS.1d8v1ZoG",
+                            Password = "$2a$11$mFqjq7RzkDdd.qvj.IWjxe.Wd8wTzIGBEreN2AcGkpwCRuIAubVqu",
                             Phone = "090123455",
                             PlaceOfBirth = "Dong Thap",
                             YearOfBirth = new DateTime(1978, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -582,6 +582,7 @@ namespace backend.Migrations
                             Id = 1,
                             FromStation = "Hồ Chí Minh",
                             Image = "image1.png",
+                            MinPrice = 100.0,
                             ToStation = "Hà Nội"
                         },
                         new
@@ -589,28 +590,29 @@ namespace backend.Migrations
                             Id = 2,
                             FromStation = "Hà Nội",
                             Image = "image2.png",
+                            MinPrice = 150.0,
                             ToStation = "Đà Lạt"
                         },
                         new
                         {
                             Id = 3,
-                            FromStation = "Hồ Chí Minh",
+                            FromStation = "Cà Mau",
                             Image = "image3.png",
-                            ToStation = "Tiền Giang"
+                            ToStation = "Hải Phòng"
                         },
                         new
                         {
                             Id = 4,
-                            FromStation = "Hồ Chí Minh",
+                            FromStation = "Cần Thơ",
                             Image = "image4.png",
-                            ToStation = "Vũng Tàu"
+                            ToStation = "Bình Định"
                         },
                         new
                         {
                             Id = 5,
-                            FromStation = "Hà Nội",
+                            FromStation = "Hải Phòng",
                             Image = "image5.png",
-                            ToStation = "Hồ Chí Minh"
+                            ToStation = "Nha Trang"
                         });
                 });
 
@@ -2456,21 +2458,21 @@ namespace backend.Migrations
                         {
                             Id = 1,
                             Email = "admin@phtv.com",
-                            Password = "$2a$11$PaKSNidBDx2rb7Qf9fe/Le0gyOpta5Cjm5eZFi7cRrSHS0doaL0T6",
+                            Password = "$2a$11$jM.f5PhzlXM0OIbo7Lsj7uJO3/UYNn2OlTL2XTWZ39Hx/zyc3IKC.",
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2,
                             Email = "emp@phtv.com",
-                            Password = "$2a$11$KyPoro61SRPZDdp6Sjb8z.5wSiNA0Hg7ZzMXCv56hnxAkF/hyv0ii",
+                            Password = "$2a$11$VEyvJx83rhe9gWajVJbUh.sAVG.4mjoCLwCEz96QYo6/z/b1sdoqu",
                             Role = "Mod"
                         },
                         new
                         {
                             Id = 3,
                             Email = "user@phtv.com",
-                            Password = "$2a$11$1SDdNyQ42v7BH52yM9SdvO6HkYAx0tqZI9VRyQ8.gdhjZacVqzule",
+                            Password = "$2a$11$59RNh2Jf..qmsVL.jD7dbOh0xVZSq262yex6fArigagvQF9z62vPe",
                             Role = "User"
                         });
                 });

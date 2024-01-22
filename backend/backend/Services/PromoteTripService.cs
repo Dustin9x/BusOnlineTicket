@@ -17,7 +17,22 @@ namespace backend.Services
 
         public async Task<IEnumerable<PromoteTrip>> GetAllPromoteTrip()
         {
-            return await db.PromoteTrips.ToListAsync();
+            var data = await db.PromoteTrips.ToListAsync();
+            foreach (var trip in data)
+            {
+                double min = double.MaxValue;
+                var list = await db.Trips.Where(t => t.FromStation.Name == trip.FromStation && t.ToStation.Name == trip.ToStation).ToListAsync();
+                if (list.Count > 0)
+                {
+                    foreach (var t in list)
+                    {
+                        min = Math.Min(min, t.TicketPrice);
+                    }
+                }
+                trip.MinPrice = min;
+                await db.SaveChangesAsync();
+            }
+            return data;
         }
 
         public async Task<IEnumerable<PromoteTrip>> GetPromoteTripById(int Id)
