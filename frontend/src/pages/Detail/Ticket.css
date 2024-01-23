@@ -1,6 +1,6 @@
 .cardWrap {
     width: fit-content;
-    margin: 3em auto;
+    margin: auto;
     color: #fff;
     font-family: sans-serif;
 }
@@ -15,7 +15,7 @@
 .cardLeft {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
-    width: 27em;
+    width: 35em;
 }
 .cardRight {
     width: 14.5em;

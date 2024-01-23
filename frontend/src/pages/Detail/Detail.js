@@ -8,10 +8,11 @@ import { CHUYEN_TAB_ACTIVE } from '../../redux/constants';
 import _ from 'lodash';
 import { TOKEN } from '../../util/settings/config';
 import dayjs from 'dayjs';
-import { bookSeatAction, bookTicketAction } from '../../redux/actions/OrderAction';
+import { bookSeatAction, bookTicketAction, orderConfirmAction } from '../../redux/actions/OrderAction';
 import { Ticket } from './../../_core/models/Ticket';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
+import TicketLeaf from '../../components/TicketLeaf/TicketLeaf';
 const { TabPane } = Tabs;
 
 
@@ -71,7 +72,7 @@ export default function Detail(props) {
 
 
 export function SettlePayment(props) {
-    const { donHang } = useSelector(state => state.OrderReducer)
+    let { donHang } = useSelector(state => state.OrderReducer)
     const [show, setShow] = useState(false);
     const [children, setChildren] = useState(0);
     const [teenage, setTeenage] = useState(0);
@@ -92,18 +93,39 @@ export function SettlePayment(props) {
     const finalPrice = totalPrice - discount;
 
     const onFinish = (values) => {
-        setShow(true)
+        if (children + teenage == donHang?.numberOfSeat) {
+            notification.error({
+                closeIcon: true,
+                message: 'Error',
+                description: (
+                    <>
+                        Children must be accompanied by an adult<br></br>
+                        Must have at least one adult.
+                    </>
+                ),
+            });
+        } else {
+            setShow(true)
+        }
+
     };
 
     const handleSubmit = (values) => {
         if (values.otp == '123456') {
             const ticket = new Ticket();
+            const timeStamp = (new Date()).toISOString().replace(/[^0-9]/g, '').slice(0, -3)
             ticket.TripId = donHang.tripId;
+            ticket.Code = timeStamp;
+            ticket.BookDate = dayjs(new Date);
             ticket.UserId = donHang.userId;
             ticket.SeatsList = donHang.seatList;
             ticket.TotalPrice = finalPrice;
             ticket.isCancel = false;
+            ticket.Note = `${children} children + ${teenage} teenage + ${oldman} elder`
 
+            donHang = { ...donHang, Note: ticket.Note, Code: ticket.Code, BookDate: ticket.BookDate}
+            console.log('donHang', donHang)
+            dispatch(orderConfirmAction(donHang))
             dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))
         } else {
@@ -190,7 +212,7 @@ export function SettlePayment(props) {
                                 name="basic"
                                 onFinish={onFinish}
                                 autoComplete="off"
-                                style={{width: 370}}
+                                style={{ width: 370 }}
                             >
                                 <Form.Item
                                     name="cardnumber"
@@ -232,7 +254,7 @@ export function SettlePayment(props) {
                                     name="basic"
                                     onFinish={handleSubmit}
                                     autoComplete="off"
-                                    style={{width: 370}}
+                                    style={{ width: 370 }}
                                 >
                                     <Form.Item
                                         name="otp"
@@ -281,39 +303,7 @@ export function KetQuaDatVe(props) {
                         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">You don't need to print out of my bus ticket to board the bus. You can show your E-ticket or e-ticket on your mobile device before boarding the bus.
                             Additionally, It is advisable to carry a government issued Identity card to verify your identity and your companies before boarding the bus to enjoy your discount.</p>
                         <div className="cardWrap">
-                            <div className="card cardLeft">
-                                <h1>Trip: <span className='font-bold'>PHTV{donHang?.tripId}</span></h1>
-                                <div className="title">
-                                    <span>Route</span>
-                                    <h2>{donHang?.fromStation} - {donHang?.toStation}</h2>
-                                </div>
-                                <div className="name">
-                                    <span>Customer</span>
-                                    <h2>{donHang?.email}</h2>
-                                </div>
-                                <div className="seatList">
-                                    <span>seat</span>
-                                    <h2>{donHang?.seatList}</h2>
-                                </div>
-                                <div className="time">
-                                    <span>time</span>
-                                    <h2>{dayjs(donHang?.startTime).format('DD-MM-YYYY')}</h2>
-                                </div>
-
-                            </div>
-                            <div className="card cardRight">
-                                <div className="eye" />
-                                <div className="number">
-                                    <span>seat</span>
-                                    <h3>{donHang?.seatList}</h3>
-                                </div>
-                                <QRCode size={100} className='mx-auto' value={
-                                    'Ticket: ' + donHang?.email +
-                                    ', Route: ' + donHang?.fromStation + ' ' + donHang?.toStation +
-                                    ', Day: ' + dayjs(donHang?.startTime).format('DD-MM-YYYY') +
-                                    ', Seat: ' + donHang?.seatList
-                                } />
-                            </div>
+                            <TicketLeaf donHang={donHang}/>
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants";
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, GET_TICKET_RESULT, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
 import { TOKEN } from "../../util/settings/config";
 import { userService } from "../../services/UserService";
@@ -52,6 +52,11 @@ export const bookTicketAction = (ticket) => {
     return async (dispatch) => {
         try {
             const result = await orderService.addTicket(ticket);
+            console.log('ticket',result.data)
+            dispatch({
+                type: GET_TICKET_RESULT,
+                Ticket: result.data.data[0]
+            })
         } catch (error) {
             console.log(error)
         }

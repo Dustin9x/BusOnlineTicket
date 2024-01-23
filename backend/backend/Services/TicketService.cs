@@ -22,7 +22,7 @@ namespace backend.Services
                 ticket.Users = user;
                 db.Tickets.Add(ticket);
                 int result = await db.SaveChangesAsync();
-                if (result == 0)
+                if(result == 0)
                 {
                     return false;
                 }

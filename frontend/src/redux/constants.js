@@ -36,6 +36,7 @@ export const CHON_GHE = "CHON_GHE";
 export const ORDER_CONFIRM = "ORDER_CONFIRM";
 export const DAT_VE = "DAT_VE";
 export const DELETE_SELECTING_SEATS = "DELETE_SELECTING_SEATS";
+export const GET_TICKET_RESULT = "GET_TICKET_RESULT";
 export const GET_TICKET_BY_USER = "GET_TICKET_BY_USER";
 export const GET_TICKET_STATUS = "GET_TICKET_STATUS";
 export const DAT_VE_HOAN_TAT = "DAT_VE_HOAN_TAT";
