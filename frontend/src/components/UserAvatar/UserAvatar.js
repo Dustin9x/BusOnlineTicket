@@ -32,7 +32,7 @@ export default function UserAvatar(props) {
         </div>
     );
 
-    return <Popover placement="bottomRight" title={userLogin.email} content={content} trigger="click">
+    return <Popover placement="bottomRight" title={userLogin?.email} content={content} trigger="click">
         <Button className='rounded-full bg-slate-300 p-0 d-flex justify-center items-center w-full h-full' style={{ width: 40, height: 40 }}>
             {userLogin?.avatar == null || userLogin?.avatar == ""
                 ? <Avatar size={40} style={{ fontSize: '28px', lineHeight: '32px' }} icon={userLogin?.email?.substr(0, 1)} />

@@ -11,6 +11,7 @@
         public string? SeatsList { get; set; }
         public double? TotalPrice { get; set; }
         public bool? isCancel { get; set; } = false;
-        public string? Note {  get; set; }
+        public string? Note { get; set; }
+        public DateTime BookDate { get; set; }
     }
 }

@@ -10,7 +10,7 @@ import {
 
 
 const initialState = {
-  userLogin: {},
+  userLogin: null,
   arrUser: [],
   userDetail: {},
   profile: {},

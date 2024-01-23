@@ -24,36 +24,32 @@ function getItem(label, key, icon, children) {
 
 export const AdminTemplate = (props) => { //path, exact, Component
   const dispatch = useDispatch();
+  let { userLogin } = useSelector(state => state.UserReducer);
   const { Component, ...restProps } = props;
   const [collapsed, setCollapsed] = useState(false);
   const { token: { colorBgContainer }, } = theme.useToken();
 
   const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users',]
   const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
-  const { userLogin } = useSelector(state => state.UserReducer)
+
 
   let accessToken = {}
   if (localStorage.getItem(TOKEN)) {
     accessToken = localStorage.getItem(TOKEN)
-  }else{
+  } else {
     history.replace('/')
   }
 
   useEffect(() => {
+    dispatch(getCurrentUserAction(accessToken))
     window.scrollTo(0, 0);
-    if (accessToken != null) {
-      dispatch(getCurrentUserAction(accessToken))
-      if (_.isEmpty(userLogin)) {
-          localStorage.removeItem(TOKEN)
-      }
-  }
-  }, [accessToken, dispatch, userLogin])
+  }, [dispatch])
 
-  console.log('role',userLogin.role)
-
-  if (userLogin.role !== 'Admin' && userLogin.role !== 'Mod') {
+  console.log('role', userLogin)
+  if (userLogin && (userLogin?.role !== 'Admin' && userLogin?.role !== 'Mod')) {
     history.replace('/')
   }
+
 
 
   const itemsAdmin = [
@@ -104,7 +100,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
       <Layout style={{ minHeight: '100vh', }}>
         <Sider collapsible width={300} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <div className="demo-logo-vertical text-white text-2xl text-center my-10" >Quản Trị</div>
-          <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={userLogin?.role ==="Admin" ? itemsAdmin : itemsMod} />
+          <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={userLogin?.role === "Admin" ? itemsAdmin : itemsMod} />
         </Sider>
         <Layout>
           <Header

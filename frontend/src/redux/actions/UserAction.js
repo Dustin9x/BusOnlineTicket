@@ -113,12 +113,14 @@ export const forgetPassword = (emailInfo) => {
 export const getListUserAction = () => {
   return async (dispatch) => {
     try {
+      dispatch(displayLoadingAction);
       const result = await userService.getListUser();
       if (result.data.status === 200) {
         dispatch({
           type: GET_USER_LIST,
           arrUser: result.data.data,
         });
+        await dispatch(hideLoadingAction);
       }
     } catch (error) {
       console.log(error);
