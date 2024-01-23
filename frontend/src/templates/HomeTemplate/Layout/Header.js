@@ -10,6 +10,7 @@ import UserAvatar from '../../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../../redux/actions/UserAction';
 
 export default function Header(props) {
+    let { userLogin } = useSelector(state => state.UserReducer);
     const dispatch = useDispatch();
     let accessToken = {}
     if (localStorage.getItem(TOKEN)) {
@@ -17,11 +18,16 @@ export default function Header(props) {
     }
     
     useEffect(() => {
-        dispatch(getCurrentUserAction(accessToken))
+        if (accessToken != null) {
+            dispatch(getCurrentUserAction(accessToken))
+            if (_.isEmpty(userLogin)) {
+                localStorage.removeItem(TOKEN)
+            }
+        }
     }, []);
 
     const renderLogin = () => {
-        if (_.isEmpty(accessToken)) {
+        if (_.isEmpty(userLogin)) {
             return <Fragment>
                 <Button type="link" href="/register" className="text-white">Sign Up</Button>
                 <Button type="primary" href="/login" className="font-semibold rounded-full bg-red-400">Sign In</Button>

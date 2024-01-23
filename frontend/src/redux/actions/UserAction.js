@@ -167,13 +167,8 @@ export const getCurrentUserAction = (token) => {
           type: GET_CURRENT_USER_ACTION,
           userLogin: result.data,
         });
-      } else {
-        localStorage.removeItem(TOKEN)
-        history.replace("/");
       }
     } catch (error) {
-      localStorage.removeItem(TOKEN)
-      history.replace("/");
       console.log(error);
     }
   };

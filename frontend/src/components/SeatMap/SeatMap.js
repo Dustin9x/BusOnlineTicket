@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Timeline } from "antd";
+import { Button, Timeline, notification } from "antd";
 import { DAT_VE } from "../../redux/constants";
 import dayjs from 'dayjs';
 import _ from 'lodash';
@@ -7,12 +7,28 @@ import { orderConfirmAction } from "../../redux/actions/OrderAction";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import Detail from "../../pages/Detail/Detail";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { TOKEN } from "../../util/settings/config";
+import { useEffect } from "react";
+import { getCurrentUserAction } from "../../redux/actions/UserAction";
 
 
 export default function SeatMap(props) {
     const dispatch = useDispatch();
     const { selectingSeats } = useSelector(state => state.OrderReducer)
     const { userLogin } = useSelector(state => state.UserReducer)
+
+    let accessToken = {}
+    if (localStorage.getItem(TOKEN)) {
+        accessToken = localStorage.getItem(TOKEN)
+    }
+
+    useEffect(() => {
+        dispatch(getCurrentUserAction(accessToken))
+        if (_.isEmpty(userLogin)) {
+            localStorage.removeItem(TOKEN)
+        }
+    }, [dispatch, accessToken, userLogin]);
+
     let { tripId, tripDetail } = props
     const numberOfSeat = tripDetail?.bus?.busType?.numberOfSeat;
     const occupiedSeats = tripDetail?.seats?.map(s => s.name);
@@ -298,23 +314,33 @@ export default function SeatMap(props) {
                             : <Link Component={<Detail donhang={orderDetail} />} to={`/detail/${tripId}`} style={{ textDecoration: 'none' }}
                                 className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full"
                                 onClick={() => {
-                                    orderDetail.tripId = tripId;
-                                    orderDetail.busId = tripDetail.busId;
-                                    orderDetail.driverId = tripDetail.driverId;
-                                    orderDetail.driver = tripDetail.driver?.fullName;
-                                    orderDetail.busPlate = tripDetail.bus?.busPlate;
-                                    orderDetail.busType = tripDetail.bus?.busType.name;
-                                    orderDetail.fromStation = tripDetail.fromStation?.name;
-                                    orderDetail.toStation = tripDetail.toStation?.name;
-                                    orderDetail.startTime = tripDetail.startTime;
-                                    orderDetail.finishTime = tripDetail.finishTime;
-                                    orderDetail.seatList = renderSeatSelected();
-                                    orderDetail.numberOfSeat = selectingSeats?.length;
-                                    orderDetail.ticketPrice = tripDetail.ticketPrice;
-                                    orderDetail.totalMoney = totalMoney;
-                                    orderDetail.userId = userLogin.id;
-                                    orderDetail.email = userLogin.email;
-                                    dispatch(orderConfirmAction(orderDetail))
+                                    if(_.isEmpty(userLogin)){
+                                        notification.error({
+                                            closeIcon: true,
+                                            message: 'Error',
+                                            description: (
+                                              <>Sorry, please login first to continue your order.</>
+                                            ),
+                                          });
+                                    }else{
+                                        orderDetail.tripId = tripId;
+                                        orderDetail.busId = tripDetail.busId;
+                                        orderDetail.driverId = tripDetail.driverId;
+                                        orderDetail.driver = tripDetail.driver?.fullName;
+                                        orderDetail.busPlate = tripDetail.bus?.busPlate;
+                                        orderDetail.busType = tripDetail.bus?.busType.name;
+                                        orderDetail.fromStation = tripDetail.fromStation?.name;
+                                        orderDetail.toStation = tripDetail.toStation?.name;
+                                        orderDetail.startTime = tripDetail.startTime;
+                                        orderDetail.finishTime = tripDetail.finishTime;
+                                        orderDetail.seatList = renderSeatSelected();
+                                        orderDetail.numberOfSeat = selectingSeats?.length;
+                                        orderDetail.ticketPrice = tripDetail.ticketPrice;
+                                        orderDetail.totalMoney = totalMoney;
+                                        orderDetail.userId = userLogin.id;
+                                        orderDetail.email = userLogin.email;
+                                        dispatch(orderConfirmAction(orderDetail))
+                                    }
                                 }}
                             >Continue</Link>
                         }
