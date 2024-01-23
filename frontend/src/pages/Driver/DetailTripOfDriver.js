@@ -181,11 +181,11 @@ export default function DetailTripOfDriver() {
 
       <div >
         <div className='flex justify-content-space-between align-items-center'>
-          <div className='text-lg flex' >
+          <div className='text-lg flex w-full' >
 
             {driverDetail?.avatar == ""
               ? <a href='/profileDriver'><img style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Trip/${driverDetail.image}`} alt={driverDetail.image} /></a>
-              : <a href='/profileDriver'> <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={"H"} /> </a>}   <span style={{ margin: 5 }}> {driverDetail?.fullName} </span>
+              : <a href='/profileDriver'> <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={driverDetail?.fullName?.substr(0,1)} /> </a>}   <div style={{ margin: 5, width:'100%' }}> {driverDetail?.fullName} </div>
 
 
           </div>
