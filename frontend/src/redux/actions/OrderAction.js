@@ -34,7 +34,6 @@ export const bookSeatAction = (ticket) => {
     return async (dispatch) => {
         try {
             dispatch(displayLoadingAction)
-
             const result = await orderService.postSeat(ticket);
             notification.success({
                 closeIcon: true,
@@ -52,7 +51,6 @@ export const bookSeatAction = (ticket) => {
 export const bookTicketAction = (ticket) => {
     return async (dispatch) => {
         try {
-
             const result = await orderService.addTicket(ticket);
         } catch (error) {
             console.log(error)

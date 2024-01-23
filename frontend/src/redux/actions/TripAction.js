@@ -2,6 +2,7 @@ import { notification } from "antd";
 import { GET_TRIP_DETAIL, GET_TRIP_LIST } from "../constants";
 import { history } from "../../App";
 import { tripService } from "../../services/TripService";
+import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
 
 export const getTripListAction = () => {
   return async (dispatch) => {
@@ -69,6 +70,7 @@ export const deleteTripAction = (id) => {
 export const getTripListOptionsAction = (options) => {
   return async (dispatch) => {
     try {
+      dispatch(displayLoadingAction);
       const result = await tripService.getTripListOptions(options);
       console.log("options : ", options);
       console.log("data Trip Options : ", result);
@@ -77,6 +79,7 @@ export const getTripListOptionsAction = (options) => {
           type: GET_TRIP_LIST,
           arrTrip: result.data.data,
         });
+        await dispatch(hideLoadingAction);
       }
     } catch (error) {
       console.log("error", error);

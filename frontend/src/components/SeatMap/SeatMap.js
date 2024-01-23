@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Timeline, notification } from "antd";
 import { DAT_VE } from "../../redux/constants";
@@ -23,11 +24,10 @@ export default function SeatMap(props) {
     }
 
     useEffect(() => {
-        dispatch(getCurrentUserAction(accessToken))
-        if (_.isEmpty(userLogin)) {
-            localStorage.removeItem(TOKEN)
+        if (accessToken != null) {
+            dispatch(getCurrentUserAction(accessToken))
         }
-    }, [dispatch, accessToken, userLogin]);
+    }, [accessToken, dispatch]);
 
     let { tripId, tripDetail } = props
     const numberOfSeat = tripDetail?.bus?.busType?.numberOfSeat;
@@ -311,18 +311,21 @@ export default function SeatMap(props) {
                     <div className="" style={{ width: 170 }}>
                         {selectingSeats?.length == 0
                             ? <a disabled className="focus:outline-none text-white bg-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full">Continue</a>
-                            : <Link Component={<Detail donhang={orderDetail} />} to={`/detail/${tripId}`} style={{ textDecoration: 'none' }}
-                                className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full"
-                                onClick={() => {
-                                    if(_.isEmpty(userLogin)){
+                            : _.isEmpty(userLogin)
+                                ? <a className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full" 
+                                    onClick={()=>{
                                         notification.error({
                                             closeIcon: true,
                                             message: 'Error',
                                             description: (
-                                              <>Sorry, please login first to continue your order.</>
+                                                <>Sorry, please login first to continue your order.</>
                                             ),
-                                          });
-                                    }else{
+                                        });
+                                    }}
+                                >Continue</a>
+                                : <Link Component={<Detail donhang={orderDetail} />} to={`/detail/${tripId}`} style={{ textDecoration: 'none' }}
+                                    className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2 text-sm w-full"
+                                    onClick={() => {
                                         orderDetail.tripId = tripId;
                                         orderDetail.busId = tripDetail.busId;
                                         orderDetail.driverId = tripDetail.driverId;
@@ -340,9 +343,8 @@ export default function SeatMap(props) {
                                         orderDetail.userId = userLogin.id;
                                         orderDetail.email = userLogin.email;
                                         dispatch(orderConfirmAction(orderDetail))
-                                    }
-                                }}
-                            >Continue</Link>
+                                    }}
+                                >Continue</Link>
                         }
 
                     </div>

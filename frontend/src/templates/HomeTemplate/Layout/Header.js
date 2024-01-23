@@ -20,11 +20,8 @@ export default function Header(props) {
     useEffect(() => {
         if (accessToken != null) {
             dispatch(getCurrentUserAction(accessToken))
-            if (_.isEmpty(userLogin)) {
-                localStorage.removeItem(TOKEN)
-            }
         }
-    }, []);
+    }, [accessToken, dispatch]);
 
     const renderLogin = () => {
         if (_.isEmpty(userLogin)) {

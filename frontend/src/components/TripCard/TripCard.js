@@ -4,6 +4,7 @@ import { useState } from "react";
 import SeatMap from "../SeatMap/SeatMap";
 import { useDispatch } from "react-redux";
 import { DELETE_SELECTING_SEATS } from "../../redux/constants";
+import dayjs from "dayjs";
 
 
 export default function TripCard(props) {
@@ -21,7 +22,7 @@ export default function TripCard(props) {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const hours = (new Date(tripDetail.finishTime).getTime() - new Date(tripDetail.startTime).getTime()) / (1000 * 60 * 60);
+    const hours = dayjs(tripDetail.finishTime).diff(dayjs(tripDetail.startTime), 'hour');
 
     const numberOfSeat = tripDetail?.bus?.busType?.numberOfSeat;
     const occupiedSeats = tripDetail?.seats && Object.keys(tripDetail?.seats).length;
@@ -45,14 +46,14 @@ export default function TripCard(props) {
                         <div className="d-flex">
                             <div className="hour font-bold mr-1">
                                 <i className="fa-solid fa-circle-dot fa-sm w-4"></i>
-                                {tripDetail.startTime}
+                                {dayjs(tripDetail.startTime).format("DD-MM-YYYY h:mm A")}
                             </div>
                             <div className="place">• {tripDetail.fromStation.name}</div>
                         </div>
                         <div className="d-flex">
                             <div className="hour font-bold mr-1">
                                 <i className="fa-solid fa-location-dot w-4"></i>
-                                {tripDetail.finishTime}
+                                {dayjs(tripDetail.finishTime).format("DD-MM-YYYY h:mm A")}
                             </div>
                             <div className="place">• {tripDetail.toStation.name}</div>
                         </div>

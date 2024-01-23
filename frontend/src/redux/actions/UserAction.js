@@ -167,8 +167,11 @@ export const getCurrentUserAction = (token) => {
           type: GET_CURRENT_USER_ACTION,
           userLogin: result.data,
         });
+      }else{
+        localStorage.removeItem(TOKEN)
       }
     } catch (error) {
+      localStorage.removeItem(TOKEN)
       console.log(error);
     }
   };

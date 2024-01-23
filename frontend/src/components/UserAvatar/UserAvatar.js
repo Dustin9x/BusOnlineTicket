@@ -17,11 +17,8 @@ export default function UserAvatar(props) {
     useEffect(() => {
         if (accessToken != null) {
             dispatch(getCurrentUserAction(accessToken))
-            if (_.isEmpty(userLogin)) {
-                localStorage.removeItem(TOKEN)
-            }
         }
-    }, [dispatch, accessToken, userLogin]);
+    }, [accessToken, dispatch]);
 
     const content = (
         <div style={{ width: 200 }}>
