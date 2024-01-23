@@ -16,7 +16,7 @@ export default function Header(props) {
     if (localStorage.getItem(TOKEN)) {
         accessToken = localStorage.getItem(TOKEN)
     }
-    
+
     useEffect(() => {
         if (accessToken != null) {
             dispatch(getCurrentUserAction(accessToken))
