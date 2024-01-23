@@ -14,7 +14,7 @@ export class TripService extends baseService {
   };
   getTripListOptions = (options) => {
     return this.get(
-      `/api/Trip/Options?busType=${options.BusType}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}&from=${options.from}&to=${options.to}&dayStart=${options.dayStart}&page=1`
+      `/api/Trip/Options?searchBusType=${options.searchBusType}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}&from=${options.from}&to=${options.to}&dayStart=${options.dayStart}&page=1`
     );
   };
 
