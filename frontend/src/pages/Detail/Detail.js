@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Form, Input, QRCode, Tabs, InputNumber, notification, Timeline } from 'antd';
+import { Button, Form, Input, Tabs, InputNumber, notification, Timeline } from 'antd';
 import { UserOutlined, HomeOutlined, CreditCardOutlined, KeyOutlined } from '@ant-design/icons';
 import './Detail.css'
-import './Ticket.css'
 import { CHUYEN_TAB_ACTIVE } from '../../redux/constants';
 import _ from 'lodash';
 import { TOKEN } from '../../util/settings/config';
@@ -14,6 +13,11 @@ import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
 import TicketLeaf from '../../components/TicketLeaf/TicketLeaf';
 const { TabPane } = Tabs;
+var utc = require('dayjs/plugin/utc')
+var timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.guess()
 
 
 export default function Detail(props) {
@@ -113,17 +117,17 @@ export function SettlePayment(props) {
     const handleSubmit = (values) => {
         if (values.otp == '123456') {
             const ticket = new Ticket();
-            const timeStamp = (new Date()).toISOString().replace(/[^0-9]/g, '').slice(0, -3)
+            const timeStamp = dayjs().tz(dayjs.tz.guess()).format("YYYYMMDDhhmmss")
             ticket.TripId = donHang.tripId;
             ticket.Code = timeStamp;
-            ticket.BookDate = dayjs(new Date);
+            ticket.BookDate = dayjs().tz(dayjs.tz.guess())
             ticket.UserId = donHang.userId;
-            ticket.SeatsList = donHang.seatList;
+            ticket.SeatsList = donHang.seatsList;
             ticket.TotalPrice = finalPrice;
             ticket.isCancel = false;
             ticket.Note = `${children} children + ${teenage} teenage + ${oldman} elder`
 
-            donHang = { ...donHang, Note: ticket.Note, Code: ticket.Code, BookDate: ticket.BookDate}
+            donHang = { ...donHang, note: ticket.Note, code: ticket.Code, bookDate: ticket.BookDate}
             console.log('donHang', donHang)
             dispatch(orderConfirmAction(donHang))
             dispatch(bookSeatAction(ticket))
@@ -201,7 +205,7 @@ export function SettlePayment(props) {
                         <p className="font-bold">Final Price</p>
                         <h3 className='text-xl font-bold text-red-600'>{finalPrice?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
                     </div>
-                    <p className='text-gray-400 m-2'>(*) Please check the information carefully, orders once placed will not be canceled or refunded.</p>
+                    <p className='text-gray-400 m-2'>(*) Please check the information carefully before proceeding the next steps.</p>
 
                 </div>
                 <div className='col-6 '>

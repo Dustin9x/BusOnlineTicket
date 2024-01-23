@@ -26,7 +26,7 @@ export default function CheckTicket() {
     }
   }
 
-  let remainHour = dayjs(ticketDetail?.trips?.startTime).diff(dayjs(new Date), 'hour')
+  let remainHour = dayjs(ticketDetail?.trips?.startTime).diff(dayjs(new Date()), 'hour')
 
 
   return (

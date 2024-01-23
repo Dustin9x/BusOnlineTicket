@@ -336,7 +336,7 @@ export default function SeatMap(props) {
                                         orderDetail.toStation = tripDetail.toStation?.name;
                                         orderDetail.startTime = tripDetail.startTime;
                                         orderDetail.finishTime = tripDetail.finishTime;
-                                        orderDetail.seatList = renderSeatSelected();
+                                        orderDetail.seatsList = renderSeatSelected();
                                         orderDetail.numberOfSeat = selectingSeats?.length;
                                         orderDetail.ticketPrice = tripDetail.ticketPrice;
                                         orderDetail.totalMoney = totalMoney;

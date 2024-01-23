@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
+import { getCurrentUserAction } from "../redux/actions/UserAction";
 // import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
 const { Header, Content, Sider } = Layout;
 
@@ -24,6 +25,7 @@ function getItem(label, key, icon, children) {
 
 export const ProfileTemplate = (props) => { //path, exact, Component
   const dispatch = useDispatch();
+  let { userLogin } = useSelector(state => state.UserReducer);
   const { Component, ...restProps } = props;
   const [collapsed, setCollapsed] = useState(false);
   const { token: { colorBgContainer }, } = theme.useToken();
@@ -32,15 +34,22 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
 
   
+  let accessToken = {}
+  if (localStorage.getItem(TOKEN)) {
+    accessToken = localStorage.getItem(TOKEN)
+  } else {
+    history.replace('/')
+  }
+
   useEffect(() => {
+    dispatch(getCurrentUserAction(accessToken))
     window.scrollTo(0, 0);
   }, [dispatch])
 
-
-  // if (!localStorage.getItem(USER_LOGIN)) {
-  //   alert('Bạn không có quyền truy cập trang này!')
-  //   history.push('/')
-  // }
+  console.log('role', userLogin)
+  if (userLogin && _.isEmpty(userLogin)) {
+    history.replace('/')
+  }
 
   const items = [
     getItem('Your Profile Detail', '1', <NavLink className='text-decoration-none' to="/users/profile"><i className="fa-solid fa-user"></i></NavLink>),

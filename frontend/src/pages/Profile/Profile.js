@@ -34,7 +34,7 @@ const Profile = () => {
           </div>
           <div className='col-6'>
             <Typography>
-              <pre>Full Name: {userLogin.fullname}</pre>
+              <pre>Full Name: {userLogin?.fullname}</pre>
             </Typography>
           </div>
           <div className='col-6'>

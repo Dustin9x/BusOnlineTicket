@@ -12,6 +12,6 @@
         public double? TotalPrice { get; set; }
         public bool? isCancel { get; set; } = false;
         public string? Note { get; set; }
-        public DateTime BookDate { get; set; }
+        public DateTime? BookDate { get; set; }
     }
 }

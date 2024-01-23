@@ -62,6 +62,7 @@ import ProfileDriver from "./pages/Driver/ProfileDriver";
 import PromoteTripMng from "./pages/Admin/PromoteTripMng/PromoteTripMng";
 import AddNewPromoteTrip from "./pages/Admin/PromoteTripMng/AddNewPromoteTrip";
 import EditPromoteTrip from "./pages/Admin/PromoteTripMng/EditPromoteTrip";
+import CancelTicket from "./pages/Admin/UserMng/CancelTicket";
 
 export const history = createBrowserHistory();
 
@@ -95,6 +96,7 @@ function App() {
         <ProfileTemplate path="/users/profile" exact Component={Profile} />
         <ProfileTemplate path="/users/edit/:id" exact Component={UserEdit} />
         <ProfileTemplate path="/users/ordershistory" exact Component={OrderHistory} />
+        <ProfileTemplate path="/users/ordershistory/cancel/:id" exact Component={CancelTicket} />
 
         {/* User */}
         <AdminTemplate path="/admin" exact Component={UserMng} />

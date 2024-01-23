@@ -114,15 +114,15 @@ export default function TripMng() {
       title: 'Action',
       render: (text, trip) => {
         return <div className="d-flex">
-          <Button onClick={() => {
-            showModal()
+          <Button key={1} onClick={() => {
             setTripId(trip.id)
             setTripDetail(trip)
+            showModal()
           }}>Seat Map</Button>
-          <Button key={1} href={`/admin/theatremng/edit/${trip.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+          <Button key={2} href={`/admin/theatremng/edit/${trip.id}`} type="link" icon={<EditOutlined />} onClick={() => {
             localStorage.setItem('theatreParams', JSON.stringify(trip));
           }}></Button>
-          <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+          <Button key={3} type="link" danger icon={<DeleteOutlined />} onClick={() => {
             if (window.confirm('Do you want to delete trip PHTV' + trip.id + '?')) {
               dispatch(deleteTripAction(trip.id))
             }

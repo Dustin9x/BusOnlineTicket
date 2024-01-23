@@ -5,6 +5,7 @@ import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, GET_TICKET_RESULT, G
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
 import { TOKEN } from "../../util/settings/config";
 import { userService } from "../../services/UserService";
+import { history } from "../../App";
 
 const userLoginId = null;
 
@@ -90,7 +91,7 @@ export const cancelTicketAction = (id, day) => {
                     <>Cancel ticket successfully</>
                 ),
             });
-            dispatch(getTicketByUserAction(userLoginId))
+            history.push("/users/ordershistory");
         } catch (error) {
             console.log(error)
         }

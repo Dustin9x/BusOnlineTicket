@@ -38,12 +38,12 @@ namespace backend.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("search/{Id}")]
-        public async Task<ActionResult> SearchTicket(int Id)
+        [HttpGet("search/{Code}")]
+        public async Task<ActionResult> SearchTicket(string Code)
         {
             try
             {
-                var list = await repo.SearchTicket(Id);
+                var list = await repo.SearchTicket(Code);
                 if (list != null)
                 {
                     var response = new ResponseData<IEnumerable<Ticket>>(StatusCodes.Status200OK, "Get ticket successfully", list, null);

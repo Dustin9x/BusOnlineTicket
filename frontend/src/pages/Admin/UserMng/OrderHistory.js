@@ -2,21 +2,34 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config'
 import { cancelTicketAction, getTicketByUserAction } from '../../../redux/actions/OrderAction'
-import { Button, Input, Space, Table, Tag, Form } from 'antd'
+import { Button, Input, Space, Table, Tag, Form, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
 import dayjs from "dayjs";
+import TicketLeaf from '../../../components/TicketLeaf/TicketLeaf'
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
 export default function OrderHistory() {
   const { arrTicket } = useSelector(state => state.OrderReducer)
   let { userLogin } = useSelector(state => state.UserReducer);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [donHang, setDonHang] = useState({});
   const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getTicketByUserAction(userLogin?.id))
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(getTicketByUserAction(userLogin?.id))
+  }, [dispatch]);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
@@ -108,15 +121,22 @@ export default function OrderHistory() {
   const columns = [
     {
       title: 'Ticket Code',
-      dataIndex: 'id',
-      key: 'id',
-      width: '15%',
-      ...getColumnSearchProps('id'),
-      sorter: (a, b) => a.id - b.id,
+      dataIndex: 'code',
+      key: 'code',
+      ...getColumnSearchProps('code'),
+      sorter: (a, b) => a.code - b.code,
+      sortDirections: ['descend', 'ascend']
+    },
+    {
+      title: 'Book Date',
+      dataIndex: 'bookDate',
+      key: 'bookDate',
+      ...getColumnSearchProps('bookDate'),
+      sorter: (a, b) => a.bookDate - b.bookDate,
       sortDirections: ['descend', 'ascend'],
       render: (text, ticket) => {
-        return "PHTV" + ticket.id
-      },
+        return dayjs(ticket.bookDate).format("DD-MM-YYYY")
+      }
     },
     {
       title: 'From',
@@ -132,17 +152,26 @@ export default function OrderHistory() {
       title: 'To',
       dataIndex: 'trips',
       key: 'trips',
-      ...getColumnSearchProps('stations'),
+      ...getColumnSearchProps('trips'),
       sortDirections: ['descend', 'ascend'],
       render: (text, ticket) => {
         return ticket.trips.toStation.name
       }
     },
     {
+      title: 'Departure Time',
+      dataIndex: 'startTime',
+      key: 'startTime',
+      ...getColumnSearchProps('startTime'),
+      sortDirections: ['descend', 'ascend'],
+      render: (text, ticket) => {
+        return dayjs(ticket.trips.startTime).format("DD-MM-YYYY h:mm A")
+      }
+    },
+    {
       title: 'Seat List',
       dataIndex: 'seatsList',
       key: 'seatsList',
-      width: '20%',
     },
     {
       title: 'Total Price',
@@ -166,19 +195,19 @@ export default function OrderHistory() {
       width: '15%',
       render: (text, ticket) => {
         let remainDay = dayjs(ticket.trips.startTime).get('date') - dayjs().get('date')
-        console.log('remainDay',remainDay)
+        console.log('remainDay', remainDay)
         return <>
+          <Button key={1} icon={<i className="fa-solid fa-ticket"></i>} onClick={() => {
+            setDonHang(ticket)
+            showModal()
+          }}>View Ticket</Button>
           {remainDay < 0 ? ''
-            : <Button key={1} type="link" danger icon={"x"} onClick={() => {
-              if (window.confirm("Do you sure want to cancel ticket PHTV" + ticket.id + "?")) {
-                dispatch(cancelTicketAction(ticket.id, remainDay))
-              }
+            : <Button key={2} type="link" href={`/users/ordershistory/cancel/` + ticket.code} danger onClick={() => {
+              // if (window.confirm("Do you sure want to cancel ticket " + ticket.code + "?")) {
+              //   dispatch(cancelTicketAction(ticket.id, remainDay))
+              // }
             }}>Cancel Ticket</Button>
           }
-          <Form>
-            Nhap ten tai khoan <Input/>
-            Nhap so tai khoan<Input/>
-          </Form>
         </>
       }
     },
@@ -188,6 +217,8 @@ export default function OrderHistory() {
       <h3 className='text-lg'>Ticket Management</h3>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
-
+    <Modal title="View Ticket" open={isModalOpen} width={700} onOk={handleOk} onCancel={handleCancel}>
+      <TicketLeaf donHang={donHang} />
+    </Modal>
   </div>
 }
