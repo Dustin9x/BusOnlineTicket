@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, LineChartOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, LineChartOutlined , FormOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
 import { Avatar, Popover } from 'antd';
 import { NavLink } from "react-router-dom";
@@ -73,6 +73,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
       getItem('Revunue By Route', '12', <NavLink className='text-decoration-none' to="/admin/revenuemovie"><LineChartOutlined /></NavLink>),
     ]),
     getItem('FAQ Management', '13', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
+    getItem('News Management', '14', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
   ]
 
 
@@ -83,6 +84,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
     getItem('Promote Trip Management', '5', <NavLink className='text-decoration-none' to="/admin/promotripmng"><BuildFilled /></NavLink>),
     getItem('Drivers', '8', <NavLink className='text-decoration-none' to="/admin/drivermng"><UserOutlined /></NavLink>),
     getItem('FAQ Management', '13', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
+    getItem('News Management', '14', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
   ]
 
 

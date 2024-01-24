@@ -63,6 +63,11 @@ import AddNewPromoteTrip from "./pages/Admin/PromoteTripMng/AddNewPromoteTrip";
 import EditPromoteTrip from "./pages/Admin/PromoteTripMng/EditPromoteTrip";
 import CancelTicket from "./pages/Admin/UserMng/CancelTicket";
 import EditTrip from "./pages/Admin/TripMng/EditTrip";
+import News from './pages/News/News';
+import NewsDetail from './pages/News/NewsDetail';
+import NewsMng from './pages/Admin/NewsMng/NewsMng';
+import AddNewNews from './pages/Admin/NewsMng/AddNewNews';
+import NewsEdit from "./pages/Admin/NewsMng/NewsEdit";
 
 export const history = createBrowserHistory();
 
@@ -75,6 +80,8 @@ function App() {
         <HomeTemplate path="/home" exact Component={Home} />
         <HomeTemplate path="/contact" exact Component={Contact} />
         <CheckOutTemplate path="/detail/:id" exact Component={Detail} />
+        <HomeTemplate path='/news' exact Component={News} />
+        <HomeTemplate path='/news/detail/:id' exact Component={NewsDetail} />
 
         {/* Footer */}
         <HomeTemplate path="/about" exact Component={AboutUs} />
@@ -150,6 +157,11 @@ function App() {
         <AdminTemplate path="/admin/faqmng" exact Component={FAQMng} />
         <AdminTemplate path="/admin/faqmng/addnew" exact Component={AddNewFAQ} />
         <AdminTemplate path="/admin/faqmng/edit/:id" exact Component={EditFAQ} />
+
+             {/* Tin Tức */}
+        <AdminTemplate path='/admin/newsmng' exact Component={NewsMng} />
+        <AdminTemplate path='/admin/newsmng/addnews' exact Component={AddNewNews} />
+        <AdminTemplate path='/admin/newsmng/edit/:id' exact Component={NewsEdit} />
 
         <HomeTemplate path="/" exact Component={Home} />
         <HomeTemplate path="/search/" exact Component={Search} />

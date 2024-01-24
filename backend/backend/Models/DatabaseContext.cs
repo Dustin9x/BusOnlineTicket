@@ -19,6 +19,7 @@ namespace backend.Models
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<BusStation> BusStations { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
+        public DbSet<News> News { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -104,6 +105,12 @@ namespace backend.Models
             {
                 f.HasKey(p => p.Id);
                 f.HasData(SeedData.FAQData.FAQSeedData());
+            });
+            modelBuilder.Entity<News>(n =>
+            {
+                n.HasKey(n => n.Id);
+                n.HasData(SeedData.NewsData.NewsSeedData());
+
             });
         }
     }
