@@ -27,8 +27,8 @@ namespace backend.Services
                     Id = t.Id,
                     Image = t.Image,
                     Bus = db.Buses.Where(b => b.Id == t.BusId)
-                        .Select(b => new Bus() 
-                        { 
+                        .Select(b => new Bus()
+                        {
                             BusPlate = b.BusPlate,
                             BusType = b.BusType
                         }).SingleOrDefault(),
@@ -41,6 +41,9 @@ namespace backend.Services
                         }).SingleOrDefault(),
                     FromStation = db.Stations.Where(s => s.Id == t.FromStationId).SingleOrDefault(),
                     ToStation = db.Stations.Where(s => s.Id == t.ToStationId).SingleOrDefault(),
+                    StartTime = t.StartTime,
+                    FinishTime = t.FinishTime,
+                    TicketPrice = t.TicketPrice,
                     Seats = db.Seats.Where(s => s.TripId == t.Id).ToList(),
                 })
                 .ToListAsync();
@@ -56,7 +59,7 @@ namespace backend.Services
             try
             {
                 var oldTrip = db.Trips.Where(t => t.BusId == Trip.BusId && t.DriverId == Trip.DriverId && Trip.StartTime > t.StartTime && Trip.StartTime < t.FinishTime).Any();
-                if(oldTrip == false)
+                if (oldTrip == false)
                 {
                     Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
                     Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
@@ -94,7 +97,7 @@ namespace backend.Services
                 {
                     return false;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -128,9 +131,9 @@ namespace backend.Services
             return null;
         }
 
-        public async Task<bool> PutTrip(Trip Trip)
+        public async Task<bool> PutTrip(int Id, Trip Trip)
         {
-            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Trip.Id);
+            var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Id);
             if (ExistingTrip != null)
             {
                 if (Trip.UploadImage != null)

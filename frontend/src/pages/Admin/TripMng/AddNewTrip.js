@@ -25,7 +25,6 @@ export default function AddNewTrip(props) {
   let { arrEnableBus } = useSelector(state => state.BusReducer);
   let { arrStation } = useSelector(state => state.StationReducer);
   let { arrDriver } = useSelector(state => state.DriverReducer);
-  const dateFormat = 'DD-MM-YYYY';
   const { RangePicker } = DatePicker;
 
   useEffect(() => {
@@ -42,16 +41,16 @@ export default function AddNewTrip(props) {
       driverId: '',
       fromStationId: '',
       toStationId: '',
-      UploadImage: {},
+      image: '',
     },
     onSubmit: async (values) => {
 
       let formData = new FormData();
       for (let key in values) {
-        if (key !== 'UploadImage') {
+        if (key !== 'image') {
           formData.append(key, values[key]);
         } else {
-          formData.append('UploadImage', values['UploadImage']);
+          formData.append('image', values['image']);
         }
       }
       console.table('formData', [...formData])
@@ -94,7 +93,7 @@ export default function AddNewTrip(props) {
       reader.onload = (e) => {
         setImgSrc(e.target.result);
       }
-      formik.setFieldValue('UploadImage', file);
+      formik.setFieldValue('image', file);
     }
   }
 
@@ -127,7 +126,7 @@ export default function AddNewTrip(props) {
             showTime={{
               format: 'HH:mm',
             }}
-            format="YYYY-MM-DD HH:mm"
+            format="DD-MM-YYYY HH:mm A"
             onChange={onChangeDate}
             onOk={onOk}
           />

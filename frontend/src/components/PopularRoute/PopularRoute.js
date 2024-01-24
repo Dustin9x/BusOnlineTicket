@@ -16,32 +16,32 @@ export default function PopularRoute() {
     }, [])
 
     let [list, chunkSize] = [arrPromoteTrip, 6];
-    list = [...Array(Math.ceil(list.length / chunkSize))].map(_ => list.splice(0, chunkSize))
+    list = [...Array(Math.ceil(arrPromoteTrip?.length / chunkSize))].map(_ => list.splice(0, chunkSize))
 
     console.log(list);
 
     console.log('arrPromoteTrip', arrPromoteTrip)
 
-    const settings = {
-        // autoplay: true,
-        // autoplaySpeed: 1500,
-        // className: "center",
-        // draggable: true,
-        // swipeToSlide: true
+    const carouselSettings = {
+        autoplay: true,
+        autoplaySpeed: 10000,
+        className: "center",
+        draggable: true,
+        swipeToSlide: true
     }
 
     return (
         <div >
             <h1 className="text-center text-2xl">Popular bus routes</h1>
             <div className="py-4 rounded-xl bg-white" style={{margin: '0 -15px'}}>
-                <Carousel arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} draggable={true} style={{height:320}} className="d-block">
-                    {list.map(element => {
+                <Carousel arrows prevArrow={<LeftOutlined />} nextArrow={<RightOutlined />} draggable={true} {...carouselSettings} style={{height:320}} className="d-block">
+                    {list.map((element,i) => {
                         return (
-                            <div className="d-flex" >
+                            <div key={i} className="d-flex" >
                                 {element?.map((item, index) => {
                                     return (
                                             <a href={`/search/?from=${item.fromStation}&to=${item.toStation}`} key={index} className="hover:no-underline flex justify-center col-2">
-                                                <Card hoverable style={{ width: '90%' }}
+                                                <Card hoverable
                                                     cover={<img alt="example" style={{ height: 150, objectFit: 'cover' }} src={`${DOMAIN}/Images/PromoteTrip/${item.image}`} />} >
                                                     <Meta style={{height:50}} title={`${item.fromStation} - ${item.toStation}`} />
                                                     <div className="mt-3"><Tag color="magenta">{`From ${item?.minPrice?.toLocaleString("en-US", { style: "currency", currency: "USD" })}`}</Tag></div>

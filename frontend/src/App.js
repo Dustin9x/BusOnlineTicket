@@ -23,7 +23,6 @@ import AddUser from "./pages/Admin/UserMng/AddUser";
 import Profile from "./pages/Profile/Profile";
 import { ProfileTemplate } from "./templates/ProfileTemplate";
 import OrderHistory from "./pages/Admin/UserMng/OrderHistory";
-import EditTheatreChild from "./pages/Admin/TripMng/EditTheatreChild";
 import Search from "./pages/Search/Search";
 import AdminUserMng from "./pages/Admin/UserMng/AdminUserMng";
 import RevenueMonth from "./pages/Admin/Revenue/RevenueMonth";
@@ -63,6 +62,7 @@ import PromoteTripMng from "./pages/Admin/PromoteTripMng/PromoteTripMng";
 import AddNewPromoteTrip from "./pages/Admin/PromoteTripMng/AddNewPromoteTrip";
 import EditPromoteTrip from "./pages/Admin/PromoteTripMng/EditPromoteTrip";
 import CancelTicket from "./pages/Admin/UserMng/CancelTicket";
+import EditTrip from "./pages/Admin/TripMng/EditTrip";
 
 export const history = createBrowserHistory();
 
@@ -134,7 +134,7 @@ function App() {
         {/* Trip */}
         <AdminTemplate path="/admin/tripmng" exact Component={TripMng} />
         <AdminTemplate path="/admin/tripmng/addtrip" exact Component={AddNewTrip} />
-        <AdminTemplate path="/admin/theatremng/edit/:id" exact Component={EditTheatreChild} />
+        <AdminTemplate path="/admin/tripmng/edit/:id" exact Component={EditTrip} />
 
         {/* Promote Trip */}
         <AdminTemplate path="/admin/promotripmng" exact Component={PromoteTripMng} />

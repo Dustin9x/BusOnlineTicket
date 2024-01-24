@@ -7,7 +7,7 @@ namespace backend.IRepository
         Task<IEnumerable<Trip>> GetAllTrip();
         Task<IEnumerable<Trip>> GetTripById(int Id);
         Task<bool> CreateTrip(Trip Trip);
-        Task<bool> PutTrip(Trip Trip);
+        Task<bool> PutTrip(int Id, Trip Trip);
         Task<Trip> DeleteTrip(int Id);
         List<Trip> OptionsAsDesired(string? searchBusType, string? fromPrice, string? toPrice, string? sort, string? from, string? to, string? dayStart, int page = 1);
     }

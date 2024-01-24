@@ -59,6 +59,24 @@ export const addNewTripAction = (formData) => {
   };
 };
 
+export const updateTripAction = (id,formData) => {
+  return async (dispatch) => {
+      try {
+          const result = await tripService.updateTrip(id,formData);
+          notification.success({
+              closeIcon: true,
+              message: 'Success',
+              description: (
+                  <>Update trip successfully</>
+              ),
+          });
+          history.push('/admin/tripmng');
+      } catch (error) {
+          console.log('error', error);
+      }
+  }
+}
+
 export const deleteTripAction = (id) => {
   return async (dispatch) => {
     try {

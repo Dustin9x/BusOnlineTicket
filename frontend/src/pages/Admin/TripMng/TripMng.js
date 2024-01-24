@@ -1,11 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { EditOutlined, DeleteOutlined, AppstoreOutlined } from '@ant-design/icons';
-import { Avatar, Button, Modal, Table, Tag } from 'antd';
+import React, { Fragment, useEffect, useRef, useState } from 'react'
+import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { Avatar, Button, Input, Modal, Space, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
-import { deleteTripAction, getTripListAction } from '../../../redux/actions/TripAction';
+import { deleteTripAction, getTripByIdAction, getTripListAction } from '../../../redux/actions/TripAction';
 import { DOMAIN } from '../../../util/settings/config';
 import SeatMapAdmin from '../../../components/SeatMap/SeatMapAdmin';
+import Highlighter from 'react-highlight-words';
+import dayjs from 'dayjs';
 
 
 export default function TripMng() {
@@ -29,12 +31,94 @@ export default function TripMng() {
     setIsModalOpen(false);
   };
 
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const resetSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText((selectedKeys[0] = ""));
+    setSearchedColumn(dataIndex);
+  };
 
   const data = arrTrip;
 
+  console.log('arrTrip', arrTrip)
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close, }) => (
+      <div style={{ padding: 8, }} onKeyDown={(e) => e.stopPropagation()} >
+        <Input
+          ref={searchInput}
+          placeholder={`Search`}
+          value={selectedKeys[0]}
+          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: "block",
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            className="bg-primary"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && resetSearch(selectedKeys, confirm, dataIndex)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1677ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownOpenChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text, index) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          key={index}
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
   const columns = [
     {
-      title: 'Trip Code',
+      title: 'Id',
       dataIndex: 'id',
       key: 'id',
       sorter: (a, b) => a.id - b.id,
@@ -58,7 +142,7 @@ export default function TripMng() {
       title: 'From Station',
       dataIndex: 'fromStation',
       key: 'fromStation',
-      sorter: (a, b) => a.fromStation?.length - b.fromStation?.length,
+      sorter: (a, b) => a.fromStation.name.length - b.fromStation.name.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <span color="magenta">{item.fromStation?.name}</span>
@@ -68,7 +152,7 @@ export default function TripMng() {
       title: 'To Station',
       dataIndex: 'toStation',
       key: 'toStation',
-      sorter: (a, b) => a.toStation?.length - b.toStation?.length,
+      sorter: (a, b) => a.toStation.name.length - b.toStation.name.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <span color="magenta">{item.toStation?.name}</span>
@@ -78,22 +162,31 @@ export default function TripMng() {
       title: 'Start Time',
       dataIndex: 'startTime',
       key: 'startTime',
+      sorter: (a, b) => dayjs(a.startTime) - dayjs(b.startTime),
+      render: (text, item) => {
+        return dayjs(item.startTime).format("DD-MM-YYYY h:mm A")
+      },
     },
     {
       title: 'Finish Time',
       dataIndex: 'finishTime',
       key: 'finishTime',
+      sorter: (a, b) => dayjs(a.finishTime) - dayjs(b.finishTime),
+      render: (text, item) => {
+        return dayjs(item.finishTime).format("DD-MM-YYYY h:mm A")
+      },
     },
     {
       title: 'Ticket Price',
       dataIndex: 'ticketPrice',
       key: 'ticketPrice',
+      sorter: (a, b) => dayjs(a.ticketPrice) - dayjs(b.ticketPrice),
     },
     {
       title: 'Assigned Driver',
       dataIndex: 'driver',
       key: 'driver',
-      sorter: (a, b) => a.driver.length - b.driver.length,
+      sorter: (a, b) => a.driver - b.driver,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <span color="magenta">{item.driver?.fullName}</span>
@@ -118,11 +211,11 @@ export default function TripMng() {
             setTripDetail(trip)
             showModal()
           }}>Seat Map</Button>
-          <Button key={2} href={`/admin/theatremng/edit/${trip.id}`} type="link" icon={<EditOutlined />} onClick={() => {
-            localStorage.setItem('theatreParams', JSON.stringify(trip));
+          <Button key={2} href={`/admin/tripmng/edit/${trip.id}`} type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getTripByIdAction(trip.id))
           }}></Button>
           <Button key={3} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Do you want to delete trip PHTV' + trip.id + '?')) {
+            if (window.confirm('Do you want to delete trip ' + trip.id + '?')) {
               dispatch(deleteTripAction(trip.id))
             }
           }}></Button>

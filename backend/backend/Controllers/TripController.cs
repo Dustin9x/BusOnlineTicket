@@ -95,11 +95,11 @@ namespace backend.Controllers
 
         }
         [HttpPut]
-        public async Task<ActionResult> PutTrip(Trip Trip)
+        public async Task<ActionResult> PutTrip(int Id, [FromForm] Trip Trip)
         {
             try
             {
-                bool list = await repo.PutTrip(Trip);
+                bool list = await repo.PutTrip(Id, Trip);
                 if (list)
                 {
                     var response = new ResponseData<Trip>(StatusCodes.Status200OK, "Edit trip successfully", Trip, null);

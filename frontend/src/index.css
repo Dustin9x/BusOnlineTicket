@@ -42,7 +42,10 @@ body {
 :where(.css-dev-only-do-not-override-k7429z).ant-carousel .slick-next > svg,
 :where(.css-dev-only-do-not-override-k7429z).ant-carousel .slick-prev > svg
  {
-    color: black !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+    background-color: floralwhite;
+    padding: 2px;
+    border-radius: 50%;
     height: 20px !important;
     width: 20px !important;
 }
