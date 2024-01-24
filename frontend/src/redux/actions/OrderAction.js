@@ -53,7 +53,6 @@ export const bookTicketAction = (ticket) => {
     return async (dispatch) => {
         try {
             const result = await orderService.addTicket(ticket);
-            console.log('ticket',result.data)
             dispatch({
                 type: GET_TICKET_RESULT,
                 Ticket: result.data.data[0]

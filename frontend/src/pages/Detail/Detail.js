@@ -128,7 +128,6 @@ export function SettlePayment(props) {
             ticket.Note = `${children} children + ${teenage} teenage + ${oldman} elder`
 
             donHang = { ...donHang, note: ticket.Note, code: ticket.Code, bookDate: ticket.BookDate}
-            console.log('donHang', donHang)
             dispatch(orderConfirmAction(donHang))
             dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))

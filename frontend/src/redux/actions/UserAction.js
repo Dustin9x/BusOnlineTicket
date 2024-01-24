@@ -216,7 +216,6 @@ export const updateUserAction = (id, newUser) => {
       });
       const result2 = await userService.getUserById(id);
       const userDetail = result2.data.data[0]
-      console.log('userDetail nha', userDetail)
       if (userDetail.role = "user") {
         history.push("/users/profile");
       } else {

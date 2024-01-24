@@ -1,4 +1,4 @@
-import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST } from "../constants";
+import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_ENABLE_BUS_LIST } from "../constants";
 import { history } from "../../App";
 import { busManageService } from "../../services/BusManageService";
 import { notification } from "antd";
@@ -12,6 +12,22 @@ export const getBusListAction = () => {
                 dispatch({
                     type: GET_BUS_LIST,
                     arrBus: result.data.data
+                })
+            }
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
+
+export const getEnableBusListAction = () => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.getEnableBusList();
+            if (result.data.status === 200) {
+                dispatch({
+                    type: GET_ENABLE_BUS_LIST,
+                    arrEnableBus: result.data.data
                 })
             }
         } catch (error) {
@@ -72,6 +88,23 @@ export const updateBusByIdAction = (id,formData) => {
     }
 }
 
+export const enableBusAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await busManageService.enableBus(id);
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>{result.data.data.enabled ? "Enable successfully" : "Disable successfully"}</>
+                ),
+            });
+            dispatch(getBusListAction())
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+}
 
 export const deleteBusAction = (id) => {
     return async (dispatch) => {

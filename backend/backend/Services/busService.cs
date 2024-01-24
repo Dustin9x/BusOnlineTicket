@@ -16,7 +16,12 @@ namespace backend.Services
 
         public async Task<IEnumerable<Bus>> GetAllBus()
         {
-            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Include(t => t.Trips).ToListAsync();
+            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Bus>> GetEnableBus()
+        {
+            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Where(b => b.Enabled == true).ToListAsync();
         }
 
 
@@ -48,9 +53,11 @@ namespace backend.Services
             var ExistingBus = await db.Buses.FindAsync(Id);
             if (ExistingBus != null)
             {
-                ExistingBus.BusType = Bus.BusType;
+                ExistingBus.BusTypeId = Bus.BusTypeId;
+                ExistingBus.StationId = Bus.StationId;
                 ExistingBus.BusPlate = Bus.BusPlate;
                 ExistingBus.Note = Bus.Note;
+                ExistingBus.Enabled = Bus.Enabled;
                 var station = await db.BusStations.Where(x => x.BusId == Id).ToListAsync();
                 foreach (var item in station)
                 {
@@ -73,6 +80,21 @@ namespace backend.Services
             else
             {
                 return false;
+            }
+        }
+
+        public async Task<Bus> EnableDisableBus(int Id)
+        {
+            var ExistingBus = await db.Buses.FindAsync(Id);
+            if (ExistingBus != null)
+            {
+                ExistingBus.Enabled = !ExistingBus.Enabled;
+                await db.SaveChangesAsync();
+                return ExistingBus;
+            }
+            else
+            {
+                return null;
             }
         }
 

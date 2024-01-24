@@ -29,7 +29,6 @@ export default function RegisterDriver(props) {
     },
     onSubmit: async (values) => {
         let newDriver = new FormData();
-        console.log("newDriver:",newDriver);
         for (let key in values) {
             if(key !== "UploadImage"){
                 newDriver.append(key, values[key]);

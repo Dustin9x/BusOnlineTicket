@@ -47,7 +47,6 @@ export default function Search(props) {
   };
 
   const handleOnChangeFilter = (event) => {
-    console.log('bustype',event.target.value)
     if (event.target.checked && event.target.value != "undefine") {
       setInput.searchBusType += event.target.value + ",";
     } else {

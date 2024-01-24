@@ -37,17 +37,16 @@ export default function TripMng() {
       title: 'Trip Code',
       dataIndex: 'id',
       key: 'id',
-      sorter: (a, b) => a.tripCode.length - b.tripCode.length,
+      sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
-        return <span color="magenta">PHTV{item.id}</span>
+        return <span color="magenta">{item.id}</span>
       },
     },
     {
       title: 'Image',
       dataIndex: 'image',
       key: 'image',
-      sorter: (a, b) => a.tripCode.length - b.tripCode.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item, index) => {
         return item.image != "null" || item.image != null

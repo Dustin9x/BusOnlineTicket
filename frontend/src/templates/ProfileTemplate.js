@@ -46,7 +46,6 @@ export const ProfileTemplate = (props) => { //path, exact, Component
     window.scrollTo(0, 0);
   }, [dispatch])
 
-  console.log('role', userLogin)
   if (userLogin && _.isEmpty(userLogin)) {
     history.replace('/')
   }

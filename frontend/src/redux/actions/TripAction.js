@@ -8,6 +8,7 @@ export const getTripListAction = () => {
   return async (dispatch) => {
     try {
       const result = await tripService.getTripList();
+      console.log('trip list',result)
       if (result.data.status === 200) {
         dispatch({
           type: GET_TRIP_LIST,
@@ -40,6 +41,7 @@ export const addNewTripAction = (formData) => {
   return async (dispatch) => {
     try {
       const result = await tripService.addNewTrip(formData);
+      console.log('add trip',result)
       notification.success({
         closeIcon: true,
         message: "Success",
@@ -47,6 +49,11 @@ export const addNewTripAction = (formData) => {
       });
       history.push("/admin/tripmng");
     } catch (error) {
+      notification.error({
+        closeIcon: true,
+        message: "Error",
+        description: <>Duplicate driver or bus within the selected time range.</>,
+      });
       console.log("error", error);
     }
   };
@@ -72,8 +79,6 @@ export const getTripListOptionsAction = (options) => {
     try {
       dispatch(displayLoadingAction);
       const result = await tripService.getTripListOptions(options);
-      console.log("options : ", options);
-      console.log("data Trip Options : ", result);
       if (result.data.status === 200) {
         dispatch({
           type: GET_TRIP_LIST,

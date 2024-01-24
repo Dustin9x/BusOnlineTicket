@@ -15,8 +15,6 @@ export default function PromoteTripMng() {
     dispatch(getPromoteTripListAction())
   }, [dispatch])
 
-  console.log('bus type 123', arrPromoteTrip)
-
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);

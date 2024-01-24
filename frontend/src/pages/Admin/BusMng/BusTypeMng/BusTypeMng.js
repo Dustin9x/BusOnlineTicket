@@ -14,8 +14,6 @@ export default function BusTypeMng() {
     dispatch(getBusTypeListAction())
   }, [dispatch])
 
-  console.log('bus type 123', arrBusType)
-
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);

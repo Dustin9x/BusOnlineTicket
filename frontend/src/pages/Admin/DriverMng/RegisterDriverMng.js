@@ -29,8 +29,6 @@ export default function RegisterDriverMng() {
     dispatch(getRegisterDriverAction());
   }, []);
 
-  console.log('arrRegisterDriver',arrRegisterDriver)
-
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table, Tag, Tooltip } from 'antd';
+import { Button, Input, Space, Table, Tag, Tooltip, Switch } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBusAction, getBusByIdAction, getBusListAction } from '../../../redux/actions/BusAction';
+import { deleteBusAction, enableBusAction, getBusByIdAction, getBusListAction } from '../../../redux/actions/BusAction';
 
 
 export default function BusMng() {
@@ -29,7 +29,6 @@ export default function BusMng() {
     setSearchText(selectedKeys[0] = '');
     setSearchedColumn(dataIndex);
   };
-
 
   const data = arrBus;
 
@@ -58,7 +57,7 @@ export default function BusMng() {
               width: 90,
             }}
           >
-            Tìm
+            Search
           </Button>
           <Button
             onClick={() => clearFilters && resetSearch(selectedKeys, confirm, dataIndex)}
@@ -144,13 +143,23 @@ export default function BusMng() {
       title: 'Note',
       dataIndex: 'note',
       key: 'note',
-      width: '30%',
       ...getColumnSearchProps('note'),
       sortDirections: ['descend', 'ascend']
     },
     {
+      title: 'Enable',
+      dataIndex: 'enabled',
+      key: 'enabled',
+      sortDirections: ['descend', 'ascend'],
+      render: (text, bus) => {
+        return <Switch size="small" checked={bus.enabled} onClick={()=>{
+          dispatch(enableBusAction(bus.id))
+        }} />
+      },
+    },
+    {
       title: 'Manage',
-      width: '25%',
+      width: '15%',
       render: (text, bus) => {
         return <>
           <Button key={1} href={`/admin/busmng/edit/${bus.id}`} type="link" icon={<EditOutlined />} onClick={() => {

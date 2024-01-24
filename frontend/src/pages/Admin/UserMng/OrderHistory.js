@@ -195,7 +195,6 @@ export default function OrderHistory() {
       width: '15%',
       render: (text, ticket) => {
         let remainDay = dayjs(ticket.trips.startTime).get('date') - dayjs().get('date')
-        console.log('remainDay', remainDay)
         return <>
           <Button key={1} icon={<i className="fa-solid fa-ticket"></i>} onClick={() => {
             setDonHang(ticket)

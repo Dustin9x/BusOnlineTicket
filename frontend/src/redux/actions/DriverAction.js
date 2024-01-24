@@ -25,7 +25,6 @@ export const getRegisterDriverAction = () => {
     return async (dispatch) => {
         try {
             const result = await driverService.getRegisterDriver();
-            console.log('red driver',result)
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_REGISTER_DRIVER_LIST,

@@ -8,7 +8,6 @@ export const getListModAction = () => {
   return async (dispatch) => {
     try {
       const result = await modService.getListMod();
-      console.log("check Mod:", result.data.data);
       if (result.data.status === 200) {
         dispatch({
           type: GET_MOD_LIST,
@@ -63,7 +62,6 @@ export const getModByIdAction = (id) => {
           type: GET_MOD_DETAIL,
           modDetail: result.data.data[0],
         });
-        console.log("Check get update:", result.data.data[0]);
       }
     } catch (error) {
       console.log(error);

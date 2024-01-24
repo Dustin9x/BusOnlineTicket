@@ -29,8 +29,6 @@ export default function StationMng() {
     setSearchedColumn(dataIndex);
   };
 
-  console.log('arrStation',arrStation)
-
   const data = arrStation;
 
   const getColumnSearchProps = (dataIndex) => ({

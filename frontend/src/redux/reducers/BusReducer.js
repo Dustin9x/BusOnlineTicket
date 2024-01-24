@@ -1,7 +1,8 @@
-import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST } from "../constants";
+import { GET_BUS_DETAIL, GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_ENABLE_BUS_LIST } from "../constants";
 
 const initialState = {
     arrBus: [],
+    arrEnableBus: [],
     busDetail: {},
     arrBusType: [],
     busTypeDetail: {},
@@ -12,6 +13,9 @@ export const BusReducer = (state = initialState, action) => {
 
         case GET_BUS_LIST:
             state.arrBus = action.arrBus;
+            return { ...state }
+        case GET_ENABLE_BUS_LIST:
+            state.arrEnableBus = action.arrEnableBus;
             return { ...state }
         case GET_BUS_DETAIL:
             state.busDetail = action.busDetail;

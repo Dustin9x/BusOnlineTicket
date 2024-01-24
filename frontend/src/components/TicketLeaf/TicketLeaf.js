@@ -14,7 +14,6 @@ export default function TicketLeaf(props) {
     const seatList = donHang?.seatsList;
     const startTime = donHang?.startTime;
     const note = donHang?.note;
-    console.log('ticket da dat', donHang)
     return (
         <div className="flex justify-center">
             <div className="card cardLeft">

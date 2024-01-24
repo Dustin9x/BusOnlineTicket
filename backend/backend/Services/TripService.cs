@@ -21,7 +21,29 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Include(s => s.Seats).ToListAsync();
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType)
+                .Select(t => new Trip()
+                {
+                    Id = t.Id,
+                    Image = t.Image,
+                    Bus = db.Buses.Where(b => b.Id == t.BusId)
+                        .Select(b => new Bus() 
+                        { 
+                            BusPlate = b.BusPlate,
+                            BusType = b.BusType
+                        }).SingleOrDefault(),
+                    Driver = db.Drivers.Where(d => d.Id == t.DriverId)
+                        .Select(n => new Driver()
+                        {
+                            FullName = n.FullName,
+                            Phone = n.Phone,
+                            Email = n.Email
+                        }).SingleOrDefault(),
+                    FromStation = db.Stations.Where(s => s.Id == t.FromStationId).SingleOrDefault(),
+                    ToStation = db.Stations.Where(s => s.Id == t.ToStationId).SingleOrDefault(),
+                    Seats = db.Seats.Where(s => s.TripId == t.Id).ToList(),
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Trip>> GetTripById(int Id)
@@ -33,37 +55,46 @@ namespace backend.Services
         {
             try
             {
-                Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
-                Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
-                Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
-                Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
-                List<Seat> seats = await db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
-
-                Trip.Bus = bus;
-                Trip.FromStation = fromStation;
-                Trip.ToStation = toStation;
-                Trip.Driver = driver;
-                Trip.Seats = seats;
-
-                if (Trip.UploadImage.Length > 0)
+                var oldTrip = db.Trips.Where(t => t.BusId == Trip.BusId && t.DriverId == Trip.DriverId && Trip.StartTime > t.StartTime && Trip.StartTime < t.FinishTime).Any();
+                if(oldTrip == false)
                 {
-                    string pathToNewFolder = System.IO.Path.Combine("Images", "Trip");
-                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
-                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
-                    var filePath = Path.Combine(Path.GetRandomFileName() + Trip.UploadImage.FileName);
+                    Bus bus = db.Buses.Where(b => b.Id == Trip.BusId).FirstOrDefault();
+                    Station fromStation = db.Stations.Where(s => s.Id == Trip.FromStationId).FirstOrDefault();
+                    Station toStation = db.Stations.Where(s => s.Id == Trip.ToStationId).FirstOrDefault();
+                    Driver driver = db.Drivers.Where(s => s.Id == Trip.DriverId).FirstOrDefault();
+                    List<Seat> seats = await db.Seats.Where(s => s.TripId == Trip.Id).ToListAsync();
 
-                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                    Trip.Bus = bus;
+                    Trip.FromStation = fromStation;
+                    Trip.ToStation = toStation;
+                    Trip.Driver = driver;
+                    Trip.Seats = seats;
+
+                    if (Trip.UploadImage.Length > 0)
                     {
-                        await Trip.UploadImage.CopyToAsync(stream);
+                        string pathToNewFolder = System.IO.Path.Combine("Images", "Trip");
+                        DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                        var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
+                        var filePath = Path.Combine(Path.GetRandomFileName() + Trip.UploadImage.FileName);
+
+                        using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                        {
+                            await Trip.UploadImage.CopyToAsync(stream);
+                        }
+
+                        Trip.Image = filePath;
                     }
 
-                    Trip.Image = filePath;
+                    await db.Trips.AddAsync(Trip);
+                    await db.SaveChangesAsync();
+
+                    return true;
                 }
-
-                await db.Trips.AddAsync(Trip);
-                await db.SaveChangesAsync();
-
-                return true;
+                else
+                {
+                    return false;
+                }
+                
             }
             catch (Exception ex)
             {

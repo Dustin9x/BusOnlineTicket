@@ -2,38 +2,34 @@ import React, { useEffect, useState } from 'react'
 import { Form, Button, Select, Input, notification, DatePicker } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBusListAction } from '../../../redux/actions/BusAction';
+import { getBusListAction, getEnableBusListAction } from '../../../redux/actions/BusAction';
 import { getStationListAction } from '../../../redux/actions/StationAction';
 import dayjs, { Dayjs } from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isBetween from 'dayjs/plugin/isBetween';
 import { addNewTripAction } from '../../../redux/actions/TripAction';
 import { getDriverAction } from '../../../redux/actions/DriverAction';
+import _ from 'lodash';
 dayjs.extend(isBetween)
 dayjs.extend(customParseFormat);
 
 
 
-const FromTo={
-  from:0,
-  to:0,
+const FromTo = {
+  from: 0,
+  to: 0,
 }
 export default function AddNewTrip(props) {
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState('')
-  const [arrBusNew, setArrBusNew] = useState(null)
-  const [arrBusNewEnd, setArrBusNewEnd] = useState(null)
-  const [arrDriverNew, setArrDriverNew] = useState(null)
-  let { arrBus } = useSelector(state => state.BusReducer);
+  let { arrEnableBus } = useSelector(state => state.BusReducer);
   let { arrStation } = useSelector(state => state.StationReducer);
   let { arrDriver } = useSelector(state => state.DriverReducer);
   const dateFormat = 'DD-MM-YYYY';
   const { RangePicker } = DatePicker;
 
-
-
   useEffect(() => {
-    dispatch(getBusListAction())
+    dispatch(getEnableBusListAction())
     dispatch(getStationListAction())
     dispatch(getDriverAction())
   }, [dispatch]);
@@ -60,74 +56,32 @@ export default function AddNewTrip(props) {
       }
       console.table('formData', [...formData])
       dispatch(addNewTripAction(formData));
-
     }
   })
 
+
   const handleChangeBus = (value) => {
     formik.setFieldValue('busId', value)
-    console.log('busId', value)
   }
-  const handleChangeFromStation = (value,data) => {
+  const handleChangeFromStation = (value, data) => {
     formik.setFieldValue('fromStationId', value)
-    FromTo.from=value;
-    if(formik.values.startTime==""||formik.values.finishTime==""){
-      alert("Please enter Start and Finish Time!!!")
-      const focus = document.getElementById('date');
-      focus.focus();
-    return;
-    }
-    
-
-    setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
   };
   const handleChangeToStation = (value, data) => {
-    FromTo.to=value;
     formik.setFieldValue('toStationId', value)
-    if(formik.values.startTime==""||formik.values.finishTime==""){
-      alert("Please enter Start and Finish Time!!!")
-      const focus = document.getElementById('date');
-      focus.focus();
-    return;
-    }
-
-    FromTo.to=value;
-    formik.setFieldValue('toStationId', value)
-
-    setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
   };
 
   const handleChangeDriver = (value) => {
     formik.setFieldValue('driverId', value)
   };
 
-  const onChangeDate = (value, dateString) => {
-    if(dateString[0]===""){
-      setArrBusNewEnd(null)
-    }
-    formik.setFieldValue('startTime', dateString[0])
-    formik.setFieldValue('finishTime', dateString[1])
- 
-    setArrDriverNew ( arrDriver.filter((item) => 
-             item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1]))  
-               ||  dayjs(item2.finishTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1])))  )).length >0 ?false:true  )  
-      );
-
-
-
-    setArrBusNew ( arrBus.filter((item) => 
-       item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1]))  
-        ||  dayjs(item2.finishTime).isBetween(dayjs(dateString[0]),dayjs(dateString[1])))  )).length >0 ?false:true  )  
-      );
-
-      if((FromTo.from!=0 || FromTo.to!=0)&& arrBusNew!=null){
-        setArrBusNewEnd ( arrBusNew.filter((item) => item.stationId==FromTo.from||item.stationId==FromTo.to ));
-      }
-    
+  const onChangeDate = (value) => {
+    formik.setFieldValue('startTime', value[0]);
+    formik.setFieldValue('finishTime', value[1]);
   };
-  
+
   const onOk = (value) => {
-    console.log('onOk: ', value);
+    formik.setFieldValue('startTime', value[0]);
+    formik.setFieldValue('finishTime', value[1]);
   };
 
 
@@ -169,7 +123,7 @@ export default function AddNewTrip(props) {
           ]}
         >
           <RangePicker
-          id='date'
+            id='date'
             showTime={{
               format: 'HH:mm',
             }}
@@ -190,9 +144,9 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Input name="ticketPrice" onChange={formik.handleChange} />
+          <Input name="ticketPrice" type='number' onChange={formik.handleChange} />
         </Form.Item>
-        
+
         <Form.Item
           label="From Station"
           style={{ minWidth: '100%' }}
@@ -204,7 +158,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={ arrStation?.map((item, index) =>({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} placeholder='Please enter Start and Finish Time!!' />
+          <Select options={arrStation?.map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} placeholder='Please select From Station' />
         </Form.Item>
         <Form.Item
           label="To Station"
@@ -217,7 +171,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} placeholder='Please enter Start and Finish Time!!' />
+          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} placeholder='Please select To Station' />
         </Form.Item>
 
         <Form.Item
@@ -231,7 +185,12 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select placeholder="Please enter Station, Start and Finish time!!" options={arrBusNewEnd!=null? arrBusNewEnd?.map(( item, index) => ( { key: index, label: item.busPlate, value: item.id })) :arrBusNewEnd?.map(( item, index) => ( { key: index, label: item.busPlate, value: item.id }))} onChange={handleChangeBus} />
+          <Select placeholder="Please enter Station, Start and Finish time!!" options={
+            arrEnableBus?.filter(({ stations }) =>
+              stations.some(x => x.id == formik.values.fromStationId)).map((item, index) =>
+                ({ key: index, label: item.busPlate, value: item.id })
+              )}
+            onChange={handleChangeBus} />
         </Form.Item>
 
         <Form.Item
@@ -245,7 +204,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
+          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriver?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
         </Form.Item>
 
         <Form.Item
@@ -257,7 +216,7 @@ export default function AddNewTrip(props) {
           {imgSrc ? <img style={{ width: 200, height: 150, objectFit: 'cover', borderRadius: '6px' }} src={imgSrc} alt="..." /> : <img style={{ width: 200, border: '0.1px solid #ccc', borderRadius: '6px' }} src='/img/placeholder-image.jpg' alt="..." />}
         </Form.Item>
         <Form.Item label="Action" style={{ minWidth: '100%' }}>
-          <Button htmlType="submit" >Add Trip</Button>
+          <Button htmlType="submit">Add Trip</Button>
         </Form.Item>
       </div>
 

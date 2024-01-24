@@ -33,7 +33,6 @@ const AddDriver = () => {
         },
         onSubmit: async (values) => {
             let newDriver = new FormData();
-            console.log(newDriver);
             for (let key in values) {
                 if(key !== "UploadImage"){
                     newDriver.append(key, values[key]);

@@ -13,7 +13,6 @@ const EditStation = (props) => {
     dispatch(getStationByIdAction(id));
   }, [dispatch, id])
 
-console.log('stationDetail',stationDetail)
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {

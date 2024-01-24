@@ -38,6 +38,28 @@ namespace backend.Controllers
             }
 
         }
+
+        [HttpGet("enablebus")]
+        public async Task<ActionResult> GetEnableBus()
+        {
+            try
+            {
+                var list = await repo.GetEnableBus();
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Bus>>(StatusCodes.Status200OK, "Get list of enable bus successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest(list);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpGet("{Id}")]
         public async Task<ActionResult> GetBusById(int Id)
         {
@@ -77,6 +99,27 @@ namespace backend.Controllers
             }
 
         }
+
+        [HttpPut("enable")]
+        public async Task<ActionResult> EnableDisableBus(int Id)
+        {
+            try
+            {
+                var list = await repo.EnableDisableBus(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<Bus>(StatusCodes.Status200OK, "Enable/Disable bus successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpPut]
         public async Task<ActionResult> PutBus(int Id, [FromForm] Bus Bus)
         {

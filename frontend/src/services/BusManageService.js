@@ -10,6 +10,9 @@ export class BusManageService extends baseService {
         return this.get(`/api/Bus`);
     }
 
+    getEnableBusList = () => {
+        return this.get(`/api/Bus/enablebus`);
+    }
 
     addNewBus = (formData) => {
         return this.post(`/api/Bus`, formData);
@@ -25,6 +28,10 @@ export class BusManageService extends baseService {
 
     deleteBus = (busId) => {
         return this.delete(`/api/Bus/${busId}`);
+    }
+
+    enableBus = (id) => {
+        return this.put(`/api/Bus/enable?Id=${id}`);
     }
 
 

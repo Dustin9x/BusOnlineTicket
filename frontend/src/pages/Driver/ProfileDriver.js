@@ -18,7 +18,6 @@ const ProfileDriver = () => {
     history.push("/loginDriver")
 
   }
-  console.log('Id', id)
   const [checked, setChecked] = useState(false);
   useEffect(() => {
     dispatch(getDriverByIdAction(id))
@@ -54,7 +53,6 @@ const ProfileDriver = () => {
     },
   });
   const profile = driverDetail;
-  console.log('profile', profile)
 
 
   const onChangeCheck = (e) => {

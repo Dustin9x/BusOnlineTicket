@@ -21,11 +21,9 @@ const EditBus = (props) => {
 
 
   let defaultValue = [];
-    if (localStorage.getItem('busStaionDefault')) {
-      defaultValue = JSON.parse(localStorage.getItem('busStaionDefault')).split(",").map(Number);
-    }
-  
-  console.log('defaultValue',defaultValue)
+  if (localStorage.getItem('busStaionDefault')) {
+    defaultValue = JSON.parse(localStorage.getItem('busStaionDefault')).split(",").map(Number);
+  }
 
   const options = [];
   arrStation.forEach(element => {
@@ -60,7 +58,6 @@ const EditBus = (props) => {
   }
 
   const handleChangeStation = (value) => {
-    console.log('value',value)
     formik.setFieldValue('stationId', value)
   };
 
@@ -90,7 +87,7 @@ const EditBus = (props) => {
               },
             ]}
           >
-            <Input name="busPlate" onChange={formik.handleChange} value={formik.values.busPlate}/>
+            <Input name="busPlate" onChange={formik.handleChange} value={formik.values.busPlate} />
           </Form.Item>
           <Form.Item
             label="Bus Type"
@@ -128,7 +125,7 @@ const EditBus = (props) => {
             />
           </Form.Item>
           <Form.Item label="Note">
-            <TextArea name="note" allowClear rows={4} onChange={formik.handleChange} value={formik.values.note}/>
+            <TextArea name="note" allowClear rows={4} onChange={formik.handleChange} value={formik.values.note} />
           </Form.Item>
           <Form.Item label="Action">
             <Button htmlType="submit" >Update Bus</Button>

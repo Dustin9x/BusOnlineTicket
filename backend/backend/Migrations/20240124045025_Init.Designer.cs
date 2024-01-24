@@ -12,7 +12,7 @@ using backend.Models;
 namespace backend.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240123173949_Init")]
+    [Migration("20240124045025_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -40,14 +40,14 @@ namespace backend.Migrations
                     b.Property<int?>("BusTypeId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Enabled")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StationId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isAvailable")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -64,180 +64,180 @@ namespace backend.Migrations
                             Id = 1,
                             BusPlate = "59A1-55999",
                             BusTypeId = 1,
+                            Enabled = true,
                             Note = "",
-                            StationId = "1",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 2,
                             BusPlate = "59A1-55998",
                             BusTypeId = 2,
+                            Enabled = true,
                             Note = "",
-                            StationId = "2",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 3,
                             BusPlate = "59A1-55997",
                             BusTypeId = 3,
+                            Enabled = true,
                             Note = "",
-                            StationId = "3",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 4,
                             BusPlate = "59A1-55996",
                             BusTypeId = 4,
+                            Enabled = true,
                             Note = "",
-                            StationId = "4",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 5,
                             BusPlate = "59A1-55995",
                             BusTypeId = 1,
+                            Enabled = true,
                             Note = "",
-                            StationId = "5",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 6,
                             BusPlate = "59A1-55994",
                             BusTypeId = 2,
+                            Enabled = true,
                             Note = "",
-                            StationId = "1",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 7,
                             BusPlate = "59A1-55993",
                             BusTypeId = 3,
+                            Enabled = true,
                             Note = "",
-                            StationId = "2",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 8,
                             BusPlate = "59A1-55992",
                             BusTypeId = 4,
+                            Enabled = true,
                             Note = "",
-                            StationId = "3",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 9,
                             BusPlate = "59A1-55991",
                             BusTypeId = 1,
+                            Enabled = true,
                             Note = "",
-                            StationId = "4",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 10,
                             BusPlate = "59A1-55900",
                             BusTypeId = 2,
+                            Enabled = true,
                             Note = "",
-                            StationId = "5",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 11,
                             BusPlate = "59A1-55901",
                             BusTypeId = 3,
+                            Enabled = true,
                             Note = "",
-                            StationId = "1",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 12,
                             BusPlate = "59A1-55902",
                             BusTypeId = 4,
+                            Enabled = true,
                             Note = "",
-                            StationId = "2",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 13,
                             BusPlate = "59A1-55903",
                             BusTypeId = 1,
+                            Enabled = true,
                             Note = "",
-                            StationId = "3",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 14,
                             BusPlate = "59A1-55904",
                             BusTypeId = 2,
+                            Enabled = true,
                             Note = "",
-                            StationId = "4",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 15,
                             BusPlate = "59A1-55905",
                             BusTypeId = 3,
+                            Enabled = true,
                             Note = "",
-                            StationId = "5",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 16,
                             BusPlate = "59A1-55906",
                             BusTypeId = 4,
+                            Enabled = true,
                             Note = "",
-                            StationId = "1",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 17,
                             BusPlate = "59A1-55907",
                             BusTypeId = 1,
+                            Enabled = true,
                             Note = "",
-                            StationId = "2",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 18,
                             BusPlate = "59A1-55908",
                             BusTypeId = 2,
+                            Enabled = true,
                             Note = "",
-                            StationId = "3",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 19,
                             BusPlate = "59A1-55909",
                             BusTypeId = 3,
+                            Enabled = true,
                             Note = "",
-                            StationId = "4",
-                            isAvailable = true
+                            StationId = ""
                         },
                         new
                         {
                             Id = 20,
                             BusPlate = "59A1-55911",
                             BusTypeId = 4,
+                            Enabled = true,
                             Note = "",
-                            StationId = "5",
-                            isAvailable = true
+                            StationId = ""
                         });
                 });
 
@@ -365,7 +365,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Nguyen Van Toan",
                             NationalId = "2345678",
-                            Password = "$2a$11$R1qamgFM02ZsfLmxtYY9QeyVZMFrY2OgsLaxdSgtS9uhzLHb5CZhC",
+                            Password = "$2a$11$uFpe7H1Ki3YuShxfjGi/CumBYYp1uWWFJHl6ssHcEwOzZVpTQob3W",
                             Phone = "090123456",
                             PlaceOfBirth = "Ho Chi Minh",
                             YearOfBirth = new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -380,7 +380,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345678",
-                            Password = "$2a$11$r09Yvh.LKo8aFe7SS4qamOxKNRLzPFOhziIdSwiBHJ1pVWns9sQfu",
+                            Password = "$2a$11$OxcN7v9CaBHlcoMqtymFh.mhzxQqBz5d46ZmC0yI3I27h7PlX7usa",
                             Phone = "090123456",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -395,7 +395,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Bui Quoc Viet",
                             NationalId = "2345679",
-                            Password = "$2a$11$ui7LsrqQPqncUHopbXkBnONaFulDyrjW6Aw6GfoigIwfhUR1O9bzG",
+                            Password = "$2a$11$irLVRyAXssX0mdgTYHgFT.klBH.rtTrRsvyf./mFNridvEQyJXQ6m",
                             Phone = "090123457",
                             PlaceOfBirth = "Binh Thuam",
                             YearOfBirth = new DateTime(1993, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -410,7 +410,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Pham Huy Hoang",
                             NationalId = "2345670",
-                            Password = "$2a$11$vEDd7pl/zIILOyc/DYDSZOxg9xhiEHHxrUoUjjxmQRzMO7CuF26Hu",
+                            Password = "$2a$11$l36305KPeSiQ6AgOhqfKAejGyJ7mtQFT07XtALeN/Mmmy0TX/5cIi",
                             Phone = "090123458",
                             PlaceOfBirth = "Gia Lai",
                             YearOfBirth = new DateTime(1990, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -425,7 +425,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Chuong",
                             NationalId = "2345671",
-                            Password = "$2a$11$26AXFNtPD6nEwm6bc3XBGueA/6r8tU1XjYUZcSceeHWImIfy40pv2",
+                            Password = "$2a$11$Yi7qaMM0WFD7ezxUjz1zEO8iQ1.fNG4Gz1Z0nrWTeSvD1vJSNX/5u",
                             Phone = "090123459",
                             PlaceOfBirth = "Vung Tau",
                             YearOfBirth = new DateTime(1999, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -440,7 +440,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Thanh Thien",
                             NationalId = "2345672",
-                            Password = "$2a$11$9spzAfY13l6BHElLErg8ZuEYEy3y5jXRlFqgVWU4Rr9SF2i3/3Y.i",
+                            Password = "$2a$11$RqQPpDP6zzURSVKEMPSQ0u83K9PGrPoi.tIFw2l19Gd4DHM6RmxPe",
                             Phone = "090123450",
                             PlaceOfBirth = "Hà Nội",
                             YearOfBirth = new DateTime(1997, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -455,7 +455,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Dai Vi",
                             NationalId = "2345673",
-                            Password = "$2a$11$aYtUMpZ5T001SfOloeLCZOpt1wQHLh9tpDpiBohyXU/iidgs8SGKi",
+                            Password = "$2a$11$5Ao0.OWMfPk/SBRYYVLKauXYjF49MkRPEiN0uvbkCq/3x1oCeCUbK",
                             Phone = "090123452",
                             PlaceOfBirth = "Ca Mau",
                             YearOfBirth = new DateTime(1996, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -470,7 +470,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Phu",
                             NationalId = "2345674",
-                            Password = "$2a$11$too6GE3ee.P13Df7FWn6v.o7QCyu7sQcmyteK9MInWQOUOTiZ.JFO",
+                            Password = "$2a$11$Epfn1aAPppiRGld7jUL47OoAd4aic67aLnZpsRUd.gBYwor0skJm.",
                             Phone = "090123451",
                             PlaceOfBirth = "Lam Dong",
                             YearOfBirth = new DateTime(1994, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -485,7 +485,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Quan",
                             NationalId = "2345675",
-                            Password = "$2a$11$6uP4nmFrKjiAHuYWG4N6WOda8wtXHfIg9EpVt8Hu1lDlWc3AeYr0C",
+                            Password = "$2a$11$60ozV3yTAeA2Opn8SPvk7O00XhQ6EwVz87Snig/Uii.UliIdlmAaW",
                             Phone = "090123453",
                             PlaceOfBirth = "Ben Tre",
                             YearOfBirth = new DateTime(2000, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -500,7 +500,7 @@ namespace backend.Migrations
                             Enabled = true,
                             FullName = "Le Huy Linh",
                             NationalId = "2345676",
-                            Password = "$2a$11$8c7RNI8./HAaaQmdhy2mQ.pEH4bvzZVgrGtwdQUsbTRXPnoDpugue",
+                            Password = "$2a$11$/3cFqFA2e5w1FwEZUXVu9OzVGuHEw5DZlENBFhetNDj8jwfxXGlNa",
                             Phone = "090123455",
                             PlaceOfBirth = "Dong Thap",
                             YearOfBirth = new DateTime(1978, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2467,21 +2467,21 @@ namespace backend.Migrations
                         {
                             Id = 1,
                             Email = "admin@phtv.com",
-                            Password = "$2a$11$l19/LGcp3yHWg5jiXtoR4OJEb8CC2XXULpRef0XErjSDWLyITGZTm",
+                            Password = "$2a$11$PUF5WqVhKAxXMrxEnr75JuOTcYQvQ9pSqpJVOkH4hiyXchw/isAUC",
                             Role = "Admin"
                         },
                         new
                         {
                             Id = 2,
                             Email = "emp@phtv.com",
-                            Password = "$2a$11$fN.ZIebEiGNGqQRHWXAjCex8iq5t8xe2CQoPv2m3RJIMuy.rV2kP6",
+                            Password = "$2a$11$yfP824w.L59HVoRFzW3U6e00jQqVJPGH4r/5LfxYLMB81aQ8nwciW",
                             Role = "Mod"
                         },
                         new
                         {
                             Id = 3,
                             Email = "user@phtv.com",
-                            Password = "$2a$11$aAV7Om1ctKtRl8U1AmTNF./oUhR8eiWwUw4.GudnJezeu8JxKTiV.",
+                            Password = "$2a$11$h0CYSAjqr2tQvw/YrCOAdOJDBQRdsulhimawafKos5rmVF6ih6zb.",
                             Role = "User"
                         });
                 });

@@ -45,7 +45,6 @@ export const AdminTemplate = (props) => { //path, exact, Component
     window.scrollTo(0, 0);
   }, [dispatch])
 
-  console.log('role', userLogin)
   if (userLogin && (userLogin?.role !== 'Admin' && userLogin?.role !== 'Mod')) {
     history.replace('/')
   }
@@ -99,7 +98,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
     return <Fragment key={index}>
       <Layout style={{ minHeight: '100vh', }}>
         <Sider collapsible width={300} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-          <div className="demo-logo-vertical text-white text-2xl text-center my-10" >Quản Trị</div>
+          <div className="demo-logo-vertical text-white text-2xl text-center my-10" >Admin Page</div>
           <Menu theme="dark" defaultSelectedKeys={selectedKey} mode="inline" items={userLogin?.role === "Admin" ? itemsAdmin : itemsMod} />
         </Sider>
         <Layout>

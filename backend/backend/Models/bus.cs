@@ -9,7 +9,7 @@
         public string? StationId { get; set; }
         public ICollection<Station>? Stations { get; set; }
         public ICollection<Trip>? Trips { get; set; }
-        public bool isAvailable { get; set; }
+        public bool Enabled { get; set; } = true;
         public string? Note { get; set; }
     }
 }

@@ -40,7 +40,6 @@ export default function DetailTripOfDriver() {
   });;
 
   const data2 = TripNotComplete ? TripNotComplete[0] : "";
-  console.log("check data filter: ", driverDetail);
 
   const columns = [
     {

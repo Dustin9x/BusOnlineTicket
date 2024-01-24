@@ -1,4 +1,5 @@
 export const GET_BUS_LIST = "GET_BUS_LIST";
+export const GET_ENABLE_BUS_LIST = "GET_ENABLE_BUS_LIST";
 export const GET_BUS_DETAIL = "GET_BUS_DETAIL";
 export const GET_BUS_TYPE_LIST = "GET_BUS_TYPE_LIST";
 export const GET_BUS_TYPE_DETAIL = "GET_BUS_TYPE_DETAIL";
