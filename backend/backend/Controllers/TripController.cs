@@ -133,5 +133,17 @@ namespace backend.Controllers
                 return BadRequest("We canot Find Trip");
             }
         }
+
+        [HttpGet("profit")]
+        public IActionResult GetProfit()
+        {
+            var list = repo.GetProfitByTrip();
+            if (list != null)
+            {
+                var result = new ResponseData<IEnumerable<Profit>>(StatusCodes.Status200OK, "Get profit successfully", list.Result, null);
+                return Ok(result);
+            }
+            return BadRequest();
+        }
     }
 }

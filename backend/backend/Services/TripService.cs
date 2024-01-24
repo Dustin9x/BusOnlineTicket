@@ -21,7 +21,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<Trip>> GetAllTrip()
         {
-            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType)
+            return await db.Trips
                 .Select(t => new Trip()
                 {
                     Id = t.Id,
@@ -73,7 +73,7 @@ namespace backend.Services
                     Trip.Driver = driver;
                     Trip.Seats = seats;
 
-                    if (Trip.UploadImage.Length > 0)
+                    if (Trip.UploadImage != null)
                     {
                         string pathToNewFolder = System.IO.Path.Combine("Images", "Trip");
                         DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
@@ -266,5 +266,22 @@ namespace backend.Services
 
             return result.ToList();
         }
+
+        public async Task<IEnumerable<Profit>> GetProfitByTrip()
+        {
+            return await db.Trips
+                .GroupBy(p => new { p.FromStationId, p.ToStationId })
+                .Select(t => new Profit
+                {
+                    FromStation = t.Key.FromStationId,
+                    ToStation = t.Key.ToStationId,
+                    TotalProfit = db.Tickets.Where(x => x.Trips.FromStationId == t.Key.FromStationId && x.Trips.ToStationId == t.Key.ToStationId).Sum(x => x.TotalPrice),
+                })
+                .ToListAsync();
+        }
     }
+
+
+
+
 }

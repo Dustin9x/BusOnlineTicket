@@ -41,16 +41,15 @@ export default function AddNewTrip(props) {
       driverId: '',
       fromStationId: '',
       toStationId: '',
-      image: '',
     },
     onSubmit: async (values) => {
 
       let formData = new FormData();
       for (let key in values) {
-        if (key !== 'image') {
+        if (key !== 'UploadImage') {
           formData.append(key, values[key]);
         } else {
-          formData.append('image', values['image']);
+          formData.append('UploadImage', values['UploadImage']);
         }
       }
       console.table('formData', [...formData])
@@ -93,7 +92,7 @@ export default function AddNewTrip(props) {
       reader.onload = (e) => {
         setImgSrc(e.target.result);
       }
-      formik.setFieldValue('image', file);
+      formik.setFieldValue('UploadImage', file);
     }
   }
 
