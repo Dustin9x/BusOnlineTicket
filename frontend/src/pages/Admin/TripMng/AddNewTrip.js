@@ -66,7 +66,7 @@ export default function AddNewTrip(props) {
     formik.setFieldValue('fromStationId', value)
   };
   const handleChangeToStation = (value, data) => {
-    formik.setFieldValue('toStationId', value)
+      formik.setFieldValue('toStationId', value)
   };
 
   const handleChangeDriver = (value) => {
@@ -157,7 +157,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} placeholder='Please select From Station' />
+          <Select options={arrStation?.filter(x => x.id != formik.values.toStationId).map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} placeholder='Please select From Station' />
         </Form.Item>
         <Form.Item
           label="To Station"
@@ -170,7 +170,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} placeholder='Please select To Station' />
+          <Select options={arrStation?.filter(x => x.id != formik.values.fromStationId).map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} placeholder='Please select To Station' />
         </Form.Item>
 
         <Form.Item
