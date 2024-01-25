@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Button, Input, Space, Table, Popconfirm, Avatar } from 'antd';
 import { useRef, useState } from 'react';
@@ -6,15 +6,18 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListNewsAction,deleteNewsAction, detailNewsAction } from '../../../redux/actions/NewAction';
 import { DOMAIN } from '../../../util/settings/config';
+import { deleteOfferAction, getOfferListAction } from '../../../redux/actions/OfferAction';
+import dayjs from 'dayjs';
+const parser = new DOMParser();
 
 
-
-export default function NewsMng() {
-  let { arrNews } = useSelector(state => state.NewReducer);
-  console.log(arrNews);
+export default function OfferMng() {
+  let { arrOffer } = useSelector(state => state.OfferReducer);
+  console.log(arrOffer);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getListNewsAction())
+    dispatch(getOfferListAction())
   }, [dispatch])
 
 
@@ -34,7 +37,7 @@ export default function NewsMng() {
   };
 
 
-  const data = arrNews;
+  const data = arrOffer;
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
@@ -111,67 +114,84 @@ export default function NewsMng() {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
-      width: '5%',
       sorter: (a, b) => a.id - b.id,
       sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Offer Code',
+      dataIndex: 'offerCode',
+      key: 'offerCode',
+      ...getColumnSearchProps('offerCode'),
+      sorter: (a, b) => a.offerCode.length - b.offerCode.length,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: 'Discount',
+      dataIndex: 'discount',
+      key: 'discount',
+      ...getColumnSearchProps('discount'),
+      sorter: (a, b) => a.discount - b.discount,
+      sortDirections: ['descend', 'ascend'],
+    },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      width: "10%",
+      render: (text, item, index) => {
+        return item.image != "null" || item.image != null
+          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Offer/${item.image}`} alt={item.image} />
+          : <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={item.offerCode.substr(0,1)} />
+      }
     },
     {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      width: '10%',
       ...getColumnSearchProps('title'),
-      sorter: (a, b) => a.title - b.title,
+      sorter: (a, b) => a.title.length - b.title.length,
       sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Content',
       dataIndex: 'content',
-      width:'40%',
       key: 'content',
       ...getColumnSearchProps('content'),
       sortDirections: ['descend', 'ascend'],
-      render: (text,index) => { return <p key={index} className='text-ellipsis overflow-hidden line-clamp-2'>{text.replace(/<[^>]+>/g, '')}</p>}
+      render: (text,index) => { return <span key={index} className='text-ellipsis overflow-hidden line-clamp-2'>{text.replace(/<[^>]+>/g, '')}</span>}
+
 
     },
     {
-      title: 'Release Date',
-      dataIndex: 'dayCreateNew',
-      key: 'dayCreateNew',
-      width: '15%',
-      ...getColumnSearchProps('dayCreateNew'),
-      sortDirections: ['descend', 'ascend']
+      title: 'Begin Date',
+      dataIndex: 'beginDate',
+      key: 'beginDate',
+      ...getColumnSearchProps('beginDate'),
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return dayjs(item.beginDate).format("DD-MM-YYYY")
+      },
     },
-    
     {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      width: '20%',
-
-      render: (text, data, index) => {
-        return data.image != "null" && data.image != null ? (
-          <img key={index} style={{ width: 100, height: 100, objectFit: "cover", borderRadius: "10%", }}
-            src={`${DOMAIN}/Images/News/${data.image}`}
-            alt={data.image}
-          />
-        ) : (
-              <div>No Image</div>
-          // <Avatar size={40} style={{ fontSize: "20px", display: "flex", justifyContent: "center", alignItems: "center", }} />
-          // // icon={data.fullName.substr(0, 1)}
-        );
+      title: 'End Date',
+      dataIndex: 'endDate',
+      key: 'endDate',
+      ...getColumnSearchProps('endDate'),
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return dayjs(item.endDate).format("DD-MM-YYYY")
       },
     },
     {
       title: 'Manage',
-      width: '20%',
+      width: '10%',
       render: (text, item) => {
         return <>
-          <Button key={1} href={`/admin/newsmng/edit/${item.id}`}  type="link" icon={<EditOutlined />} onClick={() => {
+          <Button key={1} href={`/admin/offermng/edit/${item.id}`}  type="link" icon={<EditOutlined />} onClick={() => {
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
-            if (window.confirm('Do you want to delete News ' + item.id + '?')) {
-              dispatch(deleteNewsAction(item.id))
+            if (window.confirm('Do you want to delete Offer ' + item.id + '?')) {
+              dispatch(deleteOfferAction(item.id))
             }
           }}></Button>
         </>
@@ -181,8 +201,8 @@ export default function NewsMng() {
   ]
   return <div>
     <div className='d-flex mb-3'>
-      <h3 className='text-lg'>News Management</h3>
-      <Button href='/admin/newsmng/addnews' type="primary" className='ml-3 small bg-primary'>+ Add New News</Button>
+      <h3 className='text-lg'>Offer Management</h3>
+      <Button href='/admin/offermng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New Offer</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
   </div>

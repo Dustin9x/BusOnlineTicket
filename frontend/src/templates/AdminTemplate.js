@@ -1,8 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, LineChartOutlined , FormOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, BarChartOutlined , FormOutlined, PercentageOutlined, NodeIndexOutlined, CarOutlined } from '@ant-design/icons';
 import { Layout, Menu, theme, Button } from 'antd';
-import { Avatar, Popover } from 'antd';
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
@@ -58,18 +57,19 @@ export const AdminTemplate = (props) => { //path, exact, Component
     ]),
     getItem('Station Management', '3', <NavLink className='text-decoration-none' to="/admin/stationmng"><i className="fa-solid fa-location-dot"></i></NavLink>),
     getItem('Trip Management', '4', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
-    getItem('Top Route Management', '5', <NavLink className='text-decoration-none' to="/admin/promotripmng"><BuildFilled /></NavLink>),
+    getItem('Top Route Management', '5', <NavLink className='text-decoration-none' to="/admin/promotripmng"><NodeIndexOutlined /></NavLink>),
+    getItem('Offer Management', '6', <NavLink className='text-decoration-none' to="/admin/offermng"><PercentageOutlined /></NavLink>),
     getItem('User Management', 'sub2', <UserOutlined />, [
-      getItem('Moderator', '6', <NavLink className='text-decoration-none' to="/admin/modmng"><UserOutlined /></NavLink>),
-      getItem("Customer", "7", <NavLink className="text-decoration-none" to="/admin/adminusers"><UserOutlined /></NavLink>),
+      getItem('Moderator', '7', <NavLink className='text-decoration-none' to="/admin/modmng"><UserOutlined /></NavLink>),
+      getItem("Customer", "8", <NavLink className="text-decoration-none" to="/admin/adminusers"><UserOutlined /></NavLink>),
     ]),
-    getItem('Driver Management', 'sub3', <UserOutlined />, [
-      getItem('Drivers', '8', <NavLink className='text-decoration-none' to="/admin/drivermng"><UserOutlined /></NavLink>),
-      getItem("Register Drivers", "9", <NavLink className="text-decoration-none" to="/admin/regdrivermng"><UserOutlined /></NavLink>),
+    getItem('Driver Management', 'sub3', <CarOutlined />, [
+      getItem('Drivers', '9', <NavLink className='text-decoration-none' to="/admin/drivermng"><CarOutlined /></NavLink>),
+      getItem("Register Drivers", '10', <NavLink className="text-decoration-none" to="/admin/regdrivermng"><CarOutlined /></NavLink>),
     ]),
-    getItem('Revenue', 'sub4', <LineChartOutlined />, [
-      getItem('Revenue By Month', '11', <NavLink className='text-decoration-none' to="/admin/revenuemonth"><LineChartOutlined /></NavLink>),
-      getItem('Revunue By Route', '12', <NavLink className='text-decoration-none' to="/admin/revenueroute"><LineChartOutlined /></NavLink>),
+    getItem('Revenue', 'sub4', <BarChartOutlined />, [
+      getItem('Revenue By Month', '11', <NavLink className='text-decoration-none' to="/admin/revenuemonth"><BarChartOutlined /></NavLink>),
+      getItem('Revunue By Route', '12', <NavLink className='text-decoration-none' to="/admin/revenueroute"><BarChartOutlined /></NavLink>),
     ]),
     getItem('FAQ Management', '13', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
     getItem('News Management', '14', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
@@ -78,12 +78,12 @@ export const AdminTemplate = (props) => { //path, exact, Component
 
   const itemsMod = [
     getItem('Bus Management', '1', <NavLink className='text-decoration-none' to="/admin/busmng"><i className="fas fa-bus f3"></i></NavLink>),
-    getItem('Station Management', '3', <NavLink className='text-decoration-none' to="/admin/stationmng"><i className="fa-solid fa-location-dot"></i></NavLink>),
-    getItem('Trip Management', '4', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
-    getItem('Promote Trip Management', '5', <NavLink className='text-decoration-none' to="/admin/promotripmng"><BuildFilled /></NavLink>),
-    getItem('Drivers', '8', <NavLink className='text-decoration-none' to="/admin/drivermng"><UserOutlined /></NavLink>),
-    getItem('FAQ Management', '13', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
-    getItem('News Management', '14', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
+    getItem('Station Management', '2', <NavLink className='text-decoration-none' to="/admin/stationmng"><i className="fa-solid fa-location-dot"></i></NavLink>),
+    getItem('Trip Management', '3', <NavLink className='text-decoration-none' to="/admin/tripmng"><BuildFilled /></NavLink>),
+    getItem('Top Route Management', '4', <NavLink className='text-decoration-none' to="/admin/promotripmng"><NodeIndexOutlined /></NavLink>),
+    getItem('Drivers', '5', <NavLink className='text-decoration-none' to="/admin/drivermng"><CarOutlined /></NavLink>),
+    getItem('FAQ Management', '6', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
+    getItem('News Management', '7', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
   ]
 
 

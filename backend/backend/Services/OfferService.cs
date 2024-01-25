@@ -53,7 +53,8 @@ namespace backend.Services
                     return false;
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return false;
             }
@@ -93,6 +94,7 @@ namespace backend.Services
                     oldOffer.Title = Offer.Title;
                     oldOffer.OfferCode = Offer.OfferCode;
                     oldOffer.Content = Offer.Content;
+                    oldOffer.Discount = Offer.Discount;
                     oldOffer.BeginDate = Offer.BeginDate;
                     oldOffer.EndDate = Offer.EndDate;
                     int Result = await db.SaveChangesAsync();

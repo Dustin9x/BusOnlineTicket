@@ -49,3 +49,7 @@ body {
     height: 20px !important;
     width: 20px !important;
 }
+
+.slick-prev:before, .slick-next:before{
+    color: slategray !important;
+}

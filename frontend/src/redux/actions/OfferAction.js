@@ -1,0 +1,100 @@
+import { newService } from "../../services/NewService";
+import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL } from "../constants";
+import { notification } from 'antd';
+import { history } from '../../App';
+import { offerService } from "../../services/OfferService";
+
+
+export const getOfferListAction = () => {
+  return async (dispatch) => {
+    try {
+      const result = await offerService.getOfferList();
+      console.log("get offer nha", result)
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_OFFER_LIST,
+          arrOffer: result.data.data
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getOfferDetailAction = (id) => {
+
+  return async (dispatch) => {
+    try {
+      const result = await offerService.getOfferById(id)
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_OFFER_DETAIL,
+          offerDetail: result.data.data[0],
+        })
+
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
+
+export const addOfferAction = (formData) => {
+  return async (dispatch) => {
+    try {
+      const result = await offerService.createOffer(formData)
+      notification.success({
+        closeIcon: true,
+        message: 'Success',
+        description: (
+          <>Add new Odder successfully</>
+        ),
+      });
+      history.push('/admin/offermng');
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+}
+
+export const deleteOfferAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await offerService.deleteOffer(id)
+      if (result.data.status === 200) {
+        notification.success({
+          closeIcon: true,
+          message: "Success",
+          description: (
+            <>Delete offer successfully</>
+          )
+        });
+      }
+      dispatch(getOfferListAction())
+    }catch (e) {
+      console.log(e)
+    }
+  };
+}
+
+
+export const updateOfferAction = (id, formData) => {
+  return async () => {
+    try {
+      const result = await offerService.updateOffer(id, formData)
+      if (result.data.status === 200) {
+        notification.success({
+          closeIcon: true,
+          message: 'Success',
+          description: (
+            <>Update Offer successfully</>
+          ),
+        });
+        history.push('/admin/offermng');
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

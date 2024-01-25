@@ -67,6 +67,9 @@ import NewsMng from './pages/Admin/NewsMng/NewsMng';
 import AddNewNews from './pages/Admin/NewsMng/AddNewNews';
 import NewsEdit from "./pages/Admin/NewsMng/NewsEdit";
 import RevenueRoute from "./pages/Admin/Revenue/RevenueRoute";
+import OfferMng from "./pages/Admin/OfferMng/OfferMng";
+import AddOffer from "./pages/Admin/OfferMng/AddOffer";
+import OfferEdit from "./pages/Admin/OfferMng/OfferEdit";
 
 export const history = createBrowserHistory();
 
@@ -146,6 +149,11 @@ function App() {
         <AdminTemplate path="/admin/promotripmng" exact Component={PromoteTripMng} />
         <AdminTemplate path="/admin/promotripmng/addnew" exact Component={AddNewPromoteTrip} />
         <AdminTemplate path="/admin/promotripmng/edit/:id" exact Component={EditPromoteTrip} />
+
+        {/* Offer */}
+        <AdminTemplate path="/admin/offermng" exact Component={OfferMng} />
+        <AdminTemplate path="/admin/offermng/addnew" exact Component={AddOffer} />
+        <AdminTemplate path="/admin/offermng/edit/:id" exact Component={OfferEdit} />
 
         {/* Revenue */}
         <AdminTemplate path="/admin/revenuemonth" exact Component={RevenueMonth} />

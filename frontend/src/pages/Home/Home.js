@@ -8,6 +8,7 @@ import CheckTicket from "../../components/CheckTicket/CheckTicket";
 import PopularRoute from "../../components/PopularRoute/PopularRoute";
 import Information from "../../components/Information/Information";
 import Faqs from "../../components/FAQs/Faqs";
+import Offer from "../../components/Offer/Offer";
 
 export default function Home(props) {
   const dispatch = useDispatch();
@@ -56,6 +57,8 @@ export default function Home(props) {
 
           <PopularRoute />
 
+          <Offer />
+          
           <Information />
 
           <Faqs />

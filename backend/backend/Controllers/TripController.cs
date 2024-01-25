@@ -17,6 +17,7 @@ namespace backend.Controllers
             this.repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult> getAll()
         {
@@ -36,6 +37,8 @@ namespace backend.Controllers
             }
 
         }
+
+        [AllowAnonymous]
         [HttpGet("{Id}")]
         public async Task<ActionResult> getAllById(int Id)
         {
@@ -94,7 +97,7 @@ namespace backend.Controllers
             }
 
         }
-        [HttpPut]
+        [HttpPut("{Id}")]
         public async Task<ActionResult> PutTrip(int Id, [FromForm] Trip Trip)
         {
             try

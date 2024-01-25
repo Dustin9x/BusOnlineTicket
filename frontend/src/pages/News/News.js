@@ -47,9 +47,9 @@ export default function News() {
  
             <div>
               <h1 className="text-lg mt-1">{item.title}</h1>
-              <p className="text-gray-500 text-ellipsis overflow-hidden line-clamp-2">
+              <div className="text-gray-500 text-ellipsis overflow-hidden line-clamp-2">
               <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
-              </p>
+              </div>
             </div>
           </Card>
         </a>

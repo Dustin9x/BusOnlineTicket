@@ -14,9 +14,6 @@ export class NewService extends baseService {
     createNews = (formData) => {
         return this.post(`/api/News`, formData);
     };
-    // addNewFAQ = (formData) => {
-    //     return this.post(`/api/FAQ`, formData);
-    // }
     deleteNews = (id) => {
         return this.delete(`/api/News/${id}`);
     };
