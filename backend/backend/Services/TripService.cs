@@ -130,7 +130,10 @@ namespace backend.Services
             }
             return null;
         }
-
+        public async Task<IEnumerable<Trip>> GetTripByDriverId(int Id)
+        {
+            return await db.Trips.Include(b => b.Bus).ThenInclude(b => b.BusType).Include(d => d.Driver).Include(s => s.FromStation).Include(s => s.ToStation).Where(i => i.DriverId == Id).ToListAsync();
+        }
         public async Task<bool> PutTrip(int Id, Trip Trip)
         {
             var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Id);

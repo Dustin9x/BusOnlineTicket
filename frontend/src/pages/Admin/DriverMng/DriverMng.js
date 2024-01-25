@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { SearchOutlined, EditOutlined, DeleteOutlined, HistoryOutlined } from "@ant-design/icons";
-import { Avatar, Button, Input, Space, Table } from "antd";
+import { Avatar, Button, Input, Space, Table, Tag } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
@@ -51,7 +51,7 @@ export default function DriverMng() {
       <div style={{ padding: 8, }} onKeyDown={(e) => e.stopPropagation()} >
         <Input
           ref={searchInput}
-          placeholder={`Tìm kiếm`}
+          placeholder={`Search`}
           value={selectedKeys[0]}
           onChange={(e) =>
             setSelectedKeys(e.target.value ? [e.target.value] : [])
@@ -208,7 +208,13 @@ export default function DriverMng() {
       dataIndex: "enabled",
       key: "enabled",
       ...getColumnSearchProps("enabled"),
+      render:(enabled)=>{
+        return(
+          enabled ===true? <Tag color="blue" style={{ fontSize:"15px"}} >Yes</Tag>: <Tag color="magenta" style={{ fontSize:"15px"}} >No</Tag>
+        )
+      }
     },
+
     {
       title: "Manage",
       render: (text, driver, index) => {

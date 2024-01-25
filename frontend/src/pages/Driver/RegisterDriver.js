@@ -1,17 +1,23 @@
 import React, { useState } from 'react'
-import { Button, Checkbox, DatePicker, Form, Input, Select, Space } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Button, Checkbox, DatePicker, Form, Input, Space } from 'antd';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { addDriverByUserAction } from '../../redux/actions/DriverAction';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { isBetween } from 'dayjs/plugin/isBetween';
 dayjs.extend(customParseFormat);
-const { Option } = Select;
 
 export default function RegisterDriver(props) {
-  const dateFormat = 'DD-MM-YYYY';
+
+  
+  const dispatch = useDispatch();
+
+  const dateFormat = 'DD-MM-YYYY'; 
+  const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
+
+  const [checked, setChecked] = useState(false);
   const [imgSrc, setImgSrc] = useState('');
+
   const formik = useFormik({
     initialValues: {
         fullName: '',
@@ -23,7 +29,7 @@ export default function RegisterDriver(props) {
         yearOfBirth: '',
         placeOfBirth: '',
         note: '',
-        enabled: '',
+        enabled: true,
         UploadImage: '',
         trips:[{id:0}]
     },
@@ -41,7 +47,6 @@ export default function RegisterDriver(props) {
     }
 })
 
-  const dispatch = useDispatch();
 
   const handleChangeFile = (e) => {
     let file = e.target.files[0];
@@ -54,10 +59,6 @@ export default function RegisterDriver(props) {
         }
         formik.setFieldValue('UploadImage', file);
     }
-}
-
-const handleChangeEnabled = (value) => {
-    formik.setFieldValue('enabled', value)
 }
 
 const onOk = (values) => {
@@ -75,6 +76,14 @@ const onChangeDate = (values) => {
     console.log('Failed:', errorInfo);
   };
 
+  const disabledDate = (current) => {
+    return current && current.add(18, 'year') > dayjs().endOf('day');
+  };
+
+  const onChange = (e) => {
+    console.log('checked = ', e.target.checked);
+    setChecked(e.target.checked);
+  };
   return (
     
     <div className="py-8 px-8 bg-white rounded-2xl shadow-xl z-20" >
@@ -218,7 +227,7 @@ const onChangeDate = (values) => {
                   >
                     <Space.Compact  style={{ marginTop:"8px", height: '43px' }}  >
                     <Input  disabled style={{ width: '20%' }} value={"+84"} />
-                    <Input name="phone" onChange={formik.handleChange} style={{ width: '80%' }} defaultValue="" />
+                    <Input name="phone" type='number' onChange={formik.handleChange} style={{ width: '80%' }} defaultValue="" />
                   </Space.Compact>
                 </Form.Item>
 
@@ -268,21 +277,21 @@ const onChangeDate = (values) => {
                     <Input name='placeOfBirth' style={{height:"43px"}} onChange={formik.handleChange} className="d-flex block text-sm py-2.5 px-4 mt-2 rounded-lg w-full border outline-none" placeholder="Place Of Birth" />
                     
                   </Form.Item>
-                  <Form.Item
-                    >
-                          <DatePicker format={dateFormat} onChange={onChangeDate} onOk={onOk} style={{height:"44px" , marginRight:'58px'}} />
-                          <Select name='enabled' style={{width:"40%",height:"44px"}} onChange={handleChangeEnabled} placeholder="Option Enabled">
-                              <Option value={true}>Enable</Option>
-                              <Option value={false}>Disable</Option>
-                          </Select>
-                      </Form.Item>
+
+                    <Form.Item  >
+                          <DatePicker disabledDate={disabledDate} defaultValue={dayjs(dayjs().endOf("day").subtract(18, 'year'), dateFormatList[0])} format={dateFormat} onChange={onChangeDate} onOk={onOk} size='large' style={{width:"100%", height:"45px"}} />
+                     </Form.Item>
 
                       <Form.Item   name="note" >
                           <Input name='note'style={{height:"43px"}} onChange={formik.handleChange} placeholder="Note" />
                       </Form.Item>
-                      
+                      <Checkbox checked={checked}  onChange={onChange}>
+                      Please ensure your information is accurate!!
+                     </Checkbox>
+                     <br></br>
+                     
                   <div className="text-center">
-                    <button htmlType='submit' className="py-2 w-64 text-base text-white bg-red-400 rounded-full">Sign Up</button>
+                  {checked?<Button htmlType='submit' type='primary' >Sign Up</Button>:<Button htmlType='submit' disabled type='primary' >Sign Up</Button>} 
                     <div className="mt-2 text-sm">Already registered? <a href='loginDriver' className="underline  cursor-pointer"> Sign In</a></div>
                   </div>
                 </div>

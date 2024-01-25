@@ -33,6 +33,7 @@ const DriverEdit = (props) => {
       placeOfBirth: driverDetail?.placeOfBirth,
       note: driverDetail?.note,
       enabled: driverDetail?.enabled,
+      isApprove:driverDetail?.isApprove,
       avatar: driverDetail?.avatar,
       trips:[{id:0}]
     },
@@ -204,6 +205,15 @@ const DriverEdit = (props) => {
           <Select name="enabled" onChange={handleChangeEnabled} value={formik.values.enabled} placeholder="Option Enabled" >
             <Option value={true}>On</Option>
             <Option value={false}>Off</Option>
+          </Select>
+        
+        </Form.Item>
+        <Form.Item
+          label="Prove"
+        >
+        <Select name="isApprove" onChange={handleChangeEnabled} value={formik.values.isApprove} placeholder="Option Enabled" >
+            <Option value={true}>Yes</Option>
+            <Option value={false}>No</Option>
           </Select>
         </Form.Item>
 

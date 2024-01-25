@@ -20,6 +20,22 @@ export const getTripListAction = () => {
     }
   };
 };
+export const getTripListByDriverId = (Id) => {
+  return async (dispatch) => {
+    try {
+      const result = await tripService.getTripByDriverId(Id);
+      console.log('trip getTripListByDriverId',result)
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_TRIP_LIST,
+          arrTrip: result.data.data,
+        });
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+};
 
 export const getTripByIdAction = (id) => {
   return async (dispatch) => {

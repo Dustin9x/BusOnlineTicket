@@ -6,6 +6,7 @@ namespace backend.IRepository
     {
         Task<IEnumerable<Trip>> GetAllTrip();
         Task<IEnumerable<Trip>> GetTripById(int Id);
+        Task<IEnumerable<Trip>> GetTripByDriverId(int Id);
         Task<bool> CreateTrip(Trip Trip);
         Task<bool> PutTrip(int Id, Trip Trip);
         Task<Trip> DeleteTrip(int Id);

@@ -12,6 +12,9 @@ export class TripService extends baseService {
   getTripById = (id) => {
     return this.get(`/api/Trip/${id}`);
   };
+  getTripByDriverId = (id) => {
+    return this.get(`/api/Trip/DriverId/${id}`);
+  };
   getTripListOptions = (options) => {
     return this.get(
       `/api/Trip/Options?searchBusType=${options.searchBusType}&fromPrice=${options.fromPrice}&toPrice=${options.toPrice}&sort=${options.sort}&from=${options.from}&to=${options.to}&dayStart=${options.dayStart}&page=1`

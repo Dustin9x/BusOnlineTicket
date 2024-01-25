@@ -99,7 +99,6 @@ function App() {
         <UserTemplate path="/registerDriver" exact Component={RegisterDriver} />
         <UserTemplate path="/forgetPasswordDriver" exact Component={ForgetPasswordDriver} />
         <HomeTemplate path="/detailTripOfDriver" exact Component={DetailTripOfDriver} />
-        <ProfileTemplate path="/profileDriver" exact Component={ProfileDriver} />
 
         <ProfileTemplate path="/users" exact Component={Profile} />
         <ProfileTemplate path="/users/profile" exact Component={Profile} />

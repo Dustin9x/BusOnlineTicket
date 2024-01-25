@@ -59,6 +59,27 @@ namespace backend.Controllers
 
         }
 
+        [HttpGet("DriverId/{Id}")]
+        public async Task<ActionResult> getAllByDriverId(int Id)
+        {
+            try
+            {
+                var list = await repo.GetTripByDriverId(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Trip>>(StatusCodes.Status200OK, "Get trip successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
         [HttpPost]
         public async Task<ActionResult> CreateTrip([FromForm] Trip Trip)
         {

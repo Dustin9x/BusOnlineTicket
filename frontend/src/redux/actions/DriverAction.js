@@ -121,6 +121,23 @@ export const updateDriver = (id, newDriver) =>{
         }
     }
 }
+export const updateByDriverAction = (id, newDriver) =>{
+    return async (dispatch) => {
+        try {
+            const result = await driverService.putDriver(id, newDriver)
+            notification.success({
+                closeIcon: true,
+                message: 'Success',
+                description: (
+                    <>Change your password successfully!!.</>
+                ),
+            });
+            history.push('/detailTripOfDriver');
+        } catch (error) {
+            alert("Update Fail . Please Try Again")
+        }
+    }
+}
 
 export const approveDriver = (id) =>{
     return async (dispatch) => {

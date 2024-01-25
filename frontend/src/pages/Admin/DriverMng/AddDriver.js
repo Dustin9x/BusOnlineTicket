@@ -28,6 +28,7 @@ const AddDriver = () => {
             placeOfBirth: '',
             note: '',
             enabled: '',
+            isApprove:true,
             UploadImage: '',
             trips:[{id:0}]
         },
@@ -71,7 +72,10 @@ const AddDriver = () => {
         let yearOfBirth = dayjs(values).format('YYYY-MM-DD');
         formik.setFieldValue('yearOfBirth', yearOfBirth);
     }
-
+    const disabledDate = (current) => {
+        return current && current.add(18, 'year') > dayjs().endOf('day');
+      };
+    
     return (
         <div >
             <h3>Add New Driver</h3>
@@ -140,7 +144,7 @@ const AddDriver = () => {
                         },
                     ]}
                 >
-                    <Input name='phone' onChange={formik.handleChange} placeholder="Phone" />
+                    <Input name='phone' type='number' onChange={formik.handleChange} placeholder="Phone" />
                 </Form.Item>
 
                 <Form.Item
@@ -171,19 +175,17 @@ const AddDriver = () => {
                           },
                         ]}
                       >
-                        <Input.Password name='password' onChange={formik.handleChange}   className="d-flex block text-sm py-2.5 px-4 mt-2 rounded-lg w-full border outline-none" placeholder="Password" />
+                        <Input.Password name='password' onChange={formik.handleChange} placeholder="Password" />
                       </Form.Item>
-                <Form.Item
-                    label="Year Of Birth"
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Year Of Birth can not be blank!',
-                        },
-                    ]}
-                >
-                    <DatePicker format={dateFormat} onChange={onChangeDate} onOk={onOk} />
-                </Form.Item>
+                <Form.Item    label="Year Of Birth"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Year Of Birth can not be blank!',
+                                },
+                            ]} >
+                          <DatePicker disabledDate={disabledDate} defaultValue={dayjs(dayjs().endOf("day").subtract(18, 'year'), dateFormat)} format={dateFormat} onChange={onChangeDate} onOk={onOk} size='middle'  />
+                     </Form.Item>
 
                     
                 <Form.Item

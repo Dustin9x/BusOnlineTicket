@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Checkbox, Form, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+import { Form, Input } from 'antd';
+import { useDispatch } from 'react-redux';
 
 import { loginDriverAction } from '../../redux/actions/DriverAction';
 
@@ -99,7 +99,7 @@ export default function LoginDriver(props) {
         <div className="text-center">
           <button type="submit" className="py-2 w-64 text-base text-white bg-red-400 rounded-full">Sign In</button>
           <div className="mt-2 text-sm">You want to register as a driver?  <a href='registerDriver' className="underline  cursor-pointer"> Sign Up Driver</a></div>
-          <div className="mt-2 text-sm">  <a href='login' className="underline  cursor-pointer"> Back</a></div>
+   
         </div>
       </Form>
     </div>
