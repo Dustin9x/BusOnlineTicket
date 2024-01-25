@@ -2,6 +2,7 @@
 using backend.Models;
 using backend.ResponseData;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -138,7 +139,7 @@ namespace backend.Controllers
                 return Ok(new ResponseData<Object>(StatusCodes.Status200OK, "Resigter fail", null, "Email already registerd!"));
             }
         }
-
+        [AllowAnonymous]
         [HttpPost("ForgetPassword")]
         public async Task<ActionResult> ForgetPassword(string Email)
         {
@@ -156,12 +157,22 @@ namespace backend.Controllers
                         var index = new Random().Next(characters.Length);
                         password.Append(characters[index]);
                     }
+                    string FilePath = Path.Combine(env.ContentRootPath,"EmailTemplate", "forgetpassword.html");
+                    string logoPath = Path.Combine(env.ContentRootPath,"Images", "logo.png");
+                    StreamReader str = new StreamReader(FilePath);
+                    string MailText = str.ReadToEnd();
+                    str.Close();
+                    
+                    MailText = MailText.Replace("[logoBusOnlineTicket]", logoPath);
+                    MailText = MailText.Replace("[newPassword]", password.ToString());
                     Mail mail = new Mail()
                     {
                         ToEmail = Email,
-                        Body = "Your new password:" + password.ToString(),
-                        Subject = "Forget Password"
-                    };
+                        //Body = "Your new password:" + password.ToString(),
+                        Body = MailText,
+                        Subject = "Forget Password",
+                        
+                };
                     await mailRepo.SendEmailAsync(mail);
                     ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(password.ToString());
                     await db.SaveChangesAsync();

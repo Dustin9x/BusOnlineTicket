@@ -20,6 +20,7 @@ namespace backend.Models
         public DbSet<BusStation> BusStations { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Offer> Offers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -110,7 +111,10 @@ namespace backend.Models
             {
                 n.HasKey(n => n.Id);
                 n.HasData(SeedData.NewsData.NewsSeedData());
-
+            });
+            modelBuilder.Entity<Offer>(o =>
+            {
+                o.HasKey(o => o.Id);
             });
         }
     }

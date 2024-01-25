@@ -48,6 +48,7 @@ builder.Services.AddScoped<IFAQrepo, FAQService>();
 builder.Services.AddScoped<IPromoteTripRepo, PromoteTripService>();
 builder.Services.AddScoped<ISendMail, SendMailService>();
 builder.Services.AddScoped<INewRepo, NewsService>();
+builder.Services.AddScoped<IOfferRepo, OfferService>();
 
 builder.Services.Configure<MailSetting>(builder.Configuration.GetSection("MailSettings"));
 //fix lỗi json bị vòng lặp 

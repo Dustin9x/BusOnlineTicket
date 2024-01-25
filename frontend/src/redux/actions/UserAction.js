@@ -82,7 +82,7 @@ export const registerAction = (thongTinDangKy) => {
 export const forgetPassword = (emailInfo) => {
   return async (dispatch) => {
     try {
-      dispatch(displayLoadingAction);
+      // dispatch(displayLoadingAction);
       const result = await userService.forgetPassword(emailInfo);
       if (result.data.status === 200) {
         dispatch({
@@ -103,8 +103,16 @@ export const forgetPassword = (emailInfo) => {
       }
     } catch (error) {
       console.log(error);
-      await dispatch(hideLoadingAction);
-      alert(error.response.data.message);
+      // await dispatch(hideLoadingAction);
+      notification.error({
+        closeIcon: false,
+        message: "Error",
+        description: (
+          <>
+            This email is not registered yet.
+          </>
+        ),
+      });
     }
   };
 };
