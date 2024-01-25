@@ -102,5 +102,17 @@ namespace backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("profit/{year}")]
+        public IActionResult GetProfit(int year)
+        {
+            var list = repo.GetProfitByMonth(year);
+            if (list != null)
+            {
+                var result = new ResponseData<IEnumerable<Profit>>(StatusCodes.Status200OK, "Get profit successfully", list.Result, null);
+                return Ok(result);
+            }
+            return BadRequest();
+        }
     }
 }

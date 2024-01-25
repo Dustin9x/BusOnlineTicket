@@ -68,9 +68,8 @@ export const AdminTemplate = (props) => { //path, exact, Component
       getItem("Register Drivers", "9", <NavLink className="text-decoration-none" to="/admin/regdrivermng"><UserOutlined /></NavLink>),
     ]),
     getItem('Revenue', 'sub4', <LineChartOutlined />, [
-      getItem('Danh Sách Đơn Hàng', '10', <NavLink className='text-decoration-none' to="/admin/orderlist"><LineChartOutlined /></NavLink>),
       getItem('Revenue By Month', '11', <NavLink className='text-decoration-none' to="/admin/revenuemonth"><LineChartOutlined /></NavLink>),
-      getItem('Revunue By Route', '12', <NavLink className='text-decoration-none' to="/admin/revenuemovie"><LineChartOutlined /></NavLink>),
+      getItem('Revunue By Route', '12', <NavLink className='text-decoration-none' to="/admin/revenueroute"><LineChartOutlined /></NavLink>),
     ]),
     getItem('FAQ Management', '13', <NavLink className='text-decoration-none' to="/admin/faqmng"><QuestionOutlined /></NavLink>),
     getItem('News Management', '14', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),

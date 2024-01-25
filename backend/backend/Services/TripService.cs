@@ -267,15 +267,18 @@ namespace backend.Services
             return result.ToList();
         }
 
-        public async Task<IEnumerable<Profit>> GetProfitByTrip()
+        public async Task<IEnumerable<Profit>> GetProfitByTrip(int year)
         {
             return await db.Trips
+                .Where(t => t.StartTime.Year == year)
                 .GroupBy(p => new { p.FromStationId, p.ToStationId })
                 .Select(t => new Profit
                 {
-                    FromStation = t.Key.FromStationId,
-                    ToStation = t.Key.ToStationId,
-                    TotalProfit = db.Tickets.Where(x => x.Trips.FromStationId == t.Key.FromStationId && x.Trips.ToStationId == t.Key.ToStationId).Sum(x => x.TotalPrice),
+                    FromStationId = t.Key.FromStationId,
+                    FromStation = db.Stations.Where(o => o.Id == t.Key.FromStationId).Select(s => new Station{ Name = s.Name}).FirstOrDefault(),
+                    ToStationId = t.Key.ToStationId,
+                    ToStation = db.Stations.Where(o => o.Id == t.Key.ToStationId).Select(s => new Station { Name = s.Name }).FirstOrDefault(),
+                    TotalProfit = db.Tickets.Where(x => x.Trips.FromStationId == t.Key.FromStationId && x.Trips.ToStationId == t.Key.ToStationId && x.BookDate.Value.Year == year).Sum(x => x.TotalPrice),
                 })
                 .ToListAsync();
         }

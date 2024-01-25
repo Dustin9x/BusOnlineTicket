@@ -5,8 +5,8 @@ import { cancelTicketAction, getTicketByUserAction } from '../../../redux/action
 import { Button, Input, Space, Table, Tag, Form, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
-import dayjs from "dayjs";
 import TicketLeaf from '../../../components/TicketLeaf/TicketLeaf'
+import dayjs from "dayjs";
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
@@ -202,9 +202,6 @@ export default function OrderHistory() {
           }}>View Ticket</Button>
           {remainDay < 0 ? ''
             : <Button key={2} type="link" href={`/users/ordershistory/cancel/` + ticket.code} danger onClick={() => {
-              // if (window.confirm("Do you sure want to cancel ticket " + ticket.code + "?")) {
-              //   dispatch(cancelTicketAction(ticket.id, remainDay))
-              // }
             }}>Cancel Ticket</Button>
           }
         </>

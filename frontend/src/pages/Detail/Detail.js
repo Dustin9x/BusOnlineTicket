@@ -117,10 +117,10 @@ export function SettlePayment(props) {
     const handleSubmit = (values) => {
         if (values.otp == '123456') {
             const ticket = new Ticket();
-            const timeStamp = dayjs().tz(dayjs.tz.guess()).format("YYYYMMDDhhmmss")
+            const timeStamp = dayjs().tz("Asia/Saigon").format("YYYYMMDDhhmmss")
             ticket.TripId = donHang.tripId;
             ticket.Code = timeStamp;
-            ticket.BookDate = dayjs().tz(dayjs.tz.guess())
+            ticket.BookDate = dayjs().tz("Asia/Saigon")
             ticket.UserId = donHang.userId;
             ticket.SeatsList = donHang.seatsList;
             ticket.TotalPrice = finalPrice;

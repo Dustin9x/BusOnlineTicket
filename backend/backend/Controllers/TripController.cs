@@ -134,10 +134,10 @@ namespace backend.Controllers
             }
         }
 
-        [HttpGet("profit")]
-        public IActionResult GetProfit()
+        [HttpGet("profit/{year}")]
+        public IActionResult GetProfit(int year)
         {
-            var list = repo.GetProfitByTrip();
+            var list = repo.GetProfitByTrip(year);
             if (list != null)
             {
                 var result = new ResponseData<IEnumerable<Profit>>(StatusCodes.Status200OK, "Get profit successfully", list.Result, null);

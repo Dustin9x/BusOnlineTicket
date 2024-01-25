@@ -59,7 +59,7 @@ export default function News() {
 
   return (
     <div>
-      <div className="header__img-text">
+      <div className="header__img-text ">
         <h2 className=" text-white heading__text drop-shadow-md">News</h2>
         <div className="text-white end__text drop-shadow-md">Information Page about The Latest Bus Trips</div>
       </div>

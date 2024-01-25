@@ -46,6 +46,9 @@ export default function Header(props) {
                     </NavLink>
                     <ul className="w-full h-full text-right flex justify-end">
                         <li className="flex">
+                            <NavLink to="/news" style={{ textDecoration: 'none' }} className="flex items-center font-medium -mb-0.5 border-b-2 px-4 border-transparent hover:text-red-400"><i class="fa-solid fa-newspaper mr-2"></i>Lastest News</NavLink>
+                        </li>
+                        <li className="flex">
                             <NavLink to="/registerDriver" style={{ textDecoration: 'none' }} className="flex items-center font-medium -mb-0.5 border-b-2 px-4 border-transparent hover:text-red-400"><i className="fa-solid fa-bus mr-2"></i> Become Our Driver</NavLink>
                         </li>
                         <li className="flex">

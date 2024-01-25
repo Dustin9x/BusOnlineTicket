@@ -6,23 +6,13 @@ export class ProfitService extends baseService {
         super();
     }
 
-
-    layChiTietDonHang = (id ) => {
-        return this.get(`/api/laychitietdonhang/${id}`);
+    getProfitByRoute = (year) => {
+        return this.get(`/api/Trip/profit/${year}`);
     }
 
-
-
-    layDonHangTheoUser = (id ) => {
-        return this.get(`/api/laydanhsachdonhang/${id}`);
+    getProfitByMonth = (year) => {
+        return this.get(`/api/Ticket/profit/${year}`);
     }
-
-
-    layDoanhThu = ( year ) => {
-        return this.get(`/api/doanhthu/${year}`);
-    }
-
-
 }
 
 export const profitService = new ProfitService();

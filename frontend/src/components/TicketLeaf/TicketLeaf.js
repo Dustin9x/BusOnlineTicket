@@ -12,8 +12,10 @@ export default function TicketLeaf(props) {
     const email = donHang?.email || donHang?.users?.email;
     const bookDate = donHang?.bookDate;
     const seatList = donHang?.seatsList;
-    const startTime = donHang?.startTime;
+    const startTime = donHang?.startTime || donHang.trips.startTime;
     const note = donHang?.note;
+
+    console.log('donHang',donHang)
     return (
         <div className="flex justify-center">
             <div className="card cardLeft">

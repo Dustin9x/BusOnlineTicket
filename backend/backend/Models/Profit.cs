@@ -2,9 +2,11 @@
 {
     public class Profit
     {
-        public int Id { get; set; }
-        public int? FromStation { get; set; }
-        public int? ToStation { get; set; }
+        public int? FromStationId { get; set; }
+        public int? ToStationId { get; set; }
+        public int? Month { get; set; }
+        public Station? FromStation { get; set; }
+        public Station? ToStation { get; set; }
         public double? TotalProfit { get; set; }
     }
 }

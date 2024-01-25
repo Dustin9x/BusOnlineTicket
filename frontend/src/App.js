@@ -26,9 +26,7 @@ import OrderHistory from "./pages/Admin/UserMng/OrderHistory";
 import Search from "./pages/Search/Search";
 import AdminUserMng from "./pages/Admin/UserMng/AdminUserMng";
 import RevenueMonth from "./pages/Admin/Revenue/RevenueMonth";
-import RevenueMovie from "./pages/Admin/Revenue/RevenueMovie";
 import UserOrder from "./pages/Admin/UserMng/UserOrder";
-import OrderList from "./pages/Admin/Revenue/OrderList";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import GeneralTerms from "./pages/Terms/GeneralTerms";
 import TermsOfTransaction from "./pages/Terms/TermsOfTransaction";
@@ -68,6 +66,7 @@ import NewsDetail from './pages/News/NewsDetail';
 import NewsMng from './pages/Admin/NewsMng/NewsMng';
 import AddNewNews from './pages/Admin/NewsMng/AddNewNews';
 import NewsEdit from "./pages/Admin/NewsMng/NewsEdit";
+import RevenueRoute from "./pages/Admin/Revenue/RevenueRoute";
 
 export const history = createBrowserHistory();
 
@@ -110,7 +109,7 @@ function App() {
         <AdminTemplate path="/admin/adminusers" exact Component={AdminUserMng} />
         <AdminTemplate path="/admin/users/edit/:id" exact Component={UserEdit} />
         <AdminTemplate path="/admin/users/adduser" exact Component={AddUser} />
-        <AdminTemplate path="/users/order/:id" exact Component={UserOrder} />
+        <AdminTemplate path="/admin/ordershistory/:id" exact Component={UserOrder} />
 
         {/* Mod */}
         <AdminTemplate path="/admin/modmng" exact Component={ModMng} />
@@ -148,17 +147,16 @@ function App() {
         <AdminTemplate path="/admin/promotripmng/addnew" exact Component={AddNewPromoteTrip} />
         <AdminTemplate path="/admin/promotripmng/edit/:id" exact Component={EditPromoteTrip} />
 
-        {/* Doanh Thu */}
-        <AdminTemplate path="/admin/orderlist" exact Component={OrderList} />
+        {/* Revenue */}
         <AdminTemplate path="/admin/revenuemonth" exact Component={RevenueMonth} />
-        <AdminTemplate path="/admin/revenuemovie" exact Component={RevenueMovie} />
+        <AdminTemplate path="/admin/revenueroute" exact Component={RevenueRoute} />
 
         {/* FAQ */}
         <AdminTemplate path="/admin/faqmng" exact Component={FAQMng} />
         <AdminTemplate path="/admin/faqmng/addnew" exact Component={AddNewFAQ} />
         <AdminTemplate path="/admin/faqmng/edit/:id" exact Component={EditFAQ} />
 
-             {/* Tin Tức */}
+        {/* News */}
         <AdminTemplate path='/admin/newsmng' exact Component={NewsMng} />
         <AdminTemplate path='/admin/newsmng/addnews' exact Component={AddNewNews} />
         <AdminTemplate path='/admin/newsmng/edit/:id' exact Component={NewsEdit} />

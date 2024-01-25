@@ -1,7 +1,7 @@
 import { notification } from "antd";
 import { OrderDetail } from "../../_core/models/OrderDetail";
 import { orderService } from "../../services/OrderService";
-import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_USER, GET_TICKET_RESULT, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants";
+import { CHUYEN_TAB, CHUYEN_TAB_ACTIVE, GET_TICKET_BY_CUSTOMER, GET_TICKET_BY_USER, GET_TICKET_RESULT, GET_TICKET_STATUS, ORDER_CONFIRM } from "../constants";
 import { displayLoadingAction, hideLoadingAction } from './LoadingAction';
 import { TOKEN } from "../../util/settings/config";
 import { userService } from "../../services/UserService";
@@ -72,6 +72,20 @@ export const getTicketByUserAction = (id) => {
             dispatch({
                 type: GET_TICKET_BY_USER,
                 arrTicket: result2.data.data
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export const getTicketListForCustomerAction = (id) => {
+    return async (dispatch) => {
+        try {
+            const result = await orderService.getTicketByUser(id);
+            dispatch({
+                type: GET_TICKET_BY_CUSTOMER,
+                arrTicketCustomer: result.data.data
             })
         } catch (error) {
             console.log(error)

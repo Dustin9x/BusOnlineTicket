@@ -20,6 +20,7 @@ namespace backend.Services
                 User user = db.Users.Where(s => s.Id == ticket.UserId).FirstOrDefault();
                 ticket.Trips = trip;
                 ticket.Users = user;
+                ticket.BookDate = DateTime.Now;
                 db.Tickets.Add(ticket);
                 int result = await db.SaveChangesAsync();
                 if (result == 0)
@@ -105,6 +106,19 @@ namespace backend.Services
                 return oldTicket;
             }
             else { return null; }
+        }
+
+        public async Task<IEnumerable<Profit>> GetProfitByMonth(int year)
+        {
+            return await db.Tickets
+                .Where(t => t.BookDate.Value.Year == year)
+                .GroupBy(t => new { t.BookDate.Value.Month })
+                .Select(t => new Profit
+                {
+                    Month = t.Key.Month,
+                    TotalProfit = t.Sum(x => x.TotalPrice),
+                })
+                .ToListAsync();
         }
     }
 }

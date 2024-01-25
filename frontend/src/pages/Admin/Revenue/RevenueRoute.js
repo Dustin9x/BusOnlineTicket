@@ -12,26 +12,19 @@ import {
 import { Bar } from "react-chartjs-2";
 import "./revenueroute.css";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProfitAction, GetProfitByMonthAction } from "../../../redux/actions/ProfitAction";
 import dayjs from "dayjs";
-import { groupBy, sumBy } from "lodash";
-import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
-
+import { GetProfitByRouteAction } from "../../../redux/actions/ProfitAction";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 
-
-export default function RevenueMonth() {
-
+export default function RevenueRoute() {
   const dispatch = useDispatch()
-  const { arrProfitByMonth } = useSelector(state => state.ProfitReducer)
+  const { arrProfitByRoute } = useSelector(state => state.ProfitReducer)
 
-  
   var resMap = new Map();
   var arrChart = [];
-  arrProfitByMonth?.map((item) => {
-    let key = item.month
+  arrProfitByRoute?.map((item) => {
+    let key = item.fromStation.name + " - " + item.toStation.name
     let value = item.totalProfit
     if (!resMap.has(key))
       resMap.set(key, value);
@@ -40,18 +33,19 @@ export default function RevenueMonth() {
   })
   resMap.forEach((value, key) => {
     arrChart.push({
-      month: key,
+      route: key,
       profit: value
     })
   })
 
   const year = dayjs().year()
   useEffect(() => {
-    dispatch(GetProfitByMonthAction(year))
+    dispatch(GetProfitByRouteAction(year))
   }, [dispatch, year]);
 
+
   const datachart = {
-    labels: arrChart.map(value => value.month),
+    labels: arrChart.map(value => value.route),
     datasets: [
       {
         label: "USD",
@@ -72,10 +66,17 @@ export default function RevenueMonth() {
   };
   const columns = [
     {
-      title: "Month",
-      dataIndex: "month",
-      key: "month",
-      sorter: (a, b) => a.month - b.month,
+      title: "Id",
+      key: "index",
+      render: (text, order, index) => {
+        return index+1
+      }
+    },
+    {
+      title: "Route",
+      dataIndex: "route",
+      key: "route",
+      sorter: (a, b) => a.route - b.route,
       sortDirections: ["descend", "ascend"],
     },
     {
@@ -92,15 +93,15 @@ export default function RevenueMonth() {
 
   const onChange = (value) => {
     let year = (dayjs(value).format('YYYY'))
-    dispatch(GetProfitByMonthAction(year))
+    dispatch(GetProfitByRouteAction(year))
   };
 
   return (
     <>
       <div className="">
-        <DatePicker defaultValue={dayjs()} onChange={onChange} picker="year" />
+        Select year: <DatePicker defaultValue={dayjs()} onChange={onChange} picker="year" />
         <div>
-          <h1 className="titleRevenueTable text-xl"> BIỂU ĐỒ DOANH THU THEO PHIM </h1>
+          <h1 className="titleRevenueTable text-xl">ANNUAL PROFIT CHART BY ROUTE</h1>
           {arrChart.length === 0 || arrChart === undefined ? <Alert message="Nodata" className="text-center" type="warning" /> : ''}
           <div className="chartt" >
             <Bar data={datachart} style={{ height: '100%', maxHeight: '300px' }}></Bar>
@@ -108,11 +109,11 @@ export default function RevenueMonth() {
         </div>
       </div>
       <hr />
-      <div className="revenueTable">
-        <h1 className="titleRevenueTable text-xl">BẢNG DOANH THU THEO THÁNG </h1>
+      <div className="revenueTable mt-5">
+        <h1 className="titleRevenueTable text-xl">ANNUAL PROFIT TABLE BY ROUTE</h1>
       </div>
       <div>
-        <Table columns={columns} dataSource={arrChart} f />
+        <Table columns={columns} dataSource={arrChart} rowKey={"id"} />
       </div>
     </>
   );

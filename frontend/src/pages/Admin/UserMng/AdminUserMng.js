@@ -9,19 +9,6 @@ import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
 import { history } from "../../../App";
 
 export default function AdminUserMng() {
-  let userLogin = {};
-  // if (localStorage.getItem(USER_LOGIN)) {
-  //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  // }
-
-  // if (!localStorage.getItem(TOKEN)) {
-  //     history.replace('/')
-  // }
-
-  // if (userLogin.role !== 'Super') {
-  //     alert('Bạn không có quyền truy cập trang này!');
-  //     history.replace('/')
-  // }
   const dispatch = useDispatch();
   let { arrUser } = useSelector((state) => state.UserReducer);
   useEffect(() => {
@@ -148,14 +135,19 @@ export default function AdminUserMng() {
     },
     {
       title: "Manage",
+      width: "20%",
       render: (text, data, index) => {
         return (
           <Fragment key={index}>
-            <Button key={1} href={`/admin/users/edit/` + data.id} type="link" icon={<EditOutlined />} onClick={() => { 
+            <Button key={1}  href={`/admin/ordershistory/` + data.id} icon={<i className="fa-solid fa-ticket"></i>} onClick={() => { 
+              dispatch(getUserByIdAction(data.id))
+            }}
+            >View Order List</Button>
+            <Button key={2} href={`/admin/users/edit/` + data.id} type="link" icon={<EditOutlined />} onClick={() => { 
               dispatch(getUserByIdAction(data.id))
             }}
             ></Button>
-            <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
+            <Button key={3} type="link" danger icon={<DeleteOutlined />} onClick={() => {
                 if ( window.confirm( "Are you sure you want to delete the user " + data.email + "?" ) ) {
                   dispatch(deleteUserAction(data.id));
                 } }}
