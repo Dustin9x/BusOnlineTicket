@@ -13,7 +13,6 @@ const parser = new DOMParser();
 
 export default function OfferMng() {
   let { arrOffer } = useSelector(state => state.OfferReducer);
-  console.log(arrOffer);
   const dispatch = useDispatch();
 
   useEffect(() => {

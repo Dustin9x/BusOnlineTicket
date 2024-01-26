@@ -13,8 +13,6 @@ export default function UserOrder(props) {
   const { arrTicketCustomer } = useSelector(state => state.OrderReducer)
   const dispatch = useDispatch()
 
-  console.log('arrTicketCustomer',arrTicketCustomer)
-
   useEffect(() => {
     dispatch(getTicketListForCustomerAction(id))
   }, [dispatch]);

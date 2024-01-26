@@ -7,7 +7,6 @@ export const GetProfitByRouteAction = (year) => {
     return async (dispatch) => {
         try {
             const result = await profitService.getProfitByRoute(year);
-            console.log('profit',result)
             dispatch({
                 type: GET_PROFIT_BY_ROUTE,
                 arrProfitByRoute: result.data.data
@@ -22,7 +21,6 @@ export const GetProfitByMonthAction = (year) => {
     return async (dispatch) => {
         try {
             const result = await profitService.getProfitByMonth(year);
-            console.log('profit',result)
             dispatch({
                 type: GET_PROFIT_BY_MONTH,
                 arrProfitByMonth: result.data.data

@@ -20,8 +20,6 @@ export default function Offer() {
         dispatch(getOfferListAction())
     }, [dispatch])
 
-    console.log('arrOffer', arrOffer)
-
     const showModal = () => {
         setIsModalOpen(true);
     };

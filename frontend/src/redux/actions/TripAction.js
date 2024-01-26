@@ -24,7 +24,6 @@ export const getTripListByDriverId = (Id) => {
   return async (dispatch) => {
     try {
       const result = await tripService.getTripByDriverId(Id);
-      console.log('trip getTripListByDriverId',result)
       if (result.data.status === 200) {
         dispatch({
           type: GET_TRIP_LIST,
@@ -57,7 +56,6 @@ export const addNewTripAction = (formData) => {
   return async (dispatch) => {
     try {
       const result = await tripService.addNewTrip(formData);
-      console.log('add trip',result)
       notification.success({
         closeIcon: true,
         message: "Success",

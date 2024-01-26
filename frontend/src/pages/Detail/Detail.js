@@ -12,6 +12,7 @@ import { Ticket } from './../../_core/models/Ticket';
 import UserAvatar from '../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
 import TicketLeaf from '../../components/TicketLeaf/TicketLeaf';
+import { getOfferByCodeAction } from '../../redux/actions/OfferAction';
 const { TabPane } = Tabs;
 var utc = require('dayjs/plugin/utc')
 var timezone = require('dayjs/plugin/timezone')
@@ -33,7 +34,7 @@ export default function Detail(props) {
     }
 
     useEffect(() => {
-        if(accessToken != null){
+        if (accessToken != null) {
             dispatch(getCurrentUserAction(accessToken))
         }
         dispatch({
@@ -74,6 +75,7 @@ export default function Detail(props) {
 
 export function SettlePayment(props) {
     let { donHang } = useSelector(state => state.OrderReducer)
+    let { offerCodeDetail } = useSelector(state => state.OfferReducer)
     const [show, setShow] = useState(false);
     const [children, setChildren] = useState(0);
     const [teenage, setTeenage] = useState(0);
@@ -91,7 +93,12 @@ export function SettlePayment(props) {
     const totalTicket = donHang && donHang?.numberOfSeat - children - teenage - oldman;
     const totalPrice = donHang && donHang?.totalMoney;
     const discount = donHang && children * donHang?.ticketPrice + teenage * donHang?.ticketPrice * 0.5 + oldman * donHang?.ticketPrice * 0.3
-    const finalPrice = totalPrice - discount;
+    const priceBeforeVoucher = totalPrice - discount;
+    const voucherDiscount = priceBeforeVoucher*offerCodeDetail?.discount/100;
+
+    
+    
+    const finalPrice = offerCodeDetail != null ? priceBeforeVoucher - voucherDiscount : priceBeforeVoucher;
 
     const onFinish = (values) => {
         if (children + teenage == donHang?.numberOfSeat) {
@@ -111,6 +118,17 @@ export function SettlePayment(props) {
 
     };
 
+    const checkDiscount = (values) => {
+        console.log('values', values)
+        dispatch(getOfferByCodeAction(values.offerCode))
+        const checkTime = dayjs().isBetween(dayjs(offerCodeDetail?.beginDate), dayjs(offerCodeDetail?.endDate), 'date')
+        const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null)
+        
+        console.log('checkTime',checkTime)
+        console.log('checkStation',checkStation)
+        console.log('offerCodeDetail', offerCodeDetail)
+    }
+
     const handleSubmit = (values) => {
         if (values.otp == '123456') {
             const ticket = new Ticket();
@@ -124,7 +142,7 @@ export function SettlePayment(props) {
             ticket.isCancel = false;
             ticket.Note = `${children} children + ${teenage} teenage + ${oldman} elder`
 
-            donHang = { ...donHang, note: ticket.Note, code: ticket.Code, bookDate: ticket.BookDate}
+            donHang = { ...donHang, note: ticket.Note, code: ticket.Code, bookDate: ticket.BookDate }
             dispatch(orderConfirmAction(donHang))
             dispatch(bookSeatAction(ticket))
             dispatch(bookTicketAction(ticket))
@@ -153,7 +171,7 @@ export function SettlePayment(props) {
                 <div><small className='text-gray-700'>(*) Unclassified ticket will be considered as normal ticket with no discount.</small></div>
             </div>
             <div className='row'>
-                <div className='col-6 w-full alert alert-light' style={{ height: 370 }}>
+                <div className='col-6 w-full alert alert-light' style={{ height: 540 }}>
                     <p className="font-bold">Your order detail</p>
                     <div className='row'>
                         <div className="col-6">
@@ -196,7 +214,40 @@ export function SettlePayment(props) {
                         <p>Discount</p>
                         <h3>{discount?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
                     </div>
+
                     <hr></hr>
+                    {/* Apply Discount */}
+                    <div className='d-flex justify-between align-middle mt-3'>
+                        <p className="font-bold whitespace-nowrap mr-20">Offer Code</p>
+                        <Form
+                            name="basic"
+                            onFinish={checkDiscount}
+                            autoComplete="off"
+                            className='flex w-full mt-2'
+                        >
+                            <Form.Item
+                                name="offerCode"
+                                className='w-full'
+                            >
+                                <Input size="large" placeholder='Enter discount Code' />
+                            </Form.Item>
+                            <div >
+                                <button type="submit" className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm py-2.5 px-2 w-full ml-2 whitespace-nowrap dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                                >Apply Code</button>
+                            </div>
+                        </Form>
+                    </div>
+                    <div className='d-flex justify-between'>
+                        <p>Offer discount rate</p>
+                        <h3>{offerCodeDetail?.discount}%</h3>
+                    </div>
+                    <div className='d-flex justify-between'>
+                        <p>Offer discount applied</p>
+                        <h3 className={offerCodeDetail == null ? "text-red-500" : "font-bold"}>{offerCodeDetail != null ? voucherDiscount.toLocaleString("en-US", { style: "currency", currency: "USD" }) : 'Voucher not valid'}</h3>
+                    </div>
+
+                    <hr></hr>
+
                     <div className='d-flex justify-between mt-3'>
                         <p className="font-bold">Final Price</p>
                         <h3 className='text-xl font-bold text-red-600'>{finalPrice?.toLocaleString("en-US", { style: "currency", currency: "USD" })}</h3>
@@ -205,8 +256,8 @@ export function SettlePayment(props) {
 
                 </div>
                 <div className='col-6 '>
-                    <div className='row ml-3 alert alert-light' style={{ height: 370 }}>
-                        <div className='mx-auto'>
+                    <div className='row ml-3 alert alert-light' style={{ height: 540 }}>
+                        <div className='m-auto'>
                             <h1 className='text-center text-xl my-5'>PAYMENT BY CREDIT CARD</h1>
                             {!show ? <Form
                                 name="basic"
@@ -303,7 +354,7 @@ export function KetQuaDatVe(props) {
                         <p className="lg:w-2/3 mx-auto leading-relaxed text-base">You don't need to print out of my bus ticket to board the bus. You can show your E-ticket or e-ticket on your mobile device before boarding the bus.
                             Additionally, It is advisable to carry a government issued Identity card to verify your identity and your companies before boarding the bus to enjoy your discount.</p>
                         <div className="cardWrap">
-                            <TicketLeaf donHang={donHang}/>
+                            <TicketLeaf donHang={donHang} />
                         </div>
                     </div>
                 </div>

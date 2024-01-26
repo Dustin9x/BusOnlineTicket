@@ -8,7 +8,6 @@ export const getListNewsAction = () => {
   return async (dispatch) => {
     try {
       const result = await newService.getListNews();
-      console.log(result.data.data);
       if (result.data.status === 200) {
         dispatch({
           type: GET_NEWS_LIST,

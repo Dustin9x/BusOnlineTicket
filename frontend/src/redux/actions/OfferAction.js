@@ -9,7 +9,6 @@ export const getOfferListAction = () => {
   return async (dispatch) => {
     try {
       const result = await offerService.getOfferList();
-      console.log("get offer nha", result)
       if (result.data.status === 200) {
         dispatch({
           type: GET_OFFER_LIST,
@@ -58,7 +57,6 @@ export const addOfferAction = (formData) => {
   return async (dispatch) => {
     try {
       const result = await offerService.createOffer(formData)
-      console.log('add offer',result)
       if(result.data.status === 200){
         notification.success({
           closeIcon: true,

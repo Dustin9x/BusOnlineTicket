@@ -11,7 +11,6 @@ import { DOMAIN } from '../../../util/settings/config';
 
 export default function NewsMng() {
   let { arrNews } = useSelector(state => state.NewReducer);
-  console.log(arrNews);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getListNewsAction())

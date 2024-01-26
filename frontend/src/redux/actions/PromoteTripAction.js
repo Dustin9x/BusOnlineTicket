@@ -8,7 +8,6 @@ export const getPromoteTripListAction = () => {
     return async (dispatch) => {
         try {
             const result = await promoteTripService.getPromoteTrip();
-            console.log('result',result)
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_PROMOTE_TRIP_LIST,

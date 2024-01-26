@@ -25,8 +25,6 @@ export default function EditTrip(props) {
         dispatch(getDriverAction())
     }, [dispatch])
 
-    console.log('tripDetail', tripDetail)
-
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
