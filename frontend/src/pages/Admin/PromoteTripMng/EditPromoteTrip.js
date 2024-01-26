@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, DatePicker, InputNumber, Switch, Button } from 'antd';
+import { Form, Input, DatePicker, InputNumber, Switch, Button, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { getPromoteTripByIdAction, updatePromoteTripByIdAction } from '../../../redux/actions/PromoteTripAction';
 import { DOMAIN } from '../../../util/settings/config';
+import { getStationListAction } from '../../../redux/actions/StationAction';
 
 const EditPromoteTrip = (props) => {
   const dispatch = useDispatch();
   const { promoteTripDetail } = useSelector(state => state.PromoteTripReducer)
+  const { arrStation } = useSelector(state => state.StationReducer);
 
   let { id } = props.match.params;
   useEffect(() => {
     dispatch(getPromoteTripByIdAction(id));
+    dispatch(getStationListAction())
   }, [dispatch])
 
   const [imgSrc, setImgSrc] = useState("");
@@ -50,6 +53,14 @@ const EditPromoteTrip = (props) => {
     }
   };
 
+  const handleChangeFromStation = (value,data) => {
+    formik.setFieldValue('fromStation', value)
+  };
+
+  const handleChangeToStation = (value,data) => {
+    formik.setFieldValue('toStation', value)
+  };
+
   return (
     <Form
       onSubmitCapture={formik.handleSubmit}
@@ -71,7 +82,7 @@ const EditPromoteTrip = (props) => {
           </Form.Item>
 
           <Form.Item
-            label="From Station"
+            label="Leaving From Station"
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -81,11 +92,11 @@ const EditPromoteTrip = (props) => {
               },
             ]}
           >
-            <Input name="fromStation" onChange={formik.handleChange} value={formik.values.fromStation} />
+            <Select options={ arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} value={formik.values.fromStation} placeholder='Please enter Leaving from' />
           </Form.Item>
 
           <Form.Item
-            label="ToStation"
+            label="Going To Station"
             style={{ minWidth: '100%' }}
             rules={[
               {
@@ -95,7 +106,7 @@ const EditPromoteTrip = (props) => {
               },
             ]}
           >
-            <Input name="toStation" onChange={formik.handleChange} value={formik.values.toStation} />
+            <Select options={ arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} value={formik.values.toStation} placeholder='Please enter Going to' />
           </Form.Item>
 
           <Form.Item label="Action">

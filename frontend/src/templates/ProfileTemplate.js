@@ -42,7 +42,9 @@ export const ProfileTemplate = (props) => { //path, exact, Component
   }
 
   useEffect(() => {
-    dispatch(getCurrentUserAction(accessToken))
+    if(accessToken != null){
+      dispatch(getCurrentUserAction(accessToken))
+    }
     window.scrollTo(0, 0);
   }, [dispatch])
 

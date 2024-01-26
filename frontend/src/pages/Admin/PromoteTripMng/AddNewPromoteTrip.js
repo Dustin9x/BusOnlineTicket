@@ -100,7 +100,7 @@ const AddNewPromoteTrip = () => {
               },
             ]}
           >
-            <Select options={ arrStation?.map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} placeholder='Please enter Leaving from' />
+            <Select options={ arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} placeholder='Please enter Leaving from' />
           </Form.Item>
 
           <Form.Item
@@ -114,7 +114,7 @@ const AddNewPromoteTrip = () => {
               },
             ]}
           >
-            <Select options={ arrStation?.map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} placeholder='Please enter Going to' />
+            <Select options={ arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} placeholder='Please enter Going to' />
           </Form.Item>
 
           <Form.Item label="Action">

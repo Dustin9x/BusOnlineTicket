@@ -21,7 +21,9 @@ const UserEdit = (props) => {
   }
   useEffect(() => {
     dispatch(getUserByIdAction(id));
-    dispatch(getCurrentUserAction(accessToken))
+    if(accessToken != null){
+      dispatch(getCurrentUserAction(accessToken))
+    }
   }, [dispatch, id])
 
   const [imgSrc, setImgSrc] = useState("");

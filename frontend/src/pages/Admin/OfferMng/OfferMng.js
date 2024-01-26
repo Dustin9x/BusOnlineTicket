@@ -6,7 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListNewsAction,deleteNewsAction, detailNewsAction } from '../../../redux/actions/NewAction';
 import { DOMAIN } from '../../../util/settings/config';
-import { deleteOfferAction, getOfferListAction } from '../../../redux/actions/OfferAction';
+import { deleteOfferAction, getOfferDetailAction, getOfferListAction } from '../../../redux/actions/OfferAction';
 import dayjs from 'dayjs';
 const parser = new DOMParser();
 
@@ -153,14 +153,20 @@ export default function OfferMng() {
       sortDirections: ['descend', 'ascend'],
     },
     {
-      title: 'Content',
-      dataIndex: 'content',
-      key: 'content',
-      ...getColumnSearchProps('content'),
+      title: 'From Station',
+      dataIndex: 'fromStation',
+      key: 'fromStation',
+      ...getColumnSearchProps('fromStation'),
+      sorter: (a, b) => a.fromStation?.length - b.fromStation?.length,
       sortDirections: ['descend', 'ascend'],
-      render: (text,index) => { return <span key={index} className='text-ellipsis overflow-hidden line-clamp-2'>{text.replace(/<[^>]+>/g, '')}</span>}
-
-
+    },
+    {
+      title: 'To Station',
+      dataIndex: 'toStation',
+      key: 'toStation',
+      ...getColumnSearchProps('toStation'),
+      sorter: (a, b) => a.toStation?.length - b.toStation?.length,
+      sortDirections: ['descend', 'ascend'],
     },
     {
       title: 'Begin Date',
@@ -188,6 +194,7 @@ export default function OfferMng() {
       render: (text, item) => {
         return <>
           <Button key={1} href={`/admin/offermng/edit/${item.id}`}  type="link" icon={<EditOutlined />} onClick={() => {
+            dispatch(getOfferDetailAction(item.id))
           }}></Button>
           <Button key={2} type="link" danger icon={<DeleteOutlined />} onClick={() => {
             if (window.confirm('Do you want to delete Offer ' + item.id + '?')) {

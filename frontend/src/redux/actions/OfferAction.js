@@ -1,5 +1,5 @@
 import { newService } from "../../services/NewService";
-import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL } from "../constants";
+import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import { offerService } from "../../services/OfferService";
@@ -23,7 +23,6 @@ export const getOfferListAction = () => {
 };
 
 export const getOfferDetailAction = (id) => {
-
   return async (dispatch) => {
     try {
       const result = await offerService.getOfferById(id)
@@ -32,7 +31,22 @@ export const getOfferDetailAction = (id) => {
           type: GET_OFFER_DETAIL,
           offerDetail: result.data.data[0],
         })
+      }
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
 
+export const getOfferByCodeAction = (code) => {
+  return async (dispatch) => {
+    try {
+      const result = await offerService.getOfferByCode(code)
+      if (result.data.status === 200) {
+        dispatch({
+          type: GET_OFFER_BY_CODE,
+          offerCodeDetail: result.data.data[0],
+        })
       }
     } catch (e) {
       console.log(e)
@@ -44,16 +58,34 @@ export const addOfferAction = (formData) => {
   return async (dispatch) => {
     try {
       const result = await offerService.createOffer(formData)
-      notification.success({
-        closeIcon: true,
-        message: 'Success',
-        description: (
-          <>Add new Odder successfully</>
-        ),
-      });
-      history.push('/admin/offermng');
+      console.log('add offer',result)
+      if(result.data.status === 200){
+        notification.success({
+          closeIcon: true,
+          message: 'Success',
+          description: (
+            <>Add new Odder successfully</>
+          ),
+        });
+        history.push('/admin/offermng');
+      }else{
+        notification.error({
+          closeIcon: true,
+          message: 'Error',
+          description: (
+            <>Offer code is duplicated</>
+          ),
+        });
+      }
     } catch (error) {
       console.log('error', error);
+      notification.error({
+          closeIcon: true,
+          message: 'Error',
+          description: (
+            <>Offer code is duplicated</>
+          ),
+        });
     }
   }
 }

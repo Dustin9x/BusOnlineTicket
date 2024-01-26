@@ -24,35 +24,44 @@ namespace backend.Services
             return await db.Offers.Where(b => b.Id == Id).ToListAsync();
         }
 
+        public async Task<IEnumerable<Offer>> GetOfferByCode(string Code)
+        {
+            return await db.Offers.Where(b => b.OfferCode.ToLower() == Code.ToLower()).ToListAsync();
+        }
+
         public async Task<bool> CreateOffer(Offer Offer)
         {
             try
             {
-                if (Offer.UploadImage != null)
+                var oldOffer = await db.Offers.SingleOrDefaultAsync(b => b.OfferCode == Offer.OfferCode);
+                if (oldOffer == null)
                 {
-                    string pathToNewFolder = System.IO.Path.Combine("Images", "Offer");
-                    DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
-                    var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
-                    var filePath = Path.Combine(Path.GetRandomFileName() + Offer.UploadImage.FileName);
-
-                    using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                    if (Offer.UploadImage != null)
                     {
-                        await Offer.UploadImage.CopyToAsync(stream);
+                        string pathToNewFolder = System.IO.Path.Combine("Images", "Offer");
+                        DirectoryInfo directory = Directory.CreateDirectory(pathToNewFolder);
+                        var upload = Path.Combine(env.ContentRootPath, pathToNewFolder);
+                        var filePath = Path.Combine(Path.GetRandomFileName() + Offer.UploadImage.FileName);
+
+                        using (var stream = new FileStream(Path.Combine(upload, filePath), FileMode.Create))
+                        {
+                            await Offer.UploadImage.CopyToAsync(stream);
+                        }
+
+                        Offer.Image = filePath;
                     }
-
-                    Offer.Image = filePath;
+                    db.Offers.Add(Offer);
+                    int result = await db.SaveChangesAsync();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                db.Offers.Add(Offer);
-                int result = await db.SaveChangesAsync();
-                if (result != 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
+                return false;
             }
             catch (Exception ex)
             {
@@ -93,8 +102,9 @@ namespace backend.Services
 
                     oldOffer.Title = Offer.Title;
                     oldOffer.OfferCode = Offer.OfferCode;
-                    oldOffer.Content = Offer.Content;
                     oldOffer.Discount = Offer.Discount;
+                    oldOffer.FromStation = Offer.FromStation;
+                    oldOffer.ToStation = Offer.ToStation;
                     oldOffer.BeginDate = Offer.BeginDate;
                     oldOffer.EndDate = Offer.EndDate;
                     int Result = await db.SaveChangesAsync();

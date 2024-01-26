@@ -148,7 +148,7 @@ export default function EditTrip(props) {
                             },
                         ]}
                     >
-                        <Select options={arrStation?.map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} value={formik.values.fromStationId} placeholder='Please select From Station' />
+                        <Select options={arrStation?.filter(x => x.id != formik.values.toStationId).map((item, index) => ({ key: index, label: item?.name, value: item.id }))} onChange={handleChangeFromStation} value={formik.values.fromStationId} placeholder='Please select From Station' />
                     </Form.Item>
                     <Form.Item
                         label="To Station"
@@ -161,7 +161,7 @@ export default function EditTrip(props) {
                             },
                         ]}
                     >
-                        <Select options={arrStation?.map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} value={formik.values.toStationId} placeholder='Please select To Station' />
+                        <Select options={arrStation?.filter(x => x.id != formik.values.fromStationId).map((item, index) => ({ key: index, label: item.name, value: item.id }))} onChange={handleChangeToStation} value={formik.values.toStationId} placeholder='Please select To Station' />
                     </Form.Item>
 
                     <Form.Item

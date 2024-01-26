@@ -59,6 +59,27 @@ namespace backend.Controllers
 
         }
 
+
+        [HttpGet("code/{Code}")]
+        public async Task<ActionResult> GetOfferByCode(string Code)
+        {
+            try
+            {
+                var list = await repo.GetOfferByCode(Code);
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Offer>>(StatusCodes.Status200OK, "Get Offer successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateNews([FromForm] Offer offer)
         {

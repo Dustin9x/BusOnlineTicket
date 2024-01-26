@@ -26,6 +26,7 @@ export const GET_NEWS_DETAIL ="GET_NEWS_DETAIL";
 
 export const GET_OFFER_LIST = "GET_OFFER_LIST";
 export const GET_OFFER_DETAIL ="GET_OFFER_DETAIL";
+export const GET_OFFER_BY_CODE ="GET_OFFER_BY_CODE";
 
 
 export const LOGIN_ACTION = "LOGIN_ACTION";

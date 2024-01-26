@@ -11,6 +11,9 @@ export class OfferService extends baseService {
     getOfferById = (Id) => {
         return this.get(`/api/Offer/${Id}`);
     }
+    getOfferByCode = (Code) => {
+        return this.get(`/api/Offer/code/${Code}`);
+    }
     createOffer = (formData) => {
         return this.post(`/api/Offer`, formData);
     };

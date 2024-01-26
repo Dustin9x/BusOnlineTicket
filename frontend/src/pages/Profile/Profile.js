@@ -13,8 +13,10 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    dispatch(getCurrentUserAction(accessToken))
-  }, []);
+    if(accessToken != null){
+      dispatch(getCurrentUserAction(accessToken))
+    }
+  }, [dispatch]);
 
   return (
     <div >

@@ -52,30 +52,54 @@ export default function Offer() {
             <div className="py-4 rounded-xl bg-white row" style={{ overflowX: 'scroll', flexWrap: 'nowrap' }}>
                 {arrOffer?.map((item, index) => {
                     return (
-                        <div className="col-2">
+                        <div key={index} className="col-2">
                             <Card hoverable onClick={() => {
                                 dispatch(getOfferDetailAction(item.id))
                                 // setTripDetail(trip)
                                 showModal()
                             }}
                                 cover={<img alt="example" style={{ height: 150, objectFit: 'cover' }} src={`${DOMAIN}/Images/Offer/${item.image}`} />} >
-                                <Meta style={{ height: 50 }} title={item.title} />
+                                <Meta style={{ height: 60 }} className="text-sm" title={item.title} />
                             </Card>
                         </div>
                     )
                 })}
             </div>
-            <Modal title={offerDetail?.title} open={isModalOpen} width={800} onOk={handleOk} onCancel={handleCancel}>
+            <Modal title={offerDetail?.title} open={isModalOpen} maskClosable={true} footer={null} width={750} onOk={handleOk} onCancel={handleCancel}>
                 <div className="row">
                     <div className="col-4 text-center my-auto">
-                        <div id="offerCode" className="text-center  text-red-500 font-bold text-2xl">{offerDetail?.offerCode}</div>
-                        <Button className="" type="primary" icon={<CopyOutlined />} onClick={copyCode}>Click to copy</Button>
+                        <img src={`${DOMAIN}/Images/Offer/${offerDetail?.image}`} className="mx-auto object-fit-cover border" style={{ height: '150px', borderRadius: '10px'}} alt={offerDetail?.title} />
+                        <div id="offerCode" className="text-center text-red-500 font-bold text-2xl">{offerDetail?.offerCode}</div>
+                        <div className="text-red-500">Get discount {offerDetail.discount}%</div>
                         <div className="text-xs">Valid from {dayjs(offerDetail?.beginDate).format("DD-MM-YYYY")} to {dayjs(offerDetail?.endDate).format("DD-MM-YYYY")}</div>
+                        <Button className="mt-3" type="primary" icon={<CopyOutlined />} onClick={copyCode}>Click to copy</Button>
 
                     </div>
                     <div className="col-8">
-                        <img src={`${DOMAIN}/Images/Offer/${offerDetail?.image}`} className="mx-auto" style={{ height: '200px', objectFit: 'cover' }} alt={offerDetail?.title} />
-                        <div dangerouslySetInnerHTML={{ __html: offerDetail?.content }}></div>
+                        <div className="terms col s12 m9 l8">
+                            <h2 className="h5">Terms and Conditions</h2>
+                            <ul className="collection sm false" style={{ listStyle: 'number', margin: 'unset', flexFlow: 'column', placeContent: 'center flex-start', alignItems: 'flex-start' }}>
+                                <li className="collection-item ">
+                                    <div>Offer valid for registered users, please register an account first if you don't have.</div>
+                                </li>
+                                <li className="collection-item ">
+                                    <div>Offer valid only on the route {offerDetail.fromStation} - {offerDetail.toStation}.</div>
+                                </li>
+                                <li className="collection-item ">
+                                    <div>Offer is valid from {dayjs(offerDetail.beginDate).format("DD-MM-YYYY")} to {dayjs(offerDetail.endDate).format("DD-MM-YYYY")}</div>
+                                </li>
+                                <li className="collection-item ">
+                                    <div>This offer cannot be combined with any other offer.</div>
+                                </li>
+                                <li className="collection-item ">
+                                    <div>PHTV reserves the right to disqualify any transaction or discontinue the offer promotion at any time without notice or liability of whatsoever nature. </div>
+                                </li>
+                                <li className="collection-item ">
+                                    <div>Please copy the code and use it when you're proceeding to buy your tickets.</div>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
 

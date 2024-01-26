@@ -19,7 +19,9 @@ export class UserService extends baseService {
     };
 
     getCurrentUser = (token) => {
-        return this.post(`/api/Auth/getinfo?token=${token}`);
+        if(token != null){
+            return this.post(`/api/Auth/getinfo?token=${token}`);
+        }
     }
 
     getListUser = () => {

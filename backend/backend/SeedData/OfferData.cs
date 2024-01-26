@@ -12,12 +12,47 @@ namespace backend.SeedData
                     {
                         Id = 1,
                         OfferCode="NEWYEAR24",
-                        Discount=40,
-                        Title="30% off for LUNARNEWYEAR 2024",
-                        Content="<h2>Terms of the Offers</h2><ul><li>Apply Coupon code NEWYEAR24 at bus booking checkout and get 30%.</li><li>This is a special offer valid for bus bookings made on PHTV.</li><li>No minimum transaction value.</li><li>This offer is valid for all PHTV users.</li><li>This offer cannot be combined with any other offer.</li><li>PHTV reserves the right to disqualify any transaction or discontinue the offer promotion at any time without notice or liability of whatsoever nature.</li></ul>",
+                        Discount=30,
+                        Title="30% off for LUNARNEWYEAR 2024 ",
                         BeginDate=new DateTime(2024, 01, 31),
                         EndDate=new DateTime(2024, 02, 7),
                         Image="offer1.png"
+                    },
+                 new Offer
+                    {
+                        Id = 2,
+                        OfferCode="HCMHANOI",
+                        Discount=40,
+                        FromStation="Hồ Chí Minh",
+                        ToStation="Hà Nội",
+                        Title="40% off for route HO CHI MINH to HA NOI",
+                        BeginDate=new DateTime(2024, 01, 25),
+                        EndDate=new DateTime(2024, 01, 29),
+                        Image="offer2.png"
+                    },
+                 new Offer
+                    {
+                        Id = 3,
+                        OfferCode="HANOIDALAT30",
+                        Discount=30,
+                        FromStation="Hà Nội",
+                        ToStation="Đà Lạt",
+                        Title="30% off for route HA NOI to DA LAT",
+                        BeginDate=new DateTime(2024, 01, 25),
+                        EndDate=new DateTime(2024, 02, 29),
+                        Image="offer3.png"
+                    },
+                 new Offer
+                    {
+                        Id = 4,
+                        OfferCode="WELCOME2024",
+                        Discount=20,
+                        FromStation="Hồ Chí Minh",
+                        ToStation="Bến Tre",
+                        Title="DISCOUNT 20% WITH CODE WELCOME2024",
+                        BeginDate=new DateTime(2024, 01, 25),
+                        EndDate=new DateTime(2024, 02, 10),
+                        Image="offer4.png"
                     },
             };
         }

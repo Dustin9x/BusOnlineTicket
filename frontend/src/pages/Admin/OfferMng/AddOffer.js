@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Form, Input, Button, notification, DatePicker } from "antd";
+import React, { useEffect, useState } from "react";
+import { Form, Input, Button, notification, DatePicker, Select } from "antd";
 import { PercentageOutlined} from '@ant-design/icons';
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { addNewsAction } from "../../../redux/actions/NewAction";
 import dayjs from "dayjs";
@@ -10,25 +10,33 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { addOfferAction } from "../../../redux/actions/OfferAction";
+import { getStationListAction } from "../../../redux/actions/StationAction";
 dayjs.extend(customParseFormat);
 
 const AddOffer = () => {
   const dispatch = useDispatch();
   const dateFormat = "DD-MM-YYYY";
   const [imgSrc, setImgSrc] = useState("");
+  const { arrStation } = useSelector(state => state.StationReducer);
   const today = moment();
+
+  useEffect(() => {
+    dispatch(getStationListAction())
+  }, [dispatch]);
+
   const formik = useFormik({
     initialValues: {
       offerCode: "",
       discount: "",
       title: "",
-      content: "",
       beginDate: "",
       endDate: "",
+      fromStation: '',
+      toStation: '',
       image: ""
     },
     onSubmit: (values) => {
-      if (values.title == "" || values.content == "") {
+      if (values.title == "" || values.offerCode == "") {
         notification.error({
           closeIcon: true,
           message: "Error",
@@ -67,9 +75,12 @@ const AddOffer = () => {
     }
   };
 
-  const handleChangeContent = (e, editor) => {
-    const data = editor.getData();
-    formik.setFieldValue("content", data);
+  const handleChangeFromStation = (value,data) => {
+    formik.setFieldValue('fromStation', value)
+  };
+
+  const handleChangeToStation = (value,data) => {
+    formik.setFieldValue('toStation', value)
   };
 
   const onOkBeginDate = (values) => {
@@ -167,26 +178,33 @@ const AddOffer = () => {
             <Input name="title" onChange={formik.handleChange} />
           </Form.Item>
 
-          <Form.Item label="Content">
-            <CKEditor
-              className="rounded-lg overflow-hidden"
-              name="content"
-              editor={ClassicEditor}
-              onChange={(event, editor) => {
-                handleChangeContent(event, editor);
-              }}
-              onReady={(editor) => {
-                editor.editing.view.change((writer) => {
-                  writer.setStyle(
-                    "height",
-                    "200px",
-                    editor.editing.view.document.getRoot()
-                  );
-                });
-              }}
-            ></CKEditor>
+          <Form.Item
+            label="Leaving From Station"
+            style={{ minWidth: '100%' }}
+            rules={[
+              {
+                required: true,
+                message: 'From Station is required!',
+                transform: (value) => value.trim(),
+              },
+            ]}
+          >
+            <Select options={ arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} placeholder='Please enter Leaving from' />
           </Form.Item>
-          
+
+          <Form.Item
+            label="Going To Station"
+            style={{ minWidth: '100%' }}
+            rules={[
+              {
+                required: true,
+                message: 'To Station is required!',
+                transform: (value) => value.trim(),
+              },
+            ]}
+          >
+            <Select options={ arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} placeholder='Please enter Going to' />
+          </Form.Item>
 
           <Form.Item
             label="Begin Date"

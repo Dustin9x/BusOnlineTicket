@@ -33,17 +33,14 @@ export default function Detail(props) {
     }
 
     useEffect(() => {
-        dispatch(getCurrentUserAction(accessToken))
-    }, []);
-
-
-    useEffect(() => {
-        // dispatch(layThongTinNguoiDungAction(userLogin.id))
+        if(accessToken != null){
+            dispatch(getCurrentUserAction(accessToken))
+        }
         dispatch({
             type: CHUYEN_TAB_ACTIVE,
             number: '1'
         })
-    }, [])
+    }, [dispatch])
 
 
     const operations = <Fragment>

@@ -115,6 +115,8 @@ namespace backend.Models
             modelBuilder.Entity<Offer>(o =>
             {
                 o.HasKey(o => o.Id);
+                //o.HasIndex(o => o.OfferCode).IsUnique();
+                o.HasData(SeedData.OfferData.OfferSeedData());
             });
         }
     }

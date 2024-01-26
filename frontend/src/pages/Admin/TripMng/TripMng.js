@@ -229,7 +229,7 @@ export default function TripMng() {
       <Button href='/admin/tripmng/addtrip' type="primary" className='ml-3 small bg-primary'>+ Add New Trip</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
-    <Modal title="Seat Map" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title="Seat Map" open={isModalOpen} footer={null} maskClosable={true} onOk={handleOk} onCancel={handleCancel}>
       <SeatMapAdmin tripId={tripId} tripDetail={tripDetail} />
     </Modal>
   </div>
