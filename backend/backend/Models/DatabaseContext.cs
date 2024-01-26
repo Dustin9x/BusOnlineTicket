@@ -21,6 +21,7 @@ namespace backend.Models
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Offer> Offers { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -117,6 +118,12 @@ namespace backend.Models
                 o.HasKey(o => o.Id);
                 //o.HasIndex(o => o.OfferCode).IsUnique();
                 o.HasData(SeedData.OfferData.OfferSeedData());
+            });
+            modelBuilder.Entity<Comment>(c =>
+            {
+                c.HasKey(n => n.Id);
+                c.HasOne(o => o.News).WithMany(o => o.Comments).HasForeignKey(h => h.NewsId);
+                c.HasOne(o => o.User).WithMany().HasForeignKey(h => h.UserId);
             });
         }
     }

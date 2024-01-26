@@ -15,26 +15,28 @@ export default function Footer() {
         </div>
         <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
           <div className="space-y-3">
-            <h3 className="tracking-wide uppercase dark:text-gray-50">PHTV Việt Nam</h3>
-            <NavLink to="/about" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Giới thiệu</NavLink><br />
-            <NavLink to="/home" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Liên hệ</NavLink><br />
+            <h3 className="tracking-wide uppercase dark:text-gray-50">PHTV Bus  Online Ticket</h3>
+            <NavLink to="/about" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">About Us</NavLink><br />
+            <NavLink to="/news" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">News</NavLink><br />
+            <NavLink to="/" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Home</NavLink><br />
+
           </div>
           <div className="space-y-3">
-            <h3 className="tracking-wide uppercase dark:text-gray-50">Điều khoản sử dụng</h3>
-            <NavLink to="/terms" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Điều khoản chung</NavLink><br />
-            <NavLink to="/termsoftransaction" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Điều khoản giao dịch</NavLink><br />
+            <h3 className="tracking-wide uppercase dark:text-gray-50">Terms</h3>
+            <NavLink to="/terms" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Terms and Conditions</NavLink><br />
+            <NavLink to="/termsoftransaction" style={{ textDecoration: 'none' }} className="items-center  hover:text-violet-400">Transaction Terms</NavLink><br />
           </div>
           <div className="space-y-3">
-            <h3 className="uppercase dark:text-gray-50">Chăm sóc khách hàng</h3>
+            <h3 className="uppercase dark:text-gray-50">CUSTOMER CARE</h3>
             <p>
               Hotline: 1900 6017<br />
-              Giờ làm việc: 8:00 - 22:00 <br /> 
-              (Tất cả các ngày bao gồm cả Lễ Tết)<br />
-              Email hỗ trợ: hoidap@phtv.com<br />
+              Work time: 8:00 - 22:00 <br /> 
+              (All days including Holidays)<br />
+              Support email: hoidap@phtv.com<br />
             </p>
           </div>
           <div className="space-y-3">
-            <div className="uppercase dark:text-gray-50">Kết nối với chúng tôi</div>
+            <div className="uppercase dark:text-gray-50">CONNECT WITH US</div>
             <div className="flex justify-start space-x-3">
               <a rel="noopener noreferrer" href="#" title="Facebook" className="flex items-center p-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32" className="w-5 h-5 fill-current">

@@ -9,6 +9,8 @@ namespace backend.Models
         public string Content { get; set; }
         public DateTime? DayCreateNew { get; set; }
         public string? Image { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
 
         [NotMapped]
         public IFormFile? UploadImage { get; set; }

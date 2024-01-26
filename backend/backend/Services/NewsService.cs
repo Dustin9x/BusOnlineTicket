@@ -71,7 +71,7 @@ namespace backend.Services
 
         public async Task<IEnumerable<News>> GetNewsById(int Id)
         {
-            return await db.News.Where(b => b.Id == Id).ToListAsync();
+            return await db.News.Where(b => b.Id == Id).Include(c => c.Comments).ThenInclude(u => u.User).ToListAsync();
         }
 
         public async Task<bool> PutNews(int Id, News News)
