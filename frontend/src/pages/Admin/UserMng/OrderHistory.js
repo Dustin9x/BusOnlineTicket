@@ -213,7 +213,7 @@ export default function OrderHistory() {
       <h3 className='text-lg'>Ticket Management</h3>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
-    <Modal title="View Ticket" open={isModalOpen} width={700} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title="View Ticket" open={isModalOpen} width={700} footer={null} maskClosable={true} onOk={handleOk} onCancel={handleCancel}>
       <TicketLeaf donHang={donHang} />
     </Modal>
   </div>

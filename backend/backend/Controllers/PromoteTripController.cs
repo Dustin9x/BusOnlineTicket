@@ -1,6 +1,7 @@
 ﻿using backend.IRepository;
 using backend.Models;
 using backend.ResponseData;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Controllers
@@ -16,6 +17,7 @@ namespace backend.Controllers
             this.repo = repo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult> GetAllPromoteTrip()
         {
@@ -37,6 +39,7 @@ namespace backend.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpGet("{Id}")]
         public async Task<ActionResult> GetPromoteTripById(int Id)
         {

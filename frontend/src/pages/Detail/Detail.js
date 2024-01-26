@@ -80,6 +80,7 @@ export function SettlePayment(props) {
     const [children, setChildren] = useState(0);
     const [teenage, setTeenage] = useState(0);
     const [oldman, setOldman] = useState(0);
+    let [voucherDiscount, setVvoucherDiscount] = useState(0);
 
     const handleChangeChildren = (value) => {
         setChildren(value)
@@ -94,11 +95,18 @@ export function SettlePayment(props) {
     const totalPrice = donHang && donHang?.totalMoney;
     const discount = donHang && children * donHang?.ticketPrice + teenage * donHang?.ticketPrice * 0.5 + oldman * donHang?.ticketPrice * 0.3
     const priceBeforeVoucher = totalPrice - discount;
-    const voucherDiscount = priceBeforeVoucher*offerCodeDetail?.discount/100;
 
+
+    const checkTime = dayjs().isBetween(dayjs(offerCodeDetail?.beginDate), dayjs(offerCodeDetail?.endDate), 'date')
+    const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null)
     
-    
-    const finalPrice = offerCodeDetail != null ? priceBeforeVoucher - voucherDiscount : priceBeforeVoucher;
+    if (offerCodeDetail?.offerCode != null && checkTime == true && checkStation == true) {
+        voucherDiscount = priceBeforeVoucher * offerCodeDetail?.discount / 100;
+    }else{
+        voucherDiscount = -1;
+    }
+
+    const finalPrice = voucherDiscount > 0 ? priceBeforeVoucher - voucherDiscount : priceBeforeVoucher;
 
     const onFinish = (values) => {
         if (children + teenage == donHang?.numberOfSeat) {
@@ -119,14 +127,10 @@ export function SettlePayment(props) {
     };
 
     const checkDiscount = (values) => {
-        console.log('values', values)
-        dispatch(getOfferByCodeAction(values.offerCode))
-        const checkTime = dayjs().isBetween(dayjs(offerCodeDetail?.beginDate), dayjs(offerCodeDetail?.endDate), 'date')
-        const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null)
-        
-        console.log('checkTime',checkTime)
-        console.log('checkStation',checkStation)
-        console.log('offerCodeDetail', offerCodeDetail)
+        if (values?.offerCode != null) {
+            dispatch(getOfferByCodeAction(values?.offerCode))
+            setVvoucherDiscount(priceBeforeVoucher * offerCodeDetail?.discount / 100);
+        }
     }
 
     const handleSubmit = (values) => {
@@ -243,7 +247,7 @@ export function SettlePayment(props) {
                     </div>
                     <div className='d-flex justify-between'>
                         <p>Offer discount applied</p>
-                        <h3 className={offerCodeDetail == null ? "text-red-500" : "font-bold"}>{offerCodeDetail != null ? voucherDiscount.toLocaleString("en-US", { style: "currency", currency: "USD" }) : 'Voucher not valid'}</h3>
+                        <h3 className={voucherDiscount > 0 ? "text-red-500" : "font-bold"}>{voucherDiscount > 0 ? voucherDiscount.toLocaleString("en-US", { style: "currency", currency: "USD" }) : 'Voucher not valid'}</h3>
                     </div>
 
                     <hr></hr>
@@ -355,6 +359,9 @@ export function KetQuaDatVe(props) {
                             Additionally, It is advisable to carry a government issued Identity card to verify your identity and your companies before boarding the bus to enjoy your discount.</p>
                         <div className="cardWrap">
                             <TicketLeaf donHang={donHang} />
+                        </div>
+                        <div className="flex justify-center mt-5">
+                            <a className='mr-2' href='/'>Back to Home</a> | <a className='ml-2' href='/users/ordershistory'>View Order History</a>
                         </div>
                     </div>
                 </div>

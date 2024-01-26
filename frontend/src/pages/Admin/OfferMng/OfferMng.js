@@ -136,7 +136,7 @@ export default function OfferMng() {
       title: "Image",
       dataIndex: "image",
       key: "image",
-      width: "10%",
+      width: "7%",
       render: (text, item, index) => {
         return item.image != "null" || item.image != null
           ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Offer/${item.image}`} alt={item.image} />
