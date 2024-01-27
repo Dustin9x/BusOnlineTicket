@@ -1,28 +1,14 @@
-import React, { Fragment, useEffect } from "react";
-import { SearchOutlined, EditOutlined, DeleteOutlined, HistoryOutlined } from "@ant-design/icons";
+import React, { useEffect } from "react";
+import { SearchOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Avatar, Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
-import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
-import { approveDriver, deleteDriver, getDriverAction, getDriverByIdAction, getRegisterDriverAction } from "../../../redux/actions/DriverAction";
+import { DOMAIN } from "../../../util/settings/config";
+import { approveDriver, deleteDriver, getRegisterDriverAction } from "../../../redux/actions/DriverAction";
 import dayjs from "dayjs";
 
 export default function RegisterDriverMng() {
-  let userLogin = {};
-  // if (localStorage.getItem(USER_LOGIN)) {
-  //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  // }
-
-  // if (!localStorage.getItem(TOKEN)) {
-  //     history.replace('/')
-  // }
-
-  // if (userLogin.role !== 'Super') {
-  //     alert('Bạn không có quyền truy cập trang này!');
-  //     history.replace('/')
-  // }
   let { arrRegisterDriver } = useSelector((state) => state.DriverReducer);
   const dispatch = useDispatch();
   useEffect((value) => {

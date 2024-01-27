@@ -25,6 +25,7 @@ export const getRegisterDriverAction = () => {
     return async (dispatch) => {
         try {
             const result = await driverService.getRegisterDriver();
+        
             if (result.data.status === 200) {
                 dispatch({
                     type: GET_REGISTER_DRIVER_LIST,
@@ -55,6 +56,7 @@ export const addDriverAction = (newDriver) => {
     return async (dispatch) => {
         try {
             const result = await driverService.postDriver(newDriver);
+
             notification.success({
                 closeIcon: true,
                 message: 'Success',
@@ -72,16 +74,35 @@ export const addDriverByUserAction = (newDriver) => {
     return async (dispatch) => {
         try {
             const result = await driverService.postDriver(newDriver);
-            notification.success({
+            console.log("check status: ", result.data);
+         
+            if(result.data.status===200){
+                notification.success({
+                    closeIcon: true,
+                    message: 'Success',
+                    description: (
+                        <>Add driver successfully.</>
+                    ),
+                });
+                history.push('/loginDriver');
+            }
+            else if(result.data.status===409){
+                notification.error({
+                    closeIcon: true,
+                    message: 'Error',
+                    description: (
+                        <>Create Driver Fail!! Email Existed.</>
+                    ),
+                });
+            }
+        } catch (error) {
+            notification.error({
                 closeIcon: true,
-                message: 'Success',
+                message: 'Error',
                 description: (
-                    <>Add driver successfully.</>
+                    <>Create Driver Fail, Please try again!!.</>
                 ),
             });
-            history.push('/loginDriver');
-        } catch (error) {
-            alert("Create Fail . Please Try Again")
         }
     }
 }
@@ -98,6 +119,7 @@ export const deleteDriver = (id) => {
                 ),
             });
             dispatch(getDriverAction())
+            dispatch(getRegisterDriverAction())
         } catch (error) {
             console.log('error', error);
         }
@@ -176,38 +198,51 @@ export const forgetPassword = (emailInfo) => {
               </>
             ),
           });
-          history.replace("login");
+          history.replace("loginDriver");
         }
       } catch (error) {
         console.log(error);
         await dispatch(hideLoadingAction);
-        alert(error.response.data.message);
+        alert("Account not existed");
       }
     };
   };
 export const loginDriverAction = (loginDriverInfo) => {
     return async (dispatch) => {
       try {
-       
         const result = await driverService.loginDriver(loginDriverInfo);
-        
-        if (result.status === 200) {
-         localStorage.setItem("driverId", result.data.data.id);
-          notification.success({
-            closeIcon: true,
-            message: "Success",
-            description: (
-              <>
-                Login successfully.<br />
-                Welcom to PHTV Bus.
-              </>
-            ),
-          });
-          history.push("/detailTripOfDriver");
-        } else {
-          await dispatch(hideLoadingAction);
-          history.replace("login");
+        console.log("check: ", result.data.data.isApprove);
+        if(result.data.data.isApprove){
+            if (result.status === 200) {
+                localStorage.setItem("driverId", result.data.data.id);
+                 notification.success({
+                   closeIcon: true,
+                   message: "Success",
+                   description: (
+                     <>
+                       Login successfully.<br />
+                       Welcom to PHTV Bus.
+                     </>
+                   ),
+                 });
+                 history.push("/detailTripOfDriver");
+               } else {
+                 await dispatch(hideLoadingAction);
+                 history.replace("loginDriver");
+               }
+        }else{
+            notification.error({
+                closeIcon: true,
+                message: "Error",
+                description: (
+                  <>
+                    Your account has not been approved.<br />
+                    Please try again.
+                  </>
+                ),
+              });
         }
+  
         await dispatch(hideLoadingAction);
       } catch (error) {
         dispatch(hideLoadingAction);
@@ -216,7 +251,7 @@ export const loginDriverAction = (loginDriverInfo) => {
           message: "Error",
           description: (
             <>
-              Login fail.<br />
+              Wrong account or password!!.<br />
               Please try again.
             </>
           ),

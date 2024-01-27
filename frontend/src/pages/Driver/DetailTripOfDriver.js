@@ -14,11 +14,15 @@ export default function DetailTripOfDriver() {
     Id = localStorage.getItem("driverId")
   } else {
     history.push("/loginDriver")
-
   }
   const dispatch = useDispatch();
   let { arrTrip } = useSelector(state => state.TripReducer);
   const { driverDetail } = useSelector(state => state.DriverReducer);
+  // if(driverDetail.isApprove ===false){
+  //   alert("Account you...");
+  //   history.push("/loginDriver")
+  // }
+
   useEffect(() => {
     dispatch(getTripListByDriverId(Id));
     dispatch(getDriverByIdAction(Id))
@@ -71,7 +75,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red", fontSize:"17px" }} color="magenta">PHTV{item.id}</span> : <span color="magenta">PHTV{item.id}</span>}
+          {data2.id == item?.id ? <span style={{ color: "red",   }} color="magenta">PHTV{item?.id}</span> : <span color="magenta">PHTV{item?.id}</span>}
 
         </>
       },
@@ -94,7 +98,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">{item.fromStation?.name}</span> : <span color="magenta">{item.fromStation?.name}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.fromStation?.name}</span> : <span color="magenta">{item?.fromStation?.name}</span>}
 
         </>
       },
@@ -107,7 +111,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">{item.toStation?.name}</span> : <span color="magenta">{item.toStation?.name}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.toStation?.name}</span> : <span color="magenta">{item?.toStation?.name}</span>}
 
         </>
       },
@@ -116,11 +120,11 @@ export default function DetailTripOfDriver() {
       title: 'Start Time',
       dataIndex: 'startTime',
       key: 'startTime',
-      sorter: (a, b) => dayjs(a.startTime) - dayjs(b.startTime),
+      sorter: (a, b) => dayjs(a?.startTime) - dayjs(b?.startTime),
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">{item.startTime}</span> : <span color="magenta">{item.startTime}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.startTime}</span> : <span color="magenta">{item?.startTime}</span>}
         </>
       },
     },
@@ -128,11 +132,11 @@ export default function DetailTripOfDriver() {
       title: 'Finish Time',
       dataIndex: 'finishTime',
       key: 'finishTime',
-      sorter: (a, b) => dayjs(a.finishTime) - dayjs(b.finishTime),
+      sorter: (a, b) => dayjs(a?.finishTime) - dayjs(b?.finishTime),
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">{item.finishTime}</span> : <span color="magenta">{item.finishTime}</span>}
+          {data2.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.finishTime}</span> : <span color="magenta">{item?.finishTime}</span>}
         </>
       },
 
@@ -145,19 +149,18 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">${item.ticketPrice}</span> : <span color="magenta">${item.ticketPrice}</span>}
+          {data2.id == item?.id ? <span style={{ color: "red" }} color="magenta">${item?.ticketPrice}</span> : <span color="magenta">${item?.ticketPrice}</span>}
         </>
       },
     },
     {
-      title: 'Assigned Driver',
-      dataIndex: 'driver',
-      key: 'driver',
-      sorter: (a, b) => a.driver.length - b.driver.length,
-      sortDirections: ['descend', 'ascend'],
+      title: 'Hour',
+      dataIndex: '',
+      key: '',
       render: (text, item) => {
+        const h =dayjs(item?.finishTime).diff(item?.startTime, 'hour');
         return <>
-          {data2.id == item.id ? <span style={{ color: "red" ,fontSize:"17px"}} color="magenta">{item.driver?.fullName}</span> : <span color="magenta">{item.driver?.fullName}</span>}
+        {data2.id == item?.id ?  <span style={{ color: "red" }} >{h}</span>:  <span>{h}</span>}
         </>
       },
     },
@@ -167,7 +170,7 @@ export default function DetailTripOfDriver() {
       key: 'bus',
       render: (text, item) => {
         return <>
-          {Date.now() > dayjs(item.finishTime) ? <Tag color="magenta" style={{ fontSize:"15px"}} >{item.bus.busPlate}</Tag> : <Tag style={{ fontSize:"15px"}}  color="blue">{item.bus.busPlate}</Tag>}
+          {Date.now() > dayjs(item?.finishTime) ? <Tag color="magenta" style={{ fontSize:"15px"}} >{item?.bus?.busPlate}</Tag> : <Tag style={{ fontSize:"15px"}}  color="blue" >{item?.bus?.busPlate}</Tag>}
 
         </>
 
@@ -194,24 +197,24 @@ export default function DetailTripOfDriver() {
     
       <div >
         <div className='flex justify-content-space-between align-items-center'>
-          <div  onClick={() => setOpen(true)} className='text-lg flex w-full cursor-pointer' >
+          <div  onClick={() => setOpen(true)} className='text-lg flex w-full cursor-pointer hover:text-red-400' >
 
             {driverDetail?.avatar != ""
-              ? <span><img style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Driver/${driverDetail.avatar}`} alt={driverDetail.avatar} /></span>
-              : <span> <Avatar size={50} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={driverDetail?.fullName?.substr(0,1)} /> </span>}   <div style={{ margin: 10, width:'100%' }}> {driverDetail?.fullName} </div>
+              ? <span><img style={{ width: 50, height: 50, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Driver/${driverDetail?.avatar}`} alt={driverDetail?.avatar} /></span>
+              : <span> <Avatar size={50} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={driverDetail?.fullName?.substr(0,1)} /> </span>}   <div style={{ margin: 10, width:'100%' }} className='font-medium'> {driverDetail?.fullName} </div>
           </div>
         
           <div className='flex justify-content-end' style={{ width: "160vh" }} >
             <Button style={{ width: 90 }} type="text" href="/home" className="font-semibold rounded-full bg-red-400" onClick={() => {
               localStorage.removeItem("driverId")
-              history.push("/loginDriver")
+              history.replace("/loginDriver")
             }}>Logout</Button>
           </div>
         </div>
       </div>
-      <div className='text-center text-red-500 font-sans mb-3'>Next departure time:  {d}(d)--{h}(h)--{m}(m)--{s}(s)</div>
+
       <Modal
-        title={"Information driver:  "+driverDetail.fullName}
+        title={"Information driver:  "+driverDetail?.fullName}
         centered
         open={open}
         onOk={() => setOpen(false)}
@@ -222,6 +225,7 @@ export default function DetailTripOfDriver() {
       </Modal>
       <div className='text-center text-red-500 font-sans mb-3 '>Current journey</div>
       {tripNow.length>0? <Table dataSource={tripNow} columns={columns} sort={false}  pagination={false}/>:""}
+      <div className='text-center text-red-500 font-sans mt-5'><Tag color="" style={{ fontSize:"20px"}}> Next departure time:  {d}(d)--{h}(h)--{m}(m)--{s}(s)</Tag></div>
       <Tabs defaultActiveKey="1" items={items} />
     </div>
 

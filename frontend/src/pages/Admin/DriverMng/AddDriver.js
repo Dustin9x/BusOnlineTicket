@@ -11,7 +11,6 @@ const { Option } = Select;
 
 
 const AddDriver = () => {
-    let userLogin = {}
     const dateFormat = 'DD-MM-YYYY';
 
     const dispatch = useDispatch();
@@ -53,7 +52,7 @@ const AddDriver = () => {
             let reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = (e) => {
-                setImgSrc(e.target.result);//Hình base 64
+                setImgSrc(e.target.result);
             }
             formik.setFieldValue('UploadImage', file);
         }

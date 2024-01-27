@@ -90,7 +90,8 @@ namespace backend.Controllers
                     var response = new ResponseData<Driver>(StatusCodes.Status200OK, "Create new Driver Successfully", driver, null);
                     return Ok(response);
                 }
-                return BadRequest(list);
+                var badRequest = new ResponseData<Driver>(StatusCodes.Status409Conflict, "User Existing", driver, null);
+                return Ok(badRequest);
             }
             catch (Exception ex)
             {
