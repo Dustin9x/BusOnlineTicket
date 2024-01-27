@@ -9,15 +9,24 @@ var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
 
-export default function CheckTicket() {
+export default function CheckTicket(props) {
+  let { checkingCode } = props;
   const dispatch = useDispatch()
   const [code, setCode] = useState(null)
   const { ticketDetail } = useSelector(state => state.OrderReducer)
 
+  console.log('checkingCode', checkingCode)
+  console.log('ticketDetail nha', ticketDetail)
+
+  useEffect(() => {
+    if (checkingCode != "") {
+      dispatch(checkTicketAction(checkingCode));
+    }
+  }, [dispatch])
+
   const handleOnChange = (e) => {
     const searchCode = e.target.value;
     setCode(searchCode.trim());
-
   }
 
   const handleSubmit = () => {
@@ -56,17 +65,19 @@ export default function CheckTicket() {
         </div>
       </div>
 
-      {ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">
-        <Descriptions title="Ticket Info">
-          <Descriptions.Item label="Customer">{ticketDetail.users.email}</Descriptions.Item>
-          <Descriptions.Item label="Seat List">{ticketDetail.seatsList}</Descriptions.Item>
-          <Descriptions.Item label="Route">{ticketDetail.trips.fromStation.name} - {ticketDetail.trips.toStation.name}</Descriptions.Item>
-          <Descriptions.Item label="Departure Time">{dayjs(ticketDetail.trips.startTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
-          <Descriptions.Item label="Arrival Time">{dayjs(ticketDetail.trips.finishTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
-          <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
-          <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed" : `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
-        </Descriptions>
-      </div> : ""}
+      {ticketDetail?.isCancel ?
+        <Descriptions className="text-center mt-3" title="Ticket is already canceled"></Descriptions>
+        : ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">
+          <Descriptions title="Ticket Info">
+            <Descriptions.Item label="Customer">{ticketDetail.users.email}</Descriptions.Item>
+            <Descriptions.Item label="Seat List">{ticketDetail.seatsList}</Descriptions.Item>
+            <Descriptions.Item label="Route">{ticketDetail.trips.fromStation.name} - {ticketDetail.trips.toStation.name}</Descriptions.Item>
+            <Descriptions.Item label="Departure Time">{dayjs(ticketDetail.trips.startTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+            <Descriptions.Item label="Arrival Time">{dayjs(ticketDetail.trips.finishTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+            <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
+            <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed" : `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
+          </Descriptions>
+        </div> : ""}
 
     </div>
   )

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOKEN, USER_LOGIN } from '../../../util/settings/config'
 import { cancelTicketAction, getTicketByUserAction } from '../../../redux/actions/OrderAction'
-import { Button, Input, Space, Table, Tag, Form, Modal } from 'antd'
+import { Button, Input, Space, Table, Tag, Form, Modal, notification } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
 import TicketLeaf from '../../../components/TicketLeaf/TicketLeaf'
@@ -196,12 +196,12 @@ export default function OrderHistory() {
       render: (text, ticket) => {
         let remainDay = dayjs(ticket.trips.startTime).get('date') - dayjs().get('date')
         return <>
-          <Button key={1} icon={<i className="fa-solid fa-ticket"></i>} onClick={() => {
+          <Button hidden={ticket.isCancel} key={1} icon={<i className="fa-solid fa-ticket"></i>} onClick={() => {
             setDonHang(ticket)
             showModal()
           }}>View Ticket</Button>
           {remainDay < 0 ? ''
-            : <Button key={2} type="link" href={`/users/ordershistory/cancel/` + ticket.code} danger onClick={() => {
+            : <Button hidden={ticket.isCancel} key={2} type="link" href={`/users/ordershistory/cancel/` + ticket.code} danger onClick={() => {
             }}>Cancel Ticket</Button>
           }
         </>

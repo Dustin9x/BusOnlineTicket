@@ -123,6 +123,7 @@ namespace backend.Services
                 }
 
                 ExistingUser.Email = User.Email;
+                ExistingUser.FullName = User.FullName;
                 if (User.Role == "User" || User.Role == "Mod")
                 {
                     ExistingUser.Role = User.Role;

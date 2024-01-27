@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, BarChartOutlined , FormOutlined, PercentageOutlined, NodeIndexOutlined, CarOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Button } from 'antd';
+import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, BarChartOutlined, FormOutlined, PercentageOutlined, NodeIndexOutlined, CarOutlined, SearchOutlined } from '@ant-design/icons';
+import { Layout, Menu, theme, Button, Input, Form, Modal, Descriptions } from 'antd';
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,9 @@ import { TOKEN, USER_LOGIN } from "../util/settings/config";
 import { history } from "../App";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import { getCurrentUserAction } from "../redux/actions/UserAction";
+import { checkTicketAction } from "../redux/actions/OrderAction";
+import dayjs from "dayjs";
+import CheckTicket from "../components/CheckTicket/CheckTicket";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -24,14 +27,17 @@ function getItem(label, key, icon, children) {
 export const AdminTemplate = (props) => { //path, exact, Component
   const dispatch = useDispatch();
   let { userLogin } = useSelector(state => state.UserReducer);
+  const { ticketDetail } = useSelector(state => state.OrderReducer)
   const { Component, ...restProps } = props;
   const [collapsed, setCollapsed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [code, setCode] = useState(null)
   const { token: { colorBgContainer }, } = theme.useToken();
 
   const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users',]
   const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
 
-
+  console.log('ticketDetail', ticketDetail)
   let accessToken = {}
   if (localStorage.getItem(TOKEN)) {
     accessToken = localStorage.getItem(TOKEN)
@@ -39,8 +45,28 @@ export const AdminTemplate = (props) => { //path, exact, Component
     history.replace('/')
   }
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOnChange = (e) => {
+    const searchCode = e.target.value;
+    setCode(searchCode.trim());
+  }
+
+  const handleCheckTicket = (e) => {
+    e.preventDefault();
+    showModal()
+  }
+
   useEffect(() => {
-    if(accessToken != null){
+    if (accessToken != null) {
       dispatch(getCurrentUserAction(accessToken))
     }
     window.scrollTo(0, 0);
@@ -88,10 +114,13 @@ export const AdminTemplate = (props) => { //path, exact, Component
     getItem('News Management', '7', <NavLink className='text-decoration-none' to="/admin/newsmng"><FormOutlined /></NavLink>),
   ]
 
-
+  let remainHour = dayjs(ticketDetail?.trips?.startTime).diff(dayjs(new Date()), 'hour')
 
   const operations = <Fragment>
-    <div className="d-flex">
+    <div className="d-flex items-center">
+      <form className="m-auto" onSubmit={handleCheckTicket}>
+        <Input style={{ width: 350 }} onChange={handleOnChange} value={code} placeholder="Check ticket status" prefix={<SearchOutlined />}></Input>
+      </form>
       <Button type="link" href="/"><HomeOutlined style={{ fontSize: '24px' }} /></Button>
       <UserAvatar />
     </div>
@@ -124,6 +153,9 @@ export const AdminTemplate = (props) => { //path, exact, Component
           </Content>
         </Layout>
       </Layout>
+      <Modal title={"Check ticket"} open={isModalOpen} maskClosable={true} footer={null} width={750} onOk={handleOk} onCancel={handleCancel}>
+        <CheckTicket checkingCode={code} />
+      </Modal>
     </Fragment>
   }} />
 }

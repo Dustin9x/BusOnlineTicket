@@ -4,6 +4,8 @@ const initialState = {
     arrOffer: [],
     offerDetail: {},
     offerCodeDetail: {},
+    offerList: [],
+    chunkSize: 0
 }
 
 export const OfferReducer = (state = initialState, action) => {
@@ -11,6 +13,8 @@ export const OfferReducer = (state = initialState, action) => {
 
         case GET_OFFER_LIST:
             state.arrOffer = action.arrOffer;
+            [state.offerList, state.chunkSize] = [action.arrOffer, 6];
+            state.offerList = [...Array(Math.ceil(action.arrOffer?.length / state.chunkSize))].map(_ => state.offerList?.splice(0, state.chunkSize))
             return { ...state }
         case GET_OFFER_DETAIL:
             state.offerDetail = action.offerDetail;

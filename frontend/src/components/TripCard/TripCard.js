@@ -38,7 +38,7 @@ export default function TripCard(props) {
                         </p>
                     </div>
                     <div className="col-3">
-                        <img className="w-100 h-100 object-fit-cover border rounded" src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt={tripDetail.image} />
+                        <img className="w-100 object-fit-cover border rounded" style={{height: 165}} src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt={tripDetail.image} />
                     </div>
                     <div className="col-9">
                         <h3 className="text-2xl">{tripDetail.fromStation.name} - {tripDetail.toStation.name}</h3>
