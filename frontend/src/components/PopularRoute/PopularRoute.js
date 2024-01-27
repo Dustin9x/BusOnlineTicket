@@ -11,18 +11,11 @@ import _ from "lodash";
 export default function PopularRoute(props) {
     const { Meta } = Card;
     const dispatch = useDispatch();
-    let { arrPromoteTrip } = useSelector(state => state.PromoteTripReducer);
+    let { arrPromoteTrip, routeList } = useSelector(state => state.PromoteTripReducer);
     useEffect(() => {
         dispatch(getPromoteTripListAction())
     }, [dispatch])
 
-    let list = [];
-    let chunkSize = 6;
-    list = [...Array(Math.ceil(arrPromoteTrip?.length / chunkSize))].map(_ => list.splice(0, chunkSize))
-    
-
-    console.log('list',list)
-    console.log('arrPromoteTrip',arrPromoteTrip)
     const slickarrowleft = ({ currentslide, slidecount, ...props }) => (
         <button
             {...props}
@@ -67,7 +60,7 @@ export default function PopularRoute(props) {
             <h1 className="text-center text-2xl">Popular Bus Routes</h1>
             <div className="py-4 rounded-xl bg-white" style={{ margin: '0 -15px' }}>
                 <Carousel arrows {..._.omit(props, ['currentSlide', 'slideCount'])} draggable={true} {...settings} style={{ height: 320 }} className="d-block">
-                    {list?.map((element, i) => {
+                    {routeList?.map((element, i) => {
                         return (
                             <div key={i} className="d-flex" >
                                 {element?.map((item, index) => {

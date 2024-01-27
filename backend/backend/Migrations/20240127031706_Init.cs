@@ -171,6 +171,34 @@ namespace backend.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    NewsId = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Comments_News_NewsId",
+                        column: x => x.NewsId,
+                        principalTable: "News",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "BusStations",
                 columns: table => new
                 {
@@ -304,16 +332,16 @@ namespace backend.Migrations
                 columns: new[] { "Id", "Avatar", "DriverLicense", "Email", "Enabled", "FullName", "NationalId", "Note", "Password", "Phone", "PlaceOfBirth", "YearOfBirth", "isApprove" },
                 values: new object[,]
                 {
-                    { 1, "driver1.png", "234567", "driver1@phtv.com", true, "Nguyen Van Toan", "2345678", null, "$2a$11$5Zm9R6br/DLTKBbrYL331O07PJM3MziYNVvYvozSGhgFJsLYsKyti", "090123456", "Ho Chi Minh", new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 2, "driver2.png", "234567", "driver2@phtv.com", true, "Le Huy Phu", "2345678", null, "$2a$11$Y4eCv.scwoPz2zKIRPHfruCQDo7rTsnF6qz7jXsBoFjl4KfXeR.QK", "090123456", "Lam Dong", new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 3, "driver3.png", "234568", "driver3@phtv.com", true, "Bui Quoc Viet", "2345679", null, "$2a$11$rYtyyV1kGPi2Ps7oSnajsutDoNVZvLfuBNuhbQwORTwE7idzM8O0e", "090123457", "Binh Thuam", new DateTime(1993, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 4, "driver4.png", "234569", "driver4@phtv.com", true, "Pham Huy Hoang", "2345670", null, "$2a$11$JinB3P.Si2EqjbNDs2W37O86hVn2VIQZ49KGGBx2PVKXH6Ne9M/Hi", "090123458", "Gia Lai", new DateTime(1990, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 5, "driver5.png", "234560", "driver5@phtv.com", true, "Le Huy Chuong", "2345671", null, "$2a$11$VN8Ek2cmmjbMM7kvcaW5zuWSsA5CLfCUmFXoNGqkPcvxg5yhiGveG", "090123459", "Vung Tau", new DateTime(1999, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 6, "driver6.png", "234561", "driver6@phtv.com", true, "Le Thanh Thien", "2345672", null, "$2a$11$JkU59GtsVQgxrg2BHmqINeHMKOw1Y5erJkjVQ3BOf8gIUdyKtgvuS", "090123450", "Hà Nội", new DateTime(1997, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 7, "driver7.png", "234562", "driver7@phtv.com", true, "Le Dai Vi", "2345673", null, "$2a$11$9t7XBKqmq5e1GuX0pdAF6OLAnVAlnSO7dRqOFHEwLxz9jxRtcwN6y", "090123452", "Ca Mau", new DateTime(1996, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 8, "driver8.png", "234563", "driver8@phtv.com", true, "Le Huy Phu", "2345674", null, "$2a$11$Sxt/5JU6aKviPrgxRJJYduMdkiyuJ/czwmMATaBWtNPTpAl1mfm3u", "090123451", "Lam Dong", new DateTime(1994, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 9, "driver9.png", "234564", "driver9@phtv.com", true, "Le Huy Quan", "2345675", null, "$2a$11$qzNZ2gW1BQ/cLwiw1A6oSuNcumUe1APJ0fy8VP9P4PyaXLYIB6VFC", "090123453", "Ben Tre", new DateTime(2000, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
-                    { 10, "driver10.png", "234565", "driver10@phtv.com", true, "Le Huy Linh", "2345676", null, "$2a$11$cqVgPKFnMjT8Tie5A4Fmju.qPirP1Nf/9.Z00J0UwpILqI8CCUTiO", "090123455", "Dong Thap", new DateTime(1978, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false }
+                    { 1, "driver1.png", "234567", "driver1@phtv.com", true, "Nguyen Van Toan", "2345678", null, "$2a$11$KKHI1C7aHikuY863gcocmeIqkwmY6dMRCqRrg7ih6Y1KeX.tbOkpK", "090123456", "Ho Chi Minh", new DateTime(1995, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 2, "driver2.png", "234567", "driver2@phtv.com", true, "Le Huy Phu", "2345678", null, "$2a$11$UOah4vnEQWBNAJ.COOtJp.YRzXDld5K6Hm7CAkODgJySRJRQOOAlK", "090123456", "Lam Dong", new DateTime(1998, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 3, "driver3.png", "234568", "driver3@phtv.com", true, "Bui Quoc Viet", "2345679", null, "$2a$11$6vJIV6PbDSxmP5rzZx3gxum8qT403ENlbepU7PufuDpyFzLWajp2.", "090123457", "Binh Thuam", new DateTime(1993, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 4, "driver4.png", "234569", "driver4@phtv.com", true, "Pham Huy Hoang", "2345670", null, "$2a$11$mFefZEXteTB9ahDdbL0GuuJ746vq3QmuC3vRr0UoW1vkq2KyUDLRa", "090123458", "Gia Lai", new DateTime(1990, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 5, "driver5.png", "234560", "driver5@phtv.com", true, "Le Huy Chuong", "2345671", null, "$2a$11$YOBEJqDDYFTQDzZOvBRtT.eUmjula/9m8CFj5hBKyK.Hpwl566IZy", "090123459", "Vung Tau", new DateTime(1999, 12, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 6, "driver6.png", "234561", "driver6@phtv.com", true, "Le Thanh Thien", "2345672", null, "$2a$11$K4Kfyw/7pmf0SfBWpUQXYezK/iVllhuzsNfYU9Wea7Czas03v77RG", "090123450", "Hà Nội", new DateTime(1997, 3, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 7, "driver7.png", "234562", "driver7@phtv.com", true, "Le Dai Vi", "2345673", null, "$2a$11$PTtZCCWdlif1dDG0o5CWNubfVmmtNI5N/xHwb/D35QWrb4tDBno9m", "090123452", "Ca Mau", new DateTime(1996, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 8, "driver8.png", "234563", "driver8@phtv.com", true, "Le Huy Phu", "2345674", null, "$2a$11$ZoPOodoXjnTRb5JJezIYBeZshoWU.Bs1dSaMpcFJzuj0YNnU9OcdK", "090123451", "Lam Dong", new DateTime(1994, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 9, "driver9.png", "234564", "driver9@phtv.com", true, "Le Huy Quan", "2345675", null, "$2a$11$9DxQI6AYJckpa4GAVMto4ecfc47c9BCZ.hsk2lGDkUgi6PyRK0nQK", "090123453", "Ben Tre", new DateTime(2000, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false },
+                    { 10, "driver10.png", "234565", "driver10@phtv.com", true, "Le Huy Linh", "2345676", null, "$2a$11$7OQx2wK85yv.sxVECbmKsuPeuZVwPZAf94xiiH.Q5DTDxPEaYfJ5i", "090123455", "Dong Thap", new DateTime(1978, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), false }
                 });
 
             migrationBuilder.InsertData(
@@ -398,9 +426,9 @@ namespace backend.Migrations
                 columns: new[] { "Id", "Avatar", "Email", "FullName", "Password", "Role" },
                 values: new object[,]
                 {
-                    { 1, null, "admin@phtv.com", null, "$2a$11$lJivWGhoHxtoZ.i3RQThHOh8Mqmys9Fn.hmLJ2LP7s.5yxJ9ODaA6", "Admin" },
-                    { 2, null, "emp@phtv.com", null, "$2a$11$/XasLy/5c.Ty/St91UTyr.CtpdMmUFZCZ0jwH/AdQdXSbID1qUTu2", "Mod" },
-                    { 3, null, "user@phtv.com", null, "$2a$11$koEqf2oYJXgdenWhxRRodO/w.s84/up.jakQQQ9K1GrNBvOx5/0TK", "User" }
+                    { 1, null, "admin@phtv.com", null, "$2a$11$2408G3XmXp02WjecFIkSp.ArBAmTiWt8H6dOu2rPN9FsoMbL8PBV6", "Admin" },
+                    { 2, null, "emp@phtv.com", null, "$2a$11$Xs4Nv18N4Npdtem0k4I/NO1D29D66jaEFUK5hNxvJSMn2LQhfyUVS", "Mod" },
+                    { 3, null, "user@phtv.com", null, "$2a$11$ikEIF0ZLnxMYKFhf2A5CJ.Ow4bNi86Rov69/72F9RY7PEpcOOGONC", "User" }
                 });
 
             migrationBuilder.InsertData(
@@ -584,6 +612,16 @@ namespace backend.Migrations
                 column: "StationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_NewsId",
+                table: "Comments",
+                column: "NewsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_UserId",
+                table: "Comments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Seats_TripId",
                 table: "Seats",
                 column: "TripId");
@@ -626,10 +664,10 @@ namespace backend.Migrations
                 name: "BusStations");
 
             migrationBuilder.DropTable(
-                name: "FAQs");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "News");
+                name: "FAQs");
 
             migrationBuilder.DropTable(
                 name: "Offers");
@@ -642,6 +680,9 @@ namespace backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "Tickets");
+
+            migrationBuilder.DropTable(
+                name: "News");
 
             migrationBuilder.DropTable(
                 name: "Trips");
