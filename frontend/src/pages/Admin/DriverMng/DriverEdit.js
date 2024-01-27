@@ -79,6 +79,9 @@ const DriverEdit = (props) => {
   const handleChangeEnabled = (value) => {
     formik.setFieldValue("enabled", value);
   };
+  const handleChangeIsApprove = (value) => {
+    formik.setFieldValue("isApprove", value);
+  };
 
   return (
     <div>
@@ -211,7 +214,7 @@ const DriverEdit = (props) => {
         <Form.Item
           label="Prove"
         >
-        <Select name="isApprove" onChange={handleChangeEnabled} value={formik.values.isApprove} placeholder="Option Enabled" >
+        <Select name="isApprove" onChange={handleChangeIsApprove} value={formik.values.isApprove} placeholder="Option Enabled" >
             <Option value={true}>Yes</Option>
             <Option value={false}>No</Option>
           </Select>

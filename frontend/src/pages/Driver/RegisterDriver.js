@@ -26,7 +26,7 @@ export default function RegisterDriver(props) {
         phone: '',
         email: '',
         password: '',
-        yearOfBirth: '',
+        yearOfBirth: dayjs(dayjs().endOf("day").subtract(18, 'year')).format("YYYY-MM-DD"),
         placeOfBirth: '',
         note: '',
         enabled: true,
@@ -107,7 +107,7 @@ const onChangeDate = (values) => {
                         remember: false,
                       }}
                     
-                      onFinishFailed={onFinishFailed}
+            
                       autoComplete="off"
                     >
                   
