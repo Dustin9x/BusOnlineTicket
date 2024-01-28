@@ -1,5 +1,5 @@
 import { newService } from "../../services/NewService";
-import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE } from "../constants";
+import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE, GET_OFFER_CHUNK } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import { offerService } from "../../services/OfferService";
@@ -9,11 +9,16 @@ export const getOfferListAction = () => {
   return async (dispatch) => {
     try {
       const result = await offerService.getOfferList();
+      console.log("get list offer", result)
       if (result.data.status === 200) {
         dispatch({
           type: GET_OFFER_LIST,
-          arrOffer: result.data.data
+          arrOffer: result.data.data,
         });
+        dispatch({
+          type: GET_OFFER_CHUNK,
+          offerList: result.data.data
+        })
       }
     } catch (error) {
       console.log(error);

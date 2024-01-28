@@ -12,7 +12,7 @@ export const PromoteTripReducer = (state = initialState, action) => {
 
         case GET_PROMOTE_TRIP_LIST:
             state.arrPromoteTrip = action.arrPromoteTrip;
-            [state.routeList, state.chunkSize] = [action.arrPromoteTrip, 6];
+            [state.routeList, state.chunkSize] = [Array.from(state.arrPromoteTrip), 6];
             state.routeList = [...Array(Math.ceil(action.arrPromoteTrip?.length / state.chunkSize))].map(_ => state.routeList.splice(0, state.chunkSize))
             return { ...state }
         case GET_PROMOTE_TRIP_DETAIL:

@@ -38,6 +38,8 @@ export default function OfferMng() {
 
   const data = arrOffer;
 
+  console.log('arrOffer',arrOffer)
+
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close }) => (
       <div style={{ padding: 8, }} onKeyDown={(e) => e.stopPropagation()} >

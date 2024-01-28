@@ -21,6 +21,8 @@ export default function Offer(props) {
         dispatch(getOfferListAction())
     }, [dispatch])
 
+    console.log("offerList", offerList)
+
     const showModal = () => {
         setIsModalOpen(true);
     };

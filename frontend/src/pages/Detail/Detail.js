@@ -100,11 +100,16 @@ export function SettlePayment(props) {
     const checkTime = dayjs().isBetween(dayjs(offerCodeDetail?.beginDate), dayjs(offerCodeDetail?.endDate), 'date')
     const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null)
     
+    console.log('checkTime',checkTime)
+    console.log('checkStation',checkStation)
+    console.log('offerCodeDetail',offerCodeDetail)
     if (offerCodeDetail?.offerCode != null && checkTime == true && checkStation == true) {
         voucherDiscount = priceBeforeVoucher * offerCodeDetail?.discount / 100;
     }else{
         voucherDiscount = -1;
     }
+
+    
 
     const finalPrice = voucherDiscount > 0 ? priceBeforeVoucher - voucherDiscount : priceBeforeVoucher;
 
