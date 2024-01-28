@@ -88,7 +88,7 @@ export default function NewsDetail(props) {
                     <p className='my-auto m-3 text-danger'>{item?.user?.email}</p>
                     <p className='my-auto ml-3'>{item?.createdAt}</p>
                 </div>
-                {item?.user?.email === userLogin?.email || userLogin?.role === 'Admin' || newsDetail?.role === 'Mod' ? <Popover placement="bottomRight" content={content} trigger="hover">
+                {item?.user?.email === userLogin?.email || userLogin?.role === 'Admin' || userLogin?.role === 'Mod' ? <Popover placement="bottomRight" content={content} trigger="hover">
                     <div className='btn cursor-pointer px-3 border-none drop-shadow-none hover:bg-gray-100'>...</div>
                 </Popover> : ''}
 
