@@ -30,6 +30,10 @@ export const OrderReducer = (state = initialState, action) => {
             state.ticket = action.ticket;
             return { ...state }
 
+        case DELETE_TICKET_DETAIL:
+            state.ticket = null;
+            return { ...state }
+
         case DAT_VE:
             let danhSachGheCapNhat = [...state.selectingSeats];
             let index = danhSachGheCapNhat.findIndex(gheDD => gheDD === action.gheDuocChon);

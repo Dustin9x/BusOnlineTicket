@@ -12,6 +12,7 @@ import { getCurrentUserAction } from "../redux/actions/UserAction";
 import { checkTicketAction } from "../redux/actions/OrderAction";
 import dayjs from "dayjs";
 import CheckTicket from "../components/CheckTicket/CheckTicket";
+import { DELETE_TICKET_DETAIL } from "../redux/constants";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -27,11 +28,11 @@ function getItem(label, key, icon, children) {
 export const AdminTemplate = (props) => { //path, exact, Component
   const dispatch = useDispatch();
   let { userLogin } = useSelector(state => state.UserReducer);
-  const { ticketDetail } = useSelector(state => state.OrderReducer)
+  let { ticketDetail } = useSelector(state => state.OrderReducer)
   const { Component, ...restProps } = props;
   const [collapsed, setCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [code, setCode] = useState(null)
+  let [code, setCode] = useState(null)
   const { token: { colorBgContainer }, } = theme.useToken();
 
   const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users',]
@@ -63,7 +64,11 @@ export const AdminTemplate = (props) => { //path, exact, Component
   const handleCheckTicket = (e) => {
     e.preventDefault();
     showModal()
+    if (code !== null) {
+      dispatch(checkTicketAction(code.split(' ')));
+    }
   }
+  
 
   useEffect(() => {
     if (accessToken != null) {
@@ -153,8 +158,20 @@ export const AdminTemplate = (props) => { //path, exact, Component
           </Content>
         </Layout>
       </Layout>
-      <Modal title={"Check ticket"} open={isModalOpen} maskClosable={true} footer={null} width={750} onOk={handleOk} onCancel={handleCancel}>
-        <CheckTicket checkingCode={code} />
+      <Modal title={`Check ticket ${ticketDetail?.code || code}`} open={isModalOpen} maskClosable={true} afterClose={()=>{code = ""}} footer={null} width={750} onOk={handleOk} onCancel={handleCancel}>
+        {ticketDetail?.isCancel ?
+        <Descriptions className="text-center mt-3" title="Ticket is already canceled"></Descriptions>
+        : ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">
+          <Descriptions title="Ticket Info">
+            <Descriptions.Item label="Customer">{ticketDetail.users.email}</Descriptions.Item>
+            <Descriptions.Item label="Seat List">{ticketDetail.seatsList}</Descriptions.Item>
+            <Descriptions.Item label="Route">{ticketDetail.trips.fromStation.name} - {ticketDetail.trips.toStation.name}</Descriptions.Item>
+            <Descriptions.Item label="Departure Time">{dayjs(ticketDetail.trips.startTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+            <Descriptions.Item label="Arrival Time">{dayjs(ticketDetail.trips.finishTime).format("DD-MM-YYYY h:mm A")}</Descriptions.Item>
+            <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
+            <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed" : `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
+          </Descriptions>
+        </div> : <Descriptions className="text-center mt-3" title="Ticket not found"></Descriptions>}
       </Modal>
     </Fragment>
   }} />

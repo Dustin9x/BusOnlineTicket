@@ -118,15 +118,19 @@ export const checkTicketAction = (id) => {
             const result = await orderService.checkTicket(id);
             if (result.data.status === 200) {
                 if (result.data.data.length == 0) {
-                    notification.error({
-                        closeIcon: true,
-                        message: "Error",
-                        description: (
-                            <>
-                                Ticket is not found! <br></br>Please re-check your ticket number.
-                            </>
-                        ),
+                    dispatch({
+                        type: GET_TICKET_STATUS,
+                        ticketDetail: null,
                     });
+                    // notification.error({
+                    //     closeIcon: true,
+                    //     message: "Error",
+                    //     description: (
+                    //         <>
+                    //             Ticket is not found! <br></br>Please re-check your ticket number.
+                    //         </>
+                    //     ),
+                    // });
                 } else {
                     dispatch({
                         type: GET_TICKET_STATUS,
@@ -135,15 +139,19 @@ export const checkTicketAction = (id) => {
                 }
             } 
         } catch (error) {
-            notification.error({
-                closeIcon: true,
-                message: "Error",
-                description: (
-                    <>
-                        Ticket is not found! <br></br>Please re-check your ticket number.
-                    </>
-                ),
+            dispatch({
+                type: GET_TICKET_STATUS,
+                ticketDetail: null,
             });
+            // notification.error({
+            //     closeIcon: true,
+            //     message: "Error",
+            //     description: (
+            //         <>
+            //             Ticket is not found! <br></br>Please re-check your ticket number.
+            //         </>
+            //     ),
+            // });
             console.log(error);
         }
     };

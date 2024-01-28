@@ -77,7 +77,7 @@ export default function CheckTicket(props) {
             <Descriptions.Item label="Bus Number">{ticketDetail.trips.bus.busPlate}</Descriptions.Item>
             <Descriptions.Item label="Status"><span className="text-green-500 font-semibold">{remainHour < 0 ? "Your bus already departed" : `Your bus is going to depart on next ${remainHour} hour(s)`}</span>  </Descriptions.Item>
           </Descriptions>
-        </div> : ""}
+        </div> : <Descriptions className="text-center mt-3" title="Ticket not found"></Descriptions>}
 
     </div>
   )
