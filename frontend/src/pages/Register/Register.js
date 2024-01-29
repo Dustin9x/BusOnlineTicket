@@ -102,7 +102,7 @@ export default function Register(props) {
 
         <Form.Item
           label=""
-          name="fullname"
+          name="fullName"
           rules={[
             {
               required: true,
@@ -111,7 +111,7 @@ export default function Register(props) {
             },
           ]}
         >
-          <Input className="d-flex block text-sm py-2.5 px-4 mt-2 rounded-lg w-full border outline-none" placeholder="Fullname" />
+          <Input name="fullName" className="d-flex block text-sm py-2.5 px-4 mt-2 rounded-lg w-full border outline-none" placeholder="Fullname" />
           
         </Form.Item>
 

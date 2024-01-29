@@ -121,6 +121,7 @@ namespace backend.Controllers
                     var user = new User
                     {
                         Email = userRegister.Email,
+                        FullName = userRegister.FullName,
                         Role = "User",
                         Password = BCrypt.Net.BCrypt.HashPassword(userRegister.Password)
                     };
