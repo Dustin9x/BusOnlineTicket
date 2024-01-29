@@ -3,6 +3,7 @@ using backend.Models;
 using backend.ResponseData;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -11,10 +12,16 @@ namespace backend.Controllers
     public class TicketController : ControllerBase
     {
         private readonly ITicketRepo repo;
+        private readonly ISendMail mailRepo;
+        private readonly IWebHostEnvironment env;
+        private readonly DatabaseContext db;
 
-        public TicketController(ITicketRepo repo)
+        public TicketController(ITicketRepo repo, IWebHostEnvironment env, DatabaseContext db, ISendMail mailRepo)
         {
             this.repo = repo;
+            this.env = env;
+            this.db = db;
+            this.mailRepo = mailRepo;
         }
 
         [HttpGet("{Id}")]
@@ -68,6 +75,47 @@ namespace backend.Controllers
                 bool list = await repo.AddTicket(ticket);
                 if (list == true)
                 {
+
+                    string FilePath = Path.Combine(env.ContentRootPath, "EmailTemplate", "orderconfirm.html");
+                    Trip? trip = await db.Trips
+                                .Where(t => t.Id == ticket.TripId)
+                                .Select(t => new Trip()
+                                {
+                                    Id = t.Id,
+                                    FromStation = db.Stations.Where(s => s.Id == t.FromStationId).SingleOrDefault(),
+                                    ToStation = db.Stations.Where(s => s.Id == t.ToStationId).SingleOrDefault(),
+                                    StartTime = t.StartTime,
+                                })
+                                .SingleOrDefaultAsync();
+                    string useremail = db.Users.Where(u => u.Id == ticket.UserId).SingleOrDefaultAsync().Result.Email;
+                    string ticketcode = ticket.Code;
+                    string fromstation = trip.FromStation.Name;
+                    string tostation = trip.ToStation.Name;
+                    string departuretime = trip.StartTime.ToString("dd-MM-yyy hh:mm");
+                    string seatslist = ticket.SeatsList;
+                    string specialnote = ticket.Note;
+                    string qrcode = "Code: " + ticket.Code + " Email: " + useremail + " Route: " + fromstation + "-" + tostation + " Start: " + departuretime + " Seats: " + seatslist + " Note: " + specialnote;
+                    StreamReader str = new StreamReader(FilePath);
+                    string MailText = str.ReadToEnd();
+                    str.Close();
+
+                    MailText = MailText.Replace("[ticketcode]", ticketcode);
+                    MailText = MailText.Replace("[fromstation]", fromstation);
+                    MailText = MailText.Replace("[tostation]", tostation);
+                    MailText = MailText.Replace("[departuretime]", departuretime);
+                    MailText = MailText.Replace("[seatslist]", seatslist);
+                    MailText = MailText.Replace("[specialnote]", specialnote);
+                    MailText = MailText.Replace("[qrcode]", qrcode);
+
+                    Mail mail = new Mail()
+                    {
+                        ToEmail = useremail,
+                        //Body = "Your new password:" + password.ToString(),
+                        Body = MailText,
+                        Subject = "PHTV - Your ordered ticket",
+
+                    };
+                    await mailRepo.SendEmailAsync(mail);
                     var response = new ResponseData<Ticket>(StatusCodes.Status200OK, "Add new ticket Successfully", ticket, null);
                     return Ok(response);
                 }
