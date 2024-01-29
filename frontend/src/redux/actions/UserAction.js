@@ -224,11 +224,15 @@ export const updateUserAction = (id, newUser) => {
       });
       const result2 = await userService.getUserById(id);
       const userDetail = result2.data.data[0]
-      if (userDetail.role = "user") {
-        history.push("/users/profile");
-      } else {
-        history.push("/admin/adminusers");
-      }
+      console.log(userDetail);
+      // if (userDetail.role === "User") {
+      //   // ?
+      //   history.push("/users/profile");
+      // }
+      // if (userDetail.role === "Admin") {
+      //   history.push("/admin/adminusers");
+      // }
+      history.goBack();
 
     } catch (error) {
       console.log(error);

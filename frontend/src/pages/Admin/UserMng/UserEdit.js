@@ -32,7 +32,7 @@ const UserEdit = (props) => {
     initialValues: {
       email: userDetail?.email,
       password: null,
-      fullname: userDetail?.fullname,
+      fullName: userDetail?.fullName,
       role: userDetail?.role,
       avatar: userDetail?.avatar,
     },
@@ -73,7 +73,7 @@ const UserEdit = (props) => {
 
   return (
     <div>
-      <h3 className="mb-5">Update infomation User: {formik.values.name}</h3>
+      <h3 className="mb-5">Update infomation User :  {formik.values.fullName}</h3>
       <Form
         labelCol={{
           span: 4,
@@ -103,7 +103,7 @@ const UserEdit = (props) => {
         <Form.Item
           label="Full Name"
         >
-          <Input className="text-dark" name="fullname" onChange={formik.handleChange} value={formik.values.fullname} placeholder="Full Name" />
+          <Input className="text-dark" name="fullName" onChange={formik.handleChange} value={formik.values.fullName} placeholder="Full Name" />
         </Form.Item>
 
         <Form.Item label="Change password?">
@@ -137,7 +137,7 @@ const UserEdit = (props) => {
             ]}
           >
             <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" value={formik.values.role}>
-              <Option value="Admin">Admin</Option>
+              {/* <Option value="Admin">Admin</Option> */}
               <Option value="User">User</Option>
             </Select>
           </Form.Item>
