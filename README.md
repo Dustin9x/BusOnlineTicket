@@ -72,8 +72,12 @@ If you found this project useful, then please consider giving it a ⭐ on Github
        -   NodeJS - A JavaScript runtime built on Chrome's V8 JavaScript engine
        
 ## Screenshots:
+<h3>Login Page:</h3>
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/e4344a6c-671b-48de-b54b-b62c338608cc" width="100%" alt="Homepage">
+
+
 <h3>Home Page:</h3>
-<img src="https://github.com/Dustin9x/PHTV-datvexemphim/assets/116355841/56f970e5-8131-4f49-b7f6-fde6db922f04" width="100%" alt="Homepage">
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/3d832369-a678-4255-8045-3c03ac49f277" width="100%" alt="Homepage">
 
 
 <h3>Admin Page:</h3>
