@@ -6,9 +6,7 @@
 
 A is a preety basic system implemented using ASP.NET, ReactJS, SQL Server.
 
-PHTV Bus Ticket Booking System is designed to automate the online ticket purchasing through an easy online bus booking system. With PHTV bus ticket reservation system you can manage/book reservations, clients data and passengers lists through its Admin page and book tickets effortlessly through the Bus reservation Website.
-
-PHTV is a website to provide the customers facility to book tickets for a movie online and to gather information about the movies and theaters. Customer needs to register at the site to book tickets to the movie. After selecting the show, the user is presented a seating layout so that he can select seats of his choice.
+PHTV Bus Ticket Booking System is designed to automate the online ticket purchasing through an easy online bus booking system. With PHTV bus ticket reservation system you can manage/book reservations, clients data and passengers lists through its Admin page and book tickets effortlessly through the Bus reservation Website. Customer needs to register at the site to book tickets to the bus. After selecting the schedule, the user is presented a seating layout so that he can select seats of his choice.
 
 If you found this project useful, then please consider giving it a ⭐ on Github and follow me on GitHub.
 
@@ -53,6 +51,8 @@ If you found this project useful, then please consider giving it a ⭐ on Github
        -   Provides authentication
        -   Search for schedule,
        -   Select schedule that is Avaliable
+       -   Select seat
+       -   Filter the schedule by time, price and bus type
        -   Purchase a Ticket
        -   Make Online Payments
        -   Apply discount voucher
