@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect } from 'react'
 import { SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table, Popconfirm, Avatar } from 'antd';
+import { Button, Input, Space, Table, Popconfirm, Avatar, Switch } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListNewsAction,deleteNewsAction, detailNewsAction } from '../../../redux/actions/NewAction';
 import { DOMAIN } from '../../../util/settings/config';
-import { deleteOfferAction, getOfferDetailAction, getOfferListAction } from '../../../redux/actions/OfferAction';
+import { deleteOfferAction, enableOfferAction, getOfferDetailAction, getOfferListAction } from '../../../redux/actions/OfferAction';
 import dayjs from 'dayjs';
 const parser = new DOMParser();
 
@@ -187,6 +187,17 @@ export default function OfferMng() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return dayjs(item.endDate).format("DD-MM-YYYY")
+      },
+    },
+    {
+      title: 'Enable',
+      dataIndex: 'enabled',
+      key: 'enabled',
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return <Switch size="small" checked={item.enabled} onClick={()=>{
+          dispatch(enableOfferAction(item.id))
+        }} />
       },
     },
     {

@@ -16,6 +16,7 @@ namespace backend.SeedData
                         Title="30% off for LUNARNEWYEAR 2024 ",
                         BeginDate=new DateTime(2024, 01, 31),
                         EndDate=new DateTime(2024, 02, 7),
+                        Enabled=true,
                         Image="offer1.png"
                     },
                  new Offer
@@ -28,6 +29,7 @@ namespace backend.SeedData
                         Title="40% off for route HO CHI MINH to HA NOI",
                         BeginDate=new DateTime(2024, 01, 25),
                         EndDate=new DateTime(2024, 01, 29),
+                        Enabled=true,
                         Image="offer2.png"
                     },
                  new Offer
@@ -40,6 +42,7 @@ namespace backend.SeedData
                         Title="30% off for route HA NOI to DA LAT",
                         BeginDate=new DateTime(2024, 01, 25),
                         EndDate=new DateTime(2024, 02, 29),
+                        Enabled=true,
                         Image="offer3.png"
                     },
                  new Offer
@@ -52,6 +55,7 @@ namespace backend.SeedData
                         Title="DISCOUNT 20% WITH CODE WELCOME2024",
                         BeginDate=new DateTime(2024, 01, 25),
                         EndDate=new DateTime(2024, 02, 10),
+                        Enabled=true,
                         Image="offer4.png"
                     },
             };

@@ -13,6 +13,7 @@ namespace backend.Models
         public string? ToStation { get; set; }
         public DateTime? BeginDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public bool Enabled { get; set; } = false;
         public string? Image { get; set; }
 
         [NotMapped]

@@ -1,5 +1,5 @@
 import { newService } from "../../services/NewService";
-import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE, GET_OFFER_CHUNK } from "../constants";
+import { GET_NEWS_LIST, GET_NEWS_DETAIL, GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE, GET_OFFER_CHUNK, GET_ENABLE_OFFER_LIST } from "../constants";
 import { notification } from 'antd';
 import { history } from '../../App';
 import { offerService } from "../../services/OfferService";
@@ -15,16 +15,32 @@ export const getOfferListAction = () => {
           type: GET_OFFER_LIST,
           arrOffer: result.data.data,
         });
-        dispatch({
-          type: GET_OFFER_CHUNK,
-          offerList: result.data.data
-        })
+        // dispatch({
+        //   type: GET_OFFER_CHUNK,
+        //   offerList: result.data.data
+        // })
       }
     } catch (error) {
       console.log(error);
     }
   };
 };
+
+export const getEnableOfferListAction = () => {
+  return async (dispatch) => {
+      try {
+          const result = await offerService.getEnableOfferList();
+          if (result.data.status === 200) {
+              dispatch({
+                  type: GET_ENABLE_OFFER_LIST,
+                  arrEnableOffer: result.data.data
+              })
+          }
+      } catch (error) {
+          console.log('error', error);
+      }
+  }
+}
 
 export const getOfferDetailAction = (id) => {
   return async (dispatch) => {
@@ -131,5 +147,23 @@ export const updateOfferAction = (id, formData) => {
     } catch (error) {
       console.log(error)
     }
+  }
+}
+
+export const enableOfferAction = (id) => {
+  return async (dispatch) => {
+      try {
+          const result = await offerService.enableOffer(id);
+          notification.success({
+              closeIcon: true,
+              message: 'Success',
+              description: (
+                  <>{result.data.data.enabled ? "Enable successfully" : "Disable successfully"}</>
+              ),
+          });
+          dispatch(getOfferListAction())
+      } catch (error) {
+          console.log('error', error);
+      }
   }
 }

@@ -29,6 +29,11 @@ namespace backend.Services
             return await db.Offers.Where(b => b.OfferCode.ToLower() == Code.ToLower()).ToListAsync();
         }
 
+        public async Task<IEnumerable<Offer>> GetEnableOffer()
+        {
+            return await db.Offers.Where(b => b.Enabled == true).ToListAsync();
+        }
+
         public async Task<bool> CreateOffer(Offer Offer)
         {
             try
@@ -149,6 +154,21 @@ namespace backend.Services
                 }
             }
             return null;
+        }
+
+        public async Task<Offer> EnableDisableOffer(int Id)
+        {
+            var ExistingOffer = await db.Offers.FindAsync(Id);
+            if (ExistingOffer != null)
+            {
+                ExistingOffer.Enabled = !ExistingOffer.Enabled;
+                await db.SaveChangesAsync();
+                return ExistingOffer;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

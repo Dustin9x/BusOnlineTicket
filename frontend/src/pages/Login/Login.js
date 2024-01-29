@@ -21,7 +21,7 @@ export default function Login(props) {
 
   return (
 
-    <div className="py-8 px-8 bg-white rounded-2xl shadow-xl z-20">
+    <div className="py-8 px-8 rounded-2xl shadow-xl z-20" style={{backgroundColor: "rgb(255 255 255 / 80%)"}}>
 
       <Form
         name="basic"

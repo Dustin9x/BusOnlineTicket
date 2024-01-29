@@ -12,6 +12,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { getOfferDetailAction, updateOfferAction } from "../../../redux/actions/OfferAction";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
+var utc = require('dayjs/plugin/utc')
+var timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.guess()
 
 const OfferEdit = (props) => {
   const dateFormat = "DD-MM-YYYY";
@@ -191,7 +198,7 @@ const OfferEdit = (props) => {
               },
             ]}
           >
-            <DatePicker format={dateFormat} onChange={onChangeBeginDate} onOk={onOkBeginDate} value={formik.values.beginDate && dayjs(formik.values.beginDate)} />
+            <DatePicker format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeBeginDate} onOk={onOkBeginDate} value={formik.values.beginDate && dayjs(formik.values.beginDate)} />
           </Form.Item>
 
           <Form.Item
@@ -203,7 +210,7 @@ const OfferEdit = (props) => {
               },
             ]}
           >
-            <DatePicker format={dateFormat} onChange={onChangeEndDate} onOk={onOkEndDate} value={dayjs(formik.values.endDate)} />
+            <DatePicker format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeEndDate} onOk={onOkEndDate} value={dayjs(formik.values.endDate)} />
           </Form.Item>
 
           <Form.Item label="Image" style={{ minWidth: '100%' }}>

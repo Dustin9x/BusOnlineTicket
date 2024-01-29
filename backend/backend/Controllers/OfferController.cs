@@ -59,6 +59,27 @@ namespace backend.Controllers
 
         }
 
+        [HttpGet("enableoffer")]
+        public async Task<ActionResult> GetEnableOffer()
+        {
+            try
+            {
+                var list = await repo.GetEnableOffer();
+                if (list != null)
+                {
+                    var response = new ResponseData<IEnumerable<Offer>>(StatusCodes.Status200OK, "Get list of enable offer successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest(list);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
 
         [HttpGet("code/{Code}")]
         public async Task<ActionResult> GetOfferByCode(string Code)
@@ -124,7 +145,6 @@ namespace backend.Controllers
 
 
         [HttpPut("{Id}")]
-
         public async Task<ActionResult> PutOffer(int Id, [FromForm] Offer offer)
         {
             try
@@ -144,6 +164,26 @@ namespace backend.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPut("enable")]
+        public async Task<ActionResult> EnableDisableOffer(int Id)
+        {
+            try
+            {
+                var list = await repo.EnableDisableOffer(Id);
+                if (list != null)
+                {
+                    var response = new ResponseData<Offer>(StatusCodes.Status200OK, "Enable/Disable offer successfully", list, null);
+                    return Ok(response);
+                }
+                return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

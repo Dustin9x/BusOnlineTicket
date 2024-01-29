@@ -12,6 +12,11 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { addOfferAction } from "../../../redux/actions/OfferAction";
 import { getStationListAction } from "../../../redux/actions/StationAction";
 dayjs.extend(customParseFormat);
+var utc = require('dayjs/plugin/utc')
+var timezone = require('dayjs/plugin/timezone')
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.guess()
 
 const AddOffer = () => {
   const dispatch = useDispatch();
@@ -215,7 +220,7 @@ const AddOffer = () => {
               },
             ]}
           >
-            <DatePicker format={dateFormat} onChange={onChangeBeginDate} onOk={onOkBeginDate} />
+            <DatePicker format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeBeginDate} onOk={onOkBeginDate} />
           </Form.Item>
 
           <Form.Item
@@ -227,7 +232,7 @@ const AddOffer = () => {
               },
             ]}
           >
-            <DatePicker format={dateFormat} onChange={onChangeEndDate} onOk={onOkEndDate} />
+            <DatePicker format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeEndDate} onOk={onOkEndDate} />
           </Form.Item>
 
           <Form.Item label="Image">

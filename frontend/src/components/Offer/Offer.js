@@ -6,19 +6,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTripListAction } from "../../redux/actions/TripAction";
 import { DOMAIN } from "../../util/settings/config";
 import { getPromoteTripListAction } from "../../redux/actions/PromoteTripAction";
-import { getOfferDetailAction, getOfferListAction } from "../../redux/actions/OfferAction";
+import { getEnableOfferListAction, getOfferDetailAction, getOfferListAction } from "../../redux/actions/OfferAction";
 import dayjs from "dayjs";
 import _ from "lodash";
 
 export default function Offer(props) {
     const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    let { arrOffer, offerList } = useSelector(state => state.OfferReducer);
+    let { offerList } = useSelector(state => state.OfferReducer);
     let { offerDetail } = useSelector(state => state.OfferReducer);
     const { Meta } = Card;
 
     useEffect(() => {
-        dispatch(getOfferListAction())
+        dispatch(getEnableOfferListAction())
     }, [dispatch])
 
     console.log("offerList", offerList)
