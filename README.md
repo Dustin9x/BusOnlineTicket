@@ -4,7 +4,9 @@
 
 # Project PHTV-BusOnlineTicket
 
-A movie tickets booking and management application using ReactJS and PHP Laravel.
+A is a preety basic system implemented using ASP.NET, ReactJS, SQL Server.
+
+PHTV Bus Ticket Booking System is designed to automate the online ticket purchasing through an easy online bus booking system. With PHTV bus ticket reservation system you can manage/book reservations, clients data and passengers lists through its Admin page and book tickets effortlessly through the Bus reservation Website.
 
 PHTV is a website to provide the customers facility to book tickets for a movie online and to gather information about the movies and theaters. Customer needs to register at the site to book tickets to the movie. After selecting the show, the user is presented a seating layout so that he can select seats of his choice.
 
@@ -27,23 +29,16 @@ If you found this project useful, then please consider giving it a ⭐ on Github
 -   Backend ()
        -   Installation Laragon
             ```bash
-            Install PHP server Laragon
-            Run it
-            Clone this repo into www folder of Laragon
-            Download cinema_choodu.sql file in this repo and import to phpmyadmin or mysql and simple run it
+            Install SQL Server
+            Create a account and let SQL Server run as service of Windows
+            Database already seeded in by code first method
             ```
        -   Setup backend database
             ```bash
-            $ Create a .env file in your server and backend folder
-            $ See the .env sample
-            $ create a myphpadmin database and add your connection string into .env file
-            ```
-       -   Installation dependencies
-            ```bash
-            $ composer install
-            $ php artisan migrate
-            $ php artisan passport:install
-            $ php artisan serve
+            $ Adjust the appsetting.json file with your SQL Server account
+            $ Open Nuget console and run the command: "update-database"
+            $ Wait for database is created and updated
+            $ After finishing, Start the ASP.NET server
             ```                       
 -   Frontend ()
        -   Installation NodeJS
@@ -54,16 +49,24 @@ If you found this project useful, then please consider giving it a ⭐ on Github
             ```
             
 ## Features:
-       -   Login to System
-       -   Select Movie that is Avaliable
+       -   Login/Logout to System
+       -   Provides authentication
+       -   Search for schedule,
+       -   Select schedule that is Avaliable
        -   Purchase a Ticket
-       -   Summary of Ticket
-       -   Cancel a Ticket
-       -   Logout
+       -   Make Online Payments
+       -   Apply discount voucher
+       -   Ticket tracking
+       -   Register to be driver
+       -   QR code scanner
+       -   A list of booked tickets
+       -   Generates QR codes for confirmed tickets
+       -   Sends email notifications with QR codes
+       -   Cancel a Ticket and get refund
        
 ## Techs:
-       -   phpMyAdmin - A free software tool written in PHP, intended to handle the administration of MySQL over the Web.
-       -   Laravel - A web application framework with expressive, elegant syntax.
+       -   SQL Server - A proprietary relational database management system developed by Microsoft. 
+       -   ASP.NET - A server-side web-application framework designed for web development to produce dynamic web pages.
        -   ReactJS - A JavaScript library for building user interfaces.
        -   Redux - A predictable state container for JavaScript apps.
        -   NodeJS - A JavaScript runtime built on Chrome's V8 JavaScript engine
@@ -94,4 +97,4 @@ https://www.youtube.com/watch?v=eAeMKUPtbkk
        -   Bui Quoc Viet - Student1420715
 
 ## Instructor:
-We give our sincere thanks to: FPT APTECH MS. LE MONG THUY
+We give our sincere thanks to: FPT APTECH MS. NGUYEN HA VY
