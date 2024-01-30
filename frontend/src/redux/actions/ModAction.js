@@ -72,14 +72,19 @@ export const updateModAction = (id, Mod) => {
   return async (dispatch) => {
     try {
       const result = await modService.updateMod(id, Mod);
+      dispatch(getListModAction());
       notification.success({
         closeIcon: true,
         message: "Success",
         description: <>Update Mod successfully.</>,
       });
-      history.push("/admin/modmng");
+      history.goBack();
     } catch (error) {
-      console.log(error);
+      notification.error({
+        closeIcon: true,
+        message: "Fail",
+        description: <>Update Mod Fail.</>,
+      });
     }
   };
 };

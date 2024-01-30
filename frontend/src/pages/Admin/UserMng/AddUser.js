@@ -131,7 +131,8 @@ const AddUser = () => {
         >
           <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" >
             <Option value="Admin">Admin</Option>
-            {/* <Option value="User">User</Option> */}
+            <Option value="Mod">Mod</Option>
+            <Option value="User">User</Option>
           </Select>
         </Form.Item>
 

@@ -215,6 +215,7 @@ export const updateUserAction = (id, newUser) => {
   return async (dispatch) => {
     try {
       const result = await userService.updateUser(id, newUser);
+      dispatch(getListUserAction());
       notification.success({
         closeIcon: true,
         message: 'Success',
@@ -225,17 +226,16 @@ export const updateUserAction = (id, newUser) => {
       const result2 = await userService.getUserById(id);
       const userDetail = result2.data.data[0]
       console.log(userDetail);
-      // if (userDetail.role === "User") {
-      //   // ?
-      //   history.push("/users/profile");
-      // }
-      // if (userDetail.role === "Admin") {
-      //   history.push("/admin/adminusers");
-      // }
       history.goBack();
 
     } catch (error) {
-      console.log(error);
+      notification.error({
+        closeIcon: true,
+        message: 'Fail',
+        description: (
+          <>Update user Fail.</>
+        ),
+      });
     }
   };
 };

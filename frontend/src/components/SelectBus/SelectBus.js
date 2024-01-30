@@ -29,7 +29,9 @@ export default function SelectBus(props) {
   };
 
   const handleSubmit = (e) => {
-    if (From == null || To == null) {
+    console.log("checkk:",From);
+    if (From === null || To === null) {
+      e.preventDefault();
       notification.error({
         closeIcon: true,
         message: 'Error',
@@ -38,6 +40,8 @@ export default function SelectBus(props) {
         )
       });
     };
+
+    
   }
 
   const swapStation = () => {

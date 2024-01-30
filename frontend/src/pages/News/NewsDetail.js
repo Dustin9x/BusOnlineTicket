@@ -66,13 +66,13 @@ export default function NewsDetail(props) {
                 <Button className='btn' type='link' onClick={() => {
                      formik.setFieldValue("content",item.content);
                      formik.setFieldValue('existingId',item.id)
-                }}>Sửa</Button>
+                }}>Edit </Button>
 
                 <Button className='btn' danger type='link' onClick={() => {
                     if (window.confirm('Are you sure delete this comment?')) {
                         dispatch(DeleteCommentAction(item.id,id));
                     }
-                }}>Xóa</Button>
+                }}>Delete </Button>
             </div>
         );
         return <Card
@@ -88,9 +88,10 @@ export default function NewsDetail(props) {
                     <p className='my-auto m-3 text-danger'>{item?.user?.email}</p>
                     <p className='my-auto ml-3'>{item?.createdAt}</p>
                 </div>
-                {item?.user?.email === userLogin?.email || userLogin?.role === 'Admin' || userLogin?.role === 'Mod' ? <Popover placement="bottomRight" content={content} trigger="hover">
+                {(item?.user?.email === userLogin?.email || userLogin?.role === 'Admin') || (item?.user?.role === "User"&& userLogin?.role === 'Mod') ? <Popover placement="bottomRight" content={content} trigger="hover">
                     <div className='btn cursor-pointer px-3 border-none drop-shadow-none hover:bg-gray-100'>...</div>
                 </Popover> : ''}
+
 
             </div> 
 
@@ -150,7 +151,7 @@ export default function NewsDetail(props) {
                                     <TextArea
                                         name='content' allowClear rows={4} placeholder='Enter Comment' onChange={formik.handleChange} value={formik.values.content} />
                                 </Form.Item>
-                                <Button htmlType="submit" className="bg-blue-700 disabled:opacity-25 rounded-full text-white p-2 px-5 flex justify-center items-center" disabled={!formik.values.content?.trim()}>Send</Button>
+                                <Button htmlType="submit" className="bg-blue-700 disabled:opacity-0  rounded-full text-white p-2 px-5 flex justify-center items-center" disabled={!formik.values.content?.trim()}>Send</Button>
                             </Form> : <Button href="/login" className='w-full'>Please Sign in for Comment!!</Button>}
 
                         </div>

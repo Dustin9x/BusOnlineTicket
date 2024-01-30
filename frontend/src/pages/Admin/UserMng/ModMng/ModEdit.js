@@ -27,6 +27,7 @@ const ModEdit = (props) => {
     initialValues: {
       email: modDetail?.email,
       password: null,
+      fullName: modDetail?.fullName,
       role: modDetail?.role,
       avatar: modDetail?.avatar,
     },
@@ -61,9 +62,9 @@ const ModEdit = (props) => {
     }
   };
 
-  // const handleChangeRole = (value) => {
-  //   formik.setFieldValue("role", value);
-  // };
+  const handleChangeRole = (value) => {
+    formik.setFieldValue("role", value);
+  };
 
   const onChangeCheck = (e) => {
     setChecked(e.target.checked);
@@ -130,7 +131,7 @@ const ModEdit = (props) => {
           ""
         )}
 
-        {/* <Form.Item
+        <Form.Item
             label="Role"
             rules={[
               {
@@ -141,9 +142,10 @@ const ModEdit = (props) => {
           >
             <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" value={formik.values.role}>
               <Option value="Admin">Admin</Option>
+              <Option value="Mod">Mod</Option>
               <Option value="User">User</Option>
             </Select>
-          </Form.Item> */}
+          </Form.Item>
 
         <Form.Item label="Avatar">
           <input

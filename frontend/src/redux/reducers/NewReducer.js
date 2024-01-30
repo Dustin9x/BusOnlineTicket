@@ -14,10 +14,7 @@ export const NewReducer = (state = initialState, action) => {
         case GET_NEWS_DETAIL:
             state.newsDetail= action.newsDetail;
             return {...state}
-        // case GET_FAQ_DETAIL: {
-        //     state.FAQDetail = action.FAQDetail;
-        //     return { ...state }
-        // }
+        
         default:
             return { ...state }
     }

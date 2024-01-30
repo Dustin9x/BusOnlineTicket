@@ -137,7 +137,8 @@ const UserEdit = (props) => {
             ]}
           >
             <Select name="role" onChange={handleChangeRole} placeholder="Choose Role User" value={formik.values.role}>
-              {/* <Option value="Admin">Admin</Option> */}
+              <Option value="Admin">Admin</Option>
+              <Option value="Mod">Mod</Option>
               <Option value="User">User</Option>
             </Select>
           </Form.Item>

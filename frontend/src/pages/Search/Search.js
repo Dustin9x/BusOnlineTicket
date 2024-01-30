@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import SelectBus from "../../components/SelectBus/SelectBus";
 import { getTripListOptionsAction } from "../../redux/actions/TripAction";
 import TripCard from "../../components/TripCard/TripCard";
+import { history } from "../../App";
 
 const setInput = {
   sort: "",
@@ -26,7 +27,9 @@ export default function Search(props) {
     setInput.from = searchParams.get('from') || '';
     setInput.to = searchParams.get('to') || '';
     setInput.dayStart = searchParams.get('date') || '';
-
+    if(setInput.from == "" || setInput.to == ""){
+      history.push("/")
+    }
     dispatch(getTripListOptionsAction(setInput));
   }, [dispatch]);
 

@@ -124,10 +124,11 @@ namespace backend.Services
 
                 ExistingUser.Email = User.Email;
                 ExistingUser.FullName = User.FullName;
-                if (User.Role == "User" || User.Role == "Mod")
-                {
-                    ExistingUser.Role = User.Role;
-                }
+                ExistingUser.Role = User.Role;
+                //if (User.Role == "User" || User.Role == "Mod" || User.Role == "Admin")
+                //{
+                  
+                //}
                 if (User.Password != null && User.Password != "null")
                 {
                     ExistingUser.Password = BCrypt.Net.BCrypt.HashPassword(User.Password);
