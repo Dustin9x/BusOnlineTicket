@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, notification, DatePicker } from "antd";
+import { Form, Input, Button, notification, DatePicker, Select } from "antd";
 import { PercentageOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -13,6 +13,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { getOfferDetailAction, updateOfferAction } from "../../../redux/actions/OfferAction";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { getStationListAction } from "../../../redux/actions/StationAction";
 dayjs.extend(customParseFormat);
 var utc = require('dayjs/plugin/utc')
 var timezone = require('dayjs/plugin/timezone')
@@ -24,8 +25,10 @@ const OfferEdit = (props) => {
   const dateFormat = "DD-MM-YYYY";
   const dispatch = useDispatch();
   let { id } = props.match.params;
+  const { arrStation } = useSelector(state => state.StationReducer);
 
   useEffect(() => {
+    dispatch(getStationListAction())
     dispatch(getOfferDetailAction(id))
   }, [])
 
@@ -38,9 +41,10 @@ const OfferEdit = (props) => {
       offerCode: offerDetail.offerCode,
       discount: offerDetail.discount,
       title: offerDetail.title,
-      content: offerDetail.content,
       beginDate: offerDetail.beginDate,
       endDate: offerDetail.endDate,
+      fromStation: offerDetail.fromStation,
+      toStation: offerDetail.toStation,
       image: offerDetail.image
     },
     onSubmit: async (values) => {
@@ -111,6 +115,14 @@ const OfferEdit = (props) => {
     }
   }
 
+  const handleChangeFromStation = (value,data) => {
+    formik.setFieldValue('fromStation', value)
+  };
+
+  const handleChangeToStation = (value,data) => {
+    formik.setFieldValue('toStation', value)
+  };
+
   return (
     <Form
       onSubmitCapture={formik.handleSubmit}
@@ -167,27 +179,33 @@ const OfferEdit = (props) => {
             <Input name="title" onChange={formik.handleChange} value={formik.values.title} />
           </Form.Item>
 
-          <Form.Item label="Content">
-            <CKEditor
-              className="rounded-lg overflow-hidden"
-              data={formik.values.content}
-              name="content"
-              editor={ClassicEditor}
-              onChange={(event, editor) => {
-                handleChangeContent(event, editor);
-              }}
-              onReady={(editor) => {
-                editor.editing.view.change((writer) => {
-                  writer.setStyle(
-                    "height",
-                    "200px",
-                    editor.editing.view.document.getRoot()
-                  );
-                });
-              }}
-            ></CKEditor>
+          <Form.Item
+            label="Leaving From Station"
+            style={{ minWidth: '100%' }}
+            rules={[
+              {
+                required: true,
+                message: 'From Station is required!',
+                transform: (value) => value.trim(),
+              },
+            ]}
+          >
+            <Select options={ arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} value={formik.values.fromStation} placeholder='Please enter Leaving from' />
           </Form.Item>
 
+          <Form.Item
+            label="Going To Station"
+            style={{ minWidth: '100%' }}
+            rules={[
+              {
+                required: true,
+                message: 'To Station is required!',
+                transform: (value) => value.trim(),
+              },
+            ]}
+          >
+            <Select options={ arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} value={formik.values.toStation} placeholder='Please enter Going to' />
+          </Form.Item>
 
           <Form.Item
             label="Begin Date"

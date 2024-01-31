@@ -176,7 +176,7 @@ export default function EditTrip(props) {
                         <Select placeholder="Please enter Station, Start and Finish time!!" options={
                             arrEnableBus?.filter(({ stations }) =>
                                 stations.some(x => x.id == formik.values.fromStationId)).map((item, index) =>
-                                    ({ key: index, label: item.busPlate, value: item.id })
+                                    ({ key: index, label: item.busPlate + " (" + item.busType.name + ")", value: item.id })
                                 )}
                             onChange={handleChangeBus} value={formik.values.busId} />
                     </Form.Item>

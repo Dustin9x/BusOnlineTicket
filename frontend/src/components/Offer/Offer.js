@@ -1,12 +1,10 @@
 /* eslint-disable no-lone-blocks */
 import { Button, Card, Carousel, Modal, Tag, notification } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { CopyOutlined } from '@ant-design/icons';
+import { CopyOutlined, CheckOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { getTripListAction } from "../../redux/actions/TripAction";
 import { DOMAIN } from "../../util/settings/config";
-import { getPromoteTripListAction } from "../../redux/actions/PromoteTripAction";
-import { getEnableOfferListAction, getOfferDetailAction, getOfferListAction } from "../../redux/actions/OfferAction";
+import { getEnableOfferListAction, getOfferDetailAction } from "../../redux/actions/OfferAction";
 import dayjs from "dayjs";
 import _ from "lodash";
 
@@ -20,8 +18,6 @@ export default function Offer(props) {
     useEffect(() => {
         dispatch(getEnableOfferListAction())
     }, [dispatch])
-
-    console.log("offerList", offerList)
 
     const showModal = () => {
         setIsModalOpen(true);
