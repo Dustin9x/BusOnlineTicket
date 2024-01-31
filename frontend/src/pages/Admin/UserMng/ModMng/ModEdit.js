@@ -97,7 +97,7 @@ const ModEdit = (props) => {
           ]}
         >
           <Input
-            // disabled
+            disabled
             className="text-dark"
             name="email"
             onChange={formik.handleChange}

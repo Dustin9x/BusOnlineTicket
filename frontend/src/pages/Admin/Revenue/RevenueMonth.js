@@ -100,7 +100,7 @@ export default function RevenueMonth() {
       <div className="">
         <DatePicker defaultValue={dayjs()} onChange={onChange} picker="year" />
         <div>
-          <h1 className="titleRevenueTable text-xl"> BIỂU ĐỒ DOANH THU THEO PHIM </h1>
+          <h1 className="titleRevenueTable text-xl">ANNUAL PROFIT CHART BY MONTH</h1>
           {arrChart.length === 0 || arrChart === undefined ? <Alert message="Nodata" className="text-center" type="warning" /> : ''}
           <div className="chartt" >
             <Bar data={datachart} style={{ height: '100%', maxHeight: '300px' }}></Bar>
@@ -109,7 +109,7 @@ export default function RevenueMonth() {
       </div>
       <hr />
       <div className="revenueTable">
-        <h1 className="titleRevenueTable text-xl">BẢNG DOANH THU THEO THÁNG </h1>
+        <h1 className="titleRevenueTable text-xl">ANNUAL PROFIT TABLE BY MONTH</h1>
       </div>
       <div>
         <Table columns={columns} dataSource={arrChart} f />

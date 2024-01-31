@@ -148,7 +148,7 @@ export default function FAQMng() {
   ]
   return <div>
     <div className='d-flex mb-3'>
-      <h3 className='text-lg'>Bus Type Management</h3>
+      <h3 className='text-lg'>FAQ Management</h3>
       <Button href='/admin/faqmng/addnew' type="primary" className='ml-3 small bg-primary'>+ Add New FAQ</Button>
     </div>
     <Table columns={columns} dataSource={data} rowKey={'id'} />
