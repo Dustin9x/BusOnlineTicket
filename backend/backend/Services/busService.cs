@@ -36,14 +36,18 @@ namespace backend.Services
             db.Buses.Add(Bus);
             await db.SaveChangesAsync();
 
-            List<string> list = Bus.StationId.Split(",").ToList();
-            for (int i = 0; i < list.Count; i++)
+            if (Bus.StationId != null)
             {
-                int id = Int32.Parse(list[i]);
-                BusStation station = new BusStation { BusId = Bus.Id, StationId = id };
-                db.BusStations.Add(station);
-                await db.SaveChangesAsync();
+                List<string> list = Bus.StationId.Split(",").ToList();
+                for (int i = 0; i < list.Count; i++)
+                {
+                    int id = Int32.Parse(list[i]);
+                    BusStation station = new BusStation { BusId = Bus.Id, StationId = id };
+                    db.BusStations.Add(station);
+                    await db.SaveChangesAsync();
+                }
             }
+                
             return true;
         }
 
@@ -65,13 +69,16 @@ namespace backend.Services
                     await db.SaveChangesAsync();
                 }
                 var BusId = Id;
-                List<string> list = Bus.StationId.Split(",").ToList();
-                for (int i = 0; i < list.Count; i++)
+                if(Bus.StationId != null)
                 {
-                    int id = Int32.Parse(list[i]);
-                    BusStation newStation = new BusStation { BusId = BusId, StationId = id };
-                    db.BusStations.Add(newStation);
-                    await db.SaveChangesAsync();
+                    List<string> list = Bus.StationId.Split(",").ToList();
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        int id = Int32.Parse(list[i]);
+                        BusStation newStation = new BusStation { BusId = BusId, StationId = id };
+                        db.BusStations.Add(newStation);
+                        await db.SaveChangesAsync();
+                    }
                 }
                 await db.SaveChangesAsync();
                 return true;

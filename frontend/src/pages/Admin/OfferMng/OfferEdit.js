@@ -48,16 +48,24 @@ const OfferEdit = (props) => {
       image: offerDetail.image
     },
     onSubmit: async (values) => {
-      let formData = new FormData();
-      for (let key in values) {
-        if (key !== "UploadImage") {
-          formData.append(key, values[key]);
-        } else {
-          formData.append('UploadImage', values['UploadImage']);
+      if (values.title == "" || values.offerCode == "" || values.discount == "" || values.beginDate == "" || values.endDate == "") {
+        notification.error({
+          closeIcon: true,
+          message: "Error",
+          description: <>Please fill in all required fields.</>,
+        });
+      } else {
+        let formData = new FormData();
+        for (let key in values) {
+          if (key !== "UploadImage") {
+            formData.append(key, values[key]);
+          } else {
+            formData.append('UploadImage', values['UploadImage']);
+          }
         }
+        console.table("formData", [...formData]);
+        dispatch(updateOfferAction(id, formData));
       }
-      console.table("formData", [...formData]);
-      dispatch(updateOfferAction(id, formData));
     },
   });
 
@@ -115,11 +123,11 @@ const OfferEdit = (props) => {
     }
   }
 
-  const handleChangeFromStation = (value,data) => {
+  const handleChangeFromStation = (value, data) => {
     formik.setFieldValue('fromStation', value)
   };
 
-  const handleChangeToStation = (value,data) => {
+  const handleChangeToStation = (value, data) => {
     formik.setFieldValue('toStation', value)
   };
 
@@ -190,7 +198,7 @@ const OfferEdit = (props) => {
               },
             ]}
           >
-            <Select options={ arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} value={formik.values.fromStation} placeholder='Please enter Leaving from' />
+            <Select options={arrStation?.filter(x => x.name != formik.values.toStation).map((item, index) => ({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeFromStation} value={formik.values.fromStation} placeholder='Please enter Leaving from' />
           </Form.Item>
 
           <Form.Item
@@ -204,7 +212,7 @@ const OfferEdit = (props) => {
               },
             ]}
           >
-            <Select options={ arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) =>({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} value={formik.values.toStation} placeholder='Please enter Going to' />
+            <Select options={arrStation?.filter(x => x.name != formik.values.fromStation).map((item, index) => ({ key: index, label: item?.name, value: item.name }))} onChange={handleChangeToStation} value={formik.values.toStation} placeholder='Please enter Going to' />
           </Form.Item>
 
           <Form.Item

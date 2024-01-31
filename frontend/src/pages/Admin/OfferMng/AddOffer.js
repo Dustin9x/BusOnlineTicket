@@ -41,7 +41,7 @@ const AddOffer = () => {
       image: ""
     },
     onSubmit: (values) => {
-      if (values.title == "" || values.offerCode == "") {
+      if (values.title == "" || values.offerCode == "" || values.discount == "" || values.beginDate == "" || values.endDate == "") {
         notification.error({
           closeIcon: true,
           message: "Error",
@@ -213,6 +213,7 @@ const AddOffer = () => {
 
           <Form.Item
             label="Begin Date"
+            name="beginDate"
             rules={[
               {
                 required: true,
@@ -220,11 +221,12 @@ const AddOffer = () => {
               },
             ]}
           >
-            <DatePicker format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeBeginDate} onOk={onOkBeginDate} />
+            <DatePicker name="beginDate" rules={[{required:true, message: 'Begin Date can not be blank!'}]} format={day => day.tz("Asia/Saigon").format(dateFormat)} onChange={onChangeBeginDate} onOk={onOkBeginDate} />
           </Form.Item>
 
           <Form.Item
             label="End Date"
+            name="endDate"
             rules={[
               {
                 required: true,
@@ -238,6 +240,7 @@ const AddOffer = () => {
           <Form.Item label="Image">
             <input
               name="UploadImage"
+              required
               type="file"
               onChange={handleChangeFile}
               accept="image/png, image/jpeg,image/gif,image/png"

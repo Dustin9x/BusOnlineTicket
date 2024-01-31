@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Button } from 'antd';
+import { Form, Input, Select, Button, notification } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBusByIdAction, getBusTypeListAction, updateBusByIdAction } from '../../../redux/actions/BusAction';
@@ -22,7 +22,7 @@ const EditBus = (props) => {
 
   let defaultValue = [];
   if (localStorage.getItem('busStaionDefault')) {
-    defaultValue = JSON.parse(localStorage.getItem('busStaionDefault')).split(",").map(Number);
+    defaultValue = JSON.parse(localStorage.getItem('busStaionDefault'))?.split(",").map(Number);
   }
 
   const options = [];
@@ -38,17 +38,27 @@ const EditBus = (props) => {
     initialValues: {
       busPlate: busDetail?.busPlate,
       busTypeId: busDetail?.busTypeId,
-      stationId: busDetail?.stationId,
+      stationId: busDetail?.stationId || [],
       note: busDetail?.note || '',
     },
     onSubmit: (values) => {
-      let formData = new FormData();
-      for (let key in values) {
-        formData.append(key, values[key]);
+      if (values.busPlate == '' || values.busTypeId == '' || values.stationId == '') {
+        notification.error({
+          closeIcon: true,
+          message: 'Error',
+          description: (
+            <>Please fill in all required fields.</>
+          ),
+        });
+      } else {
+        let formData = new FormData();
+        for (let key in values) {
+          formData.append(key, values[key]);
+        }
+        console.table('formData', [...formData])
+        dispatch(updateBusByIdAction(id, formData))
+        localStorage.removeItem("busStaionDefault");
       }
-      console.table('formData', [...formData])
-      dispatch(updateBusByIdAction(id, formData))
-      localStorage.removeItem("busStaionDefault");
     }
   })
 
