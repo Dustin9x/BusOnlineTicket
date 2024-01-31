@@ -25,6 +25,7 @@ export default function AddNewTrip(props) {
   let { arrEnableBus } = useSelector(state => state.BusReducer);
   let { arrStation } = useSelector(state => state.StationReducer);
   let { arrDriver } = useSelector(state => state.DriverReducer);
+  const [arrDriverNew, setArrDriverNew] = useState(null)
   const { RangePicker } = DatePicker;
 
   useEffect(() => {
@@ -70,16 +71,23 @@ export default function AddNewTrip(props) {
 
   const handleChangeDriver = (value) => {
     formik.setFieldValue('driverId', value)
+    
   };
 
   const onChangeDate = (value) => {
     formik.setFieldValue('startTime', value[0]);
     formik.setFieldValue('finishTime', value[1]);
+    setArrDriverNew ( arrDriver.filter((item) => 
+    item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(value[0]),dayjs(value[1]))  
+      ||  dayjs(item2.finishTime).isBetween(dayjs(value[0]),dayjs(value[1])))  )).length > 0 ?false:true  ))
   };
 
   const onOk = (value) => {
     formik.setFieldValue('startTime', value[0]);
     formik.setFieldValue('finishTime', value[1]);
+    setArrDriverNew ( arrDriver.filter((item) => 
+    item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(value[0]),dayjs(value[1]))  
+      ||  dayjs(item2.finishTime).isBetween(dayjs(value[0]),dayjs(value[1])))  )).length > 0 ?false:true  ))
   };
 
 
@@ -202,7 +210,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriver?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
+          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
         </Form.Item>
 
         <Form.Item
