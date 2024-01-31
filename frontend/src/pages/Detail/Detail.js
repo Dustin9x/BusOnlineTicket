@@ -98,7 +98,7 @@ export function SettlePayment(props) {
 
 
     const checkTime = dayjs().isBetween(dayjs(offerCodeDetail?.beginDate), dayjs(offerCodeDetail?.endDate), 'date')
-    const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null)
+    const checkStation = offerCodeDetail?.fromStation == donHang?.fromStation && offerCodeDetail?.toStation == donHang?.toStation || (offerCodeDetail?.fromStation == null && offerCodeDetail?.toStation == null) || (offerCodeDetail?.fromStation == 'null' && offerCodeDetail?.toStation == 'null')
     
     if (offerCodeDetail?.offerCode != null && checkTime == true && checkStation == true) {
         voucherDiscount = priceBeforeVoucher * offerCodeDetail?.discount / 100;

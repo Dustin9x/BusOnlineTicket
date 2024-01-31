@@ -130,7 +130,7 @@ export default function Offer(props) {
                                     <div>Offer valid for registered users, please register an account first if you don't have.</div>
                                 </li>
                                 <li className="collection-item ">
-                                    {offerDetail.fromStation == null && offerDetail.toStation == null ? "Offer applied for all routes" : `Offer valid only on the route ${offerDetail.fromStation} - ${offerDetail.toStation}`}
+                                    {offerDetail.fromStation == null && offerDetail.toStation == null || offerDetail.fromStation == 'null' && offerDetail.toStation == 'null' ? "Offer applied for all routes" : `Offer valid only on the route ${offerDetail.fromStation} - ${offerDetail.toStation}`}
                                 </li>
                                 <li className="collection-item ">
                                     <div>Offer is valid from {dayjs(offerDetail.beginDate).format("DD-MM-YYYY")} to {dayjs(offerDetail.endDate).format("DD-MM-YYYY")}</div>
