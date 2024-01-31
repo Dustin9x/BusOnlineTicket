@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { EditOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
 import { Avatar, Button, Input, Modal, Space, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
 import { deleteTripAction, getTripByIdAction, getTripListAction } from '../../../redux/actions/TripAction';
 import { DOMAIN } from '../../../util/settings/config';
 import SeatMapAdmin from '../../../components/SeatMap/SeatMapAdmin';
@@ -47,8 +46,6 @@ export default function TripMng() {
   };
 
   const data = arrTrip;
-
-  console.log('arrTrip', arrTrip)
 
   const getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters, close, }) => (

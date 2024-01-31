@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Select, Checkbox } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUserAction, getUserByIdAction, updateUser, updateUserAction } from "../../../redux/actions/UserAction";
+import { getCurrentUserAction, getUserByIdAction, updateUserAction } from "../../../redux/actions/UserAction";
 import { useFormik } from "formik";
-import { values } from "lodash";
-import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
+import { DOMAIN, TOKEN } from "../../../util/settings/config";
 import { useEffect } from "react";
 const { Option } = Select;
 

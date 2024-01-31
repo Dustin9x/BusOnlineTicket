@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { TOKEN, USER_LOGIN } from '../../../util/settings/config'
-import { cancelTicketAction, getTicketByUserAction } from '../../../redux/actions/OrderAction'
-import { Button, Input, Space, Table, Tag, Form, Modal, notification } from 'antd'
+import { getTicketByUserAction } from '../../../redux/actions/OrderAction'
+import { Button, Input, Space, Table, Tag, Modal } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words'
 import TicketLeaf from '../../../components/TicketLeaf/TicketLeaf'

@@ -13,23 +13,10 @@ import {
   getListModAction,
   getModByIdAction,
 } from "../../../../redux/actions/ModAction";
-import { DOMAIN, TOKEN, USER_LOGIN } from "../../../../util/settings/config";
-import { history } from "../../../../App";
+import { DOMAIN } from "../../../../util/settings/config";
 
 export default function ModMng() {
   let userLogin = {};
-  // if (localStorage.getItem(USER_LOGIN)) {
-  //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  // }
-
-  // if (!localStorage.getItem(TOKEN)) {
-  //     history.replace('/')
-  // }
-
-  // if (userLogin.role !== 'Super') {
-  //     alert('Bạn không có quyền truy cập trang này!');
-  //     history.replace('/')
-  // }
   const dispatch = useDispatch();
   let { arrMod } = useSelector((state) => state.ModReducer);
   useEffect(() => {

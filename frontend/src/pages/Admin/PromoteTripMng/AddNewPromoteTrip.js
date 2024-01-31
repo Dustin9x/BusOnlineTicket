@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, Button, notification, Select } from 'antd';
+import { Form, Button, notification, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewPromoteTripAction } from '../../../redux/actions/PromoteTripAction';

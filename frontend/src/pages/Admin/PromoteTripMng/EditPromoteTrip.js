@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, DatePicker, InputNumber, Switch, Button, Select } from 'antd';
+import { Form, Button, Select } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import dayjs from 'dayjs';
 import { getPromoteTripByIdAction, updatePromoteTripByIdAction } from '../../../redux/actions/PromoteTripAction';
 import { DOMAIN } from '../../../util/settings/config';
 import { getStationListAction } from '../../../redux/actions/StationAction';

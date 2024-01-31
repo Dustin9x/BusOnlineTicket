@@ -1,7 +1,6 @@
 import { GET_MOD_LIST, GET_MOD_DETAIL } from "../constants";
 import { history } from "../../App";
-import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
-import { ModService, modService } from "../../services/ModService";
+import { modService } from "../../services/ModService";
 import { notification } from "antd";
 
 export const getListModAction = () => {

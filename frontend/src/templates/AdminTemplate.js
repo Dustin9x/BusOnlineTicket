@@ -1,18 +1,15 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { HomeOutlined, UserOutlined, BuildFilled, QuestionOutlined, BarChartOutlined, FormOutlined, PercentageOutlined, NodeIndexOutlined, CarOutlined, SearchOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Button, Input, Form, Modal, Descriptions } from 'antd';
+import { Layout, Menu, theme, Button, Input, Modal, Descriptions } from 'antd';
 import { NavLink } from "react-router-dom";
-import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { TOKEN, USER_LOGIN } from "../util/settings/config";
+import { TOKEN } from "../util/settings/config";
 import { history } from "../App";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import { getCurrentUserAction } from "../redux/actions/UserAction";
 import { checkTicketAction } from "../redux/actions/OrderAction";
 import dayjs from "dayjs";
-import CheckTicket from "../components/CheckTicket/CheckTicket";
-import { DELETE_TICKET_DETAIL } from "../redux/constants";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {
@@ -38,7 +35,6 @@ export const AdminTemplate = (props) => { //path, exact, Component
   const selectedKeys = ['/admin/busmng', '/admin/stationmng', '/admin/theatremng', '/admin/theatrechildmng', '/admin/users',]
   const selectedKey = (selectedKeys.indexOf(props.path) + 1).toString();
 
-  console.log('ticketDetail', ticketDetail)
   let accessToken = {}
   if (localStorage.getItem(TOKEN)) {
     accessToken = localStorage.getItem(TOKEN)

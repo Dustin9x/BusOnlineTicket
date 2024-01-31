@@ -58,7 +58,6 @@ export default function NewsDetail(props) {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
   const comments = newsDetail.comments;
-  console.log("detail:",comments);
   const renderBinhLuan = () => {
    return comments?.map((item, index) => {
         const content = (

@@ -29,7 +29,6 @@ export default function SelectBus(props) {
   };
 
   const handleSubmit = (e) => {
-    console.log("checkk:",From);
     if (From === null || To === null) {
       e.preventDefault();
       notification.error({

@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Card, Tabs } from "antd";
-import dayjs from "dayjs";
+import { Card, Tabs } from "antd";
 import SelectBus from "../../components/SelectBus/SelectBus";
-import TabPane from "antd/es/tabs/TabPane";
 import CheckTicket from "../../components/CheckTicket/CheckTicket";
 import PopularRoute from "../../components/PopularRoute/PopularRoute";
 import Information from "../../components/Information/Information";

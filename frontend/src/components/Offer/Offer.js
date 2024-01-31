@@ -1,7 +1,7 @@
 /* eslint-disable no-lone-blocks */
 import { Button, Card, Carousel, Modal, Tag, notification } from "antd";
-import React, { useEffect, useRef, useState } from "react";
-import { CopyOutlined, CheckOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from "react";
+import { CopyOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { DOMAIN } from "../../util/settings/config";
 import { getEnableOfferListAction, getOfferDetailAction } from "../../redux/actions/OfferAction";

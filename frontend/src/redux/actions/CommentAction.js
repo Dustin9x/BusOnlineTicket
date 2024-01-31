@@ -1,7 +1,5 @@
-import { newService } from "../../services/NewService";
 import { notification } from 'antd';
-import { history } from '../../App';
-import { CommentService, commentService } from "../../services/CommentService";
+import { commentService } from "../../services/CommentService";
 import { detailNewsAction } from "./NewAction";
 
 

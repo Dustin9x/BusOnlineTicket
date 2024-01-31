@@ -1,4 +1,3 @@
-import { driverService } from "../../services/DriverService";
 import { GET_USER_LIST, LAY_LAI_MAT_KHAU_ACTION, GET_USER_DETAIL, GET_PROFILE_DETAIL, GET_CURRENT_USER_ACTION } from "../constants";
 import { history } from "../../App";
 import { displayLoadingAction, hideLoadingAction } from "./LoadingAction";
@@ -233,7 +232,6 @@ export const updateUserAction = (id, newUser) => {
       });
       const result2 = await userService.getUserById(id);
       const userDetail = result2.data.data[0]
-      console.log(userDetail);
       history.goBack();
 
     } catch (error) {

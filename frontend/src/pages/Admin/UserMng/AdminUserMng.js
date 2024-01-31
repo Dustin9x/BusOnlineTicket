@@ -4,9 +4,8 @@ import { Avatar, Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUser, deleteUserAction, getListUserAction, getUserByIdAction } from "../../../redux/actions/UserAction";
-import { DOMAIN, TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
+import { deleteUserAction, getListUserAction, getUserByIdAction } from "../../../redux/actions/UserAction";
+import { DOMAIN } from "../../../util/settings/config";
 
 export default function AdminUserMng() {
   const dispatch = useDispatch();

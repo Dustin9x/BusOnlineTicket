@@ -1,4 +1,4 @@
-import { GET_BUS_LIST, GET_BUS_TYPE_DETAIL, GET_BUS_TYPE_LIST, GET_STATION_DETAIL, GET_STATION_LIST } from "../constants";
+import { GET_STATION_DETAIL, GET_STATION_LIST } from "../constants";
 
 const initialState = {
     arrStation: [],

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Radio, Checkbox, Slider, Result } from "antd";
 import { FrownOutlined } from '@ant-design/icons';
-import { useParams } from "react-router-dom";
 import SelectBus from "../../components/SelectBus/SelectBus";
 import { getTripListOptionsAction } from "../../redux/actions/TripAction";
 import TripCard from "../../components/TripCard/TripCard";

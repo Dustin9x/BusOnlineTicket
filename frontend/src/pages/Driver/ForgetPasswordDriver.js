@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { forgetPassword } from "../../redux/actions/DriverAction";
 
 export default function ForgetPasswordDriver(props) {

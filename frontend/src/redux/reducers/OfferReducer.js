@@ -1,5 +1,4 @@
-import _ from "lodash";
-import { GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE, GET_OFFER_CHUNK, GET_ENABLE_OFFER_LIST } from "../constants";
+import { GET_OFFER_LIST, GET_OFFER_DETAIL, GET_OFFER_BY_CODE, GET_ENABLE_OFFER_LIST } from "../constants";
 
 const initialState = {
     arrOffer: [],

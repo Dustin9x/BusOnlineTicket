@@ -6,9 +6,7 @@ import {
   updateModAction,
 } from "../../../../redux/actions/ModAction";
 import { useFormik } from "formik";
-import { values } from "lodash";
-import { DOMAIN, TOKEN, USER_LOGIN } from "../../../../util/settings/config";
-import { history } from "../../../../App";
+import { DOMAIN } from "../../../../util/settings/config";
 import { useEffect } from "react";
 const { Option } = Select;
 

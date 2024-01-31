@@ -3,24 +3,10 @@ import { Form, Input, Button, Select } from "antd";
 import { createUserAction } from "../../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
 const { Option } = Select;
 
 const AddUser = () => {
   let userLogin = {};
-  // if (localStorage.getItem(USER_LOGIN)) {
-  //     userLogin = JSON.parse(localStorage.getItem(USER_LOGIN))
-  // }
-
-  // if (!localStorage.getItem(TOKEN)) {
-  //     history.replace('/')
-  // }
-
-  // if (userLogin.role !== 'Super') {
-  //     alert('Bạn không có quyền truy cập trang này!');
-  //     history.replace('/')
-  // }
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState("");
   const formik = useFormik({

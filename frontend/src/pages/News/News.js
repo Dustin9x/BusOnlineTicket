@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getListNewsAction } from "./../../redux/actions/NewAction";
-import { Avatar, Card, List, Pagination } from "antd";
-import dayjs from "dayjs";
+import { Card, List, Pagination } from "antd";
 import { DOMAIN } from "../../util/settings/config";
 
 export default function News() {
-  //   const { arrNews } = useSelector(state => state.NewsReducer);
   const { arrNews } = useSelector((state) => state.NewReducer);
 
   const dispatch = useDispatch();

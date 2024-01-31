@@ -1,6 +1,5 @@
 import { QRCode } from "antd"
 import dayjs from "dayjs"
-import { useSelector } from "react-redux"
 import './Ticket.css'
 
 export default function TicketLeaf(props) {
@@ -15,7 +14,6 @@ export default function TicketLeaf(props) {
     const startTime = donHang?.startTime || donHang.trips.startTime;
     const note = donHang?.note;
 
-    console.log('donHang',donHang)
     return (
         <div className="flex justify-center">
             <div className="card cardLeft">

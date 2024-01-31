@@ -1,15 +1,14 @@
 import { Fragment, useEffect, useState } from "react";
 import { Route } from "react-router-dom";
-import { HomeOutlined, SmileOutlined, HistoryOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme, Button, Avatar, Popover } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Layout, Menu, theme, Button } from 'antd';
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
-import { TOKEN, USER_LOGIN } from "../util/settings/config";
+import { TOKEN } from "../util/settings/config";
 import { history } from "../App";
 import UserAvatar from "../components/UserAvatar/UserAvatar";
 import { getCurrentUserAction } from "../redux/actions/UserAction";
-// import { layThongTinNguoiDungAction } from "../redux/actions/DriverAction";
 const { Header, Content, Sider } = Layout;
 
 function getItem(label, key, icon, children) {

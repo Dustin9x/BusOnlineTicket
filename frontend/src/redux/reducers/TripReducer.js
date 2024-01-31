@@ -1,4 +1,4 @@
-import { GET_CUM_RAP_CHIEU, GET_DANH_SACH_TINH_THANH, GET_TRIP_DETAIL, GET_TRIP_LIST } from "../constants"
+import { GET_TRIP_DETAIL, GET_TRIP_LIST } from "../constants"
 
 const initialState = {
   arrTrip: [],

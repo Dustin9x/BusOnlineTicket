@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
-import { Button, Avatar, Popover, Input } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import _ from 'lodash';
-import { TOKEN, USER_LOGIN } from '../../../util/settings/config';
-import { history } from '../../../App';
+import { TOKEN } from '../../../util/settings/config';
 import { useDispatch, useSelector } from 'react-redux';
 import UserAvatar from '../../../components/UserAvatar/UserAvatar';
 import { getCurrentUserAction } from '../../../redux/actions/UserAction';

@@ -49,7 +49,6 @@ const ProfileDriver = () => {
       }
       console.table("newDriver", [...newDriver]);
       const resultt = dispatch(updateByDriverAction(id, newDriver));
-      console.log("result",resultt);
       setChecked(false)
     },
   });

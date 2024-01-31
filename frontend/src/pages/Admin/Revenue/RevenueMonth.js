@@ -12,15 +12,9 @@ import {
 import { Bar } from "react-chartjs-2";
 import "./revenueroute.css";
 import { useDispatch, useSelector } from "react-redux";
-import { GetProfitAction, GetProfitByMonthAction } from "../../../redux/actions/ProfitAction";
+import { GetProfitByMonthAction } from "../../../redux/actions/ProfitAction";
 import dayjs from "dayjs";
-import { groupBy, sumBy } from "lodash";
-import { TOKEN, USER_LOGIN } from "../../../util/settings/config";
-import { history } from "../../../App";
-
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
-
-
 
 export default function RevenueMonth() {
 

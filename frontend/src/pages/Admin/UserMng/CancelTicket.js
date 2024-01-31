@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { cancelTicketAction, checkTicketAction } from '../../../redux/actions/OrderAction';
 import { Form, Input, notification } from 'antd';
-import { UserOutlined, HomeOutlined, CreditCardOutlined, BankOutlined } from '@ant-design/icons';
+import { UserOutlined, CreditCardOutlined, BankOutlined } from '@ant-design/icons';
 import dayjs from "dayjs";
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)

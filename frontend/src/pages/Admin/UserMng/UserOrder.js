@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getTicketByUserAction, getTicketListForCustomerAction } from '../../../redux/actions/OrderAction'
+import { getTicketListForCustomerAction } from '../../../redux/actions/OrderAction'
 import { Button, Input, Space, Table, Tag } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';

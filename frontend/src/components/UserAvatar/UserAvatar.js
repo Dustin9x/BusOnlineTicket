@@ -1,9 +1,8 @@
 import { Button, Avatar, Popover } from 'antd';
-import { DOMAIN, TOKEN, USER_LOGIN } from '../../util/settings/config';
+import { DOMAIN, TOKEN } from '../../util/settings/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getCurrentUserAction } from '../../redux/actions/UserAction';
-import _ from 'lodash';
 
 export default function UserAvatar(props) {
     let { userLogin } = useSelector(state => state.UserReducer);

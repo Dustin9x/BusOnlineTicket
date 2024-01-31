@@ -1,24 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Button, Select, Input, notification, DatePicker } from 'antd';
+import { Form, Button, Select, Input, DatePicker } from 'antd';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBusListAction, getEnableBusListAction } from '../../../redux/actions/BusAction';
+import { getEnableBusListAction } from '../../../redux/actions/BusAction';
 import { getStationListAction } from '../../../redux/actions/StationAction';
-import dayjs, { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import isBetween from 'dayjs/plugin/isBetween';
 import { addNewTripAction } from '../../../redux/actions/TripAction';
 import { getDriverAction } from '../../../redux/actions/DriverAction';
-import _ from 'lodash';
 dayjs.extend(isBetween)
 dayjs.extend(customParseFormat);
 
-
-
-const FromTo = {
-  from: 0,
-  to: 0,
-}
 export default function AddNewTrip(props) {
   const dispatch = useDispatch();
   const [imgSrc, setImgSrc] = useState('')

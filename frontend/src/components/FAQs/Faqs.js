@@ -1,4 +1,4 @@
-import { Collapse, Divider } from 'antd';
+import { Collapse } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFAQListAction } from '../../redux/actions/FAQAction';
@@ -10,11 +10,6 @@ export default function Faqs() {
     useEffect(() => {
         dispatch(getFAQListAction())
     }, [dispatch])
-    const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
 
     const onChange = (key) => {
         console.log(key);

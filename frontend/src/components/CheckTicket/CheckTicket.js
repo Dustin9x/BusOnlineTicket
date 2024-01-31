@@ -1,10 +1,9 @@
-import { Badge, Descriptions, Form, Input } from "antd";
-import React, { useEffect, useRef, useState } from "react";
+import { Descriptions, Input } from "antd";
+import React, { useEffect, useState } from "react";
 import { SearchOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { checkTicketAction } from "../../redux/actions/OrderAction";
 import dayjs from "dayjs";
-import { values } from 'lodash';
 var relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 
@@ -14,9 +13,6 @@ export default function CheckTicket(props) {
   const dispatch = useDispatch()
   const [code, setCode] = useState(null)
   const { ticketDetail } = useSelector(state => state.OrderReducer)
-
-  console.log('checkingCode', checkingCode)
-  console.log('ticketDetail nha', ticketDetail)
 
   useEffect(() => {
     if (checkingCode != "") {

@@ -1,4 +1,4 @@
-import { DriverService, driverService } from "../../services/DriverService"
+import { driverService } from "../../services/DriverService"
 import { GET_DRIVER_DETAIL, GET_DRIVER_LIST, GET_REGISTER_DRIVER_LIST } from "../constants";
 import { history } from '../../App';
 import { notification } from "antd";
@@ -92,7 +92,6 @@ export const addDriverByUserAction = (newDriver) => {
     return async (dispatch) => {
         try {
             const result = await driverService.postDriver(newDriver);
-            console.log("check status: ", result.data);
          
             if(result.data.status===200){
                 notification.success({
@@ -229,7 +228,6 @@ export const loginDriverAction = (loginDriverInfo) => {
     return async (dispatch) => {
       try {
         const result = await driverService.loginDriver(loginDriverInfo);
-        console.log("check: ", result.data.data.isApprove);
         if(result.data.data.isApprove){
             if (result.status === 200) {
                 localStorage.setItem("driverId", result.data.data.id);

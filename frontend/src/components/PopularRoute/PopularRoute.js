@@ -1,9 +1,7 @@
 /* eslint-disable no-lone-blocks */
 import { Card, Carousel, Tag } from "antd";
-import React, { useEffect, useRef } from "react";
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getTripListAction } from "../../redux/actions/TripAction";
 import { DOMAIN } from "../../util/settings/config";
 import { getPromoteTripListAction } from "../../redux/actions/PromoteTripAction";
 import _ from "lodash";
@@ -11,7 +9,7 @@ import _ from "lodash";
 export default function PopularRoute(props) {
     const { Meta } = Card;
     const dispatch = useDispatch();
-    let { arrPromoteTrip, routeList } = useSelector(state => state.PromoteTripReducer);
+    let { routeList } = useSelector(state => state.PromoteTripReducer);
     useEffect(() => {
         dispatch(getPromoteTripListAction())
     }, [dispatch])

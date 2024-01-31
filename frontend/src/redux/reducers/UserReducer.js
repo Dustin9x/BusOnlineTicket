@@ -1,8 +1,5 @@
-import { TOKEN, USER_LOGIN } from "../../util/settings/config";
 import {
-  GET_DRIVER_LIST,
   GET_USER_LIST,
-  LOGIN_ACTION,
   GET_USER_DETAIL,
   GET_PROFILE_DETAIL,
   GET_CURRENT_USER_ACTION,

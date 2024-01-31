@@ -1,7 +1,6 @@
 import React from 'react'
-import { Button, Checkbox, Form, Input } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { UserReducer } from './../../redux/reducers/UserReducer';
+import { Form, Input } from 'antd';
+import { useDispatch } from 'react-redux';
 import { loginAction } from '../../redux/actions/UserAction';
 
 

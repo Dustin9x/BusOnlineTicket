@@ -1,8 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getTripByIdAction } from "../../redux/actions/TripAction";
 import { Button } from "antd";
-import { DAT_VE } from "../../redux/constants";
 
 
 export default function SeatMapAdmin(props) {

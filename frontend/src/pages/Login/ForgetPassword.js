@@ -1,14 +1,10 @@
 import React from "react";
-import { Button, Checkbox, Form, Input } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Input } from "antd";
+import { useDispatch } from "react-redux";
 import { forgetPassword } from "../../redux/actions/UserAction";
-import { UserReducer } from "../../redux/reducers/UserReducer";
 
 export default function ForgetPassword(props) {
   const dispatch = useDispatch();
-
-  const { matkhau } = useSelector((state) => state.UserReducer);
-
   const onFinish = (values) => {
     const action = forgetPassword(values.email);
     dispatch(action);
