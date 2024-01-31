@@ -95,40 +95,42 @@ const ProfileDriver = () => {
               <pre>National Id: {profile.nationalId}</pre>
             </Typography>
           </div>
+       
           <div className='col-12'>
+            <Form.Item label="Change password?">
+              <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
+            </Form.Item>
+          </div>
+
+        {checked ? (
+          <div className='col-12'>
+            
+            <Form   layout="horizontal" onSubmitCapture={formik.handleSubmit} >
+              <Form.Item rules={[{
+                required: true,
+                message: "Password  cannot be blank!",
+              },]}  >
+                <Input.Password className='' name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
+              </Form.Item>
+              <Form.Item label="">
+                <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Change</Button>
+              </Form.Item>
+            </Form>
+          </div>
+        ) : (
+          ""
+        )}
+
+
+        </div>
+        <div className='col-4'>
+        <div className='col-12'>
             <Typography>
               <pre>Driver License: {profile.driverLicense}</pre>
             </Typography>
           </div>
           <div className='col-12'>
-            <Form.Item label="Change password?">
-              <Checkbox checked={checked} onChange={onChangeCheck}></Checkbox>
-            </Form.Item>
-
-            {checked ? (
-              <div className='col-12'>
-                <Form labelCol={{ span: 4, }} wrapperCol={{ span: 14, }} layout="horizontal" onSubmitCapture={formik.handleSubmit} >
-                  <Form.Item rules={[{
-                    required: true,
-                    message: "Password  cannot be blank!",
-                  },]}  >
-                    <Input.Password name="password" onChange={formik.handleChange} value={formik.values.password} placeholder="Password" />
-                  </Form.Item>
-                  <Form.Item label="">
-                    <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Change</Button>
-                  </Form.Item>
-                </Form>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-
-
-        </div>
-        <div className='col-4'>
-
-          <div className='col-12'>
+        
             <Typography>
               <pre>YOB: {profile.yearOfBirth}</pre>
             </Typography>

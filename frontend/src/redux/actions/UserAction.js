@@ -74,7 +74,15 @@ export const registerAction = (thongTinDangKy) => {
         });
       }
     } catch (error) {
-      console.log(error);
+      notification.error({
+        closeIcon: true,
+        message: "Error",
+        description: (
+          <>
+            Sign in fail, Please try again!!.
+          </>
+        ),
+      });
     }
   };
 };
