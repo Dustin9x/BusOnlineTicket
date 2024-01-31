@@ -33,7 +33,11 @@ export const addNewsAction = (formData) => {
       });
       history.push('/admin/newsmng');
     } catch (error) {
-      console.log('error', error);
+      notification.error({
+        closeIcon: true,
+        message: "Fail",
+        description: <>Add News Fail.</>,
+      });
     }
   }
 }
@@ -91,7 +95,11 @@ export const updateNewsAction = (id, formData) => {
         history.push('/admin/newsmng');
       }
     } catch (error) {
-      console.log(error)
+      notification.error({
+        closeIcon: true,
+        message: "Fail",
+        description: <>Update News Fail.</>,
+      });
     }
   }
 }
