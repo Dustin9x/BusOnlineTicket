@@ -47,15 +47,15 @@ export default function DetailTripOfDriver() {
   const m = Math.floor((seconds % 3600) / 60);
   const s = Math.floor(seconds % 60);
 
-  const TripNotComplete = arrTrip.filter(item => item.driverId == Id && dayjs() < dayjs(item.startTime)).sort((a, b) => {
-    const aDate = Date.parse(a.finishTime);
-    const bDate = Date.parse(b.finishTime);
+  const TripNotComplete = arrTrip.filter(item => item?.driverId == Id && dayjs() < dayjs(item?.startTime)).sort((a, b) => {
+    const aDate = Date.parse(a?.finishTime);
+    const bDate = Date.parse(b?.finishTime);
     return aDate - bDate;
   });;
 
-  const TripComplete = arrTrip.filter(item => item.driverId == Id && Date.now() > dayjs(item.finishTime)).sort((a, b) => {
-    const aDate = Date.parse(a.finishTime);
-    const bDate = Date.parse(b.finishTime);
+  const TripComplete = arrTrip.filter(item => item?.driverId == Id && Date.now() > dayjs(item?.finishTime)).sort((a, b) => {
+    const aDate = Date.parse(a?.finishTime);
+    const bDate = Date.parse(b?.finishTime);
     return bDate - aDate;
   });;
 
@@ -71,11 +71,11 @@ export default function DetailTripOfDriver() {
       title: 'Trip Code',
       dataIndex: 'id',
       key: 'id',
-      sorter: (a, b) => a.id - b.id,
+      sorter: (a, b) => a?.id - b?.id,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item?.id ? <span style={{ color: "red",   }} color="magenta">PHTV{item?.id}</span> : <span color="magenta">PHTV{item?.id}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red",   }} color="magenta">PHTV{item?.id}</span> : <span color="magenta">PHTV{item?.id}</span>}
 
         </>
       },
@@ -85,8 +85,8 @@ export default function DetailTripOfDriver() {
       dataIndex: 'image',
       key: 'image',
       render: (text, item, index) => {
-        return item.image != "null" || item.image != null
-          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Trip/${item.image}`} alt={item.image} />
+        return item?.image != "null" || item?.image != null
+          ? <img key={index} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: '50%' }} src={`${DOMAIN}/Images/Trip/${item?.image}`} alt={item?.image} />
           : <Avatar size={40} style={{ fontSize: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} icon={"H"} />
       }
     },
@@ -107,7 +107,7 @@ export default function DetailTripOfDriver() {
       title: 'To Station',
       dataIndex: 'toStation',
       key: 'toStation',
-      sorter: (a, b) => a.toStation?.name.length - b.toStation?.name.length,
+      sorter: (a, b) => a.toStation?.name?.length - b.toStation?.name?.length,
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
@@ -136,7 +136,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.finishTime}</span> : <span color="magenta">{item?.finishTime}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.finishTime}</span> : <span color="magenta">{item?.finishTime}</span>}
         </>
       },
 
@@ -149,7 +149,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2.id == item?.id ? <span style={{ color: "red" }} color="magenta">${item?.ticketPrice}</span> : <span color="magenta">${item?.ticketPrice}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" }} color="magenta">${item?.ticketPrice}</span> : <span color="magenta">${item?.ticketPrice}</span>}
         </>
       },
     },
@@ -160,7 +160,7 @@ export default function DetailTripOfDriver() {
       render: (text, item) => {
         const h =dayjs(item?.finishTime).diff(item?.startTime, 'hour');
         return <>
-        {data2.id == item?.id ?  <span style={{ color: "red" }} >{h}</span>:  <span>{h}</span>}
+        {data2?.id == item?.id ?  <span style={{ color: "red" }} >{h}</span>:  <span>{h}</span>}
         </>
       },
     },
@@ -224,8 +224,8 @@ export default function DetailTripOfDriver() {
         <ProfileDriver></ProfileDriver>
       </Modal>
       <div className='text-center text-red-500 font-sans mb-3 '>Current journey</div>
-      {tripNow.length>0? <Table dataSource={tripNow} columns={columns} sort={false}  pagination={false}/>:""}
-      <div className='text-center text-red-500 font-sans mt-5'><Tag color="" style={{ fontSize:"20px"}}> Next departure time:  {d}(d)--{h}(h)--{m}(m)--{s}(s)</Tag></div>
+    <Table dataSource={tripNow} columns={columns} sort={false}  pagination={false}/>
+      <div className='text-center text-red-500 font-sans mt-5'><Tag color="" style={{ fontSize:"20px"}}> Next departure time: {s!=0?<>{d}(d)--{h}(h)--{m}(m)--{s}(s)</>:"There is currently no next run scheduled!!"} </Tag></div>
       <Tabs defaultActiveKey="1" items={items} />
     </div>
 

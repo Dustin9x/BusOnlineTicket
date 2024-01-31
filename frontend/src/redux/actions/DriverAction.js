@@ -57,16 +57,34 @@ export const addDriverAction = (newDriver) => {
         try {
             const result = await driverService.postDriver(newDriver);
 
-            notification.success({
+           
+            if(result.data.status===200){
+                notification.success({
+                    closeIcon: true,
+                    message: 'Success',
+                    description: (
+                        <>Add driver successfully.</>
+                    ),
+                });
+                history.push('/admin/drivermng');
+            }
+            else if(result.data.status===409){
+                notification.error({
+                    closeIcon: true,
+                    message: 'Error',
+                    description: (
+                        <>Create Driver Fail!! Email Existed.</>
+                    ),
+                });
+            }
+        } catch (error) {
+            notification.error({
                 closeIcon: true,
-                message: 'Success',
+                message: 'Error',
                 description: (
-                    <>Add driver successfully.</>
+                    <>Create Driver Fail, Please try again!!.</>
                 ),
             });
-            history.push('/admin/drivermng');
-        } catch (error) {
-            alert("Create Fail . Please Try Again")
         }
     }
 }
