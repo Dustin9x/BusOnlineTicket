@@ -28,7 +28,7 @@ const AddUser = () => {
       name: "",
       email: "",
       password: "",
-      role: "",
+      role: "User",
       avatar: "",
     },
     onSubmit: async (values) => {
@@ -119,7 +119,7 @@ const AddUser = () => {
           <Input.Password name="password" onChange={formik.handleChange} placeholder="Password" />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name="role"
           label="Role"
           rules={[
@@ -134,7 +134,7 @@ const AddUser = () => {
             <Option value="Mod">Mod</Option>
             <Option value="User">User</Option>
           </Select>
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item label="Action">
           <Button htmlType="submit" className="btn-primary bg-primary" type="primary" > Add User </Button>

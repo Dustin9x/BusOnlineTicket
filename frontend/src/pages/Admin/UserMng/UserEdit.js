@@ -126,7 +126,7 @@ const UserEdit = (props) => {
           ""
         )}
 
-        {userLogin && userLogin.role != "User"
+        {userLogin && userLogin.role != "User" && userLogin.role != "Mod"
           ? <Form.Item
             label="Role"
             rules={[
