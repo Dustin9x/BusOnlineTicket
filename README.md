@@ -10,18 +10,6 @@ PHTV Bus Ticket Booking System is designed to automate the online ticket purchas
 
 If you found this project useful, then please consider giving it a ⭐ on Github and follow me on GitHub.
 
-## Components:
--   Carousel
--   Search Bar
--   Slider movie selection
--   Movie news
--   Movie detail pages with showtimes
--   Seat selection
--   Payment and get e-ticket
--   Login and Register
--   User profile
--   Admin CRUD
--   Many other components...
 
 ## How To Run
 -   Backend ()
@@ -29,7 +17,7 @@ If you found this project useful, then please consider giving it a ⭐ on Github
             ```bash
             Install SQL Server
             Create a account and let SQL Server run as service of Windows
-            Database already seeded in by code first method
+            Database already seeded in by code first method or you can download database in document folder
             ```
        -   Setup backend database
             ```bash
@@ -47,22 +35,19 @@ If you found this project useful, then please consider giving it a ⭐ on Github
             ```
             
 ## Features:
-       -   Login/Logout to System
-       -   Provides authentication
-       -   Search for schedule,
-       -   Select schedule that is Avaliable
-       -   Select seat
-       -   Filter the schedule by time, price and bus type
-       -   Purchase a Ticket
-       -   Make Online Payments
-       -   Apply discount voucher
-       -   Ticket tracking
-       -   Register to be driver
-       -   QR code scanner
-       -   A list of booked tickets
+       -   Login/Logout to System with authentication, encrypt password
+       -   Search for schedule, filter the schedule by time, price and bus type
+       -   Select seat, purchase a Ticket, make online payments, apply discount voucher
        -   Generates QR codes for confirmed tickets
-       -   Sends email notifications with QR codes
+       -   Sends forget password email, confirm ticket order email
+       -   Ticket tracking
        -   Cancel a Ticket and get refund
+       -   Register to be driver
+       -   Driver tracking their assigned bus and schedule
+       -   Overview Profit/Revenue by chart
+       -   Fully CRUD function in Admin page
+       -   …
+
        
 ## Techs:
        -   SQL Server - A proprietary relational database management system developed by Microsoft. 
@@ -73,26 +58,34 @@ If you found this project useful, then please consider giving it a ⭐ on Github
        
 ## Screenshots:
 <h3>Login Page:</h3>
-<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/e4344a6c-671b-48de-b54b-b62c338608cc" width="100%" alt="Homepage">
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/e4344a6c-671b-48de-b54b-b62c338608cc" width="100%" alt="Login Page">
 
 
 <h3>Home Page:</h3>
 <img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/3d832369-a678-4255-8045-3c03ac49f277" width="100%" alt="Homepage">
 
 
+<h3>Search/Sort/Filter the Trip:</h3>
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/00fe0264-59cf-45ae-beda-015c8dde70b1" width="100%" alt="Search/Sort/Filter the Trip">
+
+
+<h3>Seat Selecting:</h3>
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/defe2b87-507c-4f71-9429-5d9994b7a3b4" width="100%" alt="Seat Selecting">
+
+
+<h3>Ticket purchased:</h3>
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/d84a3fd5-abc3-419b-8aaf-23a8c6f10388" width="100%" alt="Ticket purchased">
+
+
 <h3>Admin Page:</h3>
-<img src="https://github.com/Dustin9x/PHTV-datvexemphim/assets/116355841/1751e471-92f1-49f9-8add-f1135cbacaa7" width="100%" alt="Adminpage">
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/cf26a6ac-7dbf-43b6-8c33-228982b83439" width="100%" alt="Adminpage">
 
 
-<h3>Movie Detail Page:</h3>
-<img src="https://github.com/Dustin9x/PHTV-datvexemphim/assets/116355841/86337f50-6656-4b25-9b5f-f8d94d5a97ee" width="100%" alt="Moviedetailpage">
-
-
-<h3>Seats Selecting Page:</h3>
-<img src="https://github.com/Dustin9x/PHTV-datvexemphim/assets/116355841/0c394db0-eb7c-45ea-9f66-77e496a88088" width="100%" alt="Seatsselect">
+<h3>Revenue/Profit chart:</h3>
+<img src="https://github.com/Dustin9x/BusOnlineTicket/assets/116355841/be44ce07-9cbb-4f44-b17d-86cb4a044f4a" width="100%" alt="Revenue/Profit">
 
 ## Introduction video:
-https://www.youtube.com/watch?v=eAeMKUPtbkk
+[https://www.youtube.com/watch?v=eAeMKUPtbkk](https://www.youtube.com/watch?v=Rp4BoOmFS-8)
 
 ## Collaborators:
        -   Phạm Huy Hoàng - Student1421362
