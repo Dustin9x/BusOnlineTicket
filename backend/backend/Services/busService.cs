@@ -16,12 +16,44 @@ namespace backend.Services
 
         public async Task<IEnumerable<Bus>> GetAllBus()
         {
-            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).ToListAsync();
+            return await db.Buses
+                .Select(b => new Bus()
+                {
+                    Id = b.Id,
+                    BusPlate = b.BusPlate,
+                    BusType = db.BusTypes.Where(t => t.Id == b.BusTypeId).Select(bt => new BusType()
+                    {
+                        Id = bt.Id,
+                        Name = bt.Name,
+                        NumberOfSeat = bt.NumberOfSeat,
+                    }).SingleOrDefault(),
+                    StationId = b.StationId,
+                    Stations = b.Stations,
+                    Enabled = b.Enabled,
+                    Note = b.Note,
+                })
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Bus>> GetEnableBus()
         {
-            return await db.Buses.Include(b => b.BusType).Include(s => s.Stations).Where(b => b.Enabled == true).ToListAsync();
+            return await db.Buses.Where(b => b.Enabled == true)
+                .Select(b => new Bus()
+                {
+                    Id = b.Id,
+                    BusPlate = b.BusPlate,
+                    BusType = db.BusTypes.Where(t => t.Id == b.BusTypeId).Select(bt => new BusType()
+                    {
+                        Id = bt.Id,
+                        Name = bt.Name,
+                        NumberOfSeat = bt.NumberOfSeat,
+                    }).SingleOrDefault(),
+                    StationId = b.StationId,
+                    Stations = b.Stations,
+                    Enabled = b.Enabled,
+                    Note = b.Note,
+                })
+                .ToListAsync();
         }
 
 

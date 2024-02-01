@@ -8,7 +8,6 @@ export const getTripListAction = () => {
   return async (dispatch) => {
     try {
       const result = await tripService.getTripList();
-      console.log('trip list',result)
       if (result.data.status === 200) {
         dispatch({
           type: GET_TRIP_LIST,

@@ -6,6 +6,7 @@ import Highlighter from 'react-highlight-words';
 import { useDispatch, useSelector } from 'react-redux';
 import { getListNewsAction,deleteNewsAction } from '../../../redux/actions/NewAction';
 import { DOMAIN } from '../../../util/settings/config';
+import dayjs from 'dayjs';
 
 
 
@@ -118,10 +119,11 @@ export default function NewsMng() {
       title: 'Title',
       dataIndex: 'title',
       key: 'title',
-      width: '10%',
+      width: '20%',
       ...getColumnSearchProps('title'),
       sorter: (a, b) => a.title - b.title,
       sortDirections: ['descend', 'ascend'],
+      render: (text,index) => { return <p key={index} className='text-ellipsis overflow-hidden line-clamp-2'>{text.replace(/<[^>]+>/g, '')}</p>}
     },
     {
       title: 'Content',
@@ -139,7 +141,10 @@ export default function NewsMng() {
       key: 'dayCreateNew',
       width: '15%',
       ...getColumnSearchProps('dayCreateNew'),
-      sortDirections: ['descend', 'ascend']
+      sortDirections: ['descend', 'ascend'],
+      render: (text, item) => {
+        return dayjs(item.dayCreateNew).format("DD-MM-YYYY")
+      },
     },
     
     {
@@ -150,7 +155,7 @@ export default function NewsMng() {
 
       render: (text, data, index) => {
         return data.image != "null" && data.image != null ? (
-          <img key={index} style={{ width: 100, height: 100, objectFit: "cover", borderRadius: "10%", }}
+          <img key={index} style={{ width: 80, height: 80, objectFit: "cover", borderRadius: "10%", }}
             src={`${DOMAIN}/Images/News/${data.image}`}
             alt={data.image}
           />

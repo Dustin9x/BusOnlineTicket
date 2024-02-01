@@ -15,7 +15,7 @@ namespace backend.SeedData
                         Discount=30,
                         Title="30% off for LUNARNEWYEAR 2024 ",
                         BeginDate=new DateTime(2024, 01, 31),
-                        EndDate=new DateTime(2024, 02, 7),
+                        EndDate=new DateTime(2024, 02, 10),
                         Enabled=true,
                         Image="offer1.png"
                     },
@@ -28,7 +28,7 @@ namespace backend.SeedData
                         ToStation="Hà Nội",
                         Title="40% off for route HO CHI MINH to HA NOI",
                         BeginDate=new DateTime(2024, 01, 25),
-                        EndDate=new DateTime(2024, 01, 29),
+                        EndDate=new DateTime(2024, 02, 29),
                         Enabled=true,
                         Image="offer2.png"
                     },
