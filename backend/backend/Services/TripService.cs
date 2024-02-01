@@ -26,9 +26,11 @@ namespace backend.Services
                 {
                     Id = t.Id,
                     Image = t.Image,
+                    BusId = t.BusId,
                     Bus = db.Buses.Where(b => b.Id == t.BusId)
                         .Select(b => new Bus()
                         {
+                            Id = b.Id,
                             BusPlate = b.BusPlate,
                             BusType = b.BusType
                         }).SingleOrDefault(),
@@ -278,7 +280,7 @@ namespace backend.Services
                 .Select(t => new Profit
                 {
                     FromStationId = t.Key.FromStationId,
-                    FromStation = db.Stations.Where(o => o.Id == t.Key.FromStationId).Select(s => new Station{ Name = s.Name}).FirstOrDefault(),
+                    FromStation = db.Stations.Where(o => o.Id == t.Key.FromStationId).Select(s => new Station { Name = s.Name }).FirstOrDefault(),
                     ToStationId = t.Key.ToStationId,
                     ToStation = db.Stations.Where(o => o.Id == t.Key.ToStationId).Select(s => new Station { Name = s.Name }).FirstOrDefault(),
                     TotalProfit = db.Tickets.Where(x => x.Trips.FromStationId == t.Key.FromStationId && x.Trips.ToStationId == t.Key.ToStationId && x.BookDate.Value.Year == year).Sum(x => x.TotalPrice),

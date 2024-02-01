@@ -51,6 +51,12 @@ namespace backend.Services
                     StationId = b.StationId,
                     Stations = b.Stations,
                     Enabled = b.Enabled,
+                    Trips = db.Trips.Where(t => t.BusId == b.Id).Select(tr => new Trip()
+                    {
+                        BusId = tr.BusId,
+                        StartTime = tr.StartTime,
+                        FinishTime = tr.FinishTime,
+                    }).ToList(),
                     Note = b.Note,
                 })
                 .ToListAsync();
@@ -79,7 +85,7 @@ namespace backend.Services
                     await db.SaveChangesAsync();
                 }
             }
-                
+
             return true;
         }
 
@@ -101,7 +107,7 @@ namespace backend.Services
                     await db.SaveChangesAsync();
                 }
                 var BusId = Id;
-                if(Bus.StationId != null)
+                if (Bus.StationId != null)
                 {
                     List<string> list = Bus.StationId.Split(",").ToList();
                     for (int i = 0; i < list.Count; i++)

@@ -19,6 +19,7 @@ export default function AddNewTrip(props) {
   let { arrStation } = useSelector(state => state.StationReducer);
   let { arrDriver } = useSelector(state => state.DriverReducer);
   const [arrDriverNew, setArrDriverNew] = useState(null)
+  const [arrEnableBusNew, setArrEnableBusNew] = useState(null)
   const { RangePicker } = DatePicker;
 
   useEffect(() => {
@@ -59,28 +60,34 @@ export default function AddNewTrip(props) {
     formik.setFieldValue('fromStationId', value)
   };
   const handleChangeToStation = (value, data) => {
-      formik.setFieldValue('toStationId', value)
+    formik.setFieldValue('toStationId', value)
   };
 
   const handleChangeDriver = (value) => {
     formik.setFieldValue('driverId', value)
-    
+
   };
 
   const onChangeDate = (value) => {
     formik.setFieldValue('startTime', value[0]);
     formik.setFieldValue('finishTime', value[1]);
-    setArrDriverNew ( arrDriver.filter((item) => 
-    item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(value[0]),dayjs(value[1]))  
-      ||  dayjs(item2.finishTime).isBetween(dayjs(value[0]),dayjs(value[1])))  )).length > 0 ?false:true  ))
+    setArrDriverNew(arrDriver.filter((item) =>
+      item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+        || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
+    setArrEnableBusNew(arrEnableBus.filter((item) =>
+      item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+        || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
   };
 
   const onOk = (value) => {
     formik.setFieldValue('startTime', value[0]);
     formik.setFieldValue('finishTime', value[1]);
-    setArrDriverNew ( arrDriver.filter((item) => 
-    item.trips.filter((item2)=> ( (dayjs(item2.startTime).isBetween(dayjs(value[0]),dayjs(value[1]))  
-      ||  dayjs(item2.finishTime).isBetween(dayjs(value[0]),dayjs(value[1])))  )).length > 0 ?false:true  ))
+    setArrDriverNew(arrDriver.filter((item) =>
+      item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+        || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
+    setArrEnableBusNew(arrEnableBus.filter((item) =>
+      item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+        || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
   };
 
 
@@ -123,6 +130,7 @@ export default function AddNewTrip(props) {
         >
           <RangePicker
             id='date'
+            disabledDate={d => d.isBefore(dayjs())}
             showTime={{
               format: 'HH:mm',
             }}
@@ -143,7 +151,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Input name="ticketPrice" type='number' onChange={formik.handleChange} />
+          <Input name="ticketPrice" type='number' prefix={"$"} onChange={formik.handleChange} />
         </Form.Item>
 
         <Form.Item
@@ -184,8 +192,8 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select placeholder="Please enter Station, Start and Finish time!!" options={
-            arrEnableBus?.filter(({ stations }) =>
+          <Select placeholder="Assign bus for this trip" options={
+            arrEnableBusNew?.filter(({ stations }) =>
               stations.some(x => x.id == formik.values.fromStationId)).map((item, index) =>
                 ({ key: index, label: item.busPlate + " (" + item.busType.name + ")", value: item.id })
               )}
@@ -203,7 +211,7 @@ export default function AddNewTrip(props) {
             },
           ]}
         >
-          <Select placeholder="Please enter Start Date and End Date!!" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
+          <Select placeholder="Assign driver for this trip" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} onChange={handleChangeDriver} />
         </Form.Item>
 
         <Form.Item

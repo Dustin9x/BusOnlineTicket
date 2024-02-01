@@ -17,6 +17,8 @@ export default function EditTrip(props) {
     let { arrEnableBus } = useSelector(state => state.BusReducer);
     let { arrStation } = useSelector(state => state.StationReducer);
     let { arrDriver } = useSelector(state => state.DriverReducer);
+    const [arrDriverNew, setArrDriverNew] = useState(null)
+    const [arrEnableBusNew, setArrEnableBusNew] = useState(null)
     let { id } = props.match.params;
     useEffect(() => {
         dispatch(getTripByIdAction(id))
@@ -64,11 +66,23 @@ export default function EditTrip(props) {
     const onChangeDate = (value) => {
         formik.setFieldValue('startTime', value[0]);
         formik.setFieldValue('finishTime', value[1]);
+        setArrDriverNew(arrDriver.filter((item) =>
+            item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+                || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
+        setArrEnableBusNew(arrEnableBus.filter((item) =>
+            item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+                || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
     };
 
     const onOk = (value) => {
         formik.setFieldValue('startTime', value[0]);
         formik.setFieldValue('finishTime', value[1]);
+        setArrDriverNew(arrDriver.filter((item) =>
+            item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+                || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
+        setArrEnableBusNew(arrEnableBus.filter((item) =>
+            item.trips.filter((item2) => ((dayjs(item2.startTime).isBetween(dayjs(value[0]), dayjs(value[1]))
+                || dayjs(item2.finishTime).isBetween(dayjs(value[0]), dayjs(value[1]))))).length > 0 ? false : true))
     };
 
     const handleChangeFile = (e) => {
@@ -111,6 +125,7 @@ export default function EditTrip(props) {
                     >
                         <RangePicker
                             id='date'
+                            disabledDate={d => d.isBefore(dayjs())}
                             showTime={{
                                 format: 'HH:mm',
                             }}
@@ -132,7 +147,7 @@ export default function EditTrip(props) {
                             },
                         ]}
                     >
-                        <Input name="ticketPrice" type='number' onChange={formik.handleChange} value={formik.values.ticketPrice} />
+                        <Input name="ticketPrice" type='number' prefix={"$"} onChange={formik.handleChange} value={formik.values.ticketPrice} />
                     </Form.Item>
 
                     <Form.Item
@@ -173,8 +188,8 @@ export default function EditTrip(props) {
                             },
                         ]}
                     >
-                        <Select placeholder="Please enter Station, Start and Finish time!!" options={
-                            arrEnableBus?.filter(({ stations }) =>
+                        <Select placeholder="Assign bus for this trip" options={
+                            arrEnableBusNew?.filter(({ stations }) =>
                                 stations.some(x => x.id == formik.values.fromStationId)).map((item, index) =>
                                     ({ key: index, label: item.busPlate + " (" + item.busType.name + ")", value: item.id })
                                 )}
@@ -192,7 +207,7 @@ export default function EditTrip(props) {
                             },
                         ]}
                     >
-                        <Select placeholder="Please enter Start Date and End Date!!" options={arrDriver?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} value={formik.values.driverId} onChange={handleChangeDriver} />
+                        <Select placeholder="Assign driver for this trip" options={arrDriverNew?.map((item, index) => ({ key: index, label: item.fullName, value: item.id }))} value={formik.values.driverId} onChange={handleChangeDriver} />
                     </Form.Item>
 
                     <Form.Item label="Image" style={{ minWidth: '100%' }}>
