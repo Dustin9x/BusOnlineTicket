@@ -154,7 +154,7 @@ export const AdminTemplate = (props) => { //path, exact, Component
           </Content>
         </Layout>
       </Layout>
-      <Modal title={`Check ticket ${ticketDetail?.code || code}`} open={isModalOpen} maskClosable={true} afterClose={()=>{code = ""}} footer={null} width={750} onOk={handleOk} onCancel={handleCancel}>
+      <Modal title={`Check ticket ${ticketDetail?.code || code}`} open={isModalOpen} maskClosable={true} afterClose={()=>{code = ""}} footer={null} width={850} onOk={handleOk} onCancel={handleCancel}>
         {ticketDetail?.isCancel ?
         <Descriptions className="text-center mt-3" title="Ticket is already canceled"></Descriptions>
         : ticketDetail != null && ticketDetail != "undefined" ? <div className="pt-3">

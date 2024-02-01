@@ -35,7 +35,7 @@ export default function CheckTicket(props) {
 
 
   return (
-    <div className="w-100 p-4 rounded-xl bg-white">
+    <div className="w-100 rounded-xl bg-white">
 
       <div>
         <div className="autoComplete w-100 justify-center">

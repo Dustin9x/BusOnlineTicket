@@ -45,7 +45,7 @@ export default function Home(props) {
               tab={<button className=" block w-full text-xl  focus:outline-none mr-4 py-2 px-4 rounded-full font-semibold  bg-red-50 text-red-700 hover:bg-red-100 focus:bg-red-500 active:bg-red-500 focus:text-white">
                 CHECK TICKET </button>}
             >
-              <Card className='mt-10'>
+              <Card className='my-auto'>
               <CheckTicket/>
               </Card>
             </TabPane>
