@@ -72,21 +72,21 @@ export const addNewTripAction = (formData) => {
   };
 };
 
-export const updateTripAction = (id,formData) => {
+export const updateTripAction = (id, formData) => {
   return async (dispatch) => {
-      try {
-          const result = await tripService.updateTrip(id,formData);
-          notification.success({
-              closeIcon: true,
-              message: 'Success',
-              description: (
-                  <>Update trip successfully</>
-              ),
-          });
-          history.push('/admin/tripmng');
-      } catch (error) {
-          console.log('error', error);
-      }
+    try {
+      const result = await tripService.updateTrip(id, formData);
+      notification.success({
+        closeIcon: true,
+        message: 'Success',
+        description: (
+          <>Update trip successfully</>
+        ),
+      });
+      history.push('/admin/tripmng');
+    } catch (error) {
+      console.log('error', error);
+    }
   }
 }
 
@@ -94,14 +94,27 @@ export const deleteTripAction = (id) => {
   return async (dispatch) => {
     try {
       const result = await tripService.deleteTrip(id);
-      notification.success({
-        closeIcon: true,
-        message: "Success",
-        description: <>Delete trip successfully</>,
-      });
-      dispatch(getTripListAction());
+      if (result.data.status === 200) {
+        notification.success({
+          closeIcon: true,
+          message: "Success",
+          description: <>Delete trip successfully</>,
+        });
+        dispatch(getTripListAction());
+      }else{
+        notification.error({
+          closeIcon: true,
+          message: "Error",
+          description: <>Cannot delete trip</>,
+        });
+      }
     } catch (error) {
       console.log("error", error);
+      notification.error({
+        closeIcon: true,
+        message: "Error",
+        description: <>Cannot delete trip</>,
+      });
     }
   };
 };

@@ -1,4 +1,4 @@
-import { Card, Modal } from "antd"
+import { Card, Modal, Tooltip } from "antd"
 import { DOMAIN } from "../../util/settings/config"
 import { useState } from "react";
 import SeatMap from "../SeatMap/SeatMap";
@@ -34,11 +34,11 @@ export default function TripCard(props) {
                 <div className="row">
                     <div style={{ position: "absolute", right: 20, top: 20 }}>
                         <p className="text-center font-bold text-2xl text-green-800">
-                            {tripDetail.ticketPrice.toLocaleString("en-US", {style:"currency", currency:"USD"})}
+                            {tripDetail.ticketPrice.toLocaleString("en-US", { style: "currency", currency: "USD" })}
                         </p>
                     </div>
                     <div className="col-3">
-                        <img className="w-100 object-fit-cover border rounded" style={{height: 165}} src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt={tripDetail.image} />
+                        <img className="w-100 object-fit-cover border rounded" style={{ height: 165 }} src={`${DOMAIN}/Images/Trip/${tripDetail.image}`} alt={tripDetail.image} />
                     </div>
                     <div className="col-9">
                         <h3 className="text-2xl">{tripDetail.fromStation.name} - {tripDetail.toStation.name}</h3>
@@ -48,14 +48,19 @@ export default function TripCard(props) {
                                 <i className="fa-solid fa-circle-dot fa-sm w-4"></i>
                                 {dayjs(tripDetail.startTime).format("DD-MM-YYYY h:mm A")}
                             </div>
-                            <div className="place">• {tripDetail.fromStation.name}</div>
+                            <div className="place"><Tooltip title={`Address: ${tripDetail?.fromStation.address}`}>
+                                <span>• {tripDetail?.fromStation.name}</span>
+                            </Tooltip></div>
                         </div>
                         <div className="d-flex">
                             <div className="hour font-bold mr-1">
                                 <i className="fa-solid fa-location-dot w-4"></i>
                                 {dayjs(tripDetail.finishTime).format("DD-MM-YYYY h:mm A")}
                             </div>
-                            <div className="place">• {tripDetail.toStation.name}</div>
+                            {/* <div className="place">• {tripDetail.toStation.name}</div> */}
+                            <div className="place"><Tooltip title={`Address: ${tripDetail?.toStation.address}`}>
+                                <span>• {tripDetail?.toStation.name}</span>
+                            </Tooltip></div>
                         </div>
                         <h3 className="mt-3 font-bold text-emerald-800">
                             {hours} Hours
@@ -83,14 +88,14 @@ export default function TripCard(props) {
                 width={800}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                afterClose={()=>{
+                afterClose={() => {
                     dispatch({
                         type: DELETE_SELECTING_SEATS
                     })
                 }}
                 footer={null}
             >
-                <SeatMap tripId={tripDetail.id} tripDetail={tripDetail}/>
+                <SeatMap tripId={tripDetail.id} tripDetail={tripDetail} />
             </Modal>
         </div>
 

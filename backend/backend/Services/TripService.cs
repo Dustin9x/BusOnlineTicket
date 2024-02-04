@@ -139,7 +139,7 @@ namespace backend.Services
         public async Task<bool> PutTrip(int Id, Trip Trip)
         {
             var ExistingTrip = await db.Trips.SingleOrDefaultAsync(t => t.Id == Id);
-            if (ExistingTrip != null)
+            if (ExistingTrip != null && ExistingTrip.Seats.Count() == 0)
             {
                 if (Trip.UploadImage != null)
                 {

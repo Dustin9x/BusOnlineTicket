@@ -98,7 +98,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.fromStation?.name}</span> : <span color="magenta">{item?.fromStation?.name}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.fromStation?.name} ({item?.toStation.address})</span> : <span color="magenta">{item?.fromStation?.name} ({item?.toStation.address})</span>}
 
         </>
       },
@@ -111,7 +111,7 @@ export default function DetailTripOfDriver() {
       sortDirections: ['descend', 'ascend'],
       render: (text, item) => {
         return <>
-          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.toStation?.name}</span> : <span color="magenta">{item?.toStation?.name}</span>}
+          {data2?.id == item?.id ? <span style={{ color: "red" , }} color="magenta">{item?.toStation?.name}  ({item?.toStation.address})</span> : <span color="magenta">{item?.toStation?.name}  ({item?.toStation.address})</span>}
 
         </>
       },
